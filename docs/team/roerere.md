@@ -14,18 +14,18 @@ Given below are my contributions to the project.
 
 * **Project management**:
   * To be added
-  
+
 * **Enhancements to existing features**:
   * To be added
-  
+
 * **Documentation**:
   * User Guide:
     * To be added
   * Developer Guide:
     * To be added
-    
+
 * **Community**:
-  * To be added 
+  * To be added
 
 * **Tools**:
   * To be added
