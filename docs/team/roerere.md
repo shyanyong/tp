@@ -9,13 +9,9 @@ BayMeds v.2103 is a desktop application used for tracking medications. The user 
 
 Given below are my contributions to the project.
 
-* **New Feature**: To be added
-* **Code contributed**: [RepoSense link]()
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=roerere&breakdown=true)
 
-* **Project management**:
-  * To be added
-
-* **Enhancements to existing features**:
+* **Enhancements implemented**:
   * To be added
 
 * **Documentation**:
@@ -24,8 +20,11 @@ Given below are my contributions to the project.
   * Developer Guide:
     * To be added
 
-* **Community**:
+* **Team-based tasks**:
   * To be added
 
-* **Tools**:
+* **Review and mentoring**:
+  * To be added
+
+* **Community**:
   * To be added
