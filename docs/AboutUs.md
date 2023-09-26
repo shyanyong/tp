@@ -22,10 +22,10 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Ren Jing
 
-<img src="images/TeeRenJing.jpg" width="200px">
+<img src="images/teerenjing.png" width="200px">
 
 [[github](https://github.com/TeeRenJing)]
-[[portfolio](team/TeeRenJing.md)]
+[[portfolio](team/teerenjing.md)]
 
 * Role: Developer
 
