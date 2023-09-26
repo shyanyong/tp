@@ -11,15 +11,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Wei Xiang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/roerere.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/roerere)]
+[[portfolio](team/roerere.md)]
 
-* Role: Project Advisor
+* Role: Code Quality
 
 ### Jane Doe
 
@@ -58,4 +57,3 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: UI
