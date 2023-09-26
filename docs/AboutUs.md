@@ -20,6 +20,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Code Quality
 
+### Ren Jing
+
+<img src="images/TeeRenJing.jpg" width="200px">
+
+[[github](https://github.com/TeeRenJing)]
+[[portfolio](team/TeeRenJing.md)]
+
+* Role: Developer
+
 ### Jane Doe
 
 <img src="images/johndoe.png" width="200px">
