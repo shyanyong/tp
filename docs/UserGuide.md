@@ -6,7 +6,7 @@
 
 # BayMeds User Guide
 
-BayMeds v.2103 is a **desktop application for managing your medications**. While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface). If you can type fast, BayMeds can get your contact management tasks done faster than traditional GUI apps.
+BayMeds v.2103 is a **desktop application for managing your medications**. While it has a GUI (Graphical User Interface), most of the user interactions happen using a CLI (Command Line Interface). If you can type fast, BayMeds can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
