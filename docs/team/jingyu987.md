@@ -1,6 +1,6 @@
-`---
+---
   layout: default.md
-  title: "TeeRenJing's Project Portfolio Page"
+  title: "jingyu987's Project Portfolio Page"
 ---
 
 ### Project: BayMeds v.2103
@@ -9,7 +9,7 @@ BayMeds v.2103 is a desktop application used for tracking medications. The user 
 
 Given below are my contributions to the project.
 
-* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=teerenjing&breakdown=true)
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=jingyu987&breakdown=true)
 
 * **Enhancements implemented**:
   * To be added
@@ -28,4 +28,3 @@ Given below are my contributions to the project.
 
 * **Community**:
   * To be added
-`
