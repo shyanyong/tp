@@ -1,4 +1,4 @@
-`---
+---
   layout: default.md
   title: "TeeRenJing's Project Portfolio Page"
 ---
@@ -28,4 +28,3 @@ Given below are my contributions to the project.
 
 * **Community**:
   * To be added
-`
