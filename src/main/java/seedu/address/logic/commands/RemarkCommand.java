@@ -15,21 +15,6 @@ import seedu.address.model.person.Remark;
  * Changes the remark of an existing person in the address book.
  */
 public class RemarkCommand extends Command {
-
-    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Remark: %2$s";
-    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
-    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
-
-    private final Index index;
-    private final Remark remark;
-
-    public RemarkCommand(Index index, Remark remark) {
-        requireAllNonNull(index);
-
-        this.index = index;
-        this.remark = remark;
-    }
-
     public static final String COMMAND_WORD = "remark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -43,6 +28,25 @@ public class RemarkCommand extends Command {
 
     public static final String MESSAGE_NOT_IMPLEMENTED_YET =
             "Remark command not implemented yet";
+
+    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Remark: %2$s";
+    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
+    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+
+    private final Index index;
+    private final Remark remark;
+
+    /**
+     * Creates a RemarkCommand to add the specified {@code Remark} to the person at the specified {@code Index}.
+     * @param index
+     * @param remark
+     */
+    public RemarkCommand(Index index, Remark remark) {
+        requireAllNonNull(index);
+
+        this.index = index;
+        this.remark = remark;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
