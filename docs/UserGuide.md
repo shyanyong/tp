@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# BayMeds User Guide
+# BayMeds v.2103 User Guide
 
-BayMeds v.2103 is a **desktop application for managing your medications**. While it has a GUI (Graphical User Interface), most of the user interactions happen using a CLI (Command Line Interface). If you can type fast, BayMeds can get your contact management tasks done faster than traditional GUI apps.
+BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your medications**. While it has a GUI (Graphical User Interface), most of the user interactions happen using a CLI (Command Line Interface). If you like to type fast, BayMeds can get your medication management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -17,26 +17,23 @@ BayMeds v.2103 is a **desktop application for managing your medications**. While
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `BayMeds.jar` from [here](https://github.com/se-edu/addressbook-level3/releases). [coming soon]
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for BayMeds.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BayMeds.jar` command to run the application.<br>
+   A GUI similar to the one below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type commands in the command box and press Enter to execute it. <br> e.g. typing the command **`help`** and pressing Enter will open the help window.<br>
+
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all prescriptions.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add --medication "Doxazosin" --frequency "daily"` : Adds a prescription `Aspirin` to the list of medications.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
-
-   * `clear` : Deletes all contacts.
-
-   * `exit` : Exits the app.
+   * `delete "Aspirin"` : Deletes the `Aspirin` prescription from the current list of medications.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -48,47 +45,63 @@ BayMeds v.2103 is a **desktop application for managing your medications**. While
 
 **Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `<>` are the parameters to be supplied by the user, and should begin and end with double quotation marks " ".<br>
+  e.g. in `add --medication <medication_name>`, `<medication_name>` is a parameter which can be used as `add --medication "Aspirin"`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `--frequency <frequency> [--start <start_date>]` can be used as `--frequency "daily" --start "20-9-2023"` or as `--frequency "daily"`.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `--medication <medication_name> --frequency <frequency>`, `--frequency <frequency> --medication <medication_name>` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
-### Viewing help : `help`
-
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
+### Viewing help : `help` [coming soon]
 
 
-### Adding a person: `add`
+### Adding a prescription : `add`
 
-Adds a person to the address book.
+Adds a prescription to the list of medications.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: 
+```
+add 
+  --medication <medication_name>
+  --frequency <frequency> 
+  [--start <start_date>]
+  [--end <end_date>]
+  [--remarks <remarks>] 
+```
 
-<box type="tip" seamless>
-
-**Tip:** A person can have any number of tags (including 0)
-</box>
+* `<frequency>` should follow this format `<repetition dosage>`
+  * e.g. `--frequency "daily 2"`.
+    * This means take 2 tabs everyday.
+  * e.g. `--frequency "daily 4"`.
+    * This means take 4 tabs everyday.
+  * e.g. `--frequency "weekly 2"`. 
+    * This means take 2 tabs on a particular day every week. The day is determined by the `<start_date>` input. If `<start_date>` is a Wednesday, this means take 2 tabs every Wednesday.
+* If your prescriptions are to be taken every Wednesday and Sunday, add 2 separate entries into the list of medications
+  * `Add --medication "Accutane 1" --frequency "weekly 1" --start "27-09-2023"`
+  * `Add --medication "Accutane 2" --frequency "weekly 1" --start "01-10-2023"`
+* `<start_date>` and `<end_date>` should be in dd-mm-yyyy format.   
+  * e.g. "20-09-2023"
+* Since `--start <start_date>` is an optional input, if there is none given, the input date of the entry will be used as the default start date.
+* Remarks can consist of any text.
+  * e.g. "To be taken after meals"
+  * e.g. "Take after food"
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"`
+* `add --medication "Amoxicillin" --frequency "twice daily" --start "20-09-2023" --end "03-10-2024"`
+* `add --medication "Doxazosin" --frequency "daily"`
+
+Example usage of add command in BayMeds:
+
+![Example of add command](images/ui/Ui-add.png)
 
 ### Listing all persons : `list`
 
@@ -113,7 +126,7 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+### Locating persons by name : `find`
 
 Finds persons whose names contain any of the given keywords.
 
@@ -133,9 +146,13 @@ Examples:
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified prescription from the list of medications.
 
-Format: `delete INDEX`
+Format:
+```
+delete
+  --medication <medication_name>
+```
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
