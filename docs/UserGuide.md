@@ -77,27 +77,27 @@ add
   [--remarks <remarks>] 
 ```
 
-* `<frequency>` should follow this format `<repetition dosage>`
+* `<frequency>` should follow this format `<repetition dosage>`.
   * e.g. `--frequency "daily 2"`.
     * This means take 2 tabs everyday.
   * e.g. `--frequency "daily 4"`.
     * This means take 4 tabs everyday.
   * e.g. `--frequency "weekly 2"`. 
     * This means take 2 tabs on a particular day every week. The day is determined by the `<start_date>` input. If `<start_date>` is a Wednesday, this means take 2 tabs every Wednesday.
-* If your prescriptions are to be taken every Wednesday and Sunday, add 2 separate entries into the list of medications
-  * `Add --medication "Accutane 1" --frequency "weekly 1" --start "27-09-2023"`
-  * `Add --medication "Accutane 2" --frequency "weekly 1" --start "01-10-2023"`
+* If your prescriptions are to be taken every Wednesday and Sunday, add 2 separate entries into the list of medications.
+  * `Add --medication "Accutane 1" --frequency "weekly 1" --start "27-09-2023"`.
+  * `Add --medication "Accutane 2" --frequency "weekly 1" --start "01-10-2023"`.
 * `<start_date>` and `<end_date>` should be in dd-mm-yyyy format.   
-  * e.g. "20-09-2023"
+  * e.g. "20-09-2023".
 * Since `--start <start_date>` is an optional input, if there is none given, the input date of the entry will be used as the default start date.
 * Remarks can consist of any text.
-  * e.g. "To be taken after meals"
-  * e.g. "Take after food"
+  * e.g. "To be taken after meals".
+  * e.g. "Take after food".
 
 Examples:
-* `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"`
-* `add --medication "Amoxicillin" --frequency "twice daily" --start "20-09-2023" --end "03-10-2024"`
-* `add --medication "Doxazosin" --frequency "daily"`
+* `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"`.
+* `add --medication "Amoxicillin" --frequency "twice daily" --start "20-09-2023" --end "03-10-2024"`.
+* `add --medication "Doxazosin" --frequency "daily"`.
 
 Example usage of add command in BayMeds:
 
