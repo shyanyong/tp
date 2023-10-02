@@ -62,6 +62,7 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your me
 
 ### Viewing help : `help` [coming soon]
 
+_Details coming soon ..._
 
 ### Adding a prescription : `add`
 
@@ -77,27 +78,27 @@ add
   [--remarks <remarks>] 
 ```
 
-* `<frequency>` should follow this format `<repetition dosage>`
+* `<frequency>` should follow this format `<repetition dosage>`.
   * e.g. `--frequency "daily 2"`.
     * This means take 2 tabs everyday.
   * e.g. `--frequency "daily 4"`.
     * This means take 4 tabs everyday.
   * e.g. `--frequency "weekly 2"`. 
     * This means take 2 tabs on a particular day every week. The day is determined by the `<start_date>` input. If `<start_date>` is a Wednesday, this means take 2 tabs every Wednesday.
-* If your prescriptions are to be taken every Wednesday and Sunday, add 2 separate entries into the list of medications
-  * `Add --medication "Accutane 1" --frequency "weekly 1" --start "27-09-2023"`
-  * `Add --medication "Accutane 2" --frequency "weekly 1" --start "01-10-2023"`
+* If your prescriptions are to be taken every Wednesday and Sunday, add 2 separate entries into the list of medications.
+  * `Add --medication "Accutane 1" --frequency "weekly 1" --start "27-09-2023"`.
+  * `Add --medication "Accutane 2" --frequency "weekly 1" --start "01-10-2023"`.
 * `<start_date>` and `<end_date>` should be in dd-mm-yyyy format.   
-  * e.g. "20-09-2023"
+  * e.g. "20-09-2023".
 * Since `--start <start_date>` is an optional input, if there is none given, the input date of the entry will be used as the default start date.
 * Remarks can consist of any text.
-  * e.g. "To be taken after meals"
-  * e.g. "Take after food"
+  * e.g. "To be taken after meals".
+  * e.g. "Take after food".
 
 Examples:
-* `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"`
-* `add --medication "Amoxicillin" --frequency "twice daily" --start "20-09-2023" --end "03-10-2024"`
-* `add --medication "Doxazosin" --frequency "daily"`
+* `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"`.
+* `add --medication "Amoxicillin" --frequency "twice daily" --start "20-09-2023" --end "03-10-2024"`.
+* `add --medication "Doxazosin" --frequency "daily"`.
 
 Example usage of add command in BayMeds:
 
@@ -162,30 +163,18 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Clearing all entries : `clear`
-
-Clears all entries from the address book.
-
-Format: `clear`
-
-### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
-
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+BayMeds data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+BayMeds data are saved automatically as a JSON file `[JAR file location]/data/BayMeds.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.
+If your changes to the data file makes its format invalid, BayMeds will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.
 </box>
 
 ### Archiving data files `[coming in v2.0]`
@@ -197,7 +186,7 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BayMeds home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -209,12 +198,11 @@ _Details coming soon ..._
 
 ## Command summary
 
-Action     | Format, Examples
+Action     | Format, Example
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
 **Help**   | `help`
+**Add**    | `add --medication <medication_name> --frequency <frequency>  [--start <start_date>] [--end <end_date>] [--remarks <remarks>]`, <br> e.g. `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"`
+**Delete** | `delete --medication <medication_name>`, <br> e.g. `delete --medication "Aspirin"`
+**Mark**   | `take --medication <medication_name> [--amount <amount_taken>] [--date <date>]`, <br> e.g. `take --medication "Aspirin" --amount "1" --date "20-09-2023"`
+**List**   | `list`
+**List today** | `list today`
