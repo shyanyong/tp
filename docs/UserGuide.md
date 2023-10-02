@@ -154,16 +154,16 @@ delete
   --medication <medication_name>
 ```
 
-* `<medication_name>` should not be empty
+* `<medication_name>` should not be empty.
 
 Examples:
-* `delete --medication "Aspirin"`
-* `delete --medication "Amoxicillin"`
-* `delete --medication "Doxazosin"`
+* `delete --medication "Aspirin"`.
+* `delete --medication "Amoxicillin"`.
+* `delete --medication "Doxazosin"`.
 
 Example usage of delete command in BayMeds:
 
-![Example of add command](images/ui/Ui-delete.png)
+![Example of delete command](images/ui/Ui-delete.png)
 
 ### Clearing all entries : `clear`
 
