@@ -67,14 +67,14 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your me
 
 Adds a prescription to the list of medications.
 
-Format: 
+Format:
 ```
-add 
+add
   --medication <medication_name>
-  --frequency <frequency> 
+  --frequency <frequency>
   [--start <start_date>]
   [--end <end_date>]
-  [--remarks <remarks>] 
+  [--remarks <remarks>]
 ```
 
 * `<frequency>` should follow this format `<repetition dosage>`
@@ -82,12 +82,12 @@ add
     * This means take 2 tabs everyday.
   * e.g. `--frequency "daily 4"`.
     * This means take 4 tabs everyday.
-  * e.g. `--frequency "weekly 2"`. 
+  * e.g. `--frequency "weekly 2"`.
     * This means take 2 tabs on a particular day every week. The day is determined by the `<start_date>` input. If `<start_date>` is a Wednesday, this means take 2 tabs every Wednesday.
 * If your prescriptions are to be taken every Wednesday and Sunday, add 2 separate entries into the list of medications
   * `Add --medication "Accutane 1" --frequency "weekly 1" --start "27-09-2023"`
   * `Add --medication "Accutane 2" --frequency "weekly 1" --start "01-10-2023"`
-* `<start_date>` and `<end_date>` should be in dd-mm-yyyy format.   
+* `<start_date>` and `<end_date>` should be in dd-mm-yyyy format.
   * e.g. "20-09-2023"
 * Since `--start <start_date>` is an optional input, if there is none given, the input date of the entry will be used as the default start date.
 * Remarks can consist of any text.
@@ -144,7 +144,7 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting a medication : `delete`
 
 Deletes the specified prescription from the list of medications.
 
@@ -154,13 +154,16 @@ delete
   --medication <medication_name>
 ```
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* `<medication_name>` should not be empty
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `delete --medication "Aspirin"`
+* `delete --medication "Amoxicillin"`
+* `delete --medication "Doxazosin"`
+
+Example usage of delete command in BayMeds:
+
+![Example of add command](images/ui/Ui-delete.png)
 
 ### Clearing all entries : `clear`
 
