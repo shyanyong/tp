@@ -166,7 +166,7 @@ Example usage of delete command in BayMeds:
 
 ![Example of delete command](images/ui/Ui-delete.png)
 
-### Listing Untaken Medication: `list today`
+### Listing Untaken Medication : `list today`
 
 Lists all remaining medications to be taken for the day.
 
