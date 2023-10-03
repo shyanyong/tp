@@ -35,7 +35,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2324S1-CS2103T-T15-2/tp/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2324S1-CS2103T-T15-2/tp/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -67,13 +67,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S1-CS2103T-T15-2/tp/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PrescriptionListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S1-CS2103T-T15-2/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S1-CS2103T-T15-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -84,7 +84,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2324S1-CS2103T-T15-2/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -101,9 +101,9 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+1. When `Logic` is called upon to execute a command, it is passed to an `BayMedsParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a medication).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
@@ -111,18 +111,18 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `BayMedsParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BayMedsParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2324S1-CS2103T-T15-2/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* stores the BayMeds data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
@@ -138,13 +138,13 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2324S1-CS2103T-T15-2/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both BayMeds data and user preference data in JSON format, and read them back into corresponding objects.
+* inherits from both `BayMedsStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -296,35 +296,41 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | forgetful patient                  | list all my medications                             | track all the medications I am currently taking                  |
 | `* *`    | forgetful patient                  | list all the medications I have not taken today     | follow my prescription accurately                                |
 | `* *`    | patient undergoing a tapering plan | edit medications that I have added                  | adjust my dosage schedules easily                                |
-| `* *`    | forgetful patient                  | get daily reminders of what medications to take     | take my medication on time                         
+| `* *`    | forgetful patient                  | get daily reminders of what medications to take     | take my medication on time
 | `*`      | forgetful patient                  | get a reminder when a medication is about to expire | premptively stock up before it runs out                          |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `BayMeds` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Delete a medication**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
+1.  User requests to list medications
+2.  BayMeds shows a list of medications
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  BayMeds deletes the person
 
     Use case ends.
 
 **Extensions**
 
+* 1a. The given command is invalid.
+
+    * 1a1. BayMeds shows an error message.
+
+      Use case resumes at step 1.
+
 * 2a. The list is empty.
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given name is not in the list.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. BayMeds shows an error message.
 
       Use case resumes at step 2.
 
@@ -333,8 +339,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 prescriptions without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  Should be able to give a notification to the user when the application is running. (Time to eat medication/ Medicine is about to expire)
+5.  Should be able to track current date and time when the application is running.
 
 *{More to be added}*
 
@@ -342,6 +350,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Medication**: A drug identified by a name
+* **Prescription**: Uniquely identified by a Medication, a Frequency and a Quantity
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -362,7 +372,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample prescriptions. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -373,19 +383,19 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a medication
 
-1. Deleting a person while all persons are being shown
+1. Deleting a medication while all medications are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all medications using the `list` command. Multiple medications in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete --medication "Doxazosin"`<br>
+      Expected: Doxazosin is deleted from the list. Details of the deleted medication shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   1. Test case: `delete --medication "Watsons"`<br>
+      Expected: No medication is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `delete x`, `...`<br>
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
