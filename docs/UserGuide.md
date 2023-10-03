@@ -173,6 +173,22 @@ Example usage of delete command in BayMeds:
 
 <img src="images/ui/Ui-delete.png" alt="Example of delete command" width="460" height="330">
 
+### Listing Untaken Medication : `list today`
+
+Lists all remaining medications to be taken for the day.
+
+Format:
+```
+list today
+```
+
+Examples:
+* `list today`.
+
+Example usage of List Today command in BayMeds:
+
+<img src="images/ui/Ui-list_today.png" alt="Example of List Today command" width="460" height="330">
+
 ### Saving the data
 
 BayMeds data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
