@@ -102,13 +102,20 @@ Examples:
 
 Example usage of add command in BayMeds:
 
-![Example of add command](images/ui/Ui-add.png)
+<img src="images/ui/Ui-add.png" alt="Example of add command" width="460" height="330">
 
-### Listing all persons : `list`
+### Listing all prescriptions : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all prescriptions.
 
-Format: `list`
+Format:
+```
+list
+```
+
+Example usage of list command in BayMeds:
+
+<img src="images/ui/Ui-list.png" alt="Example of list command" width="460" height="330">
 
 ### Editing a person : `edit`
 
@@ -164,7 +171,7 @@ Examples:
 
 Example usage of delete command in BayMeds:
 
-![Example of delete command](images/ui/Ui-delete.png)
+<img src="images/ui/Ui-delete.png" alt="Example of delete command" width="460" height="330">
 
 ### Saving the data
 
