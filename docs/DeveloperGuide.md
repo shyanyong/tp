@@ -303,28 +303,34 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `BayMeds` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Delete a medication**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
+1.  User requests to list medications
+2.  BayMeds shows a list of medications
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  BayMeds deletes the person
 
     Use case ends.
 
 **Extensions**
 
+* 1a. The given command is invalid.
+
+    * 1a1. BayMeds shows an error message.
+
+      Use case resumes at step 1.
+
 * 2a. The list is empty.
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given name is not in the list.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. BayMeds shows an error message.
 
       Use case resumes at step 2.
 
@@ -335,6 +341,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 prescriptions without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  Should be able to give a notification to the user when the application is running. (Time to eat medication/ Medicine is about to expire)
+5.  Should be able to track current date and time when the application is running.
 
 *{More to be added}*
 
@@ -342,6 +350,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Medication**: A drug identified by a name
+* **Prescription**: Uniquely identified by a Medication, a Frequency and a Quantity
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -362,7 +372,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample prescriptions. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -373,19 +383,19 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a medication
 
-1. Deleting a person while all persons are being shown
+1. Deleting a medication while all medications are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all medications using the `list` command. Multiple medications in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete --medication "Doxazosin"`<br>
+      Expected: Doxazosin is deleted from the list. Details of the deleted medication shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   1. Test case: `delete --medication "Watsons"`<br>
+      Expected: No medication is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `delete x`, `...`<br>
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
