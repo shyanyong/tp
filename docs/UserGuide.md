@@ -201,6 +201,8 @@ take
   [--date <date>]
 ```
 
+* `<medication_name>` should not be empty.
+
 Examples:
 * `take
   --medication "Aspirin" --amount “1”  --date "20-09-2023"`.
