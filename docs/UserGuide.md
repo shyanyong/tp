@@ -187,7 +187,7 @@ Examples:
 
 Example usage of List Today command in BayMeds:
 
-![Example of list today command](images/ui/Ui-list_today.png)
+<img src="images/ui/Ui-list_today.png" alt="Example of List Today command" width="460" height="330">
 
 ### Saving the data
 
