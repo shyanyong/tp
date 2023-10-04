@@ -311,8 +311,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User requests to list medications
 2.  BayMeds shows a list of medications
-3.  User requests to delete a specific person in the list
-4.  BayMeds deletes the person
+3.  User requests to delete a specific medication in the list
+4.  BayMeds deletes the medication
 
     Use case ends.
 
@@ -328,11 +328,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given name is not in the list.
+* 3a. The given medication is not in the list.
 
     * 3a1. BayMeds shows an error message.
 
       Use case resumes at step 2.
+
+
+**Use case: List medications to be consumed today**
+
+**MSS**
+
+1.  User requests to list all remaining medications to be consumed today
+2.  BayMeds shows a list of medications to be consumed today
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given command is invalid.
+
+    * 1a1. BayMeds shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. The list is empty.
+
+  Use case ends.
 
 *{More to be added}*
 
