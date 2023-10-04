@@ -18,7 +18,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/roerere)]
 [[portfolio](team/roerere.md)]
 
-* Role: Code Quality
+* Role: Developer
+* Responsibilities: Code Quality
 
 ### Ren Jing
 
@@ -28,6 +29,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/teerenjing.md)]
 
 * Role: Developer
+* Responsibilities: Testing
 
 ### Shyan-Yong
 

@@ -7,9 +7,9 @@
 
 
 ### Description
-* This is **medication management app for patients**.<br>
+* This is **prescription management app for patients**.<br>
   Example usages:
-  * Track medication needs, dosage and related health information.
+  * Track prescription needs, dosage and related health information.
   * Receive reminders to consume and refill medication.
 * It is named BayMeds v.2103 as it is inspired from the Disney character Baymax, who serves as a personal healthcare companion.
 * For the detailed documentation of this project, see the **[BayMeds v.2103 Product Website](https://ay2324s1-cs2103t-t15-2.github.io/tp/)**.

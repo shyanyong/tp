@@ -269,7 +269,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of medications
+* has a need to manage a significant number of prescriptions
 * prefers a quick way of tracking medication needs, dosage and related health information
 * prefers desktop apps over other types
 * can type fast
@@ -278,7 +278,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Value proposition**:
 
-* manage medications faster than a typical mouse/GUI driven app
+* manage prescriptions faster than a typical mouse/GUI driven app
 * track dosage schedule and instructions
 * track medical history
 * log symptoms
@@ -288,16 +288,16 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                            | I want to …​                                        | So that I can…​                                                  |
-|----------|------------------------------------|-----------------------------------------------------|------------------------------------------------------------------|
-| `* * *`  | sickly patient                     | add medications                                     | manage additional medications should I be prescribed them        |
-| `* * *`  | recovering patient                 | remove medications                                  | remove medications that the doctor deems unnecessary from now on |
-| `* * *`  | forgetful patient                  | mark the medication as consumed                     | not accidentally overdose on a certain medication                |
-| `* * *`  | forgetful patient                  | list all my medications                             | track all the medications I am currently taking                  |
-| `* *`    | forgetful patient                  | list all the medications I have not taken today     | follow my prescription accurately                                |
-| `* *`    | patient undergoing a tapering plan | edit medications that I have added                  | adjust my dosage schedules easily                                |
-| `* *`    | forgetful patient                  | get daily reminders of what medications to take     | take my medication on time
-| `*`      | forgetful patient                  | get a reminder when a medication is about to expire | premptively stock up before it runs out                          |
+| Priority | As a …​                            | I want to …​                                        | So that I can…​                                                    |
+|----------|------------------------------------|-----------------------------------------------------|--------------------------------------------------------------------|
+| `* * *`  | sickly patient                     | add prescriptions                                   | manage additional prescriptions should I be prescribed them        |
+| `* * *`  | recovering patient                 | remove prescriptions                                | remove prescriptions that the doctor deems unnecessary from now on |
+| `* * *`  | forgetful patient                  | mark the medication as consumed                     | not accidentally overdose on a certain medication                  |
+| `* * *`  | forgetful patient                  | list all my prescriptions                           | track all the medications I am currently taking                    |
+| `* *`    | forgetful patient                  | list all the medications I have not taken today     | follow my prescription accurately                                  |
+| `* *`    | patient undergoing a tapering plan | edit prescriptions that I have added                | adjust my dosage schedules easily                                  |
+| `* *`    | forgetful patient                  | get daily reminders of what medications to take     | take my medication on time                                         |
+| `*`      | forgetful patient                  | get a reminder when a medication is about to expire | premptively stock up before it runs out                            |
 
 *{More to be added}*
 
@@ -305,14 +305,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `BayMeds` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a medication**
+**Use case: Delete a prescription**
 
 **MSS**
 
-1.  User requests to list medications
-2.  BayMeds shows a list of medications
-3.  User requests to delete a specific medication in the list
-4.  BayMeds deletes the medication
+1.  User requests to list prescriptions.
+2.  BayMeds shows a list of prescriptions.
+3.  User requests to delete a specific prescription in the list.
+4.  BayMeds deletes the prescription.
 
     Use case ends.
 
@@ -328,19 +328,39 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given medication is not in the list.
+* 3a. The given prescription is not in the list.
 
     * 3a1. BayMeds shows an error message.
 
       Use case resumes at step 2.
 
+**Use case: List all prescriptions**
+
+**MSS**
+
+1.  User requests to list all prescriptions.
+2.  BayMeds shows a list of prescriptions together with their details.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given command is invalid.
+
+    * 1a1. BayMeds shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. The list is empty.
+
+  Use case ends.
 
 **Use case: List medications to be consumed today**
 
 **MSS**
 
-1.  User requests to list all remaining medications to be consumed today
-2.  BayMeds shows a list of medications to be consumed today
+1.  User requests to list all remaining medications to be consumed today.
+2.  BayMeds shows a list of medications to be consumed today.
 
     Use case ends.
 
@@ -363,7 +383,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 prescriptions without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  Should be able to give a notification to the user when the application is running. (Time to eat medication/ Medicine is about to expire)
+4.  Should be able to give a notification to the user when the application is running. (Time to take medication / medication is about to expire)
 5.  Should be able to track current date and time when the application is running.
 
 *{More to be added}*
@@ -371,9 +391,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Medication**: A drug identified by a name
-* **Prescription**: Uniquely identified by a Medication, a Frequency and a Quantity
+* **Prescription**: Uniquely identified by a medication, a frequency and a quantity
 
 --------------------------------------------------------------------------------------------------------------------
 

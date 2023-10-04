@@ -6,7 +6,7 @@
 
 # BayMeds v.2103 User Guide
 
-BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your medications**. While it has a GUI (Graphical User Interface), most of the user interactions happen using a CLI (Command Line Interface). If you like to type fast, BayMeds can get your medication management tasks done faster than traditional GUI apps.
+BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your prescriptions**. While it has a GUI (Graphical User Interface), most of the user interactions happen using a CLI (Command Line Interface). If you like to type fast, BayMeds can get your prescription management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -31,9 +31,9 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your me
 
    * `list` : Lists all prescriptions.
 
-   * `add --medication "Doxazosin" --frequency "daily"` : Adds a prescription `Aspirin` to the list of medications.
+   * `add --medication "Doxazosin" --frequency "daily"` : Adds a prescription `Aspirin` to the list of prescriptions.
 
-   * `delete "Aspirin"` : Deletes the `Aspirin` prescription from the current list of medications.
+   * `delete "Aspirin"` : Deletes the `Aspirin` prescription from the current list of prescriptions.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -66,7 +66,7 @@ _Details coming soon ..._
 
 ### Adding a prescription : `add`
 
-Adds a prescription to the list of medications.
+Adds a prescription to the list of prescriptions.
 
 Format:
 ```
@@ -85,7 +85,7 @@ add
     * This means take 4 tabs everyday.
   * e.g. `--frequency "weekly 2"`.
     * This means take 2 tabs on a particular day every week. The day is determined by the `<start_date>` input. If `<start_date>` is a Wednesday, this means take 2 tabs every Wednesday.
-* If your prescriptions are to be taken every Wednesday and Sunday, add 2 separate entries into the list of medications.
+* If your prescriptions are to be taken every Wednesday and Sunday, add 2 separate entries into the list of prescriptions.
   * `Add --medication "Accutane 1" --frequency "weekly 1" --start "27-09-2023"`.
   * `Add --medication "Accutane 2" --frequency "weekly 1" --start "01-10-2023"`.
 * `<start_date>` and `<end_date>` should be in dd-mm-yyyy format.   
@@ -152,9 +152,9 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a medication : `delete`
+### Deleting a prescription : `delete`
 
-Deletes the specified prescription from the list of medications.
+Deletes the specified prescription from the list of prescriptions.
 
 Format:
 ```
@@ -191,7 +191,7 @@ Example usage of list today command in BayMeds:
 
 ### Marking a medication as taken : `take`
 
-Marks a medication as consumed
+Marks a medication as consumed.
 
 Format:
 ```
@@ -209,7 +209,8 @@ Examples:
 
 Example usage of take command in BayMeds:
 
-<img src="images/ui/UI-take.png" alt="Example of take command" width="460" height="330">
+<img src="images/ui/Ui-take.png" alt="Example of take command" width="460" height="330">
+
 ### Saving the data
 
 BayMeds data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -245,11 +246,11 @@ _Details coming soon ..._
 
 ## Command summary
 
-Action     | Format, Example
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Help**   | `help`
-**Add**    | `add --medication <medication_name> --frequency <frequency>  [--start <start_date>] [--end <end_date>] [--remarks <remarks>]`, <br> e.g. `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"`
-**Delete** | `delete --medication <medication_name>`, <br> e.g. `delete --medication "Aspirin"`
-**Mark**   | `take --medication <medication_name> [--amount <amount_taken>] [--date <date>]`, <br> e.g. `take --medication "Aspirin" --amount "1" --date "20-09-2023"`
-**List**   | `list`
-**List today** | `list today`
+| Action          | Format, Example                                                                                                                                                                                                                                                 |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Help**        | `help`                                                                                                                                                                                                                                                          |
+| **Add**         | `add --medication <medication_name> --frequency <frequency>  [--start <start_date>] [--end <end_date>] [--remarks <remarks>]`, <br> e.g. `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"` |
+| **Delete**      | `delete --medication <medication_name>`, <br> e.g. `delete --medication "Aspirin"`                                                                                                                                                                              |
+| **Mark**        | `take --medication <medication_name> [--amount <amount_taken>] [--date <date>]`, <br> e.g. `take --medication "Aspirin" --amount "1" --date "20-09-2023"`                                                                                                       |
+| **List**        | `list`                                                                                                                                                                                                                                                          |
+|  **List today** | `list today`                                                                                                                                                                                                                                                    |
