@@ -13,7 +13,6 @@ import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_TOTAL_STOC
 // import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.prescription.Date;
@@ -43,7 +42,8 @@ public class AddPrescriptionCommandParser implements ParserPrescription<AddPresc
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY, PREFIX_START_DATE,
                 PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPrescriptionCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddPrescriptionCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY,
