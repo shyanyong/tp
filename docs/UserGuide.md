@@ -88,7 +88,7 @@ add
 * If your prescriptions are to be taken every Wednesday and Sunday, add 2 separate entries into the list of prescriptions.
   * `Add --medication "Accutane 1" --frequency "weekly 1" --start "27-09-2023"`.
   * `Add --medication "Accutane 2" --frequency "weekly 1" --start "01-10-2023"`.
-* `<start_date>` and `<end_date>` should be indd-mm-yyyy format.
+* `<start_date>` and `<end_date>` should be in dd-mm-yyyy format.
   * e.g. "20-09-2023".
 * Since `--start <start_date>` is an optional input, if there is none given, the input date of the entry will be used as the default start date.
 * Remarks can consist of any text.
