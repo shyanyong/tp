@@ -45,6 +45,8 @@ public class PrescriptionCard extends UiPart<Region> {
     @FXML
     private Label totalStock;
     @FXML
+    private Label consumptionCount;
+    @FXML
     private Label note;
 
     private String dosageHeader = "Dosage: ";
@@ -58,6 +60,8 @@ public class PrescriptionCard extends UiPart<Region> {
     private String expiryDateHeader = "Expiry date: ";
 
     private String totalStockHeader = "Total stock: ";
+
+    private String consumptionCountHeader = "Consumption count: ";
 
     private String noteHeader = "Note: ";
 
@@ -75,6 +79,8 @@ public class PrescriptionCard extends UiPart<Region> {
         endDate.setText(endDateHeader + prescription.getEndDate().fullDate);
         expiryDate.setText(expiryDateHeader + prescription.getExpiryDate().fullDate);
         totalStock.setText(totalStockHeader + prescription.getTotalStock().fullStock);
+        consumptionCount.setText(consumptionCountHeader + prescription.getConsumptionCount().getConsumptionCount()
+                                + "/" + prescription.getDosage().fullDosage);
         note.setText(noteHeader + prescription.getNote().fullNote);
         // prescription.getTags().stream()
         //         .sorted(Comparator.comparing(tag -> tag.tagName))
