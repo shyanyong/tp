@@ -44,8 +44,8 @@ public class CommandPrescriptionTestUtil {
     public static final String VALID_STOCK_PROPRANOLOL = "500";
     public static final String VALID_NOTE_ASPIRIN = "Take after food";
     public static final String VALID_NOTE_PROPRANOLOL = "Take after food";
-//    public static final String VALID_TAG_HUSBAND = "husband";
-//    public static final String VALID_TAG_FRIEND = "friend";
+    // public static final String VALID_TAG_HUSBAND = "husband";
+    // public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String NAME_DESC_ASPIRIN = " " + PREFIX_NAME + VALID_NAME_ASPIRIN;
     public static final String NAME_DESC_PROPRANOLOL = " " + PREFIX_NAME + VALID_NAME_PROPRANOLOL;
@@ -64,8 +64,8 @@ public class CommandPrescriptionTestUtil {
     public static final String NOTE_DESC_ASPIRIN = " " + PREFIX_NOTE + VALID_NOTE_ASPIRIN;
     public static final String NOTE_DESC_PROPRANOLOL = " " + PREFIX_NOTE + VALID_NOTE_PROPRANOLOL;
 
-//    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-//    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    // public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
+    // public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String NAME_DESC = " " + PREFIX_NAME + "@sp!r!n"; // non-alphanumeric not allowed
     public static final String DOSAGE_DESC = " " + PREFIX_DOSAGE + "a"; // alphabets not allowed
@@ -75,30 +75,32 @@ public class CommandPrescriptionTestUtil {
     public static final String EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE + "2024/1/1"; // invalid date format
     public static final String STOCK_DESC = " " + PREFIX_TOTAL_STOCK + "a"; // alphabets not allowed
     public static final String NOTE_DESC = " " + PREFIX_NOTE; // empty string not allowed
-//    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    // public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-//    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-//    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-//
-//    static {
-//        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-//            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-//            .withTags(VALID_TAG_FRIEND).build();
-//        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-//            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-//            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-//    }
+    /*
+    public static final EditCommand.EditPersonDescriptor DESC_AMY;
+    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+
+    static {
+        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+            .withTags(VALID_TAG_FRIEND).build();
+        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+    }
+    */
 
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(CommandPrescription command, ModelPrescription actualModel, CommandResult expectedCommandResult,
-        ModelPrescription expectedModel) {
+    public static void assertCommandSuccess(CommandPrescription command, ModelPrescription actualModel,
+        CommandResult expectedCommandResult, ModelPrescription expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -109,11 +111,12 @@ public class CommandPrescriptionTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(CommandPrescription, ModelPrescription, CommandResult, ModelPrescription)}
+     * Convenience wrapper to {@link #assertCommandSuccess(CommandPrescription, ModelPrescription,
+     * CommandResult, ModelPrescription)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(CommandPrescription command, ModelPrescription actualModel, String expectedMessage,
-        ModelPrescription expectedModel) {
+    public static void assertCommandSuccess(CommandPrescription command, ModelPrescription actualModel,
+        String expectedMessage, ModelPrescription expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -122,9 +125,11 @@ public class CommandPrescriptionTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the prescription list, filtered prescription list and selected prescription in {@code actualModel} remain unchanged
+     * - the prescription list, filtered prescription list and selected prescription in {@code actualModel}
+     *   remain unchanged
      */
-    public static void assertCommandFailure(CommandPrescription command, ModelPrescription actualModel, String expectedMessage) {
+    public static void assertCommandFailure(CommandPrescription command, ModelPrescription actualModel,
+        String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         PrescriptionList expectedPrescriptionList = new PrescriptionList(actualModel.getPrescriptionList());

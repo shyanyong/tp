@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.prescription.exceptions.DuplicatePrescriptionException;
 import seedu.address.model.prescription.exceptions.PrescriptionNotFoundException;
 import seedu.address.testutil.PrescriptionBuilder;
@@ -67,7 +68,8 @@ public class UniquePrescriptionListTest {
 
     @Test
     public void setPrescription_targetPrescriptionNotInList_throwsPrescriptionNotFoundException() {
-        assertThrows(PrescriptionNotFoundException.class, () -> uniquePrescriptionList.setPrescription(ASPIRIN, ASPIRIN));
+        assertThrows(PrescriptionNotFoundException.class,
+            () -> uniquePrescriptionList.setPrescription(ASPIRIN, ASPIRIN));
     }
 
     @Test
@@ -102,7 +104,8 @@ public class UniquePrescriptionListTest {
     public void setPrescription_editedPrescriptionHasNonUniqueIdentity_throwsDuplicatePrescriptionException() {
         uniquePrescriptionList.add(ASPIRIN);
         uniquePrescriptionList.add(PROPRANOLOL);
-        assertThrows(DuplicatePrescriptionException.class, () -> uniquePrescriptionList.setPrescription(ASPIRIN, PROPRANOLOL));
+        assertThrows(DuplicatePrescriptionException.class,
+            () -> uniquePrescriptionList.setPrescription(ASPIRIN, PROPRANOLOL));
     }
 
     @Test
@@ -125,7 +128,8 @@ public class UniquePrescriptionListTest {
 
     @Test
     public void setPrescriptions_nullUniquePrescriptionList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePrescriptionList.setPrescriptions((UniquePrescriptionList) null));
+        assertThrows(NullPointerException.class,
+            () -> uniquePrescriptionList.setPrescriptions((UniquePrescriptionList) null));
     }
 
     @Test
@@ -139,7 +143,8 @@ public class UniquePrescriptionListTest {
 
     @Test
     public void setPrescriptions_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePrescriptionList.setPrescriptions((List<Prescription>) null));
+        assertThrows(NullPointerException.class,
+            () -> uniquePrescriptionList.setPrescriptions((List<Prescription>) null));
     }
 
     @Test
@@ -155,7 +160,8 @@ public class UniquePrescriptionListTest {
     @Test
     public void setPrescriptions_listWithDuplicatePrescriptions_throwsDuplicatePrescriptionException() {
         List<Prescription> listWithDuplicatePrescriptions = Arrays.asList(ASPIRIN, ASPIRIN);
-        assertThrows(DuplicatePrescriptionException.class, () -> uniquePrescriptionList.setPrescriptions(listWithDuplicatePrescriptions));
+        assertThrows(DuplicatePrescriptionException.class,
+            () -> uniquePrescriptionList.setPrescriptions(listWithDuplicatePrescriptions));
     }
 
     @Test
@@ -166,6 +172,7 @@ public class UniquePrescriptionListTest {
 
     @Test
     public void toStringMethod() {
-        assertEquals(uniquePrescriptionList.asUnmodifiableObservableList().toString(), uniquePrescriptionList.toString());
+        assertEquals(uniquePrescriptionList.asUnmodifiableObservableList().toString(),
+            uniquePrescriptionList.toString());
     }
 }

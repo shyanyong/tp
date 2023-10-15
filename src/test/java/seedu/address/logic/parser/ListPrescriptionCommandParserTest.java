@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CommandPrescriptionParserTestUtil.asser
 import static seedu.address.logic.parser.CommandPrescriptionParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.MessagesPrescription;
 import seedu.address.logic.commands.ListPrescriptionCommand;
 

@@ -31,7 +31,8 @@ public class JsonPrescriptionListStorageTest {
     }
 
     private java.util.Optional<ReadOnlyPrescriptionList> readPrescriptionList(String filePath) throws Exception {
-        return new JsonPrescriptionListStorage(Paths.get(filePath)).readPrescriptionList(addToTestDataPathIfNotNull(filePath));
+        return new JsonPrescriptionListStorage(Paths.get(filePath))
+            .readPrescriptionList(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {

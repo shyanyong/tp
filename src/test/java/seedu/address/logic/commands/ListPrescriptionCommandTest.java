@@ -7,12 +7,14 @@ import static seedu.address.testutil.TypicalPrescriptions.getTypicalPrescription
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.ModelManagerPrescription;
 import seedu.address.model.ModelPrescription;
 import seedu.address.model.UserPrefsPrescription;
 
 /**
- * Contains integration tests (interaction with the seedu.address.model.ModelPrescription) and unit tests for ListPrescriptionCommand.
+ * Contains integration tests (interaction with the seedu.address.model.ModelPrescription)
+ * and unit tests for ListPrescriptionCommand.
  */
 public class ListPrescriptionCommandTest {
 
@@ -27,12 +29,14 @@ public class ListPrescriptionCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListPrescriptionCommand(), model, ListPrescriptionCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListPrescriptionCommand(), model,
+            ListPrescriptionCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPrescriptionAtIndex(model, INDEX_FIRST_PRESCRIPTION);
-        assertCommandSuccess(new ListPrescriptionCommand(), model, ListPrescriptionCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListPrescriptionCommand(), model,
+            ListPrescriptionCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

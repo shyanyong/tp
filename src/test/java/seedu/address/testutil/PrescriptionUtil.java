@@ -1,11 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.Set;
-
-import seedu.address.logic.commands.AddPrescriptionCommand;
-import seedu.address.model.prescription.Prescription;
-import seedu.address.model.tag.Tag;
-
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_EXPIRY_DATE;
@@ -14,6 +8,9 @@ import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_TOTAL_STOCK;
+
+import seedu.address.logic.commands.AddPrescriptionCommand;
+import seedu.address.model.prescription.Prescription;
 
 /**
  * A utility class for Prescription.
@@ -40,9 +37,9 @@ public class PrescriptionUtil {
         sb.append(PREFIX_EXPIRY_DATE + prescription.getExpiryDate().fullDate + " ");
         sb.append(PREFIX_TOTAL_STOCK + prescription.getTotalStock().fullStock + " ");
         sb.append(PREFIX_NOTE + prescription.getNote().fullNote + " ");
-//        person.getTags().stream().forEach(
-//            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-//        );
+        // person.getTags().stream().forEach(
+        //     s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        // );
         return sb.toString();
     }
 

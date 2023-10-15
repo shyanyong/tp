@@ -1,8 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
@@ -10,8 +7,6 @@ import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.Stock;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Prescription objects.
@@ -35,7 +30,7 @@ public class PrescriptionBuilder {
     private Date expiryDate;
     private Stock totalStock;
     private Note note;
-//    private Set<Tag> tags;
+    // private Set<Tag> tags;
 
     /**
      * Creates a {@code PrescriptionBuilder} with the default details.
@@ -49,7 +44,7 @@ public class PrescriptionBuilder {
         expiryDate = DEFAULT_EXPIRY_DATE;
         totalStock = DEFAULT_STOCK;
         note = DEFAULT_NOTE;
-//        tags = new HashSet<>();
+        // tags = new HashSet<>();
     }
 
     /**
@@ -64,7 +59,7 @@ public class PrescriptionBuilder {
         expiryDate = prescriptionToCopy.getExpiryDate();
         totalStock = prescriptionToCopy.getTotalStock();
         note = prescriptionToCopy.getNote();
-//        tags = new HashSet<>(personToCopy.getTags());
+        // tags = new HashSet<>(personToCopy.getTags());
     }
 
     /**
@@ -75,13 +70,13 @@ public class PrescriptionBuilder {
         return this;
     }
 
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Prescription} that we are building.
-     */
-//    public PersonBuilder withTags(String ... tags) {
-//        this.tags = SampleDataUtil.getTagSet(tags);
-//        return this;
-//    }
+    // /**
+    //  * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Prescription} that we are building.
+    //  */
+    // public PersonBuilder withTags(String ... tags) {
+    //     this.tags = SampleDataUtil.getTagSet(tags);
+    //     return this;
+    // }
 
     /**
      * Sets the {@code Dosage} of the {@code Prescription} that we are building.

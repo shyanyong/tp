@@ -5,10 +5,6 @@ import static seedu.address.storage.JsonAdaptedPrescription.MISSING_FIELD_MESSAG
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -38,9 +34,9 @@ public class JsonAdaptedPrescriptionTest {
     private static final String VALID_STOCK = ASPIRIN.getTotalStock().toString();
     private static final String VALID_NOTE = ASPIRIN.getNote().toString();
 
-//    private static final List<JsonAdaptedTag> VALID_TAGS = ASPIRIN.getTags().stream()
-//        .map(JsonAdaptedTag::new)
-//        .collect(Collectors.toList());
+    // private static final List<JsonAdaptedTag> VALID_TAGS = ASPIRIN.getTags().stream()
+    //     .map(JsonAdaptedTag::new)
+    //     .collect(Collectors.toList());
 
     @Test
     public void toModelType_validPrescriptionDetails_returnsPrescription() throws Exception {
@@ -304,13 +300,13 @@ public class JsonAdaptedPrescriptionTest {
         assertThrows(IllegalValueException.class, expectedMessage, prescription::toModelType);
     }
 
-//    @Test
-//    public void toModelType_invalidTags_throwsIllegalValueException() {
-//        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-//        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-//        JsonAdaptedPrescription prescription =
-//            new JsonAdaptedPrescription(VALID_NAME, VALID_DOSAGE, VALID_FREQUENCY, VALID_ADDRESS, invalidTags);
-//        assertThrows(IllegalValueException.class, prescription::toModelType);
-//    }
+    // @Test
+    // public void toModelType_invalidTags_throwsIllegalValueException() {
+    //     List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
+    //     invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
+    //     JsonAdaptedPrescription prescription =
+    //         new JsonAdaptedPrescription(VALID_NAME, VALID_DOSAGE, VALID_FREQUENCY, VALID_ADDRESS, invalidTags);
+    //     assertThrows(IllegalValueException.class, prescription::toModelType);
+    // }
 
 }

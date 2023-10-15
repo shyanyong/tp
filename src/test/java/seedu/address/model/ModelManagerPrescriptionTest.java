@@ -95,7 +95,8 @@ public class ModelManagerPrescriptionTest {
 
     @Test
     public void equals() {
-        PrescriptionList prescriptionList = new PrescriptionListBuilder().withPrescription(ASPIRIN).withPrescription(PROPRANOLOL).build();
+        PrescriptionList prescriptionList = new PrescriptionListBuilder()
+            .withPrescription(ASPIRIN).withPrescription(PROPRANOLOL).build();
         PrescriptionList differentPrescriptionList = new PrescriptionList();
         UserPrefsPrescription userPrefs = new UserPrefsPrescription();
 

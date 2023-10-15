@@ -83,7 +83,8 @@ public class PrescriptionListTest {
 
     @Test
     public void toStringMethod() {
-        String expected = PrescriptionList.class.getCanonicalName() + "{prescriptions=" + prescriptionList.getPrescriptionList() + "}";
+        String expected = PrescriptionList.class.getCanonicalName()
+                + "{prescriptions=" + prescriptionList.getPrescriptionList() + "}";
         assertEquals(expected, prescriptionList.toString());
     }
 

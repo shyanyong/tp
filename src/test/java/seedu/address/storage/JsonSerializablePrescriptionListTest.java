@@ -15,7 +15,8 @@ import seedu.address.testutil.TypicalPrescriptions;
 
 public class JsonSerializablePrescriptionListTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializablePrescriptionListTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+        "JsonSerializablePrescriptionListTest");
     private static final Path TYPICAL_PRESCRIPTION_FILE = TEST_DATA_FOLDER.resolve("typicalPrescriptionList.json");
     private static final Path INVALID_PRESCRIPTION_FILE = TEST_DATA_FOLDER.resolve("invalidPrescriptionList.json");
     private static final Path DUPLICATE_PRESCRIPTION_FILE = TEST_DATA_FOLDER.resolve("duplicatePrescriptionList.json");

@@ -11,7 +11,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PrescriptionBuilder;
-import seedu.address.testutil.PrescriptionBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 
@@ -43,7 +42,8 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Aspirin"));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(
+            Collections.singletonList("Aspirin"));
         assertTrue(predicate.test(new PrescriptionBuilder().withName("Aspirin").build()));
 
         // Multiple keywords

@@ -5,20 +5,22 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandPrescriptionTestUtil.VALID_NAME_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandPrescriptionTestUtil.VALID_START_DATE_PROPRANOLOL;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 import static seedu.address.testutil.TypicalPrescriptions.PROPRANOLOL;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.PrescriptionBuilder;
 
 public class PrescriptionTest {
 
-//    @Test
-//    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-//        Prescription prescription = new PrescriptionBuilder().build();
-//        assertThrows(UnsupportedOperationException.class, () -> prescription.getTags().remove(0));
-//    }
+    /*
+    @Test
+    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
+        Prescription prescription = new PrescriptionBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> prescription.getTags().remove(0));
+    }
+     */
 
     @Test
     public void isSamePrescription() {
@@ -37,7 +39,8 @@ public class PrescriptionTest {
         assertFalse(ASPIRIN.isSamePrescription(editedAspirin));
 
         // name differs in case, all other attributes same -> returns false
-        Prescription editedPropranolol = new PrescriptionBuilder(PROPRANOLOL).withName(VALID_NAME_PROPRANOLOL.toLowerCase()).build();
+        Prescription editedPropranolol = new PrescriptionBuilder(PROPRANOLOL)
+            .withName(VALID_NAME_PROPRANOLOL.toLowerCase()).build();
         assertFalse(PROPRANOLOL.isSamePrescription(editedPropranolol));
 
         // name has trailing spaces, all other attributes same -> returns false
@@ -73,8 +76,8 @@ public class PrescriptionTest {
         assertFalse(ASPIRIN.equals(editedAspirin));
 
         // different tags -> returns false
-//        editedAspirin = new PrescriptionBuilder(ASPIRIN).withTags(VALID_TAG_HUSBAND).build();
-//        assertFalse(ASPIRIN.equals(editedAspirin));
+        // editedAspirin = new PrescriptionBuilder(ASPIRIN).withTags(VALID_TAG_HUSBAND).build();
+        // assertFalse(ASPIRIN.equals(editedAspirin));
     }
 
     @Test

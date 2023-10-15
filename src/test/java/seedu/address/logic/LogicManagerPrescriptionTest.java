@@ -50,7 +50,8 @@ public class LogicManagerPrescriptionTest {
     public void setUp() {
         JsonPrescriptionListStorage prescriptionListStorage =
             new JsonPrescriptionListStorage(temporaryFolder.resolve("prescriptionList.json"));
-        JsonUserPrefsStoragePrescription userPrefsStorage = new JsonUserPrefsStoragePrescription(temporaryFolder.resolve("userPrefs.json"));
+        JsonUserPrefsStoragePrescription userPrefsStorage = new JsonUserPrefsStoragePrescription(
+            temporaryFolder.resolve("userPrefs.json"));
         StorageManagerPrescription storage = new StorageManagerPrescription(prescriptionListStorage, userPrefsStorage);
         logic = new LogicManagerPrescription(model, storage);
     }
@@ -61,11 +62,13 @@ public class LogicManagerPrescriptionTest {
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
-//    @Test
-//    public void execute_commandExecutionError_throwsCommandException() {
-//        String deleteCommand = "delete 9";
-//        assertCommandException(deleteCommand, MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX);
-//    }
+    /*
+    @Test
+    public void execute_commandExecutionError_throwsCommandException() {
+        String deleteCommand = "delete 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX);
+    }
+    */
 
     @Test
     public void execute_validCommand_success() throws Exception {
@@ -126,7 +129,8 @@ public class LogicManagerPrescriptionTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
         String expectedMessage) {
-        ModelPrescription expectedModel = new ModelManagerPrescription(model.getPrescriptionList(), new UserPrefsPrescription());
+        ModelPrescription expectedModel = new ModelManagerPrescription(
+            model.getPrescriptionList(), new UserPrefsPrescription());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -156,7 +160,7 @@ public class LogicManagerPrescriptionTest {
         JsonPrescriptionListStorage prescriptionListStorage = new JsonPrescriptionListStorage(prefPath) {
             @Override
             public void savePrescriptionList(ReadOnlyPrescriptionList prescriptionList, Path filePath)
-                throws IOException {
+                    throws IOException {
                 throw e;
             }
         };
