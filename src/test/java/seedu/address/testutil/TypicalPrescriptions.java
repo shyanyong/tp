@@ -54,7 +54,7 @@ public class TypicalPrescriptions {
 
     public static final Prescription ZOMIG = new PrescriptionBuilder().withName("Zolmitriptan Rapimelt")
         .withDosage("1")
-        .withFrequency("Month")
+        .withFrequency("Monthly")
         .withStartDate("12/10/2023")
         .withEndDate("12/10/2024")
         .withExpiryDate("15/03/2025")
