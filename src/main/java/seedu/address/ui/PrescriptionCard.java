@@ -47,6 +47,20 @@ public class PrescriptionCard extends UiPart<Region> {
     @FXML
     private Label note;
 
+    private String dosageHeader = "Dosage: ";
+
+    private String frequencyHeader = "Frequency: ";
+
+    private String startDateHeader = "Start date: ";
+
+    private String endDateHeader = "End date: ";
+
+    private String expiryDateHeader = "Expiry date: ";
+
+    private String totalStockHeader = "Total stock: ";
+
+    private String noteHeader = "Note: ";
+
     /**
      * Creates a {@code PrescriptionCode} with the given {@code Prescription} and index to display.
      */
@@ -55,13 +69,13 @@ public class PrescriptionCard extends UiPart<Region> {
         this.prescription = prescription;
         id.setText(displayedIndex + ". ");
         name.setText(prescription.getName().fullName);
-        dosage.setText(prescription.getDosage().fullDosage);
-        frequency.setText(prescription.getFrequency().fullFrequency);
-        startDate.setText(prescription.getStartDate().fullDate);
-        endDate.setText(prescription.getEndDate().fullDate);
-        expiryDate.setText(prescription.getExpiryDate().fullDate);
-        totalStock.setText(prescription.getTotalStock().fullStock);
-        note.setText(prescription.getNote().fullNote);
+        dosage.setText(dosageHeader + prescription.getDosage().fullDosage);
+        frequency.setText(frequencyHeader + prescription.getFrequency().fullFrequency);
+        startDate.setText(startDateHeader + prescription.getStartDate().fullDate);
+        endDate.setText(endDateHeader + prescription.getEndDate().fullDate);
+        expiryDate.setText(expiryDateHeader + prescription.getExpiryDate().fullDate);
+        totalStock.setText(totalStockHeader + prescription.getTotalStock().fullStock);
+        note.setText(noteHeader + prescription.getNote().fullNote);
         // prescription.getTags().stream()
         //         .sorted(Comparator.comparing(tag -> tag.tagName))
         //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
