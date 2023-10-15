@@ -20,8 +20,8 @@ public class ListTodayPrescriptionCommand extends CommandPrescription {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all medications to be taken today.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Listing all medications to be taken today";
-    public static final String MESSAGE_EMPTY_LIST = "No medications to be taken today";
+    public static final String MESSAGE_SUCCESS = "Listing all medications to be taken today.";
+    public static final String MESSAGE_EMPTY_LIST = "No medications to be taken today.";
 
     @Override
     public CommandResult execute(ModelPrescription model) throws CommandException {
