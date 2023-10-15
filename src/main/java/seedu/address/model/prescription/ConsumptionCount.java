@@ -5,8 +5,8 @@ package seedu.address.model.prescription;
  */
 public class ConsumptionCount {
 
-    public String consumptionCount;
-    public Boolean isCompleted;
+    private String consumptionCount;
+    private Boolean isCompleted;
 
     /**
      * Constructs a {@code ConsumptionCount object}.
@@ -28,6 +28,18 @@ public class ConsumptionCount {
         int currentCount = Integer.parseInt(this.consumptionCount);
         currentCount += count;
         this.consumptionCount = Integer.toString(currentCount);
+    }
+
+    public void setIsCompleted(Boolean completed) {
+        this.isCompleted = completed;
+    }
+
+    public String getConsumptionCount() {
+        return this.consumptionCount;
+    }
+
+    public Boolean getIsCompleted() {
+        return this.isCompleted;
     }
     @Override
     public String toString() {
