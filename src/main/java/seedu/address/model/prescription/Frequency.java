@@ -38,6 +38,10 @@ public class Frequency {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getFrequency() {
+        return fullFrequency;
+    }
+
 
     @Override
     public String toString() {
