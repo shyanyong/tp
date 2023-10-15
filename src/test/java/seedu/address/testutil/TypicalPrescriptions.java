@@ -62,6 +62,27 @@ public class TypicalPrescriptions {
         .withNote("Drowsy")
         .build();
 
+    // Manually added
+    public static final Prescription IBUPROFEN = new PrescriptionBuilder().withName("Ibuprofen")
+        .withDosage("2")
+        .withFrequency("Daily")
+        .withStartDate("12/10/2023")
+        .withEndDate("12/10/2024")
+        .withExpiryDate("15/03/2025")
+        .withStock("50")
+        .withNote("Take after food")
+        .build();
+
+    public static final Prescription CAFFOX = new PrescriptionBuilder().withName("Caffox")
+        .withDosage("1")
+        .withFrequency("Daily")
+        .withStartDate("12/10/2023")
+        .withEndDate("12/10/2024")
+        .withExpiryDate("15/03/2025")
+        .withStock("20")
+        .withNote("Take before food")
+        .build();
+
     private TypicalPrescriptions() {} // prevents instantiation
 
     /**

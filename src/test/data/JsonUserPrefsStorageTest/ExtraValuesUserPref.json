@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "prescriptionList.json"
+  "prescriptionListFilePath" : "prescriptionList.json"
 }

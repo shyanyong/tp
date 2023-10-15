@@ -51,11 +51,11 @@ public class StorageManagerPrescriptionTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void prescriptionListReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonPrescriptionListStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonPrescriptionListStorageTest} class.
          */
         PrescriptionList original = getTypicalPrescriptionList();
         storageManager.savePrescriptionList(original);
@@ -64,7 +64,7 @@ public class StorageManagerPrescriptionTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getPrescriptionListFilePath() {
         assertNotNull(storageManager.getPrescriptionListFilePath());
     }
 
