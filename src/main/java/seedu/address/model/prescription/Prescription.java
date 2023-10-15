@@ -26,6 +26,7 @@ public class Prescription {
     private final Date endDate;
     private final Date expiryDate;
     private final Stock totalStock;
+    private final ConsumptionCount consumptionCount;
     private final Note note;
     // private final Set<Tag> tags = new HashSet<>();
 
@@ -42,6 +43,7 @@ public class Prescription {
         this.endDate = endDate;
         this.expiryDate = expiryDate;
         this.totalStock = totalStock;
+        this.consumptionCount = new ConsumptionCount("0", false);
         this.note = note;
     }
 
@@ -72,12 +74,15 @@ public class Prescription {
     public Stock getTotalStock() {
         return totalStock;
     }
+    public ConsumptionCount getConsumptionCount() {
+        return consumptionCount;
+    }
 
     public Note getNote() {
         return note;
     }
 
-    // /**
+    // /
     //  * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
     //  * if modification is attempted.
     //  */
@@ -122,6 +127,7 @@ public class Prescription {
                 && endDate.equals(otherPrescription.endDate)
                 && expiryDate.equals(otherPrescription.expiryDate)
                 && totalStock.equals(otherPrescription.totalStock)
+                && consumptionCount.equals(otherPrescription.consumptionCount)
                 && note.equals(otherPrescription.note);
     }
 
@@ -129,7 +135,7 @@ public class Prescription {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, dosage, frequency, startDate,
-                        endDate, expiryDate, totalStock, note);
+                endDate, expiryDate, totalStock, consumptionCount, note);
     }
 
     @Override
@@ -142,8 +148,8 @@ public class Prescription {
                 .add("endDate", endDate)
                 .add("expiryDate", expiryDate)
                 .add("totalStock", totalStock)
+                .add("consumptionCount", consumptionCount)
                 .add("note", note)
                 .toString();
     }
-
 }
