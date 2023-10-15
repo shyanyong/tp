@@ -34,6 +34,9 @@ public class Date {
         fullDate = date;
     }
 
+    /**
+     * Returns the date in LocalDate format.
+     */
     public LocalDate getDate() {
         return LocalDate.parse(fullDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }

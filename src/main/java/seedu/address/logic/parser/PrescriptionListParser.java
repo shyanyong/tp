@@ -52,7 +52,7 @@ public class PrescriptionListParser {
         case AddPrescriptionCommand.COMMAND_WORD:
             return new AddPrescriptionCommandParser().parse(arguments);
         case ListTodayPrescriptionCommand.COMMAND_WORD:
-            return new ListTodayPrescriptionCommand();
+            return new ListTodayPrescriptionCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

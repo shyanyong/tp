@@ -2,15 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelPrescription;
-import seedu.address.model.prescription.Frequency;
+import seedu.address.model.prescription.IsTodayPredicate;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -31,30 +28,7 @@ public class ListTodayPrescriptionCommand extends CommandPrescription {
 
         requireNonNull(model);
 
-        Predicate<Prescription> isToday = prescription -> {
-            LocalDate today = LocalDate.now();
-            LocalDate startDate = LocalDate.parse(
-                    prescription.getStartDate().fullDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            LocalDate endDate = LocalDate.parse(
-                    prescription.getEndDate().fullDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            long daysBetween = ChronoUnit.DAYS.between(startDate, today);
-
-            if (!(today.isAfter(startDate) && today.isBefore(endDate))) {
-                return false;
-            }
-            Frequency frequency = prescription.getFrequency();
-
-            switch (frequency.getFrequency()) {
-            case "Daily":
-                return true;
-            case "Weekly":
-                return daysBetween % 7 == 0;
-            case "Monthly":
-                return daysBetween % 30 == 0;
-            default:
-                return false;
-            }
-        };
+        Predicate<Prescription> isToday = new IsTodayPredicate();
 
         model.updateFilteredPrescriptionList(isToday);
 
