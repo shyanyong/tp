@@ -60,6 +60,7 @@ public class PrescriptionCard extends UiPart<Region> {
     private String expiryDateHeader = "Expiry date: ";
 
     private String totalStockHeader = "Total stock: ";
+
     private String consumptionCountHeader = "Consumption count: ";
 
     private String noteHeader = "Note: ";

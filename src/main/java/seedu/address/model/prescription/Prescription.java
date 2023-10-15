@@ -135,7 +135,7 @@ public class Prescription {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, dosage, frequency, startDate,
-                endDate, expiryDate, totalStock, note);
+                endDate, expiryDate, totalStock, consumptionCount, note);
     }
 
     @Override
