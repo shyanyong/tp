@@ -3,6 +3,9 @@ package seedu.address.model.prescription;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Prescription's date in the prescription list.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
@@ -29,6 +32,10 @@ public class Date {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         fullDate = date;
+    }
+
+    public LocalDate getDate() {
+        return LocalDate.parse(fullDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     /**
