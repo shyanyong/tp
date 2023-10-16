@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
@@ -32,6 +33,8 @@ class JsonAdaptedPrescription {
     private final String endDate;
     private final String expiryDate;
     private final String totalStock;
+    private final String consumptionCount;
+    private final Boolean isCompleted;
     private final String note;
     // private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -42,7 +45,9 @@ class JsonAdaptedPrescription {
     public JsonAdaptedPrescription(@JsonProperty("name") String name, @JsonProperty("dosage") String dosage,
             @JsonProperty("frequency") String frequency, @JsonProperty("startDate") String startDate,
             @JsonProperty("endDate") String endDate, @JsonProperty("expiryDate") String expiryDate,
-            @JsonProperty("totalStock") String totalStock, @JsonProperty("note") String note) {
+            @JsonProperty("totalStock") String totalStock, @JsonProperty("consumptionCount") String consumptionCount,
+                                   @JsonProperty("isCompleted") Boolean isCompleted,
+                                   @JsonProperty("note") String note) {
         this.name = name;
         this.dosage = dosage;
         this.frequency = frequency;
@@ -50,6 +55,8 @@ class JsonAdaptedPrescription {
         this.endDate = endDate;
         this.expiryDate = expiryDate;
         this.totalStock = totalStock;
+        this.consumptionCount = consumptionCount;
+        this.isCompleted = isCompleted;
         this.note = note;
         // if (tags != null) {
         //     this.tags.addAll(tags);
@@ -66,7 +73,9 @@ class JsonAdaptedPrescription {
         startDate = source.getStartDate().fullDate;
         endDate = source.getEndDate().fullDate;
         expiryDate = source.getExpiryDate().fullDate;
-        totalStock = source.getTotalStock().fullStock;
+        totalStock = source.getTotalStock().getFullStock();
+        consumptionCount = source.getConsumptionCount().getConsumptionCount();
+        isCompleted = source.getConsumptionCount().getIsCompleted();
         note = source.getNote().fullNote;
         // tags.addAll(source.getTags().stream()
         //         .map(JsonAdaptedTag::new)
@@ -141,6 +150,12 @@ class JsonAdaptedPrescription {
         }
         final Stock modelTotalStock = new Stock(totalStock);
 
+        if (consumptionCount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ConsumptionCount"));
+        }
+
+        final ConsumptionCount modelConsumptionCount = new ConsumptionCount(consumptionCount, isCompleted);
+
         if (note == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName()));
         }
@@ -151,7 +166,7 @@ class JsonAdaptedPrescription {
 
         // final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Prescription(modelName, modelDosage, modelFrequency, modelStartDate,
-                        modelEndDate, modelExpiryDate, modelTotalStock, modelNote);
+                        modelEndDate, modelExpiryDate, modelTotalStock, modelConsumptionCount, modelNote);
     }
 
 }

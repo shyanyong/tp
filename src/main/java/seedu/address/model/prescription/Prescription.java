@@ -34,7 +34,8 @@ public class Prescription {
      * Every field must be present and not null.
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
-                        Date endDate, Date expiryDate, Stock totalStock, Note note) {
+                        Date endDate, Date expiryDate, Stock totalStock, ConsumptionCount consumptionCount,
+                        Note note) {
         requireAllNonNull(name);
         this.name = name;
         this.dosage = dosage;
@@ -43,7 +44,7 @@ public class Prescription {
         this.endDate = endDate;
         this.expiryDate = expiryDate;
         this.totalStock = totalStock;
-        this.consumptionCount = new ConsumptionCount("0", false);
+        this.consumptionCount = consumptionCount;
         this.note = note;
     }
 

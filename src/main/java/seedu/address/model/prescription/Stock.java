@@ -18,7 +18,7 @@ public class Stock {
      */
     public static final String VALIDATION_REGEX = "[0-9]+";
 
-    public final String fullStock;
+    private String fullStock;
 
     /**
      * Constructs a {@code Stock}.
@@ -38,6 +38,22 @@ public class Stock {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getFullStock() {
+        return fullStock;
+    }
+
+    public void setFullStock(String fullStock) {
+        this.fullStock = fullStock;
+    }
+
+    /**
+     * Decrements the count of stock.
+     * @param count The count to decrement by.
+     */
+    public void decrementCount(int count) {
+        int newStock = Integer.parseInt(this.fullStock) - count;
+        this.fullStock = Integer.toString(newStock);
+    }
 
     @Override
     public String toString() {

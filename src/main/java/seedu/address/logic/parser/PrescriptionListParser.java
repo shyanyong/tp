@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandPrescription;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPrescriptionCommand;
 import seedu.address.logic.commands.ListTodayPrescriptionCommand;
+import seedu.address.logic.commands.TakePrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -56,6 +57,8 @@ public class PrescriptionListParser {
             return new ListPrescriptionCommandParser().parse(arguments);
         case ListTodayPrescriptionCommand.COMMAND_WORD:
             return new ListTodayPrescriptionCommandParser().parse(arguments);
+        case TakePrescriptionCommand.COMMAND_WORD:
+            return new TakePrescriptionCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
