@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.TakePrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Name;
 
 /**
@@ -16,6 +15,7 @@ import seedu.address.model.prescription.Name;
  */
 public class TakePrescriptionCommandParser implements ParserPrescription<TakePrescriptionCommand> {
 
+    public static final String VALIDATION_REGEX = "[0-9]+";
     /**
      * Parses the given arguments to create a TakePrescriptionCommand.
      *
@@ -34,9 +34,13 @@ public class TakePrescriptionCommandParser implements ParserPrescription<TakePre
         }
 
         Name name = ParserUtilPrescription.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Dosage dosesToTake = ParserUtilPrescription.parseDosage(argMultimap.getValue(PREFIX_CONSUMPTION).get());
+        String dosage = argMultimap.getValue(PREFIX_CONSUMPTION).get();
+        if (!isValidDosage(dosage)) {
+            throw new ParseException(TakePrescriptionCommand.MESSAGE_INVALID_DOSE);
+        }
+        int dosesToTake = Integer.parseInt(dosage);
 
-        return new TakePrescriptionCommand(name, Integer.parseInt(dosesToTake.fullDosage));
+        return new TakePrescriptionCommand(name, dosesToTake);
     }
 
     /**
@@ -45,5 +49,9 @@ public class TakePrescriptionCommandParser implements ParserPrescription<TakePre
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    public static boolean isValidDosage(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 }

@@ -65,10 +65,6 @@ public class TakePrescriptionCommand extends CommandPrescription {
             throw new CommandException(MESSAGE_INVALID_DOSE);
         }
 
-        if (dosesToTake <= 0) {
-            throw new CommandException(TakePrescriptionCommand.MESSAGE_INVALID_DOSE);
-        }
-
         if (totalStock - dosesToTake < 0) {
             throw new CommandException(TakePrescriptionCommand.MESSAGE_INSUFFICIENT_STOCK);
         }
