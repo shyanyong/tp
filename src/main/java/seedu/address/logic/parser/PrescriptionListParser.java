@@ -9,9 +9,11 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandPrescription;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.commands.ListPrescriptionCommand;
 import seedu.address.logic.commands.ListTodayPrescriptionCommand;
 import seedu.address.logic.commands.TakePrescriptionCommand;
+import seedu.address.logic.commands.DeletePrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -49,15 +51,15 @@ public class PrescriptionListParser {
 
 
         switch (commandWord) {
-        case seedu.address.logic.commands.AddPrescriptionCommand.COMMAND_WORD:
+        case AddPrescriptionCommand.COMMAND_WORD:
             return new AddPrescriptionCommandParser().parse(arguments);
-        case seedu.address.logic.commands.ListPrescriptionCommand.COMMAND_WORD:
+        case ListPrescriptionCommand.COMMAND_WORD:
             return new ListPrescriptionCommandParser().parse(arguments);
-        case seedu.address.logic.commands.ListTodayPrescriptionCommand.COMMAND_WORD:
+        case ListTodayPrescriptionCommand.COMMAND_WORD:
             return new ListTodayPrescriptionCommandParser().parse(arguments);
         case TakePrescriptionCommand.COMMAND_WORD:
             return new TakePrescriptionCommandParser().parse(arguments);
-        case seedu.address.logic.commands.DeletePrescriptionCommand.COMMAND_WORD:
+        case DeletePrescriptionCommand.COMMAND_WORD:
             return new DeletePrescriptionCommandParser().parse(arguments);
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
