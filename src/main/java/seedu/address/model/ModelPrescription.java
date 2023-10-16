@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -79,6 +81,16 @@ public interface ModelPrescription {
 
     /** Returns an unmodifiable view of the filtered prescription list */
     ObservableList<Prescription> getFilteredPrescriptionList();
+
+    /**
+     * Increments the consumption count of {@code prescription} by {@code dosesToTake}.
+     */
+    void takePrescription(Name prescription, int dosesToTake) throws CommandException;
+
+    /**
+     * Returns a prescription with the same name as {@code prescriptionName}
+     */
+    Prescription getPrescriptionByName(Name prescriptionName) throws CommandException;
 
     /**
      * Updates the filter of the filtered prescription list to filter by the given {@code predicate}.

@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
@@ -20,6 +21,7 @@ public class PrescriptionBuilder {
     public static final Date DEFAULT_END_DATE = new Date("01/10/2024");
     public static final Date DEFAULT_EXPIRY_DATE = new Date("11/02/2025");
     public static final Stock DEFAULT_STOCK = new Stock("100");
+    public static final ConsumptionCount DEFAULT_CONSUMPTION = new ConsumptionCount("0", false);
     public static final Note DEFAULT_NOTE = new Note("Take after food");
 
     private Name name;
@@ -29,6 +31,7 @@ public class PrescriptionBuilder {
     private Date endDate;
     private Date expiryDate;
     private Stock totalStock;
+    private ConsumptionCount consumptionCount;
     private Note note;
     // private Set<Tag> tags;
 
@@ -43,6 +46,7 @@ public class PrescriptionBuilder {
         endDate = DEFAULT_END_DATE;
         expiryDate = DEFAULT_EXPIRY_DATE;
         totalStock = DEFAULT_STOCK;
+        consumptionCount = DEFAULT_CONSUMPTION;
         note = DEFAULT_NOTE;
         // tags = new HashSet<>();
     }
@@ -58,6 +62,7 @@ public class PrescriptionBuilder {
         endDate = prescriptionToCopy.getEndDate();
         expiryDate = prescriptionToCopy.getExpiryDate();
         totalStock = prescriptionToCopy.getTotalStock();
+        consumptionCount = prescriptionToCopy.getConsumptionCount();
         note = prescriptionToCopy.getNote();
         // tags = new HashSet<>(personToCopy.getTags());
     }
@@ -127,6 +132,14 @@ public class PrescriptionBuilder {
     }
 
     /**
+     * Sets the {@code Stock} of the {@code Prescription} that we are building.
+     */
+    public PrescriptionBuilder withConsumptionCount(String consumptionCount) {
+        this.consumptionCount = new ConsumptionCount(consumptionCount, false);
+        return this;
+    }
+
+    /**
      * Sets the {@code Note} of the {@code Prescription} that we are building.
      */
     public PrescriptionBuilder withNote(String note) {
@@ -134,8 +147,12 @@ public class PrescriptionBuilder {
         return this;
     }
 
+    /**
+     * Builds the {@code Prescription} with the fields previously set.
+     */
     public Prescription build() {
-        return new Prescription(name, dosage, frequency, startDate, endDate, expiryDate, totalStock, note);
+        return new Prescription(name, dosage, frequency, startDate, endDate, expiryDate, totalStock, consumptionCount,
+                                note);
     }
 
 }

@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
@@ -55,11 +56,12 @@ public class AddPrescriptionCommandParser implements ParserPrescription<AddPresc
         Date endDate = ParserUtilPrescription.parseEndDate(argMultimap.getValue(PREFIX_END_DATE).get());
         Date expiryDate = ParserUtilPrescription.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
         Stock totalStock = ParserUtilPrescription.parseTotalStock(argMultimap.getValue(PREFIX_TOTAL_STOCK).get());
+        ConsumptionCount consumptionCount = new ConsumptionCount("0", false);
         Note note = ParserUtilPrescription.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
         // Set<Tag> tagList = ParserUtilPrescription.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Prescription prescription = new Prescription(name, dosage, frequency, startDate, endDate,
-                expiryDate, totalStock, note);
+                expiryDate, totalStock, consumptionCount, note);
 
         return new AddPrescriptionCommand(prescription);
     }

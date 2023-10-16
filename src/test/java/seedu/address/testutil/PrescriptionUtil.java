@@ -35,7 +35,7 @@ public class PrescriptionUtil {
         sb.append(PREFIX_START_DATE + prescription.getStartDate().fullDate + " ");
         sb.append(PREFIX_END_DATE + prescription.getEndDate().fullDate + " ");
         sb.append(PREFIX_EXPIRY_DATE + prescription.getExpiryDate().fullDate + " ");
-        sb.append(PREFIX_TOTAL_STOCK + prescription.getTotalStock().fullStock + " ");
+        sb.append(PREFIX_TOTAL_STOCK + prescription.getTotalStock().getFullStock() + " ");
         sb.append(PREFIX_NOTE + prescription.getNote().fullNote + " ");
         // person.getTags().stream().forEach(
         //     s -> sb.append(PREFIX_TAG + s.tagName + " ")
