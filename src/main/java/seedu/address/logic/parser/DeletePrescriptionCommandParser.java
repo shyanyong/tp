@@ -1,13 +1,26 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.MessagesPrescription.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_INDEX;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeletePrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.logic.MessagesPrescription.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_INDEX;
 
+
+/**
+ * Parses input arguments and creates a new DeleteCommand object
+ */
 public class DeletePrescriptionCommandParser implements ParserPrescription<DeletePrescriptionCommand> {
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return java.util.stream.Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.
@@ -33,13 +46,5 @@ public class DeletePrescriptionCommandParser implements ParserPrescription<Delet
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePrescriptionCommand.MESSAGE_USAGE), pe);
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return java.util.stream.Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
