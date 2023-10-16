@@ -23,6 +23,7 @@ public class JsonAdaptedPrescriptionTest {
     private static final String INVALID_END_DATE = "01/2/2024";
     private static final String INVALID_EXPIRY_DATE = "2024/01/23";
     private static final String INVALID_STOCK = "EFGH";
+    private static final String INVALID_CONSUMPTION = "IJKL";
     private static final String INVALID_NOTE = " ";
 
     private static final String VALID_NAME = ASPIRIN.getName().toString();
@@ -32,6 +33,7 @@ public class JsonAdaptedPrescriptionTest {
     private static final String VALID_END_DATE = ASPIRIN.getEndDate().toString();
     private static final String VALID_EXPIRY_DATE = ASPIRIN.getExpiryDate().toString();
     private static final String VALID_STOCK = ASPIRIN.getTotalStock().toString();
+    private static final String VALID_CONSUMPTION = ASPIRIN.getConsumptionCount().toString();
     private static final String VALID_NOTE = ASPIRIN.getNote().toString();
 
     // private static final List<JsonAdaptedTag> VALID_TAGS = ASPIRIN.getTags().stream()
@@ -54,6 +56,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
@@ -70,6 +74,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
@@ -86,6 +92,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = Dosage.MESSAGE_CONSTRAINTS;
@@ -102,6 +110,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Dosage.class.getSimpleName());
@@ -118,6 +128,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = Frequency.MESSAGE_CONSTRAINTS;
@@ -134,6 +146,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Frequency.class.getSimpleName());
@@ -150,6 +164,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = Date.MESSAGE_CONSTRAINTS;
@@ -166,6 +182,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
@@ -182,6 +200,8 @@ public class JsonAdaptedPrescriptionTest {
             INVALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = Date.MESSAGE_CONSTRAINTS;
@@ -198,6 +218,8 @@ public class JsonAdaptedPrescriptionTest {
             null,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
@@ -214,6 +236,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             INVALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = Date.MESSAGE_CONSTRAINTS;
@@ -230,6 +254,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             null,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
@@ -246,6 +272,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             INVALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = Stock.MESSAGE_CONSTRAINTS;
@@ -262,6 +290,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             null,
+            VALID_CONSUMPTION,
+            false,
             VALID_NOTE
         );
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Stock.class.getSimpleName());
@@ -278,6 +308,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             INVALID_NOTE
         );
         String expectedMessage = Note.MESSAGE_CONSTRAINTS;
@@ -294,6 +326,8 @@ public class JsonAdaptedPrescriptionTest {
             VALID_END_DATE,
             VALID_EXPIRY_DATE,
             VALID_STOCK,
+            VALID_CONSUMPTION,
+            false,
             null
         );
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName());

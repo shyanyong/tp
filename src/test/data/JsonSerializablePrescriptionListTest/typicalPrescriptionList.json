@@ -8,6 +8,8 @@
     "endDate" : "23/02/2024",
     "expiryDate" : "12/12/2024",
     "totalStock" : "100",
+    "consumptionCount" : "0",
+    "isCompleted" : false,
     "note" : "Take after food"
   }, {
     "name" : "Propranolol",
@@ -17,6 +19,8 @@
     "endDate" : "20/12/2024",
     "expiryDate" : "22/07/2024",
     "totalStock" : "500",
+    "consumptionCount" : "0",
+    "isCompleted" : false,
     "note" : "Take after food"
   }, {
     "name" : "Ergotamine",
@@ -26,6 +30,8 @@
     "endDate" : "20/12/2024",
     "expiryDate" : "22/07/2024",
     "totalStock" : "50",
+    "consumptionCount" : "0",
+    "isCompleted" : false,
     "note" : "Take before food"
   }, {
     "name" : "Naproxen",
@@ -35,6 +41,8 @@
     "endDate" : "20/06/2024",
     "expiryDate" : "13/01/2025",
     "totalStock" : "75",
+    "consumptionCount" : "0",
+    "isCompleted" : false,
     "note" : "Take before food"
   }, {
     "name" : "Zolmitriptan Rapimelt",
@@ -44,6 +52,8 @@
     "endDate" : "12/10/2024",
     "expiryDate" : "15/03/2025",
     "totalStock" : "20",
+    "consumptionCount" : "0",
+    "isCompleted" : false,
     "note" : "Drowsy"
   } ]
 }

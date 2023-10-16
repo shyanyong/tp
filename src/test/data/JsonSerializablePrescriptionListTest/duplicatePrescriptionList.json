@@ -7,6 +7,8 @@
     "endDate" : "25/12/2023",
     "expiryDate" : "01/12/2024",
     "totalStock" : "100",
+    "consumptionCount" : "51",
+    "isCompleted" : true,
     "note" : "Test note"
   }, {
     "name" : "Aspirin",
@@ -16,6 +18,8 @@
     "endDate" : "25/12/2023",
     "expiryDate" : "01/12/2024",
     "totalStock" : "100",
+    "consumptionCount" : "51",
+    "isCompleted" : true,
     "note" : "Test note"
   } ]
 }
