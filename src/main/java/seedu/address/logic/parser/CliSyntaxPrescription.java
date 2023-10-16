@@ -16,5 +16,5 @@ public class CliSyntaxPrescription {
     public static final Prefix PREFIX_TOTAL_STOCK = new Prefix("ts/");
     public static final Prefix PREFIX_NOTE = new Prefix("n/");
     public static final Prefix PREFIX_CONSUMPTION = new Prefix("c/");
-
+    public static final Prefix PREFIX_INDEX = new Prefix("i/");
 }
