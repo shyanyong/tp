@@ -120,7 +120,7 @@ class JsonAdaptedPrescription {
         if (endDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Date.isValidDate(expiryDate)) {
+        if (!Date.isValidDate(endDate)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
         final Date modelEndDate = new Date(endDate);

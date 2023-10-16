@@ -23,4 +23,9 @@ public class ListPrescriptionCommand extends CommandPrescription {
         model.updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ListPrescriptionCommand;
+    }
 }
