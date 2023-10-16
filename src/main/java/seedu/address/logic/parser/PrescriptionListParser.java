@@ -7,8 +7,8 @@ import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.CommandPrescription;
 import seedu.address.logic.commands.AddPrescriptionCommand;
+import seedu.address.logic.commands.CommandPrescription;
 import seedu.address.logic.commands.DeletePrescriptionCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPrescriptionCommand;
