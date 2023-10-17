@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.prescription.Prescription;
 
+
 /**
  * Container for user visible messages.
  */
@@ -14,11 +15,11 @@ public class MessagesPrescription {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX = "The prescription index"
+    public static final String MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX = "The prescription index "
             + "provided is invalid";
     public static final String MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW = "%1$d prescriptions listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
-                "Multiple values specified for the following single-valued field(s): ";
+            "Multiple values specified for the following single-valued field(s): ";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
