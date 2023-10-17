@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandPrescriptionTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandPrescriptionTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.TakePrescriptionCommand.MESSAGE_INSUFFICIENT_STOCK;
@@ -15,6 +17,7 @@ import seedu.address.model.ModelManagerPrescription;
 import seedu.address.model.ModelPrescription;
 import seedu.address.model.PrescriptionList;
 import seedu.address.model.UserPrefsPrescription;
+import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.SameNamePredicate;
 import seedu.address.testutil.PrescriptionBuilder;
@@ -105,5 +108,27 @@ public class TakePrescriptionCommandTest {
                 prescriptionToTake.getName(), dosesToTake);
 
         assertCommandFailure(takePrescriptionCommand, model, TakePrescriptionCommand.MESSAGE_PRESCRIPTION_NOT_FOUND);
+    }
+
+    @Test
+    public void equals() {
+        Name name1 = new Name("Aspirin");
+        Name name2 = new Name("Panadol");
+        int doses1 = 2;
+        int doses2 = 1;
+
+        TakePrescriptionCommand command1 = new TakePrescriptionCommand(name1, doses1);
+        TakePrescriptionCommand command2 = new TakePrescriptionCommand(name1, doses1);
+        TakePrescriptionCommand command3 = new TakePrescriptionCommand(name2, doses1);
+        TakePrescriptionCommand command4 = new TakePrescriptionCommand(name1, doses2);
+
+        // Test for equality
+        assertTrue(command1.equals(command2)); // Same name and doses
+        assertTrue(command2.equals(command1)); // Test for symmetry
+        assertFalse(command1.equals(command3)); // Different names
+        assertFalse(command1.equals(command4)); // Different doses
+
+        // Test for non-equality
+        assertFalse(command1.equals(null)); // Null object
     }
 }
