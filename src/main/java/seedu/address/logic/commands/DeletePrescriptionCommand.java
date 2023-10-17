@@ -29,7 +29,7 @@ public class DeletePrescriptionCommand extends CommandPrescription {
 
     public static final String MESSAGE_PRESCRIPTION_NOT_FOUND = "This prescription does not exist in the prescription "
             + "list";
-    private static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Prescription deleted: %1$s";
+    public static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Prescription deleted: %1$s";
 
 
     private final Index targetIndex;
