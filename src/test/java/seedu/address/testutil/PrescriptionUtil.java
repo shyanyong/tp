@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_CONSUMPTION;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_EXPIRY_DATE;
