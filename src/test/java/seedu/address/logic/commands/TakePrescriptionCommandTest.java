@@ -122,6 +122,9 @@ public class TakePrescriptionCommandTest {
         TakePrescriptionCommand command3 = new TakePrescriptionCommand(name2, doses1);
         TakePrescriptionCommand command4 = new TakePrescriptionCommand(name1, doses2);
 
+        // Same object
+        assertTrue(command1.equals(command1));
+
         // Test for equality
         assertTrue(command1.equals(command2)); // Same name and doses
         assertTrue(command2.equals(command1)); // Test for symmetry

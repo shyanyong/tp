@@ -1,5 +1,6 @@
 package seedu.address.model.prescription;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -21,10 +22,8 @@ public class ConsumptionCount {
      * @param isCompleted      A flag indicating if the prescription is completed.
      */
     public ConsumptionCount(String consumptionCount, Boolean isCompleted) {
+        requireNonNull(isCompleted);
         checkArgument(isValidConsumptionCount(consumptionCount), MESSAGE_CONSTRAINTS);
-        if (isCompleted != null && !(isCompleted instanceof Boolean)) {
-            throw new IllegalArgumentException("isCompleted must be a Boolean or null.");
-        }
         this.consumptionCount = consumptionCount;
         this.isCompleted = isCompleted;
     }

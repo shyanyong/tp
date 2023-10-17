@@ -1,5 +1,6 @@
 package seedu.address.model.prescription;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -9,8 +10,21 @@ import org.junit.jupiter.api.Test;
 public class ConsumptionCountTest {
 
     @Test
+    public void constructor_validValues_success() {
+        // Valid values, isCompleted is set to true
+        ConsumptionCount consumptionCount1 = new ConsumptionCount("5", true);
+        assertTrue(consumptionCount1.getIsCompleted());
+
+        // Valid values, isCompleted is set to false
+        ConsumptionCount consumptionCount2 = new ConsumptionCount("0", false);
+        assertFalse(consumptionCount2.getIsCompleted());
+
+    }
+
+    @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new ConsumptionCount(null, false));
+        assertThrows(NullPointerException.class, () -> new ConsumptionCount("0", null));
     }
 
     @Test
@@ -18,12 +32,6 @@ public class ConsumptionCountTest {
         String invalidConsumptionCount = "";
         assertThrows(IllegalArgumentException.class, () ->
                 new ConsumptionCount(invalidConsumptionCount, false));
-    }
-
-    @Test
-    public void constructor_invalidIsCompleted_throwsIllegalArgumentException() {
-        String invalidIsCompleted = "";
-        assertThrows(IllegalArgumentException.class, () -> new ConsumptionCount(invalidIsCompleted, false));
     }
 
     @Test
@@ -55,6 +63,15 @@ public class ConsumptionCountTest {
         consumptionCount.incrementCount(5);
         assertTrue(consumptionCount.getConsumptionCount().equals("6"));
 
+    }
+
+    @Test
+    public void setConsumptionCount() {
+        ConsumptionCount consumptionCount = new ConsumptionCount("0", false);
+        ConsumptionCount consumptionCount1 = new ConsumptionCount("1", false);
+        // Test setIsCompleted
+        consumptionCount.setConsumptionCount("1");
+        assertEquals(consumptionCount.getConsumptionCount(), consumptionCount1.getConsumptionCount());
     }
 
     @Test
