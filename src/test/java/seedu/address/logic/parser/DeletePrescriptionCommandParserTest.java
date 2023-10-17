@@ -1,11 +1,13 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.commons.core.index.Index;
 import static seedu.address.logic.MessagesPrescription.MESSAGE_INVALID_COMMAND_FORMAT;
-import seedu.address.logic.commands.DeletePrescriptionCommand;
 import static seedu.address.logic.parser.CommandPrescriptionParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandPrescriptionParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.DeletePrescriptionCommand;
 
 public class DeletePrescriptionCommandParserTest {
     private DeletePrescriptionCommandParser parser = new DeletePrescriptionCommandParser();
