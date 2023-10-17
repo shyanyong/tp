@@ -7,9 +7,7 @@ import static seedu.address.logic.commands.CommandPrescriptionTestUtil.assertCom
 import static seedu.address.logic.commands.CommandPrescriptionTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandPrescriptionTestUtil.showPrescriptionAtIndex;
 import static seedu.address.logic.commands.DeletePrescriptionCommand.MESSAGE_DELETE_PRESCRIPTION_SUCCESS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRESCRIPTION;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PRESCRIPTION;
 import static seedu.address.testutil.TypicalPrescriptions.getTypicalPrescriptionList;
 
@@ -17,6 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.ModelPrescription;
+import seedu.address.model.prescription.Prescription;
 
 
 /**
@@ -24,8 +24,8 @@ import seedu.address.commons.core.index.Index;
  * {@code DeletePrescriptionCommand}.
  */
 public class DeletePrescriptionCommandTest {
-    private seedu.address.model.ModelPrescription model;
-    private seedu.address.model.ModelPrescription expectedModel;
+    private ModelPrescription model;
+    private ModelPrescription expectedModel;
 
     @BeforeEach
     public void setUp() {
@@ -36,9 +36,9 @@ public class DeletePrescriptionCommandTest {
     }
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        seedu.address.model.prescription.Prescription prescriptionToDelete = model.getFilteredPrescriptionList()
+        Prescription prescriptionToDelete = model.getFilteredPrescriptionList()
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
-        DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(INDEX_FIRST_PERSON);
+        DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(INDEX_FIRST_PRESCRIPTION);
 
         String expectedMessage = String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
                 seedu.address.logic.MessagesPrescription.format(prescriptionToDelete));
@@ -61,7 +61,7 @@ public class DeletePrescriptionCommandTest {
     public void execute_validIndexFilteredList_success() {
         showPrescriptionAtIndex(model, INDEX_FIRST_PRESCRIPTION);
 
-        seedu.address.model.prescription.Prescription prescriptionToDelete = model.getFilteredPrescriptionList()
+        Prescription prescriptionToDelete = model.getFilteredPrescriptionList()
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
         DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(INDEX_FIRST_PRESCRIPTION);
 
@@ -90,15 +90,18 @@ public class DeletePrescriptionCommandTest {
 
     @Test
     public void equals() {
-        DeletePrescriptionCommand deleteFirstPrescriptionCommand = new DeletePrescriptionCommand(INDEX_FIRST_PERSON);
-        DeletePrescriptionCommand deleteSecondPrescriptionCommand = new DeletePrescriptionCommand(INDEX_SECOND_PERSON);
+        DeletePrescriptionCommand deleteFirstPrescriptionCommand =
+                new DeletePrescriptionCommand(INDEX_FIRST_PRESCRIPTION);
+        DeletePrescriptionCommand deleteSecondPrescriptionCommand =
+                new DeletePrescriptionCommand(INDEX_SECOND_PRESCRIPTION);
 
         // same object -> returns true
         assertTrue(deleteFirstPrescriptionCommand.equals(deleteFirstPrescriptionCommand));
 
         // same values -> returns true
-        DeletePrescriptionCommand deleteFirstPrescriptionCommandCp = new DeletePrescriptionCommand(INDEX_FIRST_PERSON);
-        assertTrue(deleteFirstPrescriptionCommand.equals(deleteFirstPrescriptionCommandCp));
+        DeletePrescriptionCommand deleteFirstPrescriptionCommandCopy =
+                new DeletePrescriptionCommand(INDEX_SECOND_PRESCRIPTION);
+        assertTrue(deleteFirstPrescriptionCommand.equals(deleteFirstPrescriptionCommandCopy));
 
         // different types -> returns false
         assertFalse(deleteFirstPrescriptionCommand.equals(1));
@@ -121,7 +124,7 @@ public class DeletePrescriptionCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPrescription(seedu.address.model.ModelPrescription model) {
+    private void showNoPrescription(ModelPrescription model) {
         model.updateFilteredPrescriptionList(p -> false);
 
         assertTrue(model.getFilteredPrescriptionList().isEmpty());

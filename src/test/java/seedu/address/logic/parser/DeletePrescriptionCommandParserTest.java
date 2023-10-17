@@ -20,9 +20,23 @@ public class DeletePrescriptionCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_failure() {
+    public void parse_zeroIndex_failure() {
         // Valid index
         assertParseFailure(parser, " i/0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeletePrescriptionCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_negativeIndex_failure() {
+        // Valid index
+        assertParseFailure(parser, " i/-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeletePrescriptionCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_nonNumberIndex_failure() {
+        // Valid index
+        assertParseFailure(parser, " i/abc", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeletePrescriptionCommand.MESSAGE_USAGE));
     }
 
@@ -30,6 +44,13 @@ public class DeletePrescriptionCommandParserTest {
     public void parse_emptyPreamble_failure() {
         // No index specified
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeletePrescriptionCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_whitespacePreamble_failure() {
+        // No index specified
+        assertParseFailure(parser, " ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeletePrescriptionCommand.MESSAGE_USAGE));
     }
 
