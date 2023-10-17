@@ -78,7 +78,7 @@ public class PrescriptionCard extends UiPart<Region> {
         startDate.setText(startDateHeader + prescription.getStartDate().fullDate);
         endDate.setText(endDateHeader + prescription.getEndDate().fullDate);
         expiryDate.setText(expiryDateHeader + prescription.getExpiryDate().fullDate);
-        totalStock.setText(totalStockHeader + prescription.getTotalStock().fullStock);
+        totalStock.setText(totalStockHeader + prescription.getTotalStock().getFullStock());
         consumptionCount.setText(consumptionCountHeader + prescription.getConsumptionCount().getConsumptionCount()
                                 + "/" + prescription.getDosage().fullDosage);
         note.setText(noteHeader + prescription.getNote().fullNote);

@@ -19,6 +19,7 @@ public class TypicalPrescriptions {
         .withEndDate("23/02/2024")
         .withExpiryDate("12/12/2024")
         .withStock("100")
+        .withConsumptionCount("0")
         .withNote("Take after food")
         .build();
 
@@ -29,6 +30,7 @@ public class TypicalPrescriptions {
         .withEndDate("20/12/2024")
         .withExpiryDate("22/07/2024")
         .withStock("500")
+        .withConsumptionCount("0")
         .withNote("Take after food")
         .build();
 
@@ -39,6 +41,7 @@ public class TypicalPrescriptions {
         .withEndDate("20/12/2024")
         .withExpiryDate("22/07/2024")
         .withStock("50")
+        .withConsumptionCount("0")
         .withNote("Take before food")
         .build();
 
@@ -49,6 +52,7 @@ public class TypicalPrescriptions {
         .withEndDate("20/06/2024")
         .withExpiryDate("13/01/2025")
         .withStock("75")
+        .withConsumptionCount("0")
         .withNote("Take before food")
         .build();
 
@@ -59,6 +63,7 @@ public class TypicalPrescriptions {
         .withEndDate("12/10/2024")
         .withExpiryDate("15/03/2025")
         .withStock("20")
+        .withConsumptionCount("0")
         .withNote("Drowsy")
         .build();
 
@@ -70,6 +75,7 @@ public class TypicalPrescriptions {
         .withEndDate("12/10/2024")
         .withExpiryDate("15/03/2025")
         .withStock("50")
+        .withConsumptionCount("0")
         .withNote("Take after food")
         .build();
 
@@ -80,6 +86,7 @@ public class TypicalPrescriptions {
         .withEndDate("12/10/2024")
         .withExpiryDate("15/03/2025")
         .withStock("20")
+        .withConsumptionCount("0")
         .withNote("Take before food")
         .build();
 
