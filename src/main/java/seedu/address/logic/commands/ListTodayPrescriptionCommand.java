@@ -43,6 +43,6 @@ public class ListTodayPrescriptionCommand extends CommandPrescription {
 
     @Override
     public boolean equals(Object other) {
-        return other instanceof ListPrescriptionCommand;
+        return other instanceof ListTodayPrescriptionCommand;
     }
 }
