@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_CONSUMPTION;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_EXPIRY_DATE;
@@ -36,6 +37,7 @@ public class PrescriptionUtil {
         sb.append(PREFIX_END_DATE + prescription.getEndDate().fullDate + " ");
         sb.append(PREFIX_EXPIRY_DATE + prescription.getExpiryDate().fullDate + " ");
         sb.append(PREFIX_TOTAL_STOCK + prescription.getTotalStock().getFullStock() + " ");
+        sb.append(PREFIX_CONSUMPTION + prescription.getConsumptionCount().getConsumptionCount() + " ");
         sb.append(PREFIX_NOTE + prescription.getNote().fullNote + " ");
         // person.getTags().stream().forEach(
         //     s -> sb.append(PREFIX_TAG + s.tagName + " ")

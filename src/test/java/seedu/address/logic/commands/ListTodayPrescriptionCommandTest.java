@@ -96,7 +96,7 @@ public class ListTodayPrescriptionCommandTest {
         assertCommandSuccess(new ListTodayPrescriptionCommand(), model, expectedMessage, expectedModel);
     }
 
-    @Test public void execute_validMonthlyMedicationsForToday_listTodaySucess() {
+    @Test public void execute_validMonthlyMedicationsForToday_listTodaySuccess() {
         String expectedMessage = ListTodayPrescriptionCommand.MESSAGE_SUCCESS;
         model.setPrescriptionList(new PrescriptionList());
         assertTrue(model.getFilteredPrescriptionList().isEmpty());
