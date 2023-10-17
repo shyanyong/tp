@@ -15,7 +15,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.MessagesPrescription;
+import seedu.address.model.ModelManagerPrescription;
 import seedu.address.model.ModelPrescription;
+import seedu.address.model.UserPrefsPrescription;
 import seedu.address.model.prescription.Prescription;
 
 
@@ -29,10 +32,10 @@ public class DeletePrescriptionCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new seedu.address.model.ModelManagerPrescription(getTypicalPrescriptionList(),
-                new seedu.address.model.UserPrefsPrescription());
-        expectedModel = new seedu.address.model.ModelManagerPrescription(model.getPrescriptionList(),
-                new seedu.address.model.UserPrefsPrescription());
+        model = new ModelManagerPrescription(getTypicalPrescriptionList(),
+                new UserPrefsPrescription());
+        expectedModel = new ModelManagerPrescription(model.getPrescriptionList(),
+                new UserPrefsPrescription());
     }
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -41,7 +44,7 @@ public class DeletePrescriptionCommandTest {
         DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(INDEX_FIRST_PRESCRIPTION);
 
         String expectedMessage = String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
-                seedu.address.logic.MessagesPrescription.format(prescriptionToDelete));
+                MessagesPrescription.format(prescriptionToDelete));
 
         expectedModel.deletePrescription(prescriptionToDelete);
 
@@ -54,7 +57,7 @@ public class DeletePrescriptionCommandTest {
         DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(outOfBoundIndex);
 
         assertCommandFailure(deletePrescriptionCommand, model,
-                seedu.address.logic.MessagesPrescription.MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX);
+                MessagesPrescription.MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX);
     }
 
     @Test
@@ -66,7 +69,7 @@ public class DeletePrescriptionCommandTest {
         DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(INDEX_FIRST_PRESCRIPTION);
 
         String expectedMessage = String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
-                seedu.address.logic.MessagesPrescription.format(prescriptionToDelete));
+                MessagesPrescription.format(prescriptionToDelete));
 
         expectedModel.deletePrescription(prescriptionToDelete);
         showNoPrescription(expectedModel);
@@ -85,7 +88,7 @@ public class DeletePrescriptionCommandTest {
         DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(outOfBoundIndex);
 
         assertCommandFailure(deletePrescriptionCommand, model,
-                seedu.address.logic.MessagesPrescription.MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX);
+                MessagesPrescription.MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX);
     }
 
     @Test
