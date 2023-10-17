@@ -100,7 +100,7 @@ public class DeletePrescriptionCommandTest {
 
         // same values -> returns true
         DeletePrescriptionCommand deleteFirstPrescriptionCommandCopy =
-                new DeletePrescriptionCommand(INDEX_SECOND_PRESCRIPTION);
+                new DeletePrescriptionCommand(INDEX_FIRST_PRESCRIPTION);
         assertTrue(deleteFirstPrescriptionCommand.equals(deleteFirstPrescriptionCommandCopy));
 
         // different types -> returns false
