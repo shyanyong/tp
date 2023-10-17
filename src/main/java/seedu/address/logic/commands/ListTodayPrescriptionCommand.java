@@ -37,7 +37,12 @@ public class ListTodayPrescriptionCommand extends CommandPrescription {
         if (todayPrescriptions.isEmpty()) {
             return new CommandResult(MESSAGE_EMPTY_LIST);
         } else {
-            return new CommandResult(String.format("%s\n", MESSAGE_SUCCESS));
+            return new CommandResult(String.format("%s", MESSAGE_SUCCESS));
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ListTodayPrescriptionCommand;
     }
 }
