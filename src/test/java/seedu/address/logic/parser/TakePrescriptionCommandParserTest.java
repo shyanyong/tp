@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.MessagesPrescription.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandPrescriptionParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandPrescriptionParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_CONSUMPTION;
 import static seedu.address.logic.parser.CliSyntaxPrescription.PREFIX_NAME;
+import static seedu.address.logic.parser.CommandPrescriptionParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandPrescriptionParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
