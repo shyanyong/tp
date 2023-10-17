@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManagerPrescription;
 import seedu.address.model.ModelPrescription;
+import seedu.address.model.PrescriptionList;
 import seedu.address.model.UserPrefsPrescription;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.SameNamePredicate;
@@ -20,19 +21,24 @@ import seedu.address.testutil.PrescriptionBuilder;
 
 public class TakePrescriptionCommandTest {
     private ModelPrescription model;
-    private ModelPrescription expectedModel;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManagerPrescription(getTypicalPrescriptionList(), new UserPrefsPrescription());
-        expectedModel = new ModelManagerPrescription(model.getPrescriptionList(),
-                new UserPrefsPrescription());
     }
 
     @Test
     public void execute_validDosesToTake_success() throws CommandException {
-        Prescription prescriptionToTake = model.getFilteredPrescriptionList()
-                .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
+        PrescriptionList prescriptionList = new PrescriptionList();
+        Prescription prescriptionToTake = new PrescriptionBuilder()
+                .withConsumptionCount("0")
+                .withStock("100")
+                .build();
+        prescriptionList.addPrescription(prescriptionToTake);
+        ModelPrescription model = new ModelManagerPrescription(prescriptionList, new UserPrefsPrescription());
+        ModelPrescription expectedModel = new ModelManagerPrescription(model.getPrescriptionList(),
+                new UserPrefsPrescription());
+
         int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().getFullStock());
         int dosesToTake = 1; //Valid number of doses
 
@@ -91,7 +97,7 @@ public class TakePrescriptionCommandTest {
     }
 
     @Test
-    public void execute_invalidPrescription() {
+    public void execute_invalidPrescription_throwsCommandException() {
         Prescription prescriptionToTake = new PrescriptionBuilder().withName("Invalid Name").build();
         int dosesToTake = 1; // A valid number of doses
 

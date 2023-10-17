@@ -33,6 +33,9 @@ public class ConsumptionCount {
     public void setIsCompleted(Boolean completed) {
         this.isCompleted = completed;
     }
+    public void setConsumptionCount(String count) {
+        this.consumptionCount = count;
+    }
 
     public String getConsumptionCount() {
         return this.consumptionCount;
