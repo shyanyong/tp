@@ -30,6 +30,12 @@ public class Prescription {
     private final Note note;
     // private final Set<Tag> tags = new HashSet<>();
 
+    public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
+                        Date endDate, Date expiryDate, Stock totalStock, Note note) {
+        this(name, dosage, frequency, startDate, endDate, expiryDate,
+            totalStock, new ConsumptionCount("0", false), note);
+    }
+
     /**
      * Every field must be present and not null.
      */
