@@ -26,9 +26,6 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "1 ";
 
-
-    public static final String MESSAGE_PRESCRIPTION_NOT_FOUND = "This prescription does not exist in the prescription "
-            + "list.";
     public static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Prescription deleted: %1$s.";
 
 

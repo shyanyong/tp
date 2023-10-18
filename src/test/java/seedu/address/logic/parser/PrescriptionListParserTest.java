@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListTodayCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.testutil.PrescriptionBuilder;
@@ -28,6 +29,10 @@ public class PrescriptionListParserTest {
         assertEquals(new AddCommand(prescription), command);
     }
 
+    @Test
+    public void parseCommand_listToday() throws Exception {
+        assertTrue(parser.parseCommand(ListTodayCommand.COMMAND_WORD) instanceof ListTodayCommand);
+    }
     /*
     @Test
     public void parseCommand_clear() throws Exception {

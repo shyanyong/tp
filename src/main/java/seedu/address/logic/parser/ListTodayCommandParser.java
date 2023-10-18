@@ -2,8 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.ListTodayCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -27,13 +25,5 @@ public class ListTodayCommandParser implements Parser<ListTodayCommand> {
         }
 
         return new ListTodayCommand();
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
