@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing PrescriptionList ]===========================");
+        logger.info("=============================[ Initializing BayMeds v.2103 ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
