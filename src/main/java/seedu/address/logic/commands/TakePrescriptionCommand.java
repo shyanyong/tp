@@ -76,4 +76,19 @@ public class TakePrescriptionCommand extends CommandPrescription {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionName));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof TakePrescriptionCommand)) {
+            return false;
+        }
+
+        TakePrescriptionCommand otherCommand = (TakePrescriptionCommand) other;
+        return prescriptionName.equals(otherCommand.prescriptionName)
+                && dosesToTake == otherCommand.dosesToTake;
+    }
 }
