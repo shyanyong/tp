@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Frequency {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Frequencies should only be one of the following (Daily / Weekly / Monthly), and it should not be blank";
+            "Frequencies should only be one of the following (Daily / Weekly / Monthly), and it should not be blank.";
 
     /*
      * The first character of the address must not be a whitespace,

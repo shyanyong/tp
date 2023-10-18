@@ -1,10 +1,17 @@
 package seedu.address.model.prescription;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /**
  * Represents a Prescription's consumption count in the prescription list.
  */
 public class ConsumptionCount {
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "ConsumptionCount should only contain numeric characters, and it should not be blank.";
+
+    public static final String VALIDATION_REGEX = "[0-9]+";
     private String consumptionCount;
     private Boolean isCompleted;
 
@@ -15,6 +22,8 @@ public class ConsumptionCount {
      * @param isCompleted      A flag indicating if the prescription is completed.
      */
     public ConsumptionCount(String consumptionCount, Boolean isCompleted) {
+        requireNonNull(isCompleted);
+        checkArgument(isValidConsumptionCount(consumptionCount), MESSAGE_CONSTRAINTS);
         this.consumptionCount = consumptionCount;
         this.isCompleted = isCompleted;
     }
@@ -33,6 +42,9 @@ public class ConsumptionCount {
     public void setIsCompleted(Boolean completed) {
         this.isCompleted = completed;
     }
+    public void setConsumptionCount(String count) {
+        this.consumptionCount = count;
+    }
 
     public String getConsumptionCount() {
         return this.consumptionCount;
@@ -41,6 +53,14 @@ public class ConsumptionCount {
     public Boolean getIsCompleted() {
         return this.isCompleted;
     }
+
+    /**
+     * Returns true if a given string is a valid dosage.
+     */
+    public static boolean isValidConsumptionCount(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
     @Override
     public String toString() {
         return consumptionCount;
