@@ -90,7 +90,7 @@ public class EditCommand extends Command {
 
         model.setPrescription(prescriptionToEdit, editedPrescription);
         model.updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PRESCRIPTION_SUCCESS, editedPrescription));
+        return new CommandResult(String.format(MESSAGE_EDIT_PRESCRIPTION_SUCCESS, Messages.format(editedPrescription)));
     }
 
     private static Prescription createEditedPrescription(Prescription prescriptionToEdit,

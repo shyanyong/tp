@@ -20,7 +20,7 @@ public class TypicalPrescriptions {
         .withExpiryDate("12/12/2024")
         .withStock("100")
         .withConsumptionCount("0")
-        .withNote("Take after food")
+        .withNote("Take before food")
         .build();
 
     public static final Prescription PROPRANOLOL = new PrescriptionBuilder().withName("Propranolol")
