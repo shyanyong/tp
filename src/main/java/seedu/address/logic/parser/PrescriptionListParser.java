@@ -7,13 +7,13 @@ import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.AddPrescriptionCommand;
-import seedu.address.logic.commands.CommandPrescription;
-import seedu.address.logic.commands.DeletePrescriptionCommand;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListPrescriptionCommand;
-import seedu.address.logic.commands.ListTodayPrescriptionCommand;
-import seedu.address.logic.commands.TakePrescriptionCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListTodayCommand;
+import seedu.address.logic.commands.TakeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -35,7 +35,7 @@ public class PrescriptionListParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public CommandPrescription parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException {
         final java.util.regex.Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -51,16 +51,16 @@ public class PrescriptionListParser {
 
 
         switch (commandWord) {
-        case AddPrescriptionCommand.COMMAND_WORD:
-            return new AddPrescriptionCommandParser().parse(arguments);
-        case ListPrescriptionCommand.COMMAND_WORD:
-            return new ListPrescriptionCommandParser().parse(arguments);
-        case ListTodayPrescriptionCommand.COMMAND_WORD:
-            return new ListTodayPrescriptionCommandParser().parse(arguments);
-        case TakePrescriptionCommand.COMMAND_WORD:
-            return new TakePrescriptionCommandParser().parse(arguments);
-        case DeletePrescriptionCommand.COMMAND_WORD:
-            return new DeletePrescriptionCommandParser().parse(arguments);
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommandParser().parse(arguments);
+        case ListTodayCommand.COMMAND_WORD:
+            return new ListTodayCommandParser().parse(arguments);
+        case TakeCommand.COMMAND_WORD:
+            return new TakeCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

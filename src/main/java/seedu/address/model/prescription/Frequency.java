@@ -18,7 +18,7 @@ public class Frequency {
      */
     public static final String VALIDATION_REGEX = "(Daily|Weekly|Monthly)";
 
-    public final String fullFrequency;
+    private final String fullFrequency;
 
     /**
      * Constructs a {@code Frequency}.

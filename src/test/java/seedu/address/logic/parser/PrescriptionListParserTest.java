@@ -2,15 +2,15 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.MessagesPrescription.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.MessagesPrescription.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddPrescriptionCommand;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListPrescriptionCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.testutil.PrescriptionBuilder;
@@ -23,9 +23,9 @@ public class PrescriptionListParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Prescription prescription = new PrescriptionBuilder().build();
-        AddPrescriptionCommand command = (AddPrescriptionCommand) parser.parseCommand(
+        AddCommand command = (AddCommand) parser.parseCommand(
             PrescriptionUtil.getAddPrescriptionCommand(prescription));
-        assertEquals(new AddPrescriptionCommand(prescription), command);
+        assertEquals(new AddCommand(prescription), command);
     }
 
     /*
@@ -74,7 +74,7 @@ public class PrescriptionListParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListPrescriptionCommand.COMMAND_WORD) instanceof ListPrescriptionCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
     }
 
     @Test

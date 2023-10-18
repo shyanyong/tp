@@ -19,7 +19,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Prescription> {
     @Override
     public boolean test(Prescription prescription) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(prescription.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(prescription.getName().toString(), keyword));
     }
 
     @Override

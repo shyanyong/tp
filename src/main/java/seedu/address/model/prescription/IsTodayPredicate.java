@@ -21,7 +21,7 @@ public class IsTodayPredicate implements Predicate<Prescription> {
         }
         Frequency frequency = prescription.getFrequency();
 
-        switch (frequency.getFrequency()) {
+        switch (frequency.toString()) {
         case "Daily":
             return true;
         case "Weekly":

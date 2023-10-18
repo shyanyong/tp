@@ -10,7 +10,7 @@ import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.UniquePrescriptionList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the prescription-list level
  * Duplicates are not allowed (by .isSamePrescription comparison)
  */
 public class PrescriptionList implements ReadOnlyPrescriptionList {
@@ -31,7 +31,7 @@ public class PrescriptionList implements ReadOnlyPrescriptionList {
     public PrescriptionList() {}
 
     /**
-     * Creates an PrescriptionList using the Prescriptions in the {@code toBeCopied}
+     * Creates a PrescriptionList using the Prescriptions in the {@code toBeCopied}
      */
     public PrescriptionList(ReadOnlyPrescriptionList toBeCopied) {
         this();
@@ -60,7 +60,7 @@ public class PrescriptionList implements ReadOnlyPrescriptionList {
     //// prescription-level operations
 
     /**
-     * Returns true if a prescription with the same identity as {@code prescription} exists in the address book.
+     * Returns true if a prescription with the same identity as {@code prescription} exists in the prescription list.
      */
     public boolean hasPrescription(Prescription prescription) {
         requireNonNull(prescription);
@@ -68,8 +68,8 @@ public class PrescriptionList implements ReadOnlyPrescriptionList {
     }
 
     /**
-     * Adds a prescription to the address book.
-     * The prescription must not already exist in the address book.
+     * Adds a prescription to the prescription list.
+     * The prescription must not already exist in the prescription list.
      */
     public void addPrescription(Prescription p) {
         prescriptions.add(p);
@@ -77,9 +77,9 @@ public class PrescriptionList implements ReadOnlyPrescriptionList {
 
     /**
      * Replaces the given prescription {@code target} in the list with {@code editedPrescription}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the prescription list.
      * The prescription identity of {@code editedPrescription} must not be the same as another
-     * existing prescription in the address book.
+     * existing prescription in the prescription list.
      */
     public void setPrescription(Prescription target, Prescription editedPrescription) {
         requireNonNull(editedPrescription);
@@ -89,7 +89,7 @@ public class PrescriptionList implements ReadOnlyPrescriptionList {
 
     /**
      * Removes {@code key} from this {@code PrescriptionList}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the prescription list.
      */
     public void removePrescription(Prescription key) {
         prescriptions.remove(key);

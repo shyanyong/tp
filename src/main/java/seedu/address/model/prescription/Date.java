@@ -21,7 +21,7 @@ public class Date {
      */
     public static final String VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})/([0-9]{4})";
 
-    public final String fullDate;
+    private final String fullDate;
 
     /**
      * Constructs a {@code Date}.

@@ -72,16 +72,16 @@ public class PrescriptionCard extends UiPart<Region> {
         super(FXML);
         this.prescription = prescription;
         id.setText(displayedIndex + ". ");
-        name.setText(prescription.getName().fullName);
-        dosage.setText(dosageHeader + prescription.getDosage().fullDosage);
-        frequency.setText(frequencyHeader + prescription.getFrequency().fullFrequency);
-        startDate.setText(startDateHeader + prescription.getStartDate().fullDate);
-        endDate.setText(endDateHeader + prescription.getEndDate().fullDate);
-        expiryDate.setText(expiryDateHeader + prescription.getExpiryDate().fullDate);
-        totalStock.setText(totalStockHeader + prescription.getTotalStock().getFullStock());
+        name.setText(prescription.getName().toString());
+        dosage.setText(dosageHeader + prescription.getDosage().toString());
+        frequency.setText(frequencyHeader + prescription.getFrequency().toString());
+        startDate.setText(startDateHeader + prescription.getStartDate().toString());
+        endDate.setText(endDateHeader + prescription.getEndDate().toString());
+        expiryDate.setText(expiryDateHeader + prescription.getExpiryDate().toString());
+        totalStock.setText(totalStockHeader + prescription.getTotalStock().toString());
         consumptionCount.setText(consumptionCountHeader + prescription.getConsumptionCount().getConsumptionCount()
-                                + "/" + prescription.getDosage().fullDosage);
-        note.setText(noteHeader + prescription.getNote().fullNote);
+                                + "/" + prescription.getDosage().toString());
+        note.setText(noteHeader + prescription.getNote().toString());
         // prescription.getTags().stream()
         //         .sorted(Comparator.comparing(tag -> tag.tagName))
         //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

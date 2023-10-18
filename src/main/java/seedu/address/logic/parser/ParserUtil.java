@@ -2,18 +2,19 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
+// import java.util.Collection;
+// import java.util.HashSet;
+// import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.prescription.Date;
+import seedu.address.model.prescription.Dosage;
+import seedu.address.model.prescription.Frequency;
+import seedu.address.model.prescription.Name;
+import seedu.address.model.prescription.Note;
+import seedu.address.model.prescription.Stock;
+// import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -51,74 +52,134 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String Dosage} into a {@code Dosage}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code dosage} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static Dosage parseDosage(String dosage) throws ParseException {
+        requireNonNull(dosage);
+        String trimmedDosage = dosage.trim();
+        if (!Dosage.isValidDosage(trimmedDosage)) {
+            throw new ParseException(Dosage.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Dosage(trimmedDosage);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String Frequency} into a {@code Frequency}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code frequency} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Frequency parseFrequency(String frequency) throws ParseException {
+        requireNonNull(frequency);
+        String trimmedFrequency = frequency.trim();
+        if (!Frequency.isValidFrequency(trimmedFrequency)) {
+            throw new ParseException(Frequency.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new Frequency(trimmedFrequency);
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String StartDate} into a {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code startDate} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Date parseStartDate(String startDate) throws ParseException {
+        requireNonNull(startDate);
+        String trimmedStartDate = startDate.trim();
+        if (!Date.isValidDate(trimmedStartDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new Date(trimmedStartDate);
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String EndDate} into a {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code endDate} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static Date parseEndDate(String endDate) throws ParseException {
+        requireNonNull(endDate);
+        String trimmedEndDate = endDate.trim();
+        if (!Date.isValidDate(trimmedEndDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new Date(trimmedEndDate);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code String ExpiryDate} into a {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code expiryDate} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Date parseExpiryDate(String expiryDate) throws ParseException {
+        requireNonNull(expiryDate);
+        String trimmedExpiryDate = expiryDate.trim();
+        if (!Date.isValidDate(trimmedExpiryDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return tagSet;
+        return new Date(trimmedExpiryDate);
     }
+
+    /**
+     * Parses a {@code String TotalStock} into a {@code Stock}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code totalStock} is invalid.
+     */
+    public static Stock parseTotalStock(String totalStock) throws ParseException {
+        requireNonNull(totalStock);
+        String trimmedTotalStock = totalStock.trim();
+        if (!Stock.isValidStock(trimmedTotalStock)) {
+            throw new ParseException(Stock.MESSAGE_CONSTRAINTS);
+        }
+        return new Stock(trimmedTotalStock);
+    }
+
+    /**
+     * Parses a {@code String Note} into a {@code Note}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code note} is invalid.
+     */
+    public static Note parseNote(String note) throws ParseException {
+        requireNonNull(note);
+        String trimmedNote = note.trim();
+        if (!Note.isValidNote(trimmedNote)) {
+            throw new ParseException(Frequency.MESSAGE_CONSTRAINTS);
+        }
+        return new Note(trimmedNote);
+    }
+
+    // /**
+    //  * Parses a {@code String tag} into a {@code Tag}.
+    //  * Leading and trailing whitespaces will be trimmed.
+    //  *
+    //  * @throws ParseException if the given {@code tag} is invalid.
+    //  */
+    // public static Tag parseTag(String tag) throws ParseException {
+    //     requireNonNull(tag);
+    //     String trimmedTag = tag.trim();
+    //     if (!Tag.isValidTagName(trimmedTag)) {
+    //         throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    //     }
+    //     return new Tag(trimmedTag);
+    // }
+
+    // /**
+    //  * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+    //  */
+    // public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+    //     requireNonNull(tags);
+    //     final Set<Tag> tagSet = new HashSet<>();
+    //     for (String tagName : tags) {
+    //         tagSet.add(parseTag(tagName));
+    //     }
+    //     return tagSet;
+    // }
 }

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's dosage in the address book.
+ * Represents a prescription's dosage in the prescription list.
  * Guarantees: immutable; is valid as declared in {@link #isValidDosage(String)}
  */
 public class Dosage {
@@ -18,7 +18,7 @@ public class Dosage {
      */
     public static final String VALIDATION_REGEX = "[0-9]+";
 
-    public final String fullDosage;
+    private final String fullDosage;
 
     /**
      * Constructs a {@code Dosage}.

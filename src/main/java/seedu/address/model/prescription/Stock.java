@@ -38,10 +38,6 @@ public class Stock {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public String getFullStock() {
-        return fullStock;
-    }
-
     public void setFullStock(String fullStock) {
         this.fullStock = fullStock;
     }

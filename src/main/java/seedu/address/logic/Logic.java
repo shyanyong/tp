@@ -7,11 +7,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyPrescriptionList;
+import seedu.address.model.prescription.Prescription;
 
 /**
- * API of the Logic component
+ * API of the LogicPrescription component
  */
 public interface Logic {
     /**
@@ -24,19 +24,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the PrescriptionList.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getPrescriptionList()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyPrescriptionList getPrescriptionList();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of prescriptions */
+    ObservableList<Prescription> getFilteredPrescriptionList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' prescription list file path.
      */
-    Path getAddressBookFilePath();
+    Path getPrescriptionListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

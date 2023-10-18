@@ -14,15 +14,15 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path prescriptionListFilePath = Paths.get("data" , "prescriptionList.json");
 
     /**
-     * Creates a {@code UserPrefs} with default values.
+     * Creates a {@code UserPrefsPrescriptionPrescription} with default values.
      */
     public UserPrefs() {}
 
     /**
-     * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
+     * Creates a {@code UserPrefsPrescription} with the prefs in {@code userPrefs}.
      */
     public UserPrefs(ReadOnlyUserPrefs userPrefs) {
         this();
@@ -30,12 +30,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     /**
-     * Resets the existing data of this {@code UserPrefs} with {@code newUserPrefs}.
+     * Resets the existing data of this {@code UserPrefsPrescription} with {@code newUserPrefsPrescription}.
      */
-    public void resetData(ReadOnlyUserPrefs newUserPrefs) {
-        requireNonNull(newUserPrefs);
-        setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+    public void resetData(ReadOnlyUserPrefs newUserPrefsPrescription) {
+        requireNonNull(newUserPrefsPrescription);
+        setGuiSettings(newUserPrefsPrescription.getGuiSettings());
+        setPrescriptionListFilePath(newUserPrefsPrescription.getPrescriptionListFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +47,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getPrescriptionListFilePath() {
+        return prescriptionListFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setPrescriptionListFilePath(Path prescriptionListFilePath) {
+        requireNonNull(prescriptionListFilePath);
+        this.prescriptionListFilePath = prescriptionListFilePath;
     }
 
     @Override
@@ -67,21 +67,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
             return false;
         }
 
-        UserPrefs otherUserPrefs = (UserPrefs) other;
-        return guiSettings.equals(otherUserPrefs.guiSettings)
-                && addressBookFilePath.equals(otherUserPrefs.addressBookFilePath);
+        UserPrefs otherUserPrefsPrescription = (UserPrefs) other;
+        return guiSettings.equals(otherUserPrefsPrescription.guiSettings)
+                && prescriptionListFilePath.equals(otherUserPrefsPrescription.prescriptionListFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, prescriptionListFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + prescriptionListFilePath);
         return sb.toString();
     }
 
