@@ -36,16 +36,16 @@ public class ConsumptionCountTest {
 
     @Test
     public void isValidConsumptionCount() {
-        // null dosage
+        // null consumptionCount
         assertThrows(NullPointerException.class, () -> ConsumptionCount.isValidConsumptionCount(null));
 
-        // invalid dosage
+        // invalid consumptionCount
         assertFalse(ConsumptionCount.isValidConsumptionCount("")); // empty string
         assertFalse(ConsumptionCount.isValidConsumptionCount(" ")); // spaces only
         assertFalse(ConsumptionCount.isValidConsumptionCount("^")); // non-alphanumeric characters
         assertFalse(ConsumptionCount.isValidConsumptionCount("a")); // alphabets
 
-        // valid dosage
+        // valid consumptionCount
         assertTrue(ConsumptionCount.isValidConsumptionCount("1")); // single digit
         assertTrue(ConsumptionCount.isValidConsumptionCount("12")); // double digit
         assertTrue(ConsumptionCount.isValidConsumptionCount("02")); // trailing zero
