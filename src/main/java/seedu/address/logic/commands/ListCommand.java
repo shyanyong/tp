@@ -19,7 +19,7 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all prescriptions.";
 
-    public static final String MESSAGE_EMPTY_LIST = "No medications found.";
+    public static final String MESSAGE_EMPTY_LIST = "No prescriptions found.";
 
     @Override
     public CommandResult execute(Model model) {
