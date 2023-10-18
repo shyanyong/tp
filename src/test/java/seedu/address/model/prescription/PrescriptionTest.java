@@ -3,8 +3,8 @@ package seedu.address.model.prescription;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandPrescriptionTestUtil.VALID_NAME_PROPRANOLOL;
-import static seedu.address.logic.commands.CommandPrescriptionTestUtil.VALID_START_DATE_PROPRANOLOL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PROPRANOLOL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_PROPRANOLOL;
 import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 import static seedu.address.testutil.TypicalPrescriptions.PROPRANOLOL;
 

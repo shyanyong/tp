@@ -18,7 +18,7 @@ public class Note {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullNote;
+    private final String fullNote;
 
     /**
      * Constructs a {@code Note}.

@@ -67,16 +67,16 @@ class JsonAdaptedPrescription {
      * Converts a given {@code Prescription} into this class for Jackson use.
      */
     public JsonAdaptedPrescription(Prescription source) {
-        name = source.getName().fullName;
-        dosage = source.getDosage().fullDosage;
-        frequency = source.getFrequency().fullFrequency;
-        startDate = source.getStartDate().fullDate;
-        endDate = source.getEndDate().fullDate;
-        expiryDate = source.getExpiryDate().fullDate;
-        totalStock = source.getTotalStock().getFullStock();
-        consumptionCount = source.getConsumptionCount().getConsumptionCount();
+        name = source.getName().toString();
+        dosage = source.getDosage().toString();
+        frequency = source.getFrequency().toString();
+        startDate = source.getStartDate().toString();
+        endDate = source.getEndDate().toString();
+        expiryDate = source.getExpiryDate().toString();
+        totalStock = source.getTotalStock().toString();
+        consumptionCount = source.getConsumptionCount().toString();
         isCompleted = source.getConsumptionCount().getIsCompleted();
-        note = source.getNote().fullNote;
+        note = source.getNote().toString();
         // tags.addAll(source.getTags().stream()
         //         .map(JsonAdaptedTag::new)
         //         .collect(Collectors.toList()));
@@ -151,9 +151,8 @@ class JsonAdaptedPrescription {
         final Stock modelTotalStock = new Stock(totalStock);
 
         if (consumptionCount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ConsumptionCount"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Stock.class.getSimpleName()));
         }
-
         final ConsumptionCount modelConsumptionCount = new ConsumptionCount(consumptionCount, isCompleted);
 
         if (note == null) {
