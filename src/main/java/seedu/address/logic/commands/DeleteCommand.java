@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.prescription.Prescription;
 
 /**
- * Adds a person to the address book.
+ * Deletes a prescription from prescription list.
  */
 public class DeleteCommand extends Command {
 

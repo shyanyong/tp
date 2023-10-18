@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.PrescriptionList;
 import seedu.address.model.prescription.NameContainsKeywordsPredicate;
 import seedu.address.model.prescription.Prescription;
+import seedu.address.testutil.EditPrescriptionDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -41,8 +42,10 @@ public class CommandTestUtil {
     public static final String VALID_EXPIRY_DATE_ASPIRIN = "12/12/2024";
     public static final String VALID_EXPIRY_DATE_PROPRANOLOL = "22/07/2024";
     public static final String VALID_STOCK_ASPIRIN = "100";
+    public static final String VALID_CONSUMPTION_ASPIRIN = "1";
+    public static final String VALID_CONSUMPTION_PROPRANOLOL = "2";
     public static final String VALID_STOCK_PROPRANOLOL = "500";
-    public static final String VALID_NOTE_ASPIRIN = "Take after food";
+    public static final String VALID_NOTE_ASPIRIN = "Take before food";
     public static final String VALID_NOTE_PROPRANOLOL = "Take after food";
     // public static final String VALID_TAG_HUSBAND = "husband";
     // public static final String VALID_TAG_FRIEND = "friend";
@@ -80,19 +83,21 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    /*
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditPrescriptionDescriptor DESC_ASPIRIN;
+    public static final EditCommand.EditPrescriptionDescriptor DESC_PROPRANOLOL;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-            .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_ASPIRIN = new EditPrescriptionDescriptorBuilder().withName(VALID_NAME_ASPIRIN)
+            .withDosage(VALID_DOSAGE_ASPIRIN).withFrequency(VALID_FREQUENCY_ASPIRIN)
+            .withStartDate(VALID_START_DATE_ASPIRIN).withEndDate(VALID_END_DATE_ASPIRIN)
+            .withExpiryDate(VALID_EXPIRY_DATE_ASPIRIN).withTotalStock(VALID_STOCK_ASPIRIN)
+            .withConsumptionCount(VALID_CONSUMPTION_ASPIRIN).withNote(VALID_NOTE_ASPIRIN).build();
+        DESC_PROPRANOLOL = new EditPrescriptionDescriptorBuilder().withName(VALID_NAME_PROPRANOLOL)
+                .withDosage(VALID_DOSAGE_PROPRANOLOL).withFrequency(VALID_FREQUENCY_PROPRANOLOL)
+                .withStartDate(VALID_START_DATE_PROPRANOLOL).withEndDate(VALID_END_DATE_PROPRANOLOL)
+                .withExpiryDate(VALID_EXPIRY_DATE_PROPRANOLOL).withTotalStock(VALID_STOCK_PROPRANOLOL)
+                .withConsumptionCount(VALID_CONSUMPTION_PROPRANOLOL).withNote(VALID_NOTE_PROPRANOLOL).build();
     }
-    */
 
     /**
      * Executes the given {@code command}, confirms that <br>

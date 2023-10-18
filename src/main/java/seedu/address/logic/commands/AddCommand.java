@@ -17,7 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.prescription.Prescription;
 
 /**
- * Adds a person to the address book.
+ * Adds a prescription to the prescription list.
  */
 public class AddCommand extends Command {
 
