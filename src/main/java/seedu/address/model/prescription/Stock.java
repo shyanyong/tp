@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Stock {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Stocks should only contain numeric characters, and it should not be blank";
+            "Stocks should only contain numeric characters, and it should not be blank.";
 
     /*
      * The first character of the address must not be a whitespace,

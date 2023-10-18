@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Dosage {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Dosages should only contain numeric characters, and it should not be blank";
+            "Dosages should only contain numeric characters, and it should not be blank.";
 
     /*
      * The first character of the address must not be a whitespace,

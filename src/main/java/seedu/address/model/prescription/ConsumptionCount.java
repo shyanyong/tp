@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ConsumptionCount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "ConsumptionCount should only contain numeric characters, and it should not be blank";
+            "ConsumptionCount should only contain numeric characters, and it should not be blank.";
 
     public static final String VALIDATION_REGEX = "[0-9]+";
     private String consumptionCount;
