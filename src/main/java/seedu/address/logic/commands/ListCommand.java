@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRESCRIPTIONS;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.Model;
+import seedu.address.model.prescription.Prescription;
 
 /**
  * Lists all prescriptions stored to the user.
@@ -17,11 +19,20 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all prescriptions.";
 
+    public static final String MESSAGE_EMPTY_LIST = "No prescriptions found.";
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         model.updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+
+        ObservableList<Prescription> prescriptionList = model.getFilteredPrescriptionList();
+        if (prescriptionList.isEmpty()) {
+            return new CommandResult(MESSAGE_EMPTY_LIST);
+        } else {
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
     }
 
     @Override
