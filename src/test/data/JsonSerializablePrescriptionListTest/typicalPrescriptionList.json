@@ -10,7 +10,7 @@
     "totalStock" : "100",
     "consumptionCount" : "0",
     "isCompleted" : false,
-    "note" : "Take after food"
+    "note" : "Take before food"
   }, {
     "name" : "Propranolol",
     "dosage" : "4",
