@@ -10,10 +10,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.prescription.IsValidDatesPredicate;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -48,6 +51,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already "
             + "exists in the prescription list.";
 
+    public static final String MESSAGE_INVALID_DATES = "Start date must be before end date, "
+            + "and end date must be before expiry date.";
+
     private final Prescription toAdd;
 
     /**
@@ -64,6 +70,12 @@ public class AddCommand extends Command {
 
         if (model.hasPrescription(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
+        }
+
+        Predicate<Prescription> isValidDates = new IsValidDatesPredicate();
+
+        if (!isValidDates.test(toAdd)) {
+            throw new CommandException(MESSAGE_INVALID_DATES);
         }
 
         model.addPrescription(toAdd);
