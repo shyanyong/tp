@@ -16,27 +16,54 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_success() {
         // Valid index
-        assertParseSuccess(parser, " i/1", new DeleteCommand(Index.fromOneBased(1)));
+        assertParseSuccess(parser, "1", new DeleteCommand(Index.fromOneBased(1)));
     }
 
     @Test
     public void parse_zeroIndex_failure() {
         // Valid index
-        assertParseFailure(parser, " i/0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_negativeIndex_failure() {
         // Valid index
-        assertParseFailure(parser, " i/-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_nonNumberIndex_failure() {
         // Valid index
-        assertParseFailure(parser, " i/abc", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "abc", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_float_failure() {
+        // Valid index
+        assertParseFailure(parser, "1.0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_fraction_failure() {
+        // Valid index
+        assertParseFailure(parser, "1/2", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_leadingZeroes_success() {
+        // Valid index
+        assertParseSuccess(parser, "001", new DeleteCommand(Index.fromOneBased(1)));
+    }
+
+    @Test
+    public void parse_multipleNumbers_failure() {
+        // Valid index
+        assertParseFailure(parser, "1 2 3", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE));
     }
 
