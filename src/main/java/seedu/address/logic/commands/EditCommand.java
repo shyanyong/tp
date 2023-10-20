@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_INVALID_DATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
@@ -15,6 +16,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRESCRIPTIONS;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -26,6 +28,7 @@ import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
+import seedu.address.model.prescription.IsValidDatesPredicate;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
@@ -86,6 +89,12 @@ public class EditCommand extends Command {
 
         if (!prescriptionToEdit.isSamePrescription(editedPrescription) && model.hasPrescription(editedPrescription)) {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
+        }
+
+        Predicate<Prescription> isValidDates = new IsValidDatesPredicate();
+
+        if (!isValidDates.test(editedPrescription)) {
+            throw new CommandException(MESSAGE_INVALID_DATES);
         }
 
         model.setPrescription(prescriptionToEdit, editedPrescription);
