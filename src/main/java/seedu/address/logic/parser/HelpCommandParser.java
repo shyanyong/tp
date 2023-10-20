@@ -5,7 +5,9 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-
+/**
+ * Parses input arguments and creates a new HelpCommand object
+ */
 public class HelpCommandParser implements Parser<HelpCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the HelpPrescriptionCommand
