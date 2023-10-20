@@ -8,6 +8,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
@@ -139,6 +140,21 @@ public class ParserUtil {
             throw new ParseException(Stock.MESSAGE_CONSTRAINTS);
         }
         return new Stock(trimmedTotalStock);
+    }
+
+    /**
+     * Parses a {@code String ConsumptionCount} into a {@code ConsumptionCount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code consumptionCount} is invalid.
+     */
+    public static ConsumptionCount parseConsumptionCount(String consumptionCount) throws ParseException {
+        requireNonNull(consumptionCount);
+        String trimmedConsumptionCount = consumptionCount.trim();
+        if (!ConsumptionCount.isValidConsumptionCount(trimmedConsumptionCount)) {
+            throw new ParseException(ConsumptionCount.MESSAGE_CONSTRAINTS);
+        }
+        return new ConsumptionCount(trimmedConsumptionCount, false);
     }
 
     /**
