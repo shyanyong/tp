@@ -101,7 +101,7 @@ public class EditPrescriptionDescriptorBuilder {
      * Sets the {@code ConsumptionCount} of the {@code EditPrescriptionDescriptor} that we are building.
      */
     public EditPrescriptionDescriptorBuilder withConsumptionCount(String consumptionCount) {
-        descriptor.setConsumptionCount(new ConsumptionCount(consumptionCount, false));
+        descriptor.setConsumptionCount(new ConsumptionCount(consumptionCount));
         return this;
     }
 

@@ -67,7 +67,7 @@ public class ListTodayCommandTest {
         Date endDate = new Date(endDateString);
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Weekly"),
                 startDate, endDate, endDate, new Stock("100"),
-                new ConsumptionCount("1", false), new Note("test")));
+                new ConsumptionCount("1"), false, new Note("test")));
         expectedModel = new ModelManager(model.getPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
@@ -90,7 +90,7 @@ public class ListTodayCommandTest {
         Date endDate = new Date(endDateString);
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Weekly"),
                 startDate, endDate, endDate, new Stock("100"),
-                new ConsumptionCount("1", false), new Note("test")));
+                new ConsumptionCount("1"), false, new Note("test")));
         expectedModel = new ModelManager(model.getPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
@@ -112,7 +112,7 @@ public class ListTodayCommandTest {
         Date endDate = new Date(endDateString);
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Monthly"),
                 startDate, endDate, endDate, new Stock("100"),
-                new ConsumptionCount("1", false), new Note("test")));
+                new ConsumptionCount("1"), false, new Note("test")));
         expectedModel = new ModelManager(model.getPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
@@ -134,7 +134,7 @@ public class ListTodayCommandTest {
         Date endDate = new Date(endDateString);
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Monthly"),
                 startDate, endDate, endDate, new Stock("100"),
-                new ConsumptionCount("1", false), new Note("test")));
+                new ConsumptionCount("1"), false, new Note("test")));
         expectedModel = new ModelManager(model.getPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());

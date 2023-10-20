@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.TakeCommand;
+import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Name;
 
 
@@ -28,14 +29,14 @@ public class TakeCommandParserTest {
     public void parse_notIntegerDosage_failure() {
         // Invalid dosage (not an integer)
         assertParseFailure(parser, " " + PREFIX_NAME + "Aspirin "
-                + PREFIX_CONSUMPTION + "abc", TakeCommand.MESSAGE_INVALID_DOSE);
+                + PREFIX_CONSUMPTION + "abc", ConsumptionCount.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_negativeIntegerDosage_failure() {
         // Invalid dosage (not an integer)
         assertParseFailure(parser, " " + PREFIX_NAME + "Aspirin "
-                + PREFIX_CONSUMPTION + "-1", TakeCommand.MESSAGE_INVALID_DOSE);
+                + PREFIX_CONSUMPTION + "-1", ConsumptionCount.MESSAGE_CONSTRAINTS);
     }
 
     @Test

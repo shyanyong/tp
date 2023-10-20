@@ -21,7 +21,8 @@ public class PrescriptionBuilder {
     public static final Date DEFAULT_END_DATE = new Date("01/10/2024");
     public static final Date DEFAULT_EXPIRY_DATE = new Date("11/02/2025");
     public static final Stock DEFAULT_STOCK = new Stock("100");
-    public static final ConsumptionCount DEFAULT_CONSUMPTION = new ConsumptionCount("0", false);
+    public static final ConsumptionCount DEFAULT_CONSUMPTION = new ConsumptionCount("0");
+    public static final Boolean DEFAULT_ISCOMPLETED = false;
     public static final Note DEFAULT_NOTE = new Note("Take after food");
 
     private Name name;
@@ -32,6 +33,7 @@ public class PrescriptionBuilder {
     private Date expiryDate;
     private Stock totalStock;
     private ConsumptionCount consumptionCount;
+    private Boolean isCompleted;
     private Note note;
     // private Set<Tag> tags;
 
@@ -47,6 +49,7 @@ public class PrescriptionBuilder {
         expiryDate = DEFAULT_EXPIRY_DATE;
         totalStock = DEFAULT_STOCK;
         consumptionCount = DEFAULT_CONSUMPTION;
+        isCompleted = DEFAULT_ISCOMPLETED;
         note = DEFAULT_NOTE;
         // tags = new HashSet<>();
     }
@@ -63,6 +66,7 @@ public class PrescriptionBuilder {
         expiryDate = prescriptionToCopy.getExpiryDate();
         totalStock = prescriptionToCopy.getTotalStock();
         consumptionCount = prescriptionToCopy.getConsumptionCount();
+        isCompleted = prescriptionToCopy.getIsCompleted();
         note = prescriptionToCopy.getNote();
         // tags = new HashSet<>(personToCopy.getTags());
     }
@@ -135,7 +139,15 @@ public class PrescriptionBuilder {
      * Sets the {@code Stock} of the {@code Prescription} that we are building.
      */
     public PrescriptionBuilder withConsumptionCount(String consumptionCount) {
-        this.consumptionCount = new ConsumptionCount(consumptionCount, false);
+        this.consumptionCount = new ConsumptionCount(consumptionCount);
+        return this;
+    }
+
+    /**
+     * Sets the {@code isCompleted} of the {@code Prescription} that we are building.
+     */
+    public PrescriptionBuilder withIsCompleted(Boolean isCompleted) {
+        this.isCompleted = isCompleted;
         return this;
     }
 
@@ -152,7 +164,7 @@ public class PrescriptionBuilder {
      */
     public Prescription build() {
         return new Prescription(name, dosage, frequency, startDate, endDate, expiryDate, totalStock, consumptionCount,
-                                note);
+                                isCompleted, note);
     }
 
 }

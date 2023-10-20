@@ -75,7 +75,7 @@ class JsonAdaptedPrescription {
         expiryDate = source.getExpiryDate().toString();
         totalStock = source.getTotalStock().toString();
         consumptionCount = source.getConsumptionCount().toString();
-        isCompleted = source.getConsumptionCount().getIsCompleted();
+        isCompleted = source.getIsCompleted();
         note = source.getNote().toString();
         // tags.addAll(source.getTags().stream()
         //         .map(JsonAdaptedTag::new)
@@ -153,7 +153,12 @@ class JsonAdaptedPrescription {
         if (consumptionCount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Stock.class.getSimpleName()));
         }
-        final ConsumptionCount modelConsumptionCount = new ConsumptionCount(consumptionCount, isCompleted);
+        final ConsumptionCount modelConsumptionCount = new ConsumptionCount(consumptionCount);
+
+        if (isCompleted == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Stock.class.getSimpleName()));
+        }
+        final Boolean modelIsCompleted = isCompleted;
 
         if (note == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName()));
@@ -165,7 +170,8 @@ class JsonAdaptedPrescription {
 
         // final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Prescription(modelName, modelDosage, modelFrequency, modelStartDate,
-                        modelEndDate, modelExpiryDate, modelTotalStock, modelConsumptionCount, modelNote);
+                        modelEndDate, modelExpiryDate, modelTotalStock, modelConsumptionCount, modelIsCompleted,
+                modelNote);
     }
 
 }

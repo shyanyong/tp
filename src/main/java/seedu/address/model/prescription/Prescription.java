@@ -27,16 +27,17 @@ public class Prescription {
     private final Date expiryDate;
     private final Stock totalStock;
     private final ConsumptionCount consumptionCount;
+    private Boolean isCompleted;
     private final Note note;
     // private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Constructor for prescription without consumption count.
+     * Constructor for prescription without consumption count and isCompleted.
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
                         Date endDate, Date expiryDate, Stock totalStock, Note note) {
         this(name, dosage, frequency, startDate, endDate, expiryDate,
-            totalStock, new ConsumptionCount("0", false), note);
+            totalStock, new ConsumptionCount("0"), false, note);
     }
 
     /**
@@ -44,7 +45,7 @@ public class Prescription {
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
                         Date endDate, Date expiryDate, Stock totalStock, ConsumptionCount consumptionCount,
-                        Note note) {
+                        Boolean isCompleted, Note note) {
         requireAllNonNull(name);
         this.name = name;
         this.dosage = dosage;
@@ -54,6 +55,7 @@ public class Prescription {
         this.expiryDate = expiryDate;
         this.totalStock = totalStock;
         this.consumptionCount = consumptionCount;
+        this.isCompleted = isCompleted;
         this.note = note;
     }
 
@@ -88,8 +90,16 @@ public class Prescription {
         return consumptionCount;
     }
 
+    public Boolean getIsCompleted() {
+        return isCompleted;
+    }
+
     public Note getNote() {
         return note;
+    }
+
+    public void setIsCompleted(Boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
     // /

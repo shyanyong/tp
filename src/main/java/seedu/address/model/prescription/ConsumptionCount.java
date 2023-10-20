@@ -1,6 +1,5 @@
 package seedu.address.model.prescription;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -13,19 +12,15 @@ public class ConsumptionCount {
 
     public static final String VALIDATION_REGEX = "[0-9]+";
     private String consumptionCount;
-    private Boolean isCompleted;
 
     /**
      * Constructs a {@code ConsumptionCount object}.
      *
      * @param consumptionCount The initial consumption count as a string.
-     * @param isCompleted      A flag indicating if the prescription is completed.
      */
-    public ConsumptionCount(String consumptionCount, Boolean isCompleted) {
-        requireNonNull(isCompleted);
+    public ConsumptionCount(String consumptionCount) {
         checkArgument(isValidConsumptionCount(consumptionCount), MESSAGE_CONSTRAINTS);
         this.consumptionCount = consumptionCount;
-        this.isCompleted = isCompleted;
     }
 
     /**
@@ -39,19 +34,23 @@ public class ConsumptionCount {
         this.consumptionCount = Integer.toString(currentCount);
     }
 
-    public void setIsCompleted(Boolean completed) {
-        this.isCompleted = completed;
+    /**
+     * Decrements the consumption count by the specified amount.
+     *
+     * @param count The amount to increment the consumption count.
+     */
+    public void decrementCount(int count) {
+        int currentCount = Integer.parseInt(this.consumptionCount);
+        currentCount -= count;
+        this.consumptionCount = Integer.toString(currentCount);
     }
+
     public void setConsumptionCount(String count) {
         this.consumptionCount = count;
     }
 
     public String getConsumptionCount() {
         return this.consumptionCount;
-    }
-
-    public Boolean getIsCompleted() {
-        return this.isCompleted;
     }
 
     /**
