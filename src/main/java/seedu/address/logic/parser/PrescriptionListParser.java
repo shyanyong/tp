@@ -68,8 +68,8 @@ public class PrescriptionListParser {
             return new DeleteCommandParser().parse(arguments);
         case ExitCommand.COMMAND_WORD:
             return new ExitCommandParser().parse(arguments);
-
-
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommandParser().parse(arguments);
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

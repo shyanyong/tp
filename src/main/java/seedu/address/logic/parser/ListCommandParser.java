@@ -27,5 +27,4 @@ public class ListCommandParser implements Parser<ListCommand> {
 
         return new ListCommand();
     }
-
 }
