@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -12,11 +11,14 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListTodayCommand;
 import seedu.address.logic.commands.TakeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+
 
 
 /**
@@ -67,6 +69,10 @@ public class PrescriptionListParser {
             return new DeleteCommandParser().parse(arguments);
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommandParser().parse(arguments);
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommandParser().parse(arguments);
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
