@@ -29,7 +29,6 @@ public class TakeCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Doses taken from: %1$s";
     public static final String MESSAGE_PRESCRIPTION_NOT_FOUND = "The specified prescription does not exist.";
-    public static final String MESSAGE_INVALID_DOSE = "Please specify a valid number of doses to take.";
     public static final String MESSAGE_INSUFFICIENT_STOCK = "There is insufficient stock for this prescription.";
 
     private final Name prescriptionName;
@@ -61,17 +60,18 @@ public class TakeCommand extends Command {
         Prescription prescription = model.getPrescriptionByName(prescriptionName);
         int totalStock = Integer.parseInt(prescription.getTotalStock().toString());
 
-        if (dosesToTake <= 0) {
-            throw new CommandException(MESSAGE_INVALID_DOSE);
-        }
-
         if (totalStock - dosesToTake < 0) {
             throw new CommandException(TakeCommand.MESSAGE_INSUFFICIENT_STOCK);
         }
 
-        Predicate<Prescription> isSameName = new SameNamePredicate(prescriptionName);
+        prescription.getTotalStock().decrementCount(dosesToTake);
+        prescription.getConsumptionCount().incrementCount(dosesToTake);
 
-        model.takePrescription(prescriptionName, dosesToTake);
+        if (Integer.parseInt(prescription.getConsumptionCount().toString())
+                >= Integer.parseInt(prescription.getDosage().toString())) {
+            prescription.setIsCompleted(true);
+        }
+        Predicate<Prescription> isSameName = new SameNamePredicate(prescriptionName);
         model.updateFilteredPrescriptionList(isSameName);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionName));

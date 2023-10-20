@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.TakeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Name;
 
 /**
@@ -15,7 +16,6 @@ import seedu.address.model.prescription.Name;
  */
 public class TakeCommandParser implements Parser<TakeCommand> {
 
-    public static final String VALIDATION_REGEX = "[0-9]+";
     /**
      * Parses the given arguments to create a TakePrescriptionCommand.
      *
@@ -33,12 +33,11 @@ public class TakeCommandParser implements Parser<TakeCommand> {
                 TakeCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_CONSUMPTION);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        String dosage = argMultimap.getValue(PREFIX_CONSUMPTION).get();
-        if (!isValidDosage(dosage)) {
-            throw new ParseException(TakeCommand.MESSAGE_INVALID_DOSE);
-        }
-        int dosesToTake = Integer.parseInt(dosage);
+        ConsumptionCount consumptionCount = ParserUtil
+                                    .parseConsumptionCount(argMultimap.getValue(PREFIX_CONSUMPTION).get());
+        int dosesToTake = Integer.parseInt(consumptionCount.getConsumptionCount());
 
         return new TakeCommand(name, dosesToTake);
     }
@@ -49,9 +48,5 @@ public class TakeCommandParser implements Parser<TakeCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    public static boolean isValidDosage(String test) {
-        return test.matches(VALIDATION_REGEX);
     }
 }

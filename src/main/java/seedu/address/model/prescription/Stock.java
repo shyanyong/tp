@@ -43,6 +43,15 @@ public class Stock {
     }
 
     /**
+     * increment the count of stock.
+     * @param count The count to increment by.
+     */
+    public void incrementCount(int count) {
+        int newStock = Integer.parseInt(this.fullStock) + count;
+        this.fullStock = Integer.toString(newStock);
+    }
+
+    /**
      * Decrements the count of stock.
      * @param count The count to decrement by.
      */

@@ -83,11 +83,6 @@ public interface Model {
     ObservableList<Prescription> getFilteredPrescriptionList();
 
     /**
-     * Increments the consumption count of {@code prescription} by {@code dosesToTake}.
-     */
-    void takePrescription(Name prescription, int dosesToTake) throws CommandException;
-
-    /**
      * Returns a prescription with the same name as {@code prescriptionName}
      */
     Prescription getPrescriptionByName(Name prescriptionName) throws CommandException;

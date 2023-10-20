@@ -156,11 +156,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void takePrescription(Name prescription, int dosesToTake) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Prescription getPrescriptionByName(Name prescriptionName) {
             throw new AssertionError("This method should not be called.");
         };

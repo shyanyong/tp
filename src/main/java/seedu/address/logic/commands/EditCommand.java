@@ -107,10 +107,12 @@ public class EditCommand extends Command {
         Stock updatedTotalStock = editPrescriptionDescriptor.getTotalStock().orElse(prescriptionToEdit.getTotalStock());
         ConsumptionCount updatedConsumptionCount = editPrescriptionDescriptor.getConsumptionCount()
                 .orElse(prescriptionToEdit.getConsumptionCount());
+        Boolean updatedIsCompleted = editPrescriptionDescriptor.getIsCompleted()
+                .orElse(prescriptionToEdit.getIsCompleted());
         Note updatedNote = editPrescriptionDescriptor.getNote().orElse(prescriptionToEdit.getNote());
 
         return new Prescription(updatedName, updatedDosage, updatedFrequency, updatedStartDate, updatedEndDate,
-                updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedNote);
+                updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote);
     }
 
     /**
@@ -126,6 +128,7 @@ public class EditCommand extends Command {
         private Date expiryDate;
         private Stock totalStock;
         private ConsumptionCount consumptionCount;
+        private Boolean isCompleted;
         private Note note;
         public EditPrescriptionDescriptor() {}
 
@@ -141,12 +144,14 @@ public class EditCommand extends Command {
             setExpiryDate(toCopy.expiryDate);
             setTotalStock(toCopy.totalStock);
             setConsumptionCount(toCopy.consumptionCount);
+            setIsCompleted(toCopy.isCompleted);
             setNote(toCopy.note);
         }
 
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(
-                    name, dosage, frequency, startDate, endDate, expiryDate, totalStock, consumptionCount, note);
+                    name, dosage, frequency, startDate, endDate, expiryDate, totalStock, consumptionCount,
+                    isCompleted, note);
         }
 
         public void setName(Name name) {
@@ -221,6 +226,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(consumptionCount);
         }
 
+        public void setIsCompleted(Boolean isCompleted) {
+            this.isCompleted = isCompleted;
+        }
+
+        public Optional<Boolean> getIsCompleted() {
+            return Optional.ofNullable(isCompleted);
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -258,7 +271,6 @@ public class EditCommand extends Command {
                     .add("note", note)
                     .toString();
         }
-
     }
 }
 
