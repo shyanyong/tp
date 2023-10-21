@@ -31,14 +31,33 @@ public class EditPrescriptionDescriptorBuilder {
     public EditPrescriptionDescriptorBuilder(Prescription prescription) {
         descriptor = new EditPrescriptionDescriptor();
         descriptor.setName(prescription.getName());
-        descriptor.setDosage(prescription.getDosage());
-        descriptor.setFrequency(prescription.getFrequency());
+
+        if (prescription.getDosage().isPresent()) {
+            descriptor.setDosage(prescription.getDosage().get());
+        }
+
+        if (prescription.getFrequency().isPresent()) {
+            descriptor.setFrequency(prescription.getFrequency().get());
+        }
+
         descriptor.setStartDate(prescription.getStartDate());
-        descriptor.setEndDate(prescription.getEndDate());
-        descriptor.setExpiryDate(prescription.getExpiryDate());
-        descriptor.setTotalStock(prescription.getTotalStock());
+
+        if (prescription.getEndDate().isPresent()) {
+            descriptor.setEndDate(prescription.getEndDate().get());
+        }
+
+        if (prescription.getExpiryDate().isPresent()) {
+            descriptor.setExpiryDate(prescription.getExpiryDate().get());
+        }
+
+        if (prescription.getTotalStock().isPresent()) {
+            descriptor.setTotalStock(prescription.getTotalStock().get());
+        }
         descriptor.setConsumptionCount(prescription.getConsumptionCount());
-        descriptor.setNote(prescription.getNote());
+        descriptor.setIsCompleted(prescription.getIsCompleted());
+        if (prescription.getNote().isPresent()) {
+            descriptor.setNote(prescription.getNote().get());
+        }
     }
 
     /**
@@ -102,6 +121,14 @@ public class EditPrescriptionDescriptorBuilder {
      */
     public EditPrescriptionDescriptorBuilder withConsumptionCount(String consumptionCount) {
         descriptor.setConsumptionCount(new ConsumptionCount(consumptionCount));
+        return this;
+    }
+
+    /**
+     * Sets the {@code isCompleted} of the {@code EditPrescriptionDescriptor} that we are building.
+     */
+    public EditPrescriptionDescriptorBuilder withIsCompleted(Boolean isCompleted) {
+        descriptor.setIsCompleted(isCompleted);
         return this;
     }
 

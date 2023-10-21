@@ -91,6 +91,7 @@ public class PrescriptionTest {
                     + ", expiryDate=" + ASPIRIN.getExpiryDate()
                     + ", totalStock=" + ASPIRIN.getTotalStock()
                     + ", consumptionCount=" + ASPIRIN.getConsumptionCount()
+                    + ", isCompleted=" + ASPIRIN.getIsCompleted()
                     + ", note=" + ASPIRIN.getNote() + "}";
         assertEquals(expected, ASPIRIN.toString());
     }

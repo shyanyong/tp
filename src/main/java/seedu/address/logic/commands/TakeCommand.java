@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -11,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.SameNamePredicate;
+import seedu.address.model.prescription.Stock;
 
 /**
  * Represents a command to take a specified number of doses of a prescription.
@@ -58,19 +60,23 @@ public class TakeCommand extends Command {
         requireNonNull(model);
 
         Prescription prescription = model.getPrescriptionByName(prescriptionName);
-        int totalStock = Integer.parseInt(prescription.getTotalStock().toString());
+        Optional<Stock> totalStock = prescription.getTotalStock();
 
-        if (totalStock - dosesToTake < 0) {
+        if (totalStock.isPresent() && (Integer.parseInt(totalStock.get().toString()) - dosesToTake < 0)) {
             throw new CommandException(TakeCommand.MESSAGE_INSUFFICIENT_STOCK);
         }
 
-        prescription.getTotalStock().decrementCount(dosesToTake);
+        if (totalStock.isPresent()) {
+            totalStock.get().decrementCount(dosesToTake);
+        }
         prescription.getConsumptionCount().incrementCount(dosesToTake);
 
-        if (Integer.parseInt(prescription.getConsumptionCount().toString())
-                >= Integer.parseInt(prescription.getDosage().toString())) {
+        if (prescription.getDosage().isPresent()
+            && Integer.parseInt(prescription.getConsumptionCount().toString())
+                >= Integer.parseInt(prescription.getDosage().get().toString())) {
             prescription.setIsCompleted(true);
         }
+
         Predicate<Prescription> isSameName = new SameNamePredicate(prescriptionName);
         model.updateFilteredPrescriptionList(isSameName);
 
