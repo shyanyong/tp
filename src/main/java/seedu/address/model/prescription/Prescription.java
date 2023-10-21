@@ -6,12 +6,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 // import java.util.HashSet;
 import java.util.Objects;
 // import java.util.Set;
+import java.util.Optional;
 
 import seedu.address.commons.util.ToStringBuilder;
 // import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Prescription in the address book.
+ * Represents a Prescription in the prescription list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Prescription {
@@ -20,15 +21,15 @@ public class Prescription {
     private final Name name;
 
     // Data fields
-    private final Dosage dosage;
-    private final Frequency frequency;
+    private final Optional<Dosage> dosage;
+    private final Optional<Frequency> frequency;
     private final Date startDate;
-    private final Date endDate;
-    private final Date expiryDate;
-    private final Stock totalStock;
+    private final Optional<Date> endDate;
+    private final Optional<Date> expiryDate;
+    private final Optional<Stock> totalStock;
     private final ConsumptionCount consumptionCount;
     private Boolean isCompleted;
-    private final Note note;
+    private final Optional<Note> note;
     // private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -48,26 +49,26 @@ public class Prescription {
                         Boolean isCompleted, Note note) {
         requireAllNonNull(name);
         this.name = name;
-        this.dosage = dosage;
-        this.frequency = frequency;
+        this.dosage = Optional.ofNullable(dosage);
+        this.frequency = Optional.ofNullable(frequency);
         this.startDate = startDate;
-        this.endDate = endDate;
-        this.expiryDate = expiryDate;
-        this.totalStock = totalStock;
+        this.endDate = Optional.ofNullable(endDate);
+        this.expiryDate = Optional.ofNullable(expiryDate);
+        this.totalStock = Optional.ofNullable(totalStock);
         this.consumptionCount = consumptionCount;
         this.isCompleted = isCompleted;
-        this.note = note;
+        this.note = Optional.ofNullable(note);
     }
 
     public Name getName() {
         return name;
     }
 
-    public Dosage getDosage() {
+    public Optional<Dosage> getDosage() {
         return dosage;
     }
 
-    public Frequency getFrequency() {
+    public Optional<Frequency> getFrequency() {
         return frequency;
     }
 
@@ -75,15 +76,15 @@ public class Prescription {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public Optional<Date> getEndDate() {
         return endDate;
     }
 
-    public Date getExpiryDate() {
+    public Optional<Date> getExpiryDate() {
         return expiryDate;
     }
 
-    public Stock getTotalStock() {
+    public Optional<Stock> getTotalStock() {
         return totalStock;
     }
     public ConsumptionCount getConsumptionCount() {
@@ -94,7 +95,7 @@ public class Prescription {
         return isCompleted;
     }
 
-    public Note getNote() {
+    public Optional<Note> getNote() {
         return note;
     }
 
@@ -148,6 +149,7 @@ public class Prescription {
                 && expiryDate.equals(otherPrescription.expiryDate)
                 && totalStock.equals(otherPrescription.totalStock)
                 && consumptionCount.equals(otherPrescription.consumptionCount)
+                && isCompleted.equals(otherPrescription.isCompleted)
                 && note.equals(otherPrescription.note);
     }
 
@@ -155,7 +157,7 @@ public class Prescription {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, dosage, frequency, startDate,
-                endDate, expiryDate, totalStock, consumptionCount, note);
+                endDate, expiryDate, totalStock, consumptionCount, isCompleted, note);
     }
 
     @Override
@@ -169,6 +171,7 @@ public class Prescription {
                 .add("expiryDate", expiryDate)
                 .add("totalStock", totalStock)
                 .add("consumptionCount", consumptionCount)
+                .add("isCompleted", isCompleted)
                 .add("note", note)
                 .toString();
     }

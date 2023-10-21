@@ -59,7 +59,8 @@ public class EditCommand extends Command {
             + PREFIX_NOTE + "Take after meal";
     public static final String MESSAGE_EDIT_PRESCRIPTION_SUCCESS = "Edited Prescription: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists "
+        + "in the prescription list.";
 
     private final Index index;
     private final EditPrescriptionDescriptor editPrescriptionDescriptor;
@@ -103,22 +104,29 @@ public class EditCommand extends Command {
     }
 
     private static Prescription createEditedPrescription(Prescription prescriptionToEdit,
-                                                         EditPrescriptionDescriptor editPrescriptionDescriptor) {
+        EditPrescriptionDescriptor editPrescriptionDescriptor) throws CommandException {
         assert prescriptionToEdit != null;
 
-        Name updatedName = editPrescriptionDescriptor.getName().orElse(prescriptionToEdit.getName());
-        Dosage updatedDosage = editPrescriptionDescriptor.getDosage().orElse(prescriptionToEdit.getDosage());
-        Frequency updatedFrequency = editPrescriptionDescriptor.getFrequency()
-                .orElse(prescriptionToEdit.getFrequency());
-        Date updatedStartDate = editPrescriptionDescriptor.getStartDate().orElse(prescriptionToEdit.getStartDate());
-        Date updatedEndDate = editPrescriptionDescriptor.getEndDate().orElse(prescriptionToEdit.getEndDate());
-        Date updatedExpiryDate = editPrescriptionDescriptor.getExpiryDate().orElse(prescriptionToEdit.getExpiryDate());
-        Stock updatedTotalStock = editPrescriptionDescriptor.getTotalStock().orElse(prescriptionToEdit.getTotalStock());
-        ConsumptionCount updatedConsumptionCount = editPrescriptionDescriptor.getConsumptionCount()
-                .orElse(prescriptionToEdit.getConsumptionCount());
+        Name updatedName = editPrescriptionDescriptor.getName().orElse(
+            prescriptionToEdit.getName());
+        Dosage updatedDosage = editPrescriptionDescriptor.getDosage().orElse(
+            prescriptionToEdit.getDosage().orElse(null));
+        Frequency updatedFrequency = editPrescriptionDescriptor.getFrequency().orElse(
+            prescriptionToEdit.getFrequency().orElse(null));
+        Date updatedStartDate = editPrescriptionDescriptor.getStartDate().orElse(
+            prescriptionToEdit.getStartDate());
+        Date updatedEndDate = editPrescriptionDescriptor.getEndDate().orElse(
+            prescriptionToEdit.getEndDate().orElse(null));
+        Date updatedExpiryDate = editPrescriptionDescriptor.getExpiryDate().orElse(
+            prescriptionToEdit.getExpiryDate().orElse(null));
+        Stock updatedTotalStock = editPrescriptionDescriptor.getTotalStock().orElse(
+            prescriptionToEdit.getTotalStock().orElse(null));
+        ConsumptionCount updatedConsumptionCount = editPrescriptionDescriptor.getConsumptionCount().orElse(
+            prescriptionToEdit.getConsumptionCount());
         Boolean updatedIsCompleted = editPrescriptionDescriptor.getIsCompleted()
                 .orElse(prescriptionToEdit.getIsCompleted());
-        Note updatedNote = editPrescriptionDescriptor.getNote().orElse(prescriptionToEdit.getNote());
+        Note updatedNote = editPrescriptionDescriptor.getNote().orElse(
+            prescriptionToEdit.getNote().orElse(null));
 
         return new Prescription(updatedName, updatedDosage, updatedFrequency, updatedStartDate, updatedEndDate,
                 updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote);

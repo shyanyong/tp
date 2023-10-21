@@ -73,15 +73,40 @@ public class PrescriptionCard extends UiPart<Region> {
         this.prescription = prescription;
         id.setText(displayedIndex + ". ");
         name.setText(prescription.getName().toString());
-        dosage.setText(dosageHeader + prescription.getDosage().toString());
-        frequency.setText(frequencyHeader + prescription.getFrequency().toString());
+
+        dosage.setText(dosageHeader);
+        consumptionCount.setText(consumptionCountHeader + prescription.getConsumptionCount().getConsumptionCount());
+        if (prescription.getDosage().isPresent()) {
+            dosage.setText(dosageHeader + prescription.getDosage().get().toString());
+            consumptionCount.setText(consumptionCountHeader + prescription.getConsumptionCount().getConsumptionCount()
+                + "/" + prescription.getDosage().get().toString());
+        }
+
+        frequency.setText(frequencyHeader);
+        if (prescription.getFrequency().isPresent()) {
+            frequency.setText(frequencyHeader + prescription.getFrequency().get().toString());
+        }
         startDate.setText(startDateHeader + prescription.getStartDate().toString());
-        endDate.setText(endDateHeader + prescription.getEndDate().toString());
-        expiryDate.setText(expiryDateHeader + prescription.getExpiryDate().toString());
-        totalStock.setText(totalStockHeader + prescription.getTotalStock().toString());
-        consumptionCount.setText(consumptionCountHeader + prescription.getConsumptionCount().getConsumptionCount()
-                                + "/" + prescription.getDosage().toString());
-        note.setText(noteHeader + prescription.getNote().toString());
+
+        endDate.setText(endDateHeader);
+        if (prescription.getEndDate().isPresent()) {
+            endDate.setText(endDateHeader + prescription.getEndDate().get().toString());
+        }
+
+        expiryDate.setText(expiryDateHeader);
+        if (prescription.getExpiryDate().isPresent()) {
+            expiryDate.setText(expiryDateHeader + prescription.getExpiryDate().get().toString());
+        }
+
+        totalStock.setText(totalStockHeader);
+        if (prescription.getTotalStock().isPresent()) {
+            totalStock.setText(totalStockHeader + prescription.getTotalStock().get().toString());
+        }
+
+        note.setText(noteHeader);
+        if (prescription.getNote().isPresent()) {
+            note.setText(noteHeader + prescription.getNote().get().toString());
+        }
         // prescription.getTags().stream()
         //         .sorted(Comparator.comparing(tag -> tag.tagName))
         //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

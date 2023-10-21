@@ -30,13 +30,13 @@ public class PrescriptionUtil {
     public static String getPrescriptionDetails(Prescription prescription) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + prescription.getName().toString() + " ");
-        sb.append(PREFIX_DOSAGE + prescription.getDosage().toString() + " ");
-        sb.append(PREFIX_FREQUENCY + prescription.getFrequency().toString() + " ");
+        sb.append(PREFIX_DOSAGE + prescription.getDosage().get().toString() + " ");
+        sb.append(PREFIX_FREQUENCY + prescription.getFrequency().get().toString() + " ");
         sb.append(PREFIX_START_DATE + prescription.getStartDate().toString() + " ");
-        sb.append(PREFIX_END_DATE + prescription.getEndDate().toString() + " ");
-        sb.append(PREFIX_EXPIRY_DATE + prescription.getExpiryDate().toString() + " ");
-        sb.append(PREFIX_TOTAL_STOCK + prescription.getTotalStock().toString() + " ");
-        sb.append(PREFIX_NOTE + prescription.getNote().toString() + " ");
+        sb.append(PREFIX_END_DATE + prescription.getEndDate().get().toString() + " ");
+        sb.append(PREFIX_EXPIRY_DATE + prescription.getExpiryDate().get().toString() + " ");
+        sb.append(PREFIX_TOTAL_STOCK + prescription.getTotalStock().get().toString() + " ");
+        sb.append(PREFIX_NOTE + prescription.getNote().get().toString() + " ");
         // person.getTags().stream().forEach(
         //     s -> sb.append(PREFIX_TAG + s.tagName + " ")
         // );
