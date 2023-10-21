@@ -1,6 +1,30 @@
+/* Extra styles for BayMeds */
+#mainWindowBackground {
+     -fx-background-color: #474C5F;
+     -fx-background-radius: 2em;
+}
+
+#mainWindowLabel {
+     -fx-font-size: 25pt;
+     -fx-font-family: "Segoe UI Semibold";
+     -fx-text-fill: #FBFCFC;
+     -fx-opacity: 1;
+}
+
+#rightWindowBackground {
+     -fx-background-color: derive(#989AAD, 20%);
+     -fx-background-radius: 0em 2em 2em 0em;
+}
+
+.modern-box-pane {
+     -fx-background-color: derive(#989AAD, 20%);
+     -fx-background-radius: 1em;
+}
+
+/* AB3 Styles */
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    background-color: #474C5F; /* Used in the default.html file */
 }
 
 .label {
@@ -87,24 +111,25 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.list-view {
+#prescriptionListView {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
 }
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
+    -fx-background-radius: 1em;
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:selected {
@@ -113,7 +138,7 @@
 
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #3e7b91;
-    -fx-border-width: 1;
+    -fx-border-width: 0;
 }
 
 .list-cell .label {
@@ -143,14 +168,14 @@
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: transparent;
 }
 
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #ffffff;
 }
 
 .result-display .label {
@@ -194,6 +219,7 @@
 
 .menu-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-radius: 1em;
 }
 
 .menu-bar .label {
@@ -318,22 +344,22 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-color: transparent #989AAD transparent #989AAD;
     -fx-background-insets: 0;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill : #ffffff;
+    -fx-prompt-text-fill: #ffffff;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #prescriptionListPanel, #prescriptionWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: transparent, derive(#989AAD, 20%), transparent, derive(#989AAD, 20%);
     -fx-background-radius: 0;
 }
 
