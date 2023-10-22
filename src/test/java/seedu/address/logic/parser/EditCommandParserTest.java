@@ -55,8 +55,6 @@ import seedu.address.model.prescription.Stock;
 import seedu.address.testutil.EditPrescriptionDescriptorBuilder;
 
 public class EditCommandParserTest {
-    private static final String MESSAGE_INVALID_FORMAT =
-            String.format(EditCommand.MESSAGE_USAGE, EditCommand.MESSAGE_USAGE);
     private EditCommandParser parser = new EditCommandParser();
 
     @Test

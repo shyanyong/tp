@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Stock {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Stocks should only contain numeric characters, and it should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "Stocks should be a non-blank, "
+            + "positive integer with numeric characters only, "
+            + "and smaller than the maximum possible integer value (2,147,483,647).";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -35,7 +36,16 @@ public class Stock {
      * Returns true if a given string is a valid stock.
      */
     public static boolean isValidStock(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (!test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+
+        try {
+            int stockValue = Integer.parseInt(test);
+            return (stockValue >= 0) && (stockValue <= Integer.MAX_VALUE);
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public void setFullStock(String fullStock) {

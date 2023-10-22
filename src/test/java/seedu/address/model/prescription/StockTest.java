@@ -29,6 +29,9 @@ public class StockTest {
         assertFalse(Stock.isValidStock(" ")); // spaces only
         assertFalse(Stock.isValidStock("^")); // non-alphanumeric characters
         assertFalse(Stock.isValidStock("a")); // alphabets
+        assertFalse((Stock.isValidStock("1.2"))); // decimal number
+        assertFalse((Stock.isValidStock("-1"))); // negative number
+        assertFalse((Stock.isValidStock("2147483648"))); // greater than max int value
 
         // valid stock
         assertTrue(Stock.isValidStock("1")); // single digit

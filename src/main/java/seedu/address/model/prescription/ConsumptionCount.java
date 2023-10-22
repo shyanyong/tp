@@ -7,8 +7,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class ConsumptionCount {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "ConsumptionCount should only contain numeric characters, and it should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "ConsumptionCount should be a non-blank, "
+            + "positive integer with numeric characters only, "
+            + "and smaller than the maximum possible integer value (2,147,483,647).";
 
     public static final String VALIDATION_REGEX = "[0-9]+";
     private String consumptionCount;
@@ -57,7 +58,16 @@ public class ConsumptionCount {
      * Returns true if a given string is a valid dosage.
      */
     public static boolean isValidConsumptionCount(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (!test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+
+        try {
+            int consumptionValue = Integer.parseInt(test);
+            return (consumptionValue >= 0) && (consumptionValue <= Integer.MAX_VALUE);
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     @Override
