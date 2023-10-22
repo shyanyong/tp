@@ -1,23 +1,23 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DOSAGE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.DOSAGE_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.DOSAGE_DESC_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandTestUtil.END_DATE_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.END_DATE_DESC_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_PROPRANOLOL;
-import static seedu.address.logic.commands.CommandTestUtil.FREQUENCY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.FREQUENCY_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.FREQUENCY_DESC_PROPRANOLOL;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DOSAGE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FREQUENCY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_START_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandTestUtil.NOTE_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.NOTE_DESC_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.START_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.START_DATE_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.START_DATE_DESC_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandTestUtil.STOCK_DESC_ASPIRIN;
@@ -86,27 +86,27 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, NAME_DESC + DOSAGE_DESC_PROPRANOLOL + FREQUENCY_DESC_PROPRANOLOL
+        assertParseFailure(parser, INVALID_NAME_DESC + DOSAGE_DESC_PROPRANOLOL + FREQUENCY_DESC_PROPRANOLOL
                 + START_DATE_DESC_PROPRANOLOL + END_DATE_DESC_PROPRANOLOL
                 + EXPIRY_DATE_DESC_PROPRANOLOL + STOCK_DESC_PROPRANOLOL
                 + NOTE_DESC_PROPRANOLOL, Name.MESSAGE_CONSTRAINTS);
 
         // invalid dosage
-        assertParseFailure(parser, NAME_DESC_PROPRANOLOL + DOSAGE_DESC + FREQUENCY_DESC_PROPRANOLOL
+        assertParseFailure(parser, NAME_DESC_PROPRANOLOL + INVALID_DOSAGE_DESC + FREQUENCY_DESC_PROPRANOLOL
                 + START_DATE_DESC_PROPRANOLOL + END_DATE_DESC_PROPRANOLOL
                 + EXPIRY_DATE_DESC_PROPRANOLOL + STOCK_DESC_PROPRANOLOL
                 + NOTE_DESC_PROPRANOLOL, Dosage.MESSAGE_CONSTRAINTS);
 
         // invalid frequency
         assertParseFailure(parser, NAME_DESC_PROPRANOLOL + DOSAGE_DESC_PROPRANOLOL
-                + FREQUENCY_DESC + START_DATE_DESC_PROPRANOLOL
+                + INVALID_FREQUENCY_DESC + START_DATE_DESC_PROPRANOLOL
                 + END_DATE_DESC_PROPRANOLOL + EXPIRY_DATE_DESC_PROPRANOLOL
                 + STOCK_DESC_PROPRANOLOL + NOTE_DESC_PROPRANOLOL,
                 Frequency.MESSAGE_CONSTRAINTS);
 
         // invalid start date
         assertParseFailure(parser, NAME_DESC_PROPRANOLOL + DOSAGE_DESC_PROPRANOLOL
-                + FREQUENCY_DESC_PROPRANOLOL + START_DATE_DESC
+                + FREQUENCY_DESC_PROPRANOLOL + INVALID_START_DATE_DESC
                 + END_DATE_DESC_PROPRANOLOL + EXPIRY_DATE_DESC_PROPRANOLOL
                 + STOCK_DESC_PROPRANOLOL + NOTE_DESC_PROPRANOLOL,
                 Date.MESSAGE_CONSTRAINTS);

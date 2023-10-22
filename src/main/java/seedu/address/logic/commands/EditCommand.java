@@ -113,6 +113,30 @@ public class EditCommand extends Command {
                 updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedNote);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        //instanceof handles nulls
+        if (!(other instanceof EditCommand)) {
+            return false;
+        }
+
+        EditCommand otherEditCommand = (EditCommand) other;
+        return index.equals(otherEditCommand.index)
+                && editPrescriptionDescriptor.equals(otherEditCommand.editPrescriptionDescriptor);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("index", index)
+                .add("editPrescriptionDescriptor", editPrescriptionDescriptor)
+                .toString();
+    }
+
     /**
      * Creates and returns a {@code Prescription} with the details of {@code prescriptionToEdit}
      * edited with {@code editPrescriptionDescriptor}.
@@ -258,7 +282,6 @@ public class EditCommand extends Command {
                     .add("note", note)
                     .toString();
         }
-
     }
 }
 

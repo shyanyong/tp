@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ASPIRIN;
@@ -171,5 +172,15 @@ public class EditCommandTest {
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PRESCRIPTION, DESC_PROPRANOLOL)));
+    }
+
+    @Test
+    public void toStringMethod() {
+        Index index = Index.fromOneBased(1);
+        EditPrescriptionDescriptor editPrescriptionDescriptor = new EditPrescriptionDescriptor();
+        EditCommand editCommand = new EditCommand(index, editPrescriptionDescriptor);
+        String expected = EditCommand.class.getCanonicalName() + "{index=" + index + ", editPrescriptionDescriptor="
+                + editPrescriptionDescriptor + "}";
+        assertEquals(expected, editCommand.toString());
     }
 }
