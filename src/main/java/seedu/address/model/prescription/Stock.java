@@ -42,7 +42,7 @@ public class Stock {
 
         try {
             int stockValue = Integer.parseInt(test);
-            return (stockValue >= 0) && (stockValue <= Integer.MAX_VALUE);
+            return (stockValue >= 0);
         } catch (NumberFormatException e) {
             return false;
         }

@@ -43,7 +43,7 @@ public class Dosage {
 
         try {
             int dosageValue = Integer.parseInt(test);
-            return (dosageValue >= 0) && (dosageValue <= Integer.MAX_VALUE);
+            return (dosageValue >= 0);
         } catch (NumberFormatException e) {
             return false;
         }

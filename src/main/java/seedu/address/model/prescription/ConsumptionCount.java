@@ -64,7 +64,7 @@ public class ConsumptionCount {
 
         try {
             int consumptionValue = Integer.parseInt(test);
-            return (consumptionValue >= 0) && (consumptionValue <= Integer.MAX_VALUE);
+            return (consumptionValue >= 0);
         } catch (NumberFormatException e) {
             return false;
         }
