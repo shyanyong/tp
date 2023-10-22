@@ -49,25 +49,4 @@ public class TakeCommandParser implements Parser<TakeCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-<<<<<<< HEAD
-
-    /**
-     * Checks if a given dosage string is a valid dosage.
-     * @param test The dosage string to be validated.
-     * @return {@code true} if the dosage is valid, {@code false} otherwise.
-     */
-    public static boolean isValidDosage(String test) {
-        if (!test.matches(VALIDATION_REGEX)) {
-            return false;
-        }
-
-        try {
-            int dosageValue = Integer.parseInt(test);
-            return (dosageValue >= 0) && (dosageValue <= Integer.MAX_VALUE);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-=======
->>>>>>> 165de8207c6b75aa0eda08182d3a47e5a5b0dd72
 }
