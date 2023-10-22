@@ -41,37 +41,37 @@ public class Messages {
         builder.append(prescription.getName());
         if (prescription.getDosage().isPresent()) {
             builder.append("; Dosage: ")
-            .append(prescription.getDosage().get());
+                .append(prescription.getDosage().get());
         }
 
         if (prescription.getFrequency().isPresent()) {
             builder.append("; Frequency: ")
-            .append(prescription.getFrequency().get());
+                .append(prescription.getFrequency().get());
         }
 
         builder.append("; Start Date: ").append(prescription.getStartDate());
 
         if (prescription.getEndDate().isPresent()) {
             builder.append("; End Date: ")
-            .append(prescription.getEndDate().get());
+                .append(prescription.getEndDate().get());
         }
 
         if (prescription.getExpiryDate().isPresent()) {
             builder.append("; Expiry Date: ")
-            .append(prescription.getExpiryDate().get());
+                .append(prescription.getExpiryDate().get());
         }
 
         if (prescription.getTotalStock().isPresent()) {
             builder.append("; Total stock: ")
-            .append(prescription.getTotalStock().get());
+                .append(prescription.getTotalStock().get());
         }
 
         builder.append("; isCompleted: ")
-        .append(prescription.getIsCompleted());
+            .append(prescription.getIsCompleted());
 
         if (prescription.getNote().isPresent()) {
             builder.append("; Note: ")
-            .append(prescription.getNote().get());
+                .append(prescription.getNote().get());
         }
         // person.getTags().forEach(builder::append);
         return builder.toString();
