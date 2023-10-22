@@ -56,14 +56,34 @@ public class PrescriptionCard extends UiPart<Region> {
         super(FXML);
         this.prescription = prescription;
         id.setText(displayedIndex + ". ");
+
         name.setText(prescription.getName().toString());
-        dosage.setText(prescription.getDosage().toString());
-        frequency.setText(prescription.getFrequency().toString());
+
+        if (prescription.getDosage().isPresent()) {
+            dosage.setText(prescription.getDosage().get().toString());
+        }
+
+        if (prescription.getFrequency().isPresent()) {
+            frequency.setText(prescription.getFrequency().get().toString());
+        }
+
         startDate.setText(prescription.getStartDate().toString());
-        endDate.setText(prescription.getEndDate().toString());
-        expiryDate.setText(prescription.getExpiryDate().toString());
-        totalStock.setText(prescription.getTotalStock().toString());
-        note.setText(prescription.getNote().toString());
+
+        if (prescription.getEndDate().isPresent()) {
+            endDate.setText(prescription.getEndDate().get().toString());
+        }
+
+        if (prescription.getExpiryDate().isPresent()) {
+            expiryDate.setText(prescription.getExpiryDate().get().toString());
+        }
+
+        if (prescription.getTotalStock().isPresent()) {
+            totalStock.setText(prescription.getTotalStock().get().toString());
+        }
+
+        if (prescription.getNote().isPresent()) {
+            note.setText(prescription.getNote().get().toString());
+        }
 
         setCompletionStatus(prescription);
         // prescription.getTags().stream()
@@ -80,7 +100,7 @@ public class PrescriptionCard extends UiPart<Region> {
         } else {
             consumptionCount.setText(String.format("Uncompleted %s/%s",
                 prescription.getConsumptionCount().getConsumptionCount(),
-                prescription.getDosage()));
+                prescription.getDosage().get().toString()));
             consumptionCount.getStyleClass().add("consumption-status-red");
         }
     }
