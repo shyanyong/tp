@@ -35,7 +35,16 @@ public class Stock {
      * Returns true if a given string is a valid stock.
      */
     public static boolean isValidStock(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (!test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+
+        try {
+            int stockValue = Integer.parseInt(test);
+            return (stockValue >= 0) && (stockValue <= Integer.MAX_VALUE);
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public void setFullStock(String fullStock) {
