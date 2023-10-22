@@ -9,8 +9,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Stock {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Stocks should only contain numeric characters, and it should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "Stocks should be a non-blank, "
+            + "positive integer with numeric characters only, "
+            + "and smaller than the maximum possible integer value (2,147,483,647).";
+
 
     /*
      * The first character of the address must not be a whitespace,
