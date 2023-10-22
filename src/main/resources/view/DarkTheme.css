@@ -1,24 +1,44 @@
 /* Extra styles for BayMeds */
 #mainWindowBackground {
-     -fx-background-color: #474C5F;
+     -fx-background-color: #202124;
      -fx-background-radius: 2em;
+     -fx-effect: dropshadow(three-pass-box, derive(#202124, -20%), 10, 0, 0, 0);
+     -fx-background-insets: 5;
 }
 
 #mainWindowLabel {
      -fx-font-size: 25pt;
      -fx-font-family: "Segoe UI Semibold";
-     -fx-text-fill: #FBFCFC;
+     -fx-text-fill: #F2E8E3;
      -fx-opacity: 1;
 }
 
 #rightWindowBackground {
-     -fx-background-color: derive(#989AAD, 20%);
+     -fx-background-color: #3C4042;
      -fx-background-radius: 0em 2em 2em 0em;
 }
 
 .modern-box-pane {
-     -fx-background-color: derive(#989AAD, 20%);
+     -fx-background-color: #424242;
      -fx-background-radius: 1em;
+     -fx-effect: dropshadow(gaussian, #ADD8E625, 20, 0, 0, 0);
+     -fx-background-insets: 5;
+}
+
+.consumption-status-green {
+     -fx-background-color: #2E7D32;
+     -fx-background-radius: 1em;
+     -fx-font-size: 11pt;
+     -fx-text-fill: #F2E8E3;
+     -fx-padding: 5;
+}
+
+.consumption-status-red {
+     -fx-background-color: #D32F2F;
+     -fx-background-radius: 1em;
+     -fx-font-size: 11pt;
+     -fx-text-fill: #F2E8E3;
+     -fx-padding: 5;
 }
 
 /* AB3 Styles */
@@ -120,15 +140,14 @@
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 15;
+    -fx-background-insets: 15;
+    -fx-background-color: #424242;
     -fx-background-radius: 1em;
+    -fx-effect: dropshadow(gaussian, #ADD8E650, 15, 0, 0, 0);
 }
 
-.list-cell:filled:even {
-    -fx-background-color: transparent;
-}
-
-.list-cell:filled:odd {
+.list-cell:empty {
     -fx-background-color: transparent;
 }
 
@@ -142,19 +161,27 @@
 }
 
 .list-cell .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #F2E8E3;
 }
 
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #F2E8E3;
 }
+
+.cell_small_header {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #F2E8E3;
+}
+
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #F2E8E3;
 }
 
 .stack-pane {
@@ -175,7 +202,7 @@
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #F2E8E3;
 }
 
 .result-display .label {
@@ -184,7 +211,7 @@
 
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: #F2E8E3;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
@@ -210,22 +237,23 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: #424242;
 }
 
 .context-menu .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #F2E8E3;
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-background-radius: 1em;
+    -fx-padding: 0 0 0 20;
+    -fx-background-color: #202124;
+    -fx-background-radius: 2em 0em 0em 0em;
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: #F2E8E3;
     -fx-opacity: 0.9;
 }
 
@@ -239,24 +267,16 @@
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
 .button {
-    -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
+    -fx-padding: 3 10 3 10;
     -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-background-color: #3C4042;
+    -fx-font-family: "Segoe UI Bold";
+    -fx-font-size: 14pt;
+    -fx-text-fill: #F2E8E3;
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
-}
-
-.button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+    -fx-background-color: #0096C9;
 }
 
 .button:focused {
@@ -309,6 +329,8 @@
 
 .scroll-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-unit-increment: 0.1;
+    -fx-block-increment: 0.1;
 }
 
 .scroll-bar .thumb {
@@ -344,14 +366,13 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #989AAD transparent #989AAD;
+    -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-border-insets: 0;
-    -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill : #ffffff;
-    -fx-prompt-text-fill: #ffffff;
+    -fx-text-fill : #F2E8E3;
+    -fx-prompt-text-fill: #F2E8E3;
 }
 
 #filterField, #prescriptionListPanel, #prescriptionWebpage {
@@ -359,7 +380,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, derive(#989AAD, 20%), transparent, derive(#989AAD, 20%);
+    -fx-background-color: #424242;
     -fx-background-radius: 0;
 }
 
