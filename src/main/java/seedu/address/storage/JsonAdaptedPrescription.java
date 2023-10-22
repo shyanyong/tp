@@ -27,15 +27,15 @@ class JsonAdaptedPrescription {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Prescription's %s field is missing!";
 
     private final String name;
-    private final String dosage;
-    private final String frequency;
+    private String dosage;
+    private String frequency;
     private final String startDate;
-    private final String endDate;
-    private final String expiryDate;
-    private final String totalStock;
+    private String endDate;
+    private String expiryDate;
+    private String totalStock;
     private final String consumptionCount;
-    private final Boolean isCompleted;
-    private final String note;
+    private Boolean isCompleted;
+    private String note;
     // private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -68,15 +68,27 @@ class JsonAdaptedPrescription {
      */
     public JsonAdaptedPrescription(Prescription source) {
         name = source.getName().toString();
-        dosage = source.getDosage().toString();
-        frequency = source.getFrequency().toString();
+        if (source.getDosage().isPresent()) {
+            dosage = source.getDosage().get().toString();
+        }
+        if (source.getFrequency().isPresent()) {
+            frequency = source.getFrequency().get().toString();
+        }
         startDate = source.getStartDate().toString();
-        endDate = source.getEndDate().toString();
-        expiryDate = source.getExpiryDate().toString();
-        totalStock = source.getTotalStock().toString();
+        if (source.getEndDate().isPresent()) {
+            endDate = source.getEndDate().get().toString();
+        }
+        if (source.getExpiryDate().isPresent()) {
+            expiryDate = source.getExpiryDate().get().toString();
+        }
+        if (source.getTotalStock().isPresent()) {
+            totalStock = source.getTotalStock().get().toString();
+        }
         consumptionCount = source.getConsumptionCount().toString();
-        isCompleted = source.getConsumptionCount().getIsCompleted();
-        note = source.getNote().toString();
+        isCompleted = source.getIsCompleted();
+        if (source.getNote().isPresent()) {
+            note = source.getNote().get().toString();
+        }
         // tags.addAll(source.getTags().stream()
         //         .map(JsonAdaptedTag::new)
         //         .collect(Collectors.toList()));
@@ -101,22 +113,23 @@ class JsonAdaptedPrescription {
         }
         final Name modelName = new Name(name);
 
+        Dosage modelDosage;
         if (dosage == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Dosage.class.getSimpleName()));
-        }
-        if (!Dosage.isValidDosage(dosage)) {
+            modelDosage = null;
+        } else if (!Dosage.isValidDosage(dosage)) {
             throw new IllegalValueException(Dosage.MESSAGE_CONSTRAINTS);
+        } else {
+            modelDosage = new Dosage(dosage);
         }
-        final Dosage modelDosage = new Dosage(dosage);
 
+        Frequency modelFrequency;
         if (frequency == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Frequency.class.getSimpleName()));
-        }
-        if (!Frequency.isValidFrequency(frequency)) {
+            modelFrequency = null;
+        } else if (!Frequency.isValidFrequency(frequency)) {
             throw new IllegalValueException(Frequency.MESSAGE_CONSTRAINTS);
+        } else {
+            modelFrequency = new Frequency(frequency);
         }
-        final Frequency modelFrequency = new Frequency(frequency);
 
         if (startDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
@@ -126,46 +139,56 @@ class JsonAdaptedPrescription {
         }
         final Date modelStartDate = new Date(startDate);
 
+        Date modelEndDate;
         if (endDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
-        }
-        if (!Date.isValidDate(endDate)) {
+            modelEndDate = null;
+        } else if (!Date.isValidDate(endDate)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        } else {
+            modelEndDate = new Date(endDate);
         }
-        final Date modelEndDate = new Date(endDate);
 
+        Date modelExpiryDate;
         if (expiryDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
-        }
-        if (!Date.isValidDate(expiryDate)) {
+            modelExpiryDate = null;
+        } else if (!Date.isValidDate(expiryDate)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        } else {
+            modelExpiryDate = new Date(expiryDate);
         }
-        final Date modelExpiryDate = new Date(expiryDate);
 
+        Stock modelTotalStock;
         if (totalStock == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Stock.class.getSimpleName()));
-        }
-        if (!Stock.isValidStock(totalStock)) {
+            modelTotalStock = null;
+        } else if (!Stock.isValidStock(totalStock)) {
             throw new IllegalValueException(Stock.MESSAGE_CONSTRAINTS);
+        } else {
+            modelTotalStock = new Stock(totalStock);
         }
-        final Stock modelTotalStock = new Stock(totalStock);
 
         if (consumptionCount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Stock.class.getSimpleName()));
         }
-        final ConsumptionCount modelConsumptionCount = new ConsumptionCount(consumptionCount, isCompleted);
+        final ConsumptionCount modelConsumptionCount = new ConsumptionCount(consumptionCount);
 
+        if (isCompleted == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Stock.class.getSimpleName()));
+        }
+        final Boolean modelIsCompleted = isCompleted;
+
+        Note modelNote;
         if (note == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName()));
-        }
-        if (!Note.isValidNote(note)) {
+            modelNote = null;
+        } else if (!Note.isValidNote(note)) {
             throw new IllegalValueException(Note.MESSAGE_CONSTRAINTS);
+        } else {
+            modelNote = new Note(note);
         }
-        final Note modelNote = new Note(note);
 
         // final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Prescription(modelName, modelDosage, modelFrequency, modelStartDate,
-                        modelEndDate, modelExpiryDate, modelTotalStock, modelConsumptionCount, modelNote);
+                        modelEndDate, modelExpiryDate, modelTotalStock, modelConsumptionCount, modelIsCompleted,
+                modelNote);
     }
 
 }

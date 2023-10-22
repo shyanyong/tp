@@ -38,21 +38,34 @@ public class Messages {
      */
     public static String format(Prescription prescription) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(prescription.getName())
-                .append("; Dosage: ")
-                .append(prescription.getDosage())
-                .append("; Frequency: ")
-                .append(prescription.getFrequency())
-                .append("; Start Date: ")
-                .append(prescription.getStartDate())
-                .append("; End Date: ")
-                .append(prescription.getEndDate())
-                .append("; Expiry Date: ")
-                .append(prescription.getExpiryDate())
-                .append("; Total stock: ")
-                .append(prescription.getTotalStock())
-                .append("; Note: ")
-                .append(prescription.getNote());
+        builder.append(prescription.getName());
+        if (prescription.getDosage().isPresent()) {
+            builder.append("; Dosage: ").append(prescription.getDosage());
+        }
+
+        if (prescription.getFrequency().isPresent()) {
+            builder.append("; Frequency: ").append(prescription.getFrequency());
+        }
+
+        builder.append("; Start Date: ").append(prescription.getStartDate());
+
+        if (prescription.getEndDate().isPresent()) {
+            builder.append("; End Date: ").append(prescription.getEndDate());
+        }
+
+        if (prescription.getExpiryDate().isPresent()) {
+            builder.append("; Expiry Date: ").append(prescription.getExpiryDate());
+        }
+
+        if (prescription.getTotalStock().isPresent()) {
+            builder.append("; Total stock: ").append(prescription.getTotalStock());
+        }
+
+        builder.append("; isCompleted: ").append(prescription.getIsCompleted());
+
+        if (prescription.getNote().isPresent()) {
+            builder.append("; Note: ").append(prescription.getNote());
+        }
         // person.getTags().forEach(builder::append);
         return builder.toString();
     }

@@ -11,10 +11,12 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListTodayCommand;
 import seedu.address.logic.commands.TakeCommand;
+import seedu.address.logic.commands.UntakeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -64,8 +66,12 @@ public class PrescriptionListParser {
             return new ListTodayCommandParser().parse(arguments);
         case TakeCommand.COMMAND_WORD:
             return new TakeCommandParser().parse(arguments);
+        case UntakeCommand.COMMAND_WORD:
+            return new UntakeCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
         case ExitCommand.COMMAND_WORD:
             return new ExitCommandParser().parse(arguments);
         case HelpCommand.COMMAND_WORD:

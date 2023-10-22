@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_INVALID_DATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
@@ -15,6 +16,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRESCRIPTIONS;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -26,6 +28,7 @@ import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
+import seedu.address.model.prescription.IsValidDatesPredicate;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
@@ -56,7 +59,8 @@ public class EditCommand extends Command {
             + PREFIX_NOTE + "Take after meal";
     public static final String MESSAGE_EDIT_PRESCRIPTION_SUCCESS = "Edited Prescription: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists "
+        + "in the prescription list.";
 
     private final Index index;
     private final EditPrescriptionDescriptor editPrescriptionDescriptor;
@@ -88,29 +92,44 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
         }
 
+        Predicate<Prescription> isValidDates = new IsValidDatesPredicate();
+
+        if (!isValidDates.test(editedPrescription)) {
+            throw new CommandException(MESSAGE_INVALID_DATES);
+        }
+
         model.setPrescription(prescriptionToEdit, editedPrescription);
         model.updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PRESCRIPTION_SUCCESS, Messages.format(editedPrescription)));
     }
 
     private static Prescription createEditedPrescription(Prescription prescriptionToEdit,
-                                                         EditPrescriptionDescriptor editPrescriptionDescriptor) {
+        EditPrescriptionDescriptor editPrescriptionDescriptor) throws CommandException {
         assert prescriptionToEdit != null;
 
-        Name updatedName = editPrescriptionDescriptor.getName().orElse(prescriptionToEdit.getName());
-        Dosage updatedDosage = editPrescriptionDescriptor.getDosage().orElse(prescriptionToEdit.getDosage());
-        Frequency updatedFrequency = editPrescriptionDescriptor.getFrequency()
-                .orElse(prescriptionToEdit.getFrequency());
-        Date updatedStartDate = editPrescriptionDescriptor.getStartDate().orElse(prescriptionToEdit.getStartDate());
-        Date updatedEndDate = editPrescriptionDescriptor.getEndDate().orElse(prescriptionToEdit.getEndDate());
-        Date updatedExpiryDate = editPrescriptionDescriptor.getExpiryDate().orElse(prescriptionToEdit.getExpiryDate());
-        Stock updatedTotalStock = editPrescriptionDescriptor.getTotalStock().orElse(prescriptionToEdit.getTotalStock());
-        ConsumptionCount updatedConsumptionCount = editPrescriptionDescriptor.getConsumptionCount()
-                .orElse(prescriptionToEdit.getConsumptionCount());
-        Note updatedNote = editPrescriptionDescriptor.getNote().orElse(prescriptionToEdit.getNote());
+        Name updatedName = editPrescriptionDescriptor.getName().orElse(
+            prescriptionToEdit.getName());
+        Dosage updatedDosage = editPrescriptionDescriptor.getDosage().orElse(
+            prescriptionToEdit.getDosage().orElse(null));
+        Frequency updatedFrequency = editPrescriptionDescriptor.getFrequency().orElse(
+            prescriptionToEdit.getFrequency().orElse(null));
+        Date updatedStartDate = editPrescriptionDescriptor.getStartDate().orElse(
+            prescriptionToEdit.getStartDate());
+        Date updatedEndDate = editPrescriptionDescriptor.getEndDate().orElse(
+            prescriptionToEdit.getEndDate().orElse(null));
+        Date updatedExpiryDate = editPrescriptionDescriptor.getExpiryDate().orElse(
+            prescriptionToEdit.getExpiryDate().orElse(null));
+        Stock updatedTotalStock = editPrescriptionDescriptor.getTotalStock().orElse(
+            prescriptionToEdit.getTotalStock().orElse(null));
+        ConsumptionCount updatedConsumptionCount = editPrescriptionDescriptor.getConsumptionCount().orElse(
+            prescriptionToEdit.getConsumptionCount());
+        Boolean updatedIsCompleted = editPrescriptionDescriptor.getIsCompleted()
+                .orElse(prescriptionToEdit.getIsCompleted());
+        Note updatedNote = editPrescriptionDescriptor.getNote().orElse(
+            prescriptionToEdit.getNote().orElse(null));
 
         return new Prescription(updatedName, updatedDosage, updatedFrequency, updatedStartDate, updatedEndDate,
-                updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedNote);
+                updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote);
     }
 
     /**
@@ -126,6 +145,7 @@ public class EditCommand extends Command {
         private Date expiryDate;
         private Stock totalStock;
         private ConsumptionCount consumptionCount;
+        private Boolean isCompleted;
         private Note note;
         public EditPrescriptionDescriptor() {}
 
@@ -141,12 +161,14 @@ public class EditCommand extends Command {
             setExpiryDate(toCopy.expiryDate);
             setTotalStock(toCopy.totalStock);
             setConsumptionCount(toCopy.consumptionCount);
+            setIsCompleted(toCopy.isCompleted);
             setNote(toCopy.note);
         }
 
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(
-                    name, dosage, frequency, startDate, endDate, expiryDate, totalStock, consumptionCount, note);
+                    name, dosage, frequency, startDate, endDate, expiryDate, totalStock, consumptionCount,
+                    isCompleted, note);
         }
 
         public void setName(Name name) {
@@ -221,6 +243,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(consumptionCount);
         }
 
+        public void setIsCompleted(Boolean isCompleted) {
+            this.isCompleted = isCompleted;
+        }
+
+        public Optional<Boolean> getIsCompleted() {
+            return Optional.ofNullable(isCompleted);
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -258,7 +288,6 @@ public class EditCommand extends Command {
                     .add("note", note)
                     .toString();
         }
-
     }
 }
 

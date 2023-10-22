@@ -154,7 +154,7 @@ public class ParserUtil {
         if (!ConsumptionCount.isValidConsumptionCount(trimmedConsumptionCount)) {
             throw new ParseException(ConsumptionCount.MESSAGE_CONSTRAINTS);
         }
-        return new ConsumptionCount(trimmedConsumptionCount, false);
+        return new ConsumptionCount(trimmedConsumptionCount);
     }
 
     /**

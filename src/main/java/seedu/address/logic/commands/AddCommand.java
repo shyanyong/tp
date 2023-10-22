@@ -48,6 +48,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already "
             + "exists in the prescription list.";
 
+    public static final String MESSAGE_INVALID_DATES = "Start date must be before end date, "
+            + "and end date must be before expiry date.";
+
     private final Prescription toAdd;
 
     /**

@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.Optional;
+
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
@@ -21,18 +23,20 @@ public class PrescriptionBuilder {
     public static final Date DEFAULT_END_DATE = new Date("01/10/2024");
     public static final Date DEFAULT_EXPIRY_DATE = new Date("11/02/2025");
     public static final Stock DEFAULT_STOCK = new Stock("100");
-    public static final ConsumptionCount DEFAULT_CONSUMPTION = new ConsumptionCount("0", false);
+    public static final ConsumptionCount DEFAULT_CONSUMPTION = new ConsumptionCount("0");
+    public static final Boolean DEFAULT_ISCOMPLETED = false;
     public static final Note DEFAULT_NOTE = new Note("Take after food");
 
     private Name name;
-    private Dosage dosage;
-    private Frequency frequency;
+    private Optional<Dosage> dosage;
+    private Optional<Frequency> frequency;
     private Date startDate;
-    private Date endDate;
-    private Date expiryDate;
-    private Stock totalStock;
+    private Optional<Date> endDate;
+    private Optional<Date> expiryDate;
+    private Optional<Stock> totalStock;
     private ConsumptionCount consumptionCount;
-    private Note note;
+    private Boolean isCompleted;
+    private Optional<Note> note;
     // private Set<Tag> tags;
 
     /**
@@ -40,14 +44,15 @@ public class PrescriptionBuilder {
      */
     public PrescriptionBuilder() {
         name = DEFAULT_NAME;
-        dosage = DEFAULT_DOSAGE;
-        frequency = DEFAULT_FREQUENCY;
+        dosage = Optional.ofNullable(DEFAULT_DOSAGE);
+        frequency = Optional.ofNullable(DEFAULT_FREQUENCY);
         startDate = DEFAULT_START_DATE;
-        endDate = DEFAULT_END_DATE;
-        expiryDate = DEFAULT_EXPIRY_DATE;
-        totalStock = DEFAULT_STOCK;
+        endDate = Optional.ofNullable(DEFAULT_END_DATE);
+        expiryDate = Optional.ofNullable(DEFAULT_EXPIRY_DATE);
+        totalStock = Optional.ofNullable(DEFAULT_STOCK);
         consumptionCount = DEFAULT_CONSUMPTION;
-        note = DEFAULT_NOTE;
+        isCompleted = DEFAULT_ISCOMPLETED;
+        note = Optional.ofNullable(DEFAULT_NOTE);
         // tags = new HashSet<>();
     }
 
@@ -63,6 +68,7 @@ public class PrescriptionBuilder {
         expiryDate = prescriptionToCopy.getExpiryDate();
         totalStock = prescriptionToCopy.getTotalStock();
         consumptionCount = prescriptionToCopy.getConsumptionCount();
+        isCompleted = prescriptionToCopy.getIsCompleted();
         note = prescriptionToCopy.getNote();
         // tags = new HashSet<>(personToCopy.getTags());
     }
@@ -87,7 +93,7 @@ public class PrescriptionBuilder {
      * Sets the {@code Dosage} of the {@code Prescription} that we are building.
      */
     public PrescriptionBuilder withDosage(String dosage) {
-        this.dosage = new Dosage(dosage);
+        this.dosage = Optional.ofNullable(new Dosage(dosage));
         return this;
     }
 
@@ -95,7 +101,7 @@ public class PrescriptionBuilder {
      * Sets the {@code Frequency} of the {@code Prescription} that we are building.
      */
     public PrescriptionBuilder withFrequency(String frequency) {
-        this.frequency = new Frequency(frequency);
+        this.frequency = Optional.ofNullable(new Frequency(frequency));
         return this;
     }
 
@@ -111,7 +117,7 @@ public class PrescriptionBuilder {
      * Sets the {@code Date} of the {@code Prescription} that we are building.
      */
     public PrescriptionBuilder withEndDate(String endDate) {
-        this.endDate = new Date(endDate);
+        this.endDate = Optional.ofNullable(new Date(endDate));
         return this;
     }
 
@@ -119,7 +125,7 @@ public class PrescriptionBuilder {
      * Sets the {@code Date} of the {@code Prescription} that we are building.
      */
     public PrescriptionBuilder withExpiryDate(String expiryDate) {
-        this.expiryDate = new Date(expiryDate);
+        this.expiryDate = Optional.ofNullable(new Date(expiryDate));
         return this;
     }
 
@@ -127,7 +133,7 @@ public class PrescriptionBuilder {
      * Sets the {@code Stock} of the {@code Prescription} that we are building.
      */
     public PrescriptionBuilder withStock(String stock) {
-        this.totalStock = new Stock(stock);
+        this.totalStock = Optional.ofNullable(new Stock(stock));
         return this;
     }
 
@@ -135,7 +141,15 @@ public class PrescriptionBuilder {
      * Sets the {@code Stock} of the {@code Prescription} that we are building.
      */
     public PrescriptionBuilder withConsumptionCount(String consumptionCount) {
-        this.consumptionCount = new ConsumptionCount(consumptionCount, false);
+        this.consumptionCount = new ConsumptionCount(consumptionCount);
+        return this;
+    }
+
+    /**
+     * Sets the {@code isCompleted} of the {@code Prescription} that we are building.
+     */
+    public PrescriptionBuilder withIsCompleted(Boolean isCompleted) {
+        this.isCompleted = isCompleted;
         return this;
     }
 
@@ -143,7 +157,7 @@ public class PrescriptionBuilder {
      * Sets the {@code Note} of the {@code Prescription} that we are building.
      */
     public PrescriptionBuilder withNote(String note) {
-        this.note = new Note(note);
+        this.note = Optional.ofNullable(new Note(note));
         return this;
     }
 
@@ -151,8 +165,9 @@ public class PrescriptionBuilder {
      * Builds the {@code Prescription} with the fields previously set.
      */
     public Prescription build() {
-        return new Prescription(name, dosage, frequency, startDate, endDate, expiryDate, totalStock, consumptionCount,
-                                note);
+        return new Prescription(name, dosage.orElse(null), frequency.orElse(null),
+            startDate, endDate.orElse(null), expiryDate.orElse(null), totalStock.orElse(null),
+            consumptionCount, isCompleted, note.orElse(null));
     }
 
 }
