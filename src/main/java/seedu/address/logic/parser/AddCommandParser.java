@@ -10,6 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.function.Predicate;
 // import java.util.Set;
 import java.util.stream.Stream;
 
@@ -18,6 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
+import seedu.address.model.prescription.IsValidDatesPredicate;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
@@ -39,8 +43,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY,
                     PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY, PREFIX_START_DATE,
-                PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddCommand.MESSAGE_USAGE));
@@ -49,17 +52,51 @@ public class AddCommandParser implements Parser<AddCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY,
                 PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Dosage dosage = ParserUtil.parseDosage(argMultimap.getValue(PREFIX_DOSAGE).get());
-        Frequency frequency = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQUENCY).get());
-        Date startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_START_DATE).get());
-        Date endDate = ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_END_DATE).get());
-        Date expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
-        Stock totalStock = ParserUtil.parseTotalStock(argMultimap.getValue(PREFIX_TOTAL_STOCK).get());
-        Note note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+
+        Dosage dosage = null;
+        if (argMultimap.getValue(PREFIX_DOSAGE).isPresent()) {
+            dosage = ParserUtil.parseDosage(argMultimap.getValue(PREFIX_DOSAGE).get());
+        }
+
+        Frequency frequency = null;
+        if (argMultimap.getValue(PREFIX_FREQUENCY).isPresent()) {
+            frequency = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQUENCY).get());
+        }
+
+        Date startDate = new Date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        if (argMultimap.getValue(PREFIX_START_DATE).isPresent()) {
+            startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_START_DATE).get());
+        }
+
+        Date endDate = null;
+        if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
+            endDate = ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_END_DATE).get());
+        }
+
+        Date expiryDate = null;
+        if (argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()) {
+            expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
+        }
+
+        Stock totalStock = null;
+        if (argMultimap.getValue(PREFIX_TOTAL_STOCK).isPresent()) {
+            totalStock = ParserUtil.parseTotalStock(argMultimap.getValue(PREFIX_TOTAL_STOCK).get());
+        }
+
+        Note note = null;
+        if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
+            note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+        }
+
         // Set<Tag> tagList = ParserUtilPrescription.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Prescription prescription = new Prescription(name, dosage, frequency, startDate, endDate,
                 expiryDate, totalStock, note);
+
+        Predicate<Prescription> isValidDates = new IsValidDatesPredicate();
+        if (!isValidDates.test(prescription)) {
+            throw new ParseException(AddCommand.MESSAGE_INVALID_DATES);
+        }
 
         return new AddCommand(prescription);
     }

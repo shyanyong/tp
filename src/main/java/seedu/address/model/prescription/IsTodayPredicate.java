@@ -2,6 +2,7 @@ package seedu.address.model.prescription;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -13,15 +14,21 @@ public class IsTodayPredicate implements Predicate<Prescription> {
     public boolean test(Prescription prescription) {
         LocalDate today = LocalDate.now();
         LocalDate startDate = prescription.getStartDate().getDate();
-        LocalDate endDate = prescription.getEndDate().getDate();
+        Optional<Date> endDate = prescription.getEndDate();
         long daysBetween = ChronoUnit.DAYS.between(startDate, today);
 
-        if (!(today.isAfter(startDate) && today.isBefore(endDate))) {
+        if ((prescription.getEndDate().isPresent()
+            && today.isAfter(endDate.get().getDate()))
+            || today.isBefore(startDate)) {
             return false;
         }
-        Frequency frequency = prescription.getFrequency();
 
-        switch (frequency.toString()) {
+        Optional<Frequency> frequency = prescription.getFrequency();
+        if (frequency.isEmpty()) {
+            return true;
+        }
+
+        switch (frequency.get().toString()) {
         case "Daily":
             return true;
         case "Weekly":
