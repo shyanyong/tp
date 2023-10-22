@@ -31,6 +31,9 @@ public class ConsumptionCountTest {
         assertFalse(ConsumptionCount.isValidConsumptionCount(" ")); // spaces only
         assertFalse(ConsumptionCount.isValidConsumptionCount("^")); // non-alphanumeric characters
         assertFalse(ConsumptionCount.isValidConsumptionCount("a")); // alphabets
+        assertFalse((Stock.isValidStock("1.2"))); // decimal number
+        assertFalse((Stock.isValidStock("-1"))); // negative number
+        assertFalse((Stock.isValidStock("2147483648"))); // greater than max int value
 
         // valid consumptionCount
         assertTrue(ConsumptionCount.isValidConsumptionCount("1")); // single digit

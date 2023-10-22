@@ -29,6 +29,9 @@ public class DosageTest {
         assertFalse(Dosage.isValidDosage(" ")); // spaces only
         assertFalse(Dosage.isValidDosage("^")); // non-alphanumeric characters
         assertFalse(Dosage.isValidDosage("a")); // alphabets
+        assertFalse((Stock.isValidStock("1.2"))); // decimal number
+        assertFalse((Stock.isValidStock("-1"))); // negative number
+        assertFalse((Stock.isValidStock("2147483648"))); // greater than max int value
 
         // valid dosage
         assertTrue(Dosage.isValidDosage("1")); // single digit
