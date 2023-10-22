@@ -10,28 +10,15 @@ import org.junit.jupiter.api.Test;
 public class ConsumptionCountTest {
 
     @Test
-    public void constructor_validValues_success() {
-        // Valid values, isCompleted is set to true
-        ConsumptionCount consumptionCount1 = new ConsumptionCount("5", true);
-        assertTrue(consumptionCount1.getIsCompleted());
-
-        // Valid values, isCompleted is set to false
-        ConsumptionCount consumptionCount2 = new ConsumptionCount("0", false);
-        assertFalse(consumptionCount2.getIsCompleted());
-
-    }
-
-    @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ConsumptionCount(null, false));
-        assertThrows(NullPointerException.class, () -> new ConsumptionCount("0", null));
+        assertThrows(NullPointerException.class, () -> new ConsumptionCount(null));
     }
 
     @Test
     public void constructor_invalidConsumptionCount_throwsIllegalArgumentException() {
         String invalidConsumptionCount = "";
         assertThrows(IllegalArgumentException.class, () ->
-                new ConsumptionCount(invalidConsumptionCount, false));
+                new ConsumptionCount(invalidConsumptionCount));
     }
 
     @Test
@@ -53,7 +40,7 @@ public class ConsumptionCountTest {
 
     @Test
     public void incrementCount() {
-        ConsumptionCount consumptionCount = new ConsumptionCount("0", false);
+        ConsumptionCount consumptionCount = new ConsumptionCount("0");
 
         // Test incrementing
         consumptionCount.incrementCount(1);
@@ -66,29 +53,34 @@ public class ConsumptionCountTest {
     }
 
     @Test
+    public void decrementCount() {
+        ConsumptionCount consumptionCount = new ConsumptionCount("10");
+
+        // Test decrementing
+        consumptionCount.decrementCount(1);
+        assertTrue(consumptionCount.getConsumptionCount().equals("9"));
+
+        // Test decrementing with a larger number
+        consumptionCount.decrementCount(5);
+        assertTrue(consumptionCount.getConsumptionCount().equals("4"));
+
+    }
+
+    @Test
     public void setConsumptionCount() {
-        ConsumptionCount consumptionCount = new ConsumptionCount("0", false);
-        ConsumptionCount consumptionCount1 = new ConsumptionCount("1", false);
+        ConsumptionCount consumptionCount = new ConsumptionCount("0");
+        ConsumptionCount consumptionCount1 = new ConsumptionCount("1");
         // Test setIsCompleted
         consumptionCount.setConsumptionCount("1");
         assertEquals(consumptionCount.getConsumptionCount(), consumptionCount1.getConsumptionCount());
     }
 
     @Test
-    public void setIsCompleted() {
-        ConsumptionCount consumptionCount = new ConsumptionCount("0", false);
-
-        // Test setIsCompleted
-        consumptionCount.setIsCompleted(true);
-        assertTrue(consumptionCount.getIsCompleted());
-    }
-
-    @Test
     public void equals() {
-        ConsumptionCount consumptionCount = new ConsumptionCount("0", false);
+        ConsumptionCount consumptionCount = new ConsumptionCount("0");
 
         // same values -> returns true
-        assertTrue(consumptionCount.equals(new ConsumptionCount("0", false)));
+        assertTrue(consumptionCount.equals(new ConsumptionCount("0")));
 
         // same object -> returns true
         assertTrue(consumptionCount.equals(consumptionCount));
@@ -100,7 +92,7 @@ public class ConsumptionCountTest {
         assertFalse(consumptionCount.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(consumptionCount.equals(new ConsumptionCount("1", true)));
+        assertFalse(consumptionCount.equals(new ConsumptionCount("1")));
 
         // Add more test cases for equals as needed
     }

@@ -13,7 +13,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.TakeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Prescription;
 
@@ -127,22 +126,6 @@ public class ModelManager implements Model {
         }
         throw new CommandException(TakeCommand.MESSAGE_PRESCRIPTION_NOT_FOUND);
     }
-
-    @Override
-    public void takePrescription(Name prescriptionName, int dosesToTake) throws CommandException {
-        requireAllNonNull(prescriptionName, dosesToTake);
-
-        Prescription prescription = getPrescriptionByName(prescriptionName);
-        ConsumptionCount consumptionCount = prescription.getConsumptionCount();
-        consumptionCount.incrementCount(dosesToTake);
-        prescription.getTotalStock().decrementCount(dosesToTake);
-
-        if (Integer.parseInt(consumptionCount.getConsumptionCount())
-                >= Integer.parseInt(prescription.getDosage().toString())) {
-            consumptionCount.setIsCompleted(true);
-        }
-    }
-
 
     //=========== Filtered Prescription List Accessors =============================================================
 

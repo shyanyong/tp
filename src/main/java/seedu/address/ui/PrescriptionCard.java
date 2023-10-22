@@ -49,22 +49,6 @@ public class PrescriptionCard extends UiPart<Region> {
     @FXML
     private Label note;
 
-    private String dosageHeader = "Dosage: ";
-
-    private String frequencyHeader = "Frequency: ";
-
-    private String startDateHeader = "Start date: ";
-
-    private String endDateHeader = "End date: ";
-
-    private String expiryDateHeader = "Expiry date: ";
-
-    private String totalStockHeader = "Total stock: ";
-
-    private String consumptionCountHeader = "Consumption count: ";
-
-    private String noteHeader = "Note: ";
-
     /**
      * Creates a {@code PrescriptionCode} with the given {@code Prescription} and index to display.
      */
@@ -72,18 +56,64 @@ public class PrescriptionCard extends UiPart<Region> {
         super(FXML);
         this.prescription = prescription;
         id.setText(displayedIndex + ". ");
+
         name.setText(prescription.getName().toString());
-        dosage.setText(dosageHeader + prescription.getDosage().toString());
-        frequency.setText(frequencyHeader + prescription.getFrequency().toString());
-        startDate.setText(startDateHeader + prescription.getStartDate().toString());
-        endDate.setText(endDateHeader + prescription.getEndDate().toString());
-        expiryDate.setText(expiryDateHeader + prescription.getExpiryDate().toString());
-        totalStock.setText(totalStockHeader + prescription.getTotalStock().toString());
-        consumptionCount.setText(consumptionCountHeader + prescription.getConsumptionCount().getConsumptionCount()
-                                + "/" + prescription.getDosage().toString());
-        note.setText(noteHeader + prescription.getNote().toString());
+
+        if (prescription.getDosage().isPresent()) {
+            dosage.setText(prescription.getDosage().get().toString());
+        } else {
+            dosage.setText("");
+        }
+
+        if (prescription.getFrequency().isPresent()) {
+            frequency.setText(prescription.getFrequency().get().toString());
+        } else {
+            frequency.setText("");
+        }
+
+        startDate.setText(prescription.getStartDate().toString());
+
+        if (prescription.getEndDate().isPresent()) {
+            endDate.setText(prescription.getEndDate().get().toString());
+        } else {
+            endDate.setText("");
+        }
+
+        if (prescription.getExpiryDate().isPresent()) {
+            expiryDate.setText(prescription.getExpiryDate().get().toString());
+        } else {
+            expiryDate.setText("");
+        }
+
+        if (prescription.getTotalStock().isPresent()) {
+            totalStock.setText(prescription.getTotalStock().get().toString());
+        } else {
+            totalStock.setText("");
+        }
+
+        if (prescription.getNote().isPresent()) {
+            note.setText(prescription.getNote().get().toString());
+        } else {
+            note.setText("");
+        }
+
+        setCompletionStatus(prescription);
         // prescription.getTags().stream()
         //         .sorted(Comparator.comparing(tag -> tag.tagName))
         //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    private void setCompletionStatus(Prescription prescription) {
+        consumptionCount.getStyleClass().clear();
+
+        if (prescription.getIsCompleted()) {
+            consumptionCount.setText("Completed");
+            consumptionCount.getStyleClass().add("consumption-status-green");
+        } else {
+            consumptionCount.setText(String.format("Uncompleted %s/%s",
+                prescription.getConsumptionCount().getConsumptionCount(),
+                prescription.getDosage().get().toString()));
+            consumptionCount.getStyleClass().add("consumption-status-red");
+        }
     }
 }

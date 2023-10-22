@@ -69,18 +69,6 @@ public class AddCommandParserTest {
                 + FREQUENCY_DESC_ASPIRIN + START_DATE_DESC_ASPIRIN + END_DATE_DESC_ASPIRIN
                 + EXPIRY_DATE_DESC_ASPIRIN + STOCK_DESC_ASPIRIN + NOTE_DESC_ASPIRIN,
                 expectedMessage);
-
-        // missing dosage prefix
-        assertParseFailure(parser, PREAMBLE_WHITESPACE + NAME_DESC_ASPIRIN
-                + FREQUENCY_DESC_ASPIRIN + START_DATE_DESC_ASPIRIN + END_DATE_DESC_ASPIRIN
-                + EXPIRY_DATE_DESC_ASPIRIN + STOCK_DESC_ASPIRIN + NOTE_DESC_ASPIRIN,
-                expectedMessage);
-
-        // missing frequency prefix
-        assertParseFailure(parser, PREAMBLE_WHITESPACE + NAME_DESC_ASPIRIN + DOSAGE_DESC_ASPIRIN
-                + START_DATE_DESC_ASPIRIN + END_DATE_DESC_ASPIRIN + EXPIRY_DATE_DESC_ASPIRIN
-                + STOCK_DESC_ASPIRIN + NOTE_DESC_ASPIRIN,
-                expectedMessage);
     }
 
     @Test

@@ -42,7 +42,7 @@ public class TakeCommandTest {
         Model expectedModel = new ModelManager(model.getPrescriptionList(),
                 new UserPrefs());
 
-        int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().toString());
+        int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().get().toString());
         int dosesToTake = 1; //Valid number of doses
 
         TakeCommand takePrescriptionCommand = new TakeCommand(
@@ -50,11 +50,13 @@ public class TakeCommandTest {
 
         String expectedMessage = String.format(TakeCommand.MESSAGE_SUCCESS,
                                   prescriptionToTake.getName());
-        expectedModel.takePrescription(prescriptionToTake.getName(), dosesToTake);
+        Prescription expectedPrescription = expectedModel.getPrescriptionByName(prescriptionToTake.getName());
+        expectedPrescription.getTotalStock().get().decrementCount(dosesToTake);
+        expectedPrescription.getConsumptionCount().incrementCount(dosesToTake);
         expectedModel.updateFilteredPrescriptionList(new SameNamePredicate(prescriptionToTake.getName()));
 
         int newStock = Integer.parseInt(expectedModel.getPrescriptionByName(prescriptionToTake.getName())
-                .getTotalStock().toString());
+                .getTotalStock().get().toString());
 
         assertCommandSuccess(takePrescriptionCommand, model, expectedMessage, expectedModel);
 
@@ -62,30 +64,11 @@ public class TakeCommandTest {
     }
 
     @Test
-    public void execute_invalidDosesToTake_throwsCommandException() throws CommandException {
-        Prescription prescriptionToTake = model.getFilteredPrescriptionList()
-                .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
-
-        int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().toString());
-        int dosesToTake = -1; // Invalid number of doses
-
-        TakeCommand takePrescriptionCommand = new TakeCommand(
-                prescriptionToTake.getName(), dosesToTake);
-
-        assertCommandFailure(takePrescriptionCommand, model, TakeCommand.MESSAGE_INVALID_DOSE);
-
-        // Ensure that the stock is not modified
-        int newStock = Integer.parseInt(model.getPrescriptionByName(prescriptionToTake.getName())
-                .getTotalStock().toString());
-        assertEquals(initialStock, newStock);
-    }
-
-    @Test
     public void execute_insufficientStock_throwsCommandException() throws CommandException {
         Prescription prescriptionToTake = model.getFilteredPrescriptionList()
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
 
-        int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().toString());
+        int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().get().toString());
         int dosesToTake = initialStock + 1; // More than available stock
 
         TakeCommand takePrescriptionCommand = new TakeCommand(
@@ -95,7 +78,7 @@ public class TakeCommandTest {
 
         // Ensure that the stock is not modified
         int newStock = Integer.parseInt(model.getPrescriptionByName(prescriptionToTake.getName())
-                .getTotalStock().toString());
+                .getTotalStock().get().toString());
         assertEquals(initialStock, newStock);
     }
 
