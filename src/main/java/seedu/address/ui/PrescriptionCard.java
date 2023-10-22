@@ -61,28 +61,40 @@ public class PrescriptionCard extends UiPart<Region> {
 
         if (prescription.getDosage().isPresent()) {
             dosage.setText(prescription.getDosage().get().toString());
+        } else {
+            dosage.setText("");
         }
 
         if (prescription.getFrequency().isPresent()) {
             frequency.setText(prescription.getFrequency().get().toString());
+        } else {
+            frequency.setText("");
         }
 
         startDate.setText(prescription.getStartDate().toString());
 
         if (prescription.getEndDate().isPresent()) {
             endDate.setText(prescription.getEndDate().get().toString());
+        } else {
+            endDate.setText("");
         }
 
         if (prescription.getExpiryDate().isPresent()) {
             expiryDate.setText(prescription.getExpiryDate().get().toString());
+        } else {
+            expiryDate.setText("");
         }
 
         if (prescription.getTotalStock().isPresent()) {
             totalStock.setText(prescription.getTotalStock().get().toString());
+        } else {
+            totalStock.setText("");
         }
 
         if (prescription.getNote().isPresent()) {
             note.setText(prescription.getNote().get().toString());
+        } else {
+            note.setText("");
         }
 
         setCompletionStatus(prescription);
