@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPrescriptionAtIndex;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PRESCRIPTION_SUCCESS;
+import static seedu.address.testutil.CompletedPrescriptions.getCompletedPrescriptionList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRESCRIPTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PRESCRIPTION;
 import static seedu.address.testutil.TypicalPrescriptions.getTypicalPrescriptionList;
@@ -33,7 +34,7 @@ public class DeleteCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalPrescriptionList(),
-                getTypicalPrescriptionList(),
+                getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel = new ModelManager(model.getPrescriptionList(),
                 model.getCompletedPrescriptionList(),
