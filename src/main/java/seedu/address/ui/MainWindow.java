@@ -113,7 +113,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredPrescriptionList());
+        if (logic.getIsDisplayingCompletedList()) {
+            prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredCompletedPrescriptionList());
+        } else {
+            prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredPrescriptionList());
+        }
         prescriptionListPanelPlaceholder.getChildren().add(prescriptionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -191,6 +195,8 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            prescriptionListPanelPlaceholder.getChildren().clear();
+            fillInnerParts();
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

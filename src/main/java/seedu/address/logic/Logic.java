@@ -33,6 +33,12 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of prescriptions */
     ObservableList<Prescription> getFilteredPrescriptionList();
 
+    /** Returns an unmodifiable view of the filtered list of completed prescriptions */
+    ObservableList<Prescription> getFilteredCompletedPrescriptionList();
+
+    /** Returns the flag indicating whether to display the completed list */
+    boolean getIsDisplayingCompletedList();
+
     /**
      * Returns the user prefs' prescription list file path.
      */
