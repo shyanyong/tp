@@ -15,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.PrescriptionListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.PrescriptionList;
 import seedu.address.model.ReadOnlyPrescriptionList;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.storage.Storage;
@@ -46,7 +47,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException, IOException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
@@ -55,6 +56,7 @@ public class LogicManager implements Logic {
         if (command instanceof ListCompletedCommand) {
             // Handle the ListCompletedCommand
             this.isDisplayingCompletedList = true;
+            checkAndMoveEndedPrescriptions();
         } else {
             // Handle other commands...
             this.isDisplayingCompletedList = false;
@@ -72,6 +74,21 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    /**
+     * Deletes prescriptions that are past the end date and stores them in the completed prescription list.
+     */
+    private void checkAndMoveEndedPrescriptions() throws IOException {
+        PrescriptionList prescriptionListCopy = new PrescriptionList(model.getPrescriptionList());
+        for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
+            if (prescription.isEnded()) {
+                model.deletePrescription(prescription);
+                model.addCompletedPrescription(prescription);
+            }
+        }
+        storage.savePrescriptionList(model.getPrescriptionList());
+        storage.saveCompletedPrescriptionList(model.getCompletedPrescriptionList());
     }
 
     @Override
