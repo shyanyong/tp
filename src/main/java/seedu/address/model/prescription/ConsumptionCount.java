@@ -8,8 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ConsumptionCount {
 
     public static final String MESSAGE_CONSTRAINTS = "ConsumptionCount should be a non-blank, "
-            + "positive integer with numeric characters only, "
-            + "and smaller than the maximum possible integer value (2,147,483,647).";
+            + "positive integer with numeric characters only.";
 
     public static final String VALIDATION_REGEX = "[0-9]+";
     private String consumptionCount;
