@@ -107,7 +107,8 @@ public class PrescriptionCard extends UiPart<Region> {
         consumptionCount.getStyleClass().clear();
 
         if (!prescription.getDosage().isPresent()) {
-            consumptionCount.setText("Not Applicable");
+            consumptionCount.setText(String.format("Consumed %s",
+                prescription.getConsumptionCount().getConsumptionCount()));
             consumptionCount.getStyleClass().add("consumption-status-grey");
         } else if (prescription.getIsCompleted()) {
             consumptionCount.setText("Completed");
