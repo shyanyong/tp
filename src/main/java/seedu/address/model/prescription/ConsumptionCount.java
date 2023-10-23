@@ -9,8 +9,11 @@ public class ConsumptionCount {
 
     public static final String MESSAGE_CONSTRAINTS = "ConsumptionCount should be a non-blank, "
             + "positive integer with numeric characters only.";
+    public static final String MESSAGE_INVALID_NUMBER = "The value that you have inputted is too large. "
+            + "Please input a smaller value.";
 
     public static final String VALIDATION_REGEX = "[0-9]+";
+    public static final String VALID_NUMBER_REGEX = "([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])";
     private String consumptionCount;
 
     /**
@@ -20,6 +23,7 @@ public class ConsumptionCount {
      */
     public ConsumptionCount(String consumptionCount) {
         checkArgument(isValidConsumptionCount(consumptionCount), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidNumber(consumptionCount), MESSAGE_INVALID_NUMBER);
         this.consumptionCount = consumptionCount;
     }
 
@@ -57,16 +61,11 @@ public class ConsumptionCount {
      * Returns true if a given string is a valid dosage.
      */
     public static boolean isValidConsumptionCount(String test) {
-        if (!test.matches(VALIDATION_REGEX)) {
-            return false;
-        }
+        return test.matches(VALIDATION_REGEX);
+    }
 
-        try {
-            int consumptionValue = Integer.parseInt(test);
-            return (consumptionValue >= 0);
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    public static boolean isValidNumber(String test) {
+        return test.matches(VALID_NUMBER_REGEX);
     }
 
     @Override
