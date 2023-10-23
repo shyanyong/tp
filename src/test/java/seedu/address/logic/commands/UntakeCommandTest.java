@@ -27,19 +27,20 @@ public class UntakeCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalPrescriptionList(), new UserPrefs());
+        model = new ModelManager(getTypicalPrescriptionList(), getTypicalPrescriptionList(), new UserPrefs());
     }
 
     @Test
     public void execute_validDosesToUntake_success() throws CommandException {
         PrescriptionList prescriptionList = new PrescriptionList();
+        PrescriptionList completedPrescriptionList = new PrescriptionList();
         Prescription prescriptionToUntake = new PrescriptionBuilder()
                 .withConsumptionCount("100")
                 .withStock("100")
                 .build();
         prescriptionList.addPrescription(prescriptionToUntake);
-        Model model = new ModelManager(prescriptionList, new UserPrefs());
-        Model expectedModel = new ModelManager(model.getPrescriptionList(),
+        Model model = new ModelManager(prescriptionList, completedPrescriptionList, new UserPrefs());
+        Model expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
 
         int initialStock = Integer.parseInt(prescriptionToUntake.getTotalStock().get().toString());

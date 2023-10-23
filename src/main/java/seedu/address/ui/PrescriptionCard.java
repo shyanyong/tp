@@ -112,7 +112,7 @@ public class PrescriptionCard extends UiPart<Region> {
         } else {
             consumptionCount.setText(String.format("Uncompleted %s/%s",
                 prescription.getConsumptionCount().getConsumptionCount(),
-                prescription.getDosage().get().toString()));
+                dosage.getText()));
             consumptionCount.getStyleClass().add("consumption-status-red");
         }
     }

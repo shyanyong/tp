@@ -29,7 +29,7 @@ import seedu.address.testutil.EditPrescriptionDescriptorBuilder;
 import seedu.address.testutil.PrescriptionBuilder;
 
 public class EditCommandTest {
-    private Model model = new ModelManager(getTypicalPrescriptionList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalPrescriptionList(), getTypicalPrescriptionList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -40,7 +40,8 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PRESCRIPTION_SUCCESS,
                 Messages.format(editedPrescription));
 
-        Model expectedModel = new ModelManager(new PrescriptionList(model.getPrescriptionList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PrescriptionList(model.getPrescriptionList()),
+                new PrescriptionList(getTypicalPrescriptionList()), new UserPrefs());
         expectedModel.setPrescription(model.getFilteredPrescriptionList().get(0), editedPrescription);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -63,7 +64,8 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PRESCRIPTION_SUCCESS,
                 Messages.format(editedPrescription));
 
-        Model expectedModel = new ModelManager(new PrescriptionList(model.getPrescriptionList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PrescriptionList(model.getPrescriptionList()),
+                new PrescriptionList(getTypicalPrescriptionList()), new UserPrefs());
 
         expectedModel.setPrescription(lastPrescription, editedPrescription);
 
@@ -79,7 +81,8 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PRESCRIPTION_SUCCESS,
                 Messages.format(editedPrescription));
 
-        Model expectedModel = new ModelManager(new PrescriptionList(model.getPrescriptionList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PrescriptionList(model.getPrescriptionList()),
+                new PrescriptionList(getTypicalPrescriptionList()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -98,7 +101,8 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PRESCRIPTION_SUCCESS,
                 Messages.format(editedPrescription));
 
-        Model expectedModel = new ModelManager(new PrescriptionList(model.getPrescriptionList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PrescriptionList(model.getPrescriptionList()),
+                new PrescriptionList(getTypicalPrescriptionList()), new UserPrefs());
         expectedModel.setPrescription(model.getFilteredPrescriptionList().get(0), editedPrescription);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

@@ -23,25 +23,31 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final PrescriptionList prescriptionList;
+    private final PrescriptionList completedPrescriptionList;
     private final UserPrefs userPrefs;
     private final FilteredList<Prescription> filteredPrescriptions;
+    private final FilteredList<Prescription> filteredCompletedPrescriptions;
 
     /**
      * Initializes a ModelManagerPrescription with the given prescriptionList and userPrefs.
      */
-    public ModelManager(ReadOnlyPrescriptionList prescriptionList,
+    public ModelManager(ReadOnlyPrescriptionList prescriptionList, ReadOnlyPrescriptionList completedPrescriptionList,
         ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(prescriptionList, userPrefs);
 
-        logger.fine("Initializing with prescription list: " + prescriptionList + " and user prefs " + userPrefs);
+        logger.fine("Initializing with prescription list: " + prescriptionList
+                + ", completed prescription list: " + completedPrescriptionList
+                + " and user prefs " + userPrefs);
 
         this.prescriptionList = new PrescriptionList(prescriptionList);
+        this.completedPrescriptionList = new PrescriptionList(completedPrescriptionList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPrescriptions = new FilteredList<>(this.prescriptionList.getPrescriptionList());
+        filteredCompletedPrescriptions = new FilteredList<>(this.completedPrescriptionList.getPrescriptionList());
     }
 
     public ModelManager() {
-        this(new PrescriptionList(), new UserPrefs());
+        this(new PrescriptionList(), new PrescriptionList(), new UserPrefs());
     }
 
     //=========== UserPrefsPrescription ===============================================================================
@@ -77,6 +83,17 @@ public class ModelManager implements Model {
     public void setPrescriptionListFilePath(Path prescriptionListFilePath) {
         requireNonNull(prescriptionListFilePath);
         userPrefs.setPrescriptionListFilePath(prescriptionListFilePath);
+    }
+
+    @Override
+    public Path getCompletedPrescriptionListFilePath() {
+        return userPrefs.getCompletedPrescriptionListFilePath();
+    }
+
+    @Override
+    public void setCompletedPrescriptionListFilePath(Path completedPrescriptionListFilePath) {
+        requireNonNull(completedPrescriptionListFilePath);
+        userPrefs.setCompletedPrescriptionListFilePath(completedPrescriptionListFilePath);
     }
 
     //=========== PrescriptionList ================================================================================
@@ -144,6 +161,71 @@ public class ModelManager implements Model {
         filteredPrescriptions.setPredicate(predicate);
     }
 
+    //=========== CompletedPrescriptionList =========================================================================
+
+    @Override
+    public void setCompletedPrescriptionList(ReadOnlyPrescriptionList completedPrescriptionList) {
+        this.completedPrescriptionList.resetData(completedPrescriptionList);
+    }
+
+    @Override
+    public ReadOnlyPrescriptionList getCompletedPrescriptionList() {
+        return completedPrescriptionList;
+    }
+
+    @Override
+    public boolean hasCompletedPrescription(Prescription completedPrescription) {
+        requireNonNull(completedPrescription);
+        return completedPrescriptionList.hasPrescription(completedPrescription);
+    }
+
+    @Override
+    public void deleteCompletedPrescription(Prescription target) {
+        completedPrescriptionList.removePrescription(target);
+    }
+
+    @Override
+    public void addCompletedPrescription(Prescription completedPrescription) {
+        completedPrescriptionList.addPrescription(completedPrescription);
+        updateFilteredCompletedPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
+    }
+
+    @Override
+    public void setCompletedPrescription(Prescription target, Prescription editedPrescription) {
+        requireAllNonNull(target, editedPrescription);
+
+        completedPrescriptionList.setPrescription(target, editedPrescription);
+    }
+
+    @Override
+    public Prescription getCompletedPrescriptionByName(Name completedPrescriptionName) throws CommandException {
+        requireNonNull(completedPrescriptionName);
+
+        for (Prescription completedPrescription : completedPrescriptionList.getPrescriptionList()) {
+            if (completedPrescription.getName().equals(completedPrescriptionName)) {
+                return completedPrescription;
+            }
+        }
+        throw new CommandException(TakeCommand.MESSAGE_PRESCRIPTION_NOT_FOUND);
+    }
+
+    //=========== Filtered Completed Prescription List Accessors ====================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Prescription} backed by the internal list of
+     * {@code versionedPrescriptionList}
+     */
+    @Override
+    public ObservableList<Prescription> getFilteredCompletedPrescriptionList() {
+        return filteredCompletedPrescriptions;
+    }
+
+    @Override
+    public void updateFilteredCompletedPrescriptionList(Predicate<Prescription> predicate) {
+        requireNonNull(predicate);
+        filteredCompletedPrescriptions.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -157,8 +239,10 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return prescriptionList.equals(otherModelManager.prescriptionList)
+                && completedPrescriptionList.equals(otherModelManager.completedPrescriptionList)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPrescriptions.equals(otherModelManager.filteredPrescriptions);
+                && filteredPrescriptions.equals(otherModelManager.filteredPrescriptions)
+                && filteredCompletedPrescriptions.equals(otherModelManager.filteredCompletedPrescriptions);
     }
 
 }
