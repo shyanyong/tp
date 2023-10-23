@@ -23,7 +23,7 @@ public class TakeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Takes a specified number of doses of a prescription.\n"
-            + "Parameters: INDEX (must be a positive integer)"
+            + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_CONSUMPTION + "number_of_doses (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
