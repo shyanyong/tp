@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.prescription.Prescription;
 
 /**
- * Lists all remaining medications to be taken for the day to the user.
+ * Lists all completed prescriptions to the user.
  */
 public class ListCompletedCommand extends Command {
 
