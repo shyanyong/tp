@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.AddCommand.MESSAGE_INVALID_DATES;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
@@ -11,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRESCRIPTIONS;
 
 import java.util.List;
 import java.util.Objects;
@@ -52,7 +50,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_END_DATE + "END DATE] "
             + "[" + PREFIX_EXPIRY_DATE + "EXPIRY DATE] "
             + "[" + PREFIX_TOTAL_STOCK + "TOTAL STOCK] "
-            + "[" + PREFIX_CONSUMPTION + "CONSUMPTION] "
             + "[" + PREFIX_NOTE + "NOTE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "Aspirin "
@@ -99,7 +96,6 @@ public class EditCommand extends Command {
         }
 
         model.setPrescription(prescriptionToEdit, editedPrescription);
-        model.updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PRESCRIPTION_SUCCESS, Messages.format(editedPrescription)));
     }
 
@@ -251,14 +247,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(totalStock);
         }
 
-        public void setNote(Note note) {
-            this.note = note;
-        }
-
-        public Optional<Note> getNote() {
-            return Optional.ofNullable(note);
-        }
-
         public void setConsumptionCount(ConsumptionCount consumptionCount) {
             this.consumptionCount = consumptionCount;
         }
@@ -273,6 +261,14 @@ public class EditCommand extends Command {
 
         public Optional<Boolean> getIsCompleted() {
             return Optional.ofNullable(isCompleted);
+        }
+
+        public void setNote(Note note) {
+            this.note = note;
+        }
+
+        public Optional<Note> getNote() {
+            return Optional.ofNullable(note);
         }
 
         @Override
@@ -295,6 +291,7 @@ public class EditCommand extends Command {
                     && Objects.equals(expiryDate, otherEditPrescriptionDescriptor.expiryDate)
                     && Objects.equals(totalStock, otherEditPrescriptionDescriptor.totalStock)
                     && Objects.equals(consumptionCount, otherEditPrescriptionDescriptor.consumptionCount)
+                    && isCompleted == otherEditPrescriptionDescriptor.isCompleted
                     && Objects.equals(note, otherEditPrescriptionDescriptor.note);
         }
 
@@ -309,6 +306,7 @@ public class EditCommand extends Command {
                     .add("expiryDate", expiryDate)
                     .add("totalStock", totalStock)
                     .add("consumptionCount", consumptionCount)
+                    .add("isCompleted", isCompleted)
                     .add("note", note)
                     .toString();
         }
