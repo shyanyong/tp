@@ -39,4 +39,9 @@ public class ReminderCommand extends Command {
             return new CommandResult(MESSAGE_SUCCESS);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ReminderCommand;
+    }
 }
