@@ -41,9 +41,9 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Prescription personInList = model.getPrescriptionList().getPrescriptionList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model,
+    public void execute_duplicatePrescription_throwsCommandException() {
+        Prescription prescriptionInList = model.getPrescriptionList().getPrescriptionList().get(0);
+        assertCommandFailure(new AddCommand(prescriptionInList), model,
                 AddCommand.MESSAGE_DUPLICATE_PRESCRIPTION);
     }
 
