@@ -172,4 +172,19 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredPrescriptionList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered completed list to show only the prescription at the given
+     * {@code targetIndex} in the
+     * {@code model}'s completed prescription list.
+     */
+    public static void showCompletedPrescriptionAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCompletedPrescriptionList().size());
+
+        Prescription prescription = model.getFilteredCompletedPrescriptionList().get(targetIndex.getZeroBased());
+        final String[] splitName = prescription.getName().toString().split("\\s+");
+        model.updateFilteredCompletedPrescriptionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredCompletedPrescriptionList().size());
+    }
+
 }
