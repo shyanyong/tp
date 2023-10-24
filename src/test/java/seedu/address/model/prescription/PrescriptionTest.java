@@ -32,10 +32,11 @@ public class PrescriptionTest {
         assertFalse(ASPIRIN.isEnded());
 
         // prescription with no end date
-        Prescription completedPrescription = new PrescriptionBuilder()
-                .build();
-        assertFalse(completedPrescription.isEnded());
+        Prescription prescriptionWithNoEnd = new Prescription(new Name("Aspirin"), null, null, null,
+                null, null, null, null);
+        assertFalse(prescriptionWithNoEnd.isEnded());
     }
+
     @Test
     public void isSamePrescription() {
         // same object -> returns true
