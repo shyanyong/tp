@@ -37,7 +37,6 @@ class ReminderCommandTest {
         model = new ModelManager(getTypicalPrescriptionList(), new UserPrefs());
         expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
     }
-
     @Test
     public void execute_noReminders_listEmpty() {
         model.setPrescriptionList(new PrescriptionList());
