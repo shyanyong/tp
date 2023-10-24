@@ -27,19 +27,20 @@ public class TakeCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalPrescriptionList(), new UserPrefs());
+        model = new ModelManager(getTypicalPrescriptionList(), getTypicalPrescriptionList(), new UserPrefs());
     }
 
     @Test
     public void execute_validDosesToTake_success() throws CommandException {
         PrescriptionList prescriptionList = new PrescriptionList();
+        PrescriptionList completedPrescriptionList = new PrescriptionList();
         Prescription prescriptionToTake = new PrescriptionBuilder()
                 .withConsumptionCount("0")
                 .withStock("100")
                 .build();
         prescriptionList.addPrescription(prescriptionToTake);
-        Model model = new ModelManager(prescriptionList, new UserPrefs());
-        Model expectedModel = new ModelManager(model.getPrescriptionList(),
+        Model model = new ModelManager(prescriptionList, completedPrescriptionList, new UserPrefs());
+        Model expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
 
         int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().get().toString());

@@ -23,14 +23,15 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalPrescriptionList(), new UserPrefs());
+        model = new ModelManager(getTypicalPrescriptionList(), getTypicalPrescriptionList(), new UserPrefs());
     }
 
     @Test
     public void execute_newPrescription_success() {
         Prescription validPrescription = new PrescriptionBuilder().withName("Methadone").build();
 
-        Model expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getPrescriptionList(),
+            model.getCompletedPrescriptionList(), new UserPrefs());
         expectedModel.addPrescription(validPrescription);
 
         assertCommandSuccess(new AddCommand(validPrescription), model,

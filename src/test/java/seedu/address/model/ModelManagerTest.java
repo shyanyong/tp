@@ -97,12 +97,14 @@ public class ModelManagerTest {
     public void equals() {
         PrescriptionList prescriptionList = new PrescriptionListBuilder()
             .withPrescription(ASPIRIN).withPrescription(PROPRANOLOL).build();
+        PrescriptionList completedPrescriptionList = new PrescriptionListBuilder().build();
         PrescriptionList differentPrescriptionList = new PrescriptionList();
+        PrescriptionList differentCompletedPrescriptionList = new PrescriptionList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(prescriptionList, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(prescriptionList, userPrefs);
+        modelManager = new ModelManager(prescriptionList, completedPrescriptionList, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(prescriptionList, completedPrescriptionList, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -115,12 +117,13 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentPrescriptionList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentPrescriptionList,
+            differentCompletedPrescriptionList, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ASPIRIN.getName().toString().split("\\s+");
         modelManager.updateFilteredPrescriptionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(prescriptionList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(prescriptionList, completedPrescriptionList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
@@ -128,6 +131,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setPrescriptionListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(prescriptionList, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(prescriptionList,
+            completedPrescriptionList, differentUserPrefs)));
     }
 }

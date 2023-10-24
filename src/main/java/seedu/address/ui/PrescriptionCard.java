@@ -49,22 +49,6 @@ public class PrescriptionCard extends UiPart<Region> {
     @FXML
     private Label note;
 
-    private String dosageHeader = "Dosage: ";
-
-    private String frequencyHeader = "Frequency: ";
-
-    private String startDateHeader = "Start date: ";
-
-    private String endDateHeader = "End date: ";
-
-    private String expiryDateHeader = "Expiry date: ";
-
-    private String totalStockHeader = "Total stock: ";
-
-    private String consumptionCountHeader = "Consumption count: ";
-
-    private String noteHeader = "Note: ";
-
     /**
      * Creates a {@code PrescriptionCode} with the given {@code Prescription} and index to display.
      */
@@ -72,43 +56,68 @@ public class PrescriptionCard extends UiPart<Region> {
         super(FXML);
         this.prescription = prescription;
         id.setText(displayedIndex + ". ");
+
         name.setText(prescription.getName().toString());
 
-        dosage.setText(dosageHeader);
-        consumptionCount.setText(consumptionCountHeader + prescription.getConsumptionCount().getConsumptionCount());
         if (prescription.getDosage().isPresent()) {
-            dosage.setText(dosageHeader + prescription.getDosage().get().toString());
-            consumptionCount.setText(consumptionCountHeader + prescription.getConsumptionCount().getConsumptionCount()
-                + "/" + prescription.getDosage().get().toString());
+            dosage.setText(prescription.getDosage().get().toString());
+        } else {
+            dosage.setText("");
         }
 
-        frequency.setText(frequencyHeader);
         if (prescription.getFrequency().isPresent()) {
-            frequency.setText(frequencyHeader + prescription.getFrequency().get().toString());
+            frequency.setText(prescription.getFrequency().get().toString());
+        } else {
+            frequency.setText("");
         }
-        startDate.setText(startDateHeader + prescription.getStartDate().toString());
 
-        endDate.setText(endDateHeader);
+        startDate.setText(prescription.getStartDate().toString());
+
         if (prescription.getEndDate().isPresent()) {
-            endDate.setText(endDateHeader + prescription.getEndDate().get().toString());
+            endDate.setText(prescription.getEndDate().get().toString());
+        } else {
+            endDate.setText("");
         }
 
-        expiryDate.setText(expiryDateHeader);
         if (prescription.getExpiryDate().isPresent()) {
-            expiryDate.setText(expiryDateHeader + prescription.getExpiryDate().get().toString());
+            expiryDate.setText(prescription.getExpiryDate().get().toString());
+        } else {
+            expiryDate.setText("");
         }
 
-        totalStock.setText(totalStockHeader);
         if (prescription.getTotalStock().isPresent()) {
-            totalStock.setText(totalStockHeader + prescription.getTotalStock().get().toString());
+            totalStock.setText(prescription.getTotalStock().get().toString());
+        } else {
+            totalStock.setText("");
         }
 
-        note.setText(noteHeader);
         if (prescription.getNote().isPresent()) {
-            note.setText(noteHeader + prescription.getNote().get().toString());
+            note.setText(prescription.getNote().get().toString());
+        } else {
+            note.setText("");
         }
+
+        setCompletionStatus(prescription);
         // prescription.getTags().stream()
         //         .sorted(Comparator.comparing(tag -> tag.tagName))
         //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    private void setCompletionStatus(Prescription prescription) {
+        consumptionCount.getStyleClass().clear();
+
+        if (!prescription.getDosage().isPresent()) {
+            consumptionCount.setText(String.format("Consumed %s",
+                prescription.getConsumptionCount().getConsumptionCount()));
+            consumptionCount.getStyleClass().add("consumption-status-grey");
+        } else if (prescription.getIsCompleted()) {
+            consumptionCount.setText("Completed");
+            consumptionCount.getStyleClass().add("consumption-status-green");
+        } else {
+            consumptionCount.setText(String.format("Uncompleted %s/%s",
+                prescription.getConsumptionCount().getConsumptionCount(),
+                dosage.getText()));
+            consumptionCount.getStyleClass().add("consumption-status-red");
+        }
     }
 }

@@ -116,7 +116,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPrescriptionListFilePath(Path addressBookFilePath) {
+        public void setPrescriptionListFilePath(Path prescriptionListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getCompletedPrescriptionListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCompletedPrescriptionListFilePath(Path prescriptionListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -162,6 +172,51 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPrescriptionList(Predicate<Prescription> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCompletedPrescription(Prescription prescription) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCompletedPrescriptionList(ReadOnlyPrescriptionList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyPrescriptionList getCompletedPrescriptionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCompletedPrescription(Prescription prescription) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCompletedPrescription(Prescription target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCompletedPrescription(Prescription target, Prescription editedPrescription) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Prescription> getFilteredCompletedPrescriptionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Prescription getCompletedPrescriptionByName(Name prescriptionName) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void updateFilteredCompletedPrescriptionList(Predicate<Prescription> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -19,7 +19,9 @@ public class IsValidDatesPredicate implements Predicate<Prescription> {
             expiryDate = prescription.getExpiryDate().get().getDate();
         }
 
-        return startDate.isBefore(endDate) && endDate.isBefore(expiryDate);
-
+        if (endDate != null && expiryDate != null) {
+            return startDate.isBefore(endDate) && endDate.isBefore(expiryDate);
+        }
+        return true;
     }
 }

@@ -23,8 +23,9 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalPrescriptionList(), new UserPrefs());
-        expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        model = new ModelManager(getTypicalPrescriptionList(), getTypicalPrescriptionList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPrescriptionList(),
+            model.getCompletedPrescriptionList(), new UserPrefs());
     }
 
     @Test
