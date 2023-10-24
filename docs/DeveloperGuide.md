@@ -157,6 +157,52 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add feature
+
+The add prescription feature is facilitated by the `AddCommandParser`.
+
+Given below is an example usage scenario and how the add prescription mechanism behaves at each step.
+
+Step 1. The user types the command `add mn/Propranolol d/4 f/Daily ed/20/01/2024`. Upon pressing enter, the `Ui` triggers the `execute` method in `Logic`, passing the input text to the `PrescriptionListparser` in `Logic`. The `PrescriptionListParser` then checks the command type to determine which command parser to call.
+
+Step 2. Upon checking that it is an `add` command, the `AddCommandParser` will be called to `parse` the input text. It creates an `argMultiMap`, which contains the mappings of each recognised prefix in the input text, and its associated value.
+
+**Note:** If there are absent prefixes that are compulsory, it will throw a `ParseException` error.
+
+Step 3. The `AddCommandParser` will then create a new `Prescription` object using the `argMultiMap` with the prefix fields and values present. Optional fields which were not provided will be initialised as `null`. The `AddCommandParser` subsequently returns a new `AddCommand` object with the prescription to be added stored as an attribute.
+
+**Note:** For the prescription's `startDate`, it will be initialised to `LocalDate.now()` if no start date is given, using the date of creation as the default `startDate` value.
+
+Step 4: `Logic` then calls `AddCommand`'s `execute`. This will call `Model`'s `addPrescription` method, passing the prescription to be added. The `Model` will interact with the in-memory `PrescriptionList`, adding the prescription into it. Finally, the `Model` sets the `filteredPrescriptions` to show all prescriptions in the existing PrescriptionList.
+
+The following sequence diagram shows how the `add` operation works.
+
+**[ADD COMMAND SEQUENCE DIAGRAM]**
+
+The following activity diagram summarizes what happens when the user executes an `add` command.
+
+**[ADD COMMAND ACTIVITY DIAGRAM]**
+
+Design considerations:
+
+Prescriptions may have a uneven consumption interval. For example, some prescriptions only needs to be consumed every Wednesday and Sunday. In such scenarios, users will need to input this prescription as 2 separate inputs with the same prescription name.
+
+To cater for this, we are using every prescription's `name` and `startDate` to identify each prescription. Every `Prescription` must therefore have both these fields. As such, if no start date was provided, it will be initialised to a default value.
+
+### Edit feature
+
+### Take / untake feature
+
+### List today feature
+
+### List completed feature
+
+### Find feature
+
+### Remind prescription feature
+
+### Check prescription interaction feature
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
