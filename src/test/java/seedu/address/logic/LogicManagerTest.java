@@ -31,6 +31,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyPrescriptionList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.prescription.Prescription;
+import seedu.address.storage.JsonCompletedPrescriptionListStorage;
 import seedu.address.storage.JsonPrescriptionListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -50,9 +51,12 @@ public class LogicManagerTest {
     public void setUp() {
         JsonPrescriptionListStorage prescriptionListStorage =
             new JsonPrescriptionListStorage(temporaryFolder.resolve("prescriptionList.json"));
+        JsonCompletedPrescriptionListStorage completedPrescriptionListStorage =
+            new JsonCompletedPrescriptionListStorage(temporaryFolder.resolve("completedPrescriptionList.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(
             temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(prescriptionListStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(prescriptionListStorage,
+                completedPrescriptionListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -93,6 +97,12 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPrescriptionList().remove(0));
     }
 
+    @Test
+    public void getFilteredCompletedPrescriptionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredCompletedPrescriptionList()
+                .remove(0));
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
@@ -101,7 +111,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-        Model expectedModel) throws CommandException, ParseException {
+        Model expectedModel) throws CommandException, ParseException, IOException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -130,7 +140,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
         String expectedMessage) {
         Model expectedModel = new ModelManager(
-            model.getPrescriptionList(), new UserPrefs());
+            model.getPrescriptionList(), model.getCompletedPrescriptionList(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -164,10 +174,13 @@ public class LogicManagerTest {
                 throw e;
             }
         };
+        JsonCompletedPrescriptionListStorage completedPrescriptionListStorage =
+            new JsonCompletedPrescriptionListStorage(prefPath);
 
         JsonUserPrefsStorage userPrefsStorage =
             new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(prescriptionListStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(prescriptionListStorage,
+            completedPrescriptionListStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
 

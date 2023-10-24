@@ -106,13 +106,17 @@ public class PrescriptionCard extends UiPart<Region> {
     private void setCompletionStatus(Prescription prescription) {
         consumptionCount.getStyleClass().clear();
 
-        if (prescription.getIsCompleted()) {
+        if (!prescription.getDosage().isPresent()) {
+            consumptionCount.setText(String.format("Consumed %s",
+                prescription.getConsumptionCount().getConsumptionCount()));
+            consumptionCount.getStyleClass().add("consumption-status-grey");
+        } else if (prescription.getIsCompleted()) {
             consumptionCount.setText("Completed");
             consumptionCount.getStyleClass().add("consumption-status-green");
         } else {
             consumptionCount.setText(String.format("Uncompleted %s/%s",
                 prescription.getConsumptionCount().getConsumptionCount(),
-                prescription.getDosage().get().toString()));
+                dosage.getText()));
             consumptionCount.getStyleClass().add("consumption-status-red");
         }
     }
