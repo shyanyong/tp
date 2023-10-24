@@ -37,14 +37,24 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' prescription list file path.
      */
     Path getPrescriptionListFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' prescription list file path.
      */
     void setPrescriptionListFilePath(Path prescriptionListFilePath);
+
+    /**
+     * Returns the user prefs' completed prescription list file path.
+     */
+    Path getCompletedPrescriptionListFilePath();
+
+    /**
+     * Sets the user prefs' completed prescription list file path.
+     */
+    void setCompletedPrescriptionListFilePath(Path completedPrescriptionListFilePath);
 
     /**
      * Replaces prescription list data with the data in {@code prescriptionList}.
@@ -92,4 +102,52 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPrescriptionList(Predicate<Prescription> predicate);
+
+    /**
+     * Replaces completed prescription list data with the data in {@code completedPrescriptionList}.
+     */
+    void setCompletedPrescriptionList(ReadOnlyPrescriptionList completedPrescriptionList);
+
+    /** Returns the CompletedPrescriptionList */
+    ReadOnlyPrescriptionList getCompletedPrescriptionList();
+
+    /**
+     * Returns true if a prescription with the same identity as {@code completedPrescription}
+     * exists in the completed prescription list.
+     */
+    boolean hasCompletedPrescription(Prescription completedPrescription);
+
+    /**
+     * Deletes the given prescription.
+     * The prescription must exist in the completed prescription list.
+     */
+    void deleteCompletedPrescription(Prescription target);
+
+    /**
+     * Adds the given completed prescription.
+     * {@codecompletedPprescription} must not already exist in the completed prescription list.
+     */
+    void addCompletedPrescription(Prescription completedPrescription);
+
+    /**
+     * Replaces the given prescription {@code target} with {@code editedPrescription}.
+     * {@code target} must exist in the completed prescription list.
+     * The prescription identity of {@code editedPrescription} must not be the same as another
+     * existing prescription in the completed prescription list.
+     */
+    void setCompletedPrescription(Prescription target, Prescription editedPrescription);
+
+    /** Returns an unmodifiable view of the filtered completed prescription list */
+    ObservableList<Prescription> getFilteredCompletedPrescriptionList();
+
+    /**
+     * Returns a prescription with the same name as {@code completedPrescriptionName}
+     */
+    Prescription getCompletedPrescriptionByName(Name completedPrescriptionName) throws CommandException;
+
+    /**
+     * Updates the filter of the filtered completed prescription list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCompletedPrescriptionList(Predicate<Prescription> predicate);
 }

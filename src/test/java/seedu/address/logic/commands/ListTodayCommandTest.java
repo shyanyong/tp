@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.CompletedPrescriptions.getCompletedPrescriptionList;
 import static seedu.address.testutil.TypicalPrescriptions.getTypicalPrescriptionList;
 
 import java.time.LocalDate;
@@ -29,9 +30,9 @@ public class ListTodayCommandTest {
     private Model expectedModel;
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalPrescriptionList(), new UserPrefs());
+        model = new ModelManager(getTypicalPrescriptionList(), getCompletedPrescriptionList(), new UserPrefs());
         expectedModel = new ModelManager(model.getPrescriptionList(),
-                new UserPrefs());
+                model.getCompletedPrescriptionList(), new UserPrefs());
     }
 
     @Test
@@ -46,7 +47,7 @@ public class ListTodayCommandTest {
         assertTrue(model.getFilteredPrescriptionList().isEmpty());
 
         String expectedMessage = ListTodayCommand.MESSAGE_EMPTY_LIST;
-        expectedModel = new ModelManager(model.getPrescriptionList(),
+        expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
         assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);
@@ -68,7 +69,7 @@ public class ListTodayCommandTest {
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Weekly"),
                 startDate, endDate, endDate, new Stock("100"),
                 new ConsumptionCount("1"), false, new Note("test")));
-        expectedModel = new ModelManager(model.getPrescriptionList(),
+        expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
         assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);
@@ -91,7 +92,7 @@ public class ListTodayCommandTest {
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Weekly"),
                 startDate, endDate, endDate, new Stock("100"),
                 new ConsumptionCount("1"), false, new Note("test")));
-        expectedModel = new ModelManager(model.getPrescriptionList(),
+        expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
         assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);
@@ -113,7 +114,7 @@ public class ListTodayCommandTest {
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Monthly"),
                 startDate, endDate, endDate, new Stock("100"),
                 new ConsumptionCount("1"), false, new Note("test")));
-        expectedModel = new ModelManager(model.getPrescriptionList(),
+        expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
         assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);
@@ -135,7 +136,7 @@ public class ListTodayCommandTest {
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Monthly"),
                 startDate, endDate, endDate, new Stock("100"),
                 new ConsumptionCount("1"), false, new Note("test")));
-        expectedModel = new ModelManager(model.getPrescriptionList(),
+        expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
         assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);

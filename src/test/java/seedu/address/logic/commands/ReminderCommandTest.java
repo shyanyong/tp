@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STOCK_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.CompletedPrescriptions.getCompletedPrescriptionList;
 import static seedu.address.testutil.TypicalPrescriptions.getTypicalPrescriptionList;
 
 import java.time.LocalDate;
@@ -34,8 +35,10 @@ class ReminderCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalPrescriptionList(), new UserPrefs());
-        expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        model = new ModelManager(getTypicalPrescriptionList(), getCompletedPrescriptionList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPrescriptionList(),
+                model.getCompletedPrescriptionList(),
+                new UserPrefs());
     }
     @Test
     public void execute_noReminders_listEmpty() {
@@ -43,7 +46,8 @@ class ReminderCommandTest {
         assertTrue(model.getFilteredPrescriptionList().isEmpty());
 
         String expectedMessage = ReminderCommand.MESSAGE_EMPTY_LIST;
-        expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPrescriptionList(),
+                model.getCompletedPrescriptionList(), new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsAboutToExpirePredicate().or(new IsLowInStockPredicate()));
         assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
     }
@@ -62,7 +66,8 @@ class ReminderCommandTest {
         model.addPrescription(prescription);
 
         String expectedMessage = ReminderCommand.MESSAGE_EMPTY_LIST;
-        expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPrescriptionList(),
+                model.getCompletedPrescriptionList(), new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsAboutToExpirePredicate().or(new IsLowInStockPredicate()));
         assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
     }
@@ -78,7 +83,8 @@ class ReminderCommandTest {
         model.addPrescription(prescription);
 
         String expectedMessage = ReminderCommand.MESSAGE_EMPTY_LIST;
-        expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPrescriptionList(),
+                model.getCompletedPrescriptionList(), new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsAboutToExpirePredicate().or(new IsLowInStockPredicate()));
         assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
     }
@@ -105,7 +111,8 @@ class ReminderCommandTest {
         model.addPrescription(prescription);
 
         String expectedMessage = ReminderCommand.MESSAGE_SUCCESS;
-        expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPrescriptionList(),
+                model.getCompletedPrescriptionList(), new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsAboutToExpirePredicate().or(new IsLowInStockPredicate()));
         assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
     }
@@ -124,7 +131,8 @@ class ReminderCommandTest {
         model.addPrescription(prescription);
 
         String expectedMessage = ReminderCommand.MESSAGE_SUCCESS;
-        expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPrescriptionList(),
+                model.getCompletedPrescriptionList(), new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsAboutToExpirePredicate().or(new IsLowInStockPredicate()));
         assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
     }
@@ -151,7 +159,8 @@ class ReminderCommandTest {
         model.addPrescription(prescription);
 
         String expectedMessage = ReminderCommand.MESSAGE_SUCCESS;
-        expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPrescriptionList(),
+                model.getCompletedPrescriptionList(), new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsAboutToExpirePredicate().or(new IsLowInStockPredicate()));
         assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
     }
@@ -185,7 +194,8 @@ class ReminderCommandTest {
         model.addPrescription(prescription);
 
         String expectedMessage = ReminderCommand.MESSAGE_SUCCESS;
-        expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPrescriptionList(),
+                model.getCompletedPrescriptionList(), new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsAboutToExpirePredicate().or(new IsLowInStockPredicate()));
         assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
     }

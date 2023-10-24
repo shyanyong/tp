@@ -21,7 +21,10 @@ import seedu.address.model.PrescriptionList;
 import seedu.address.model.ReadOnlyPrescriptionList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.prescription.Prescription;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.storage.CompletedPrescriptionListStorage;
+import seedu.address.storage.JsonCompletedPrescriptionListStorage;
 import seedu.address.storage.JsonPrescriptionListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.PrescriptionListStorage;
@@ -59,8 +62,10 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         PrescriptionListStorage prescriptionListStorage = new JsonPrescriptionListStorage(
             userPrefs.getPrescriptionListFilePath());
+        CompletedPrescriptionListStorage completedPrescriptionListStorage = new JsonCompletedPrescriptionListStorage(
+            userPrefs.getCompletedPrescriptionListFilePath());
 
-        storage = new StorageManager(prescriptionListStorage, userPrefsStorage);
+        storage = new StorageManager(prescriptionListStorage, completedPrescriptionListStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -76,24 +81,37 @@ public class MainApp extends Application {
      * prescription list.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        logger.info("Using data file : " + storage.getPrescriptionListFilePath());
+        logger.info("Using data file : " + storage.getPrescriptionListFilePath()
+                + " and " + storage.getCompletedPrescriptionListFilePath());
 
         Optional<ReadOnlyPrescriptionList> prescriptionListOptional;
+        Optional<ReadOnlyPrescriptionList> completedPrescriptionListOptional;
         ReadOnlyPrescriptionList initialData;
+        ReadOnlyPrescriptionList initialCompletedData;
         try {
             prescriptionListOptional = storage.readPrescriptionList();
+            completedPrescriptionListOptional = storage.readCompletedPrescriptionList();
             if (!prescriptionListOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getPrescriptionListFilePath()
                         + " populated with a sample PrescriptionList.");
             }
             initialData = prescriptionListOptional.orElseGet(SampleDataUtil::getSamplePrescriptionList);
+            if (!completedPrescriptionListOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getCompletedPrescriptionListFilePath()
+                        + " populated with a sample CompletedPrescriptionList.");
+            }
+            initialCompletedData = completedPrescriptionListOptional.orElseGet(
+                    SampleDataUtil::getSampleCompletedPrescriptionList);
         } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getPrescriptionListFilePath() + " could not be loaded."
+            logger.warning("Data file at " + storage.getPrescriptionListFilePath()
+                    + " or " + storage.getCompletedPrescriptionListFilePath()
+                    + " could not be loaded."
                     + " Will be starting with an empty PrescriptionList.");
             initialData = new PrescriptionList();
+            initialCompletedData = new PrescriptionList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, initialCompletedData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -171,9 +189,25 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
+    /**
+     * Deletes prescriptions that are past the end date and stores them in the completed prescription list.
+     */
+    private void checkAndMoveEndedPrescriptions() throws IOException {
+        PrescriptionList prescriptionListCopy = new PrescriptionList(model.getPrescriptionList());
+        for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
+            if (prescription.isEnded()) {
+                model.deletePrescription(prescription);
+                model.addCompletedPrescription(prescription);
+            }
+        }
+        storage.savePrescriptionList(model.getPrescriptionList());
+        storage.saveCompletedPrescriptionList(model.getCompletedPrescriptionList());
+    }
+
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         logger.info("Starting BayMeds v.2103 " + MainApp.VERSION);
+        checkAndMoveEndedPrescriptions();
         ui.start(primaryStage);
     }
 
