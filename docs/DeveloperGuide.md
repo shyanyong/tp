@@ -165,7 +165,7 @@ Given below is an example usage scenario and how the add prescription mechanism 
 
 Step 1. The user types the command `add mn/Propranolol d/4 f/Daily ed/20/01/2024`. Upon pressing enter, the `Ui` triggers the `execute` method in `Logic`, passing the input text to the `PrescriptionListparser` in `Logic`. The `PrescriptionListParser` then checks the command type to determine which command parser to call.
 
-Step 2. Upon checking that it is an `add` command, the `AddCommandParser` will be called to `parse` the input text. It creates an `argMultiMap`, which contains the mappings of each recognised prefix in the input text, and its associated value.
+Step 2. Upon checking that it is an `add` command, the `AddCommandParser` will be created to `parse` the input text. It creates an `argMultiMap`, which contains the mappings of each recognised prefix in the input text, and its associated value.
 
 **Note:** If there are absent prefixes that are compulsory, it will throw a `ParseException` error.
 
@@ -199,15 +199,13 @@ The list today feature is facilitated by the `ListTodayCommandParser`.
 
 Given below is an example usage scenario and how the list today mechanism behaves at each step.
 
-Step 1. The user types the command `listToday`. Upon pressing enter, the `Ui` triggers the `execute` method in `Logic`, passing the input text to the `PrescriptionListparser` in `Logic`. The `PrescriptionListParser` then checks the command type to determine which command parser to call.
+Step 1. `Ui` and `Logic` works similarly to when [adding prescriptions](#add-feature). However, a `ListTodayCommandParser` is created instead.
 
-Step 2. Upon checking that it is a `listToday` command, the `ListTodayCommandParser` will be called to `parse` the input text. It creates an `argMultiMap`, which should be **empty**.
+**Note:** If there are extra fields in the input, it will throw a `ParseException` error.
 
-**Note:** If there are extra fields, it will throw a `ParseException` error.
+Step 2. The `ListTodayCommandParser` subsequently returns a new `ListTodayCommand` object.
 
-Step 3. The `ListTodayCommandParser` subsequently returns a new `ListTodayCommand` object.
-
-Step 4: `Logic` then calls `ListTodayCommand`'s `execute`. This will create a new `IsTodayPredicate` object which is passed into the method call for `Model`'s `updateFilteredPrescriptionList`.
+Step 3: `Logic` then calls `ListTodayCommand`'s `execute`. This will create a new `IsTodayPredicate` object which is passed into the method call for `Model`'s `updateFilteredPrescriptionList`.
 
 Step 4: The `Model` will then update the in-memory `FilteredList<Prescription>` with the new predicate. Finally, the `Model` sets the `filteredPrescriptions` to show only today's prescription in the existing `PrescriptionList`.
 

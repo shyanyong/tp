@@ -14,10 +14,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("add mn/Aspirin")
+[-> LogicManager : execute("add mn/Propranolol d/4 f/Daily ed/20/01/2024")
 activate LogicManager
 
-LogicManager -> PrescriptionListParser : parseCommand("add mn/Aspirin")
+LogicManager -> PrescriptionListParser : parseCommand(inputCommand)
 activate PrescriptionListParser
 
 create AddCommandParser
@@ -27,11 +27,11 @@ activate AddCommandParser
 AddCommandParser --> PrescriptionListParser
 deactivate AddCommandParser
 
-PrescriptionListParser -> AddCommandParser : parse("mn/Aspirin")
+PrescriptionListParser -> AddCommandParser : parse(inputArguments)
 activate AddCommandParser
 
 create AddCommand
-AddCommandParser -> AddCommand : AddCommand(aspirinPrescription)
+AddCommandParser -> AddCommand : AddCommand(propranololPrescription)
 activate AddCommand
 
 AddCommand --> AddCommandParser
@@ -49,7 +49,7 @@ deactivate PrescriptionListParser
 LogicManager -> AddCommand : execute(model)
 activate AddCommand
 
-AddCommand -> Model : addPrescription(aspirinPrescription)
+AddCommand -> Model : addPrescription(propranololPrescription)
 activate Model
 
 Model --> AddCommand
