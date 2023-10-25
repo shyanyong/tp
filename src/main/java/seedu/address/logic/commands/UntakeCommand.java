@@ -11,7 +11,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Dosage;
+import seedu.address.model.prescription.IsCompletedPredicate;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.SameNamePredicate;
 import seedu.address.model.prescription.Stock;
@@ -54,7 +56,6 @@ public class UntakeCommand extends Command {
      * @return A CommandResult with the result of the execution.
      * @throws CommandException If there are errors in executing the command.
      */
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -67,28 +68,34 @@ public class UntakeCommand extends Command {
 
         Prescription prescription = lastShownList.get(targetIndex.getZeroBased());
         Optional<Stock> totalStock = prescription.getTotalStock();
+        ConsumptionCount consumptionCount = prescription.getConsumptionCount();
 
         if (Integer.parseInt(prescription.getConsumptionCount().getConsumptionCount()) - dosesToUntake < 0) {
             throw new CommandException(MESSAGE_INSUFFICIENT_CONSUMPTION);
         }
 
-        if (totalStock.isPresent()) {
-            totalStock.get().incrementCount(dosesToUntake);
-        }
-        prescription.getConsumptionCount().decrementCount(dosesToUntake);
+        executeUntake(totalStock, consumptionCount);
 
-        if (prescription.getDosage().isPresent()
-                && Integer.parseInt(prescription.getConsumptionCount().toString())
-                    >= Integer.parseInt(prescription.getDosage().get().toString())) {
-            prescription.setIsCompleted(true);
-        } else {
-            prescription.setIsCompleted(false);
-        }
+        Predicate<Prescription> isCompletedPredicate = new IsCompletedPredicate();
+        prescription.setIsCompleted(isCompletedPredicate.test(prescription));
 
         Predicate<Prescription> isSameName = new SameNamePredicate(prescription.getName());
         model.updateFilteredPrescriptionList(isSameName);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, prescription.getName()));
+    }
+
+    /**
+     * Changes the stock and consumption count of the prescription being untaken.
+     *
+     * @param totalStock The stock of the prescription.
+     * @param consumptionCount The consumption count of the prescription.
+     */
+    public void executeUntake(Optional<Stock> totalStock, ConsumptionCount consumptionCount) {
+        if (totalStock.isPresent()) {
+            totalStock.get().incrementCount(dosesToUntake);
+        }
+        consumptionCount.decrementCount(dosesToUntake);
     }
 
     @Override

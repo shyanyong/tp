@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRESCRIPTION;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TakeCommand;
+import seedu.address.model.prescription.Dosage;
 
 public class TakeCommandParserTest {
 
@@ -18,23 +19,22 @@ public class TakeCommandParserTest {
     @Test
     public void parse_validArgs_success() {
         // Valid arguments with a valid Index and dosage
-        assertParseSuccess(parser, "1 " + PREFIX_CONSUMPTION + "2",
-                new TakeCommand(Index.fromOneBased(1), 2));
+        assertParseSuccess(parser, "1 " + PREFIX_DOSAGE + "2",
+                new TakeCommand(Index.fromOneBased(1), new Dosage("2")));
     }
 
     @Test
     public void parse_notIntegerDosage_failure() {
         // Invalid dosage (not an integer)
         assertParseFailure(parser, "1 "
-                + PREFIX_CONSUMPTION + "abc", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                TakeCommand.MESSAGE_USAGE));
+                + PREFIX_DOSAGE + "abc", Dosage.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_negativeIntegerDosage_failure() {
         // Invalid dosage (not an integer)
         assertParseFailure(parser, " " + INDEX_FIRST_PRESCRIPTION
-                + PREFIX_CONSUMPTION + "-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                + PREFIX_DOSAGE + "-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 TakeCommand.MESSAGE_USAGE));
     }
 
@@ -55,7 +55,7 @@ public class TakeCommandParserTest {
     @Test
     public void parse_missingIndex_failure() {
         // Missing Index
-        assertParseFailure(parser, " " + PREFIX_CONSUMPTION + "2", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, " " + PREFIX_DOSAGE + "2", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             TakeCommand.MESSAGE_USAGE));
     }
 

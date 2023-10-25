@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
@@ -75,8 +74,8 @@ public class CommandTestUtil {
     public static final String EXPIRY_DATE_DESC_PROPRANOLOL = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_PROPRANOLOL;
     public static final String STOCK_DESC_ASPIRIN = " " + PREFIX_TOTAL_STOCK + VALID_STOCK_ASPIRIN;
     public static final String STOCK_DESC_PROPRANOLOL = " " + PREFIX_TOTAL_STOCK + VALID_STOCK_PROPRANOLOL;
-    public static final String CONSUMPTION_COUNT_DESC_ASPIRIN = " " + PREFIX_CONSUMPTION + VALID_CONSUMPTION_ASPIRIN;
-    public static final String CONSUMPTION_COUNT_DESC_PROPRANOLOL = " " + PREFIX_CONSUMPTION
+    public static final String CONSUMPTION_COUNT_DESC_ASPIRIN = " " + PREFIX_DOSAGE + VALID_CONSUMPTION_ASPIRIN;
+    public static final String CONSUMPTION_COUNT_DESC_PROPRANOLOL = " " + PREFIX_DOSAGE
             + VALID_CONSUMPTION_PROPRANOLOL;
     public static final String NOTE_DESC_ASPIRIN = " " + PREFIX_NOTE + VALID_NOTE_ASPIRIN;
     public static final String NOTE_DESC_PROPRANOLOL = " " + PREFIX_NOTE + VALID_NOTE_PROPRANOLOL;

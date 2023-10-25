@@ -19,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PrescriptionList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.SameNamePredicate;
 import seedu.address.testutil.PrescriptionBuilder;
@@ -49,7 +50,8 @@ public class TakeCommandTest {
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
 
         int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().get().toString());
-        int dosesToTake = 1; //Valid number of doses
+        Dosage dosesToTake = new Dosage("1"); //Valid number of doses
+        int dosesToTakeInt = Integer.parseInt(dosesToTake.toString());
 
         TakeCommand takePrescriptionCommand = new TakeCommand(
                 INDEX_FIRST_PRESCRIPTION, dosesToTake);
@@ -57,8 +59,8 @@ public class TakeCommandTest {
         String expectedMessage = String.format(TakeCommand.MESSAGE_SUCCESS,
                                   prescriptionToTake.getName());
         Prescription expectedPrescription = expectedModel.getPrescriptionByName(prescriptionToTake.getName());
-        expectedPrescription.getTotalStock().get().decrementCount(dosesToTake);
-        expectedPrescription.getConsumptionCount().incrementCount(dosesToTake);
+        expectedPrescription.getTotalStock().get().decrementCount(dosesToTakeInt);
+        expectedPrescription.getConsumptionCount().incrementCount(dosesToTakeInt);
         expectedModel.updateFilteredPrescriptionList(new SameNamePredicate(prescriptionToTake.getName()));
 
         int newStock = Integer.parseInt(expectedModel.getPrescriptionByName(prescriptionToTake.getName())
@@ -66,7 +68,7 @@ public class TakeCommandTest {
 
         assertCommandSuccess(takePrescriptionCommand, model, expectedMessage, expectedModel);
 
-        assertEquals(initialStock - dosesToTake, newStock);
+        assertEquals(initialStock - dosesToTakeInt, newStock);
     }
 
     @Test
@@ -75,7 +77,7 @@ public class TakeCommandTest {
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
 
         int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().get().toString());
-        int dosesToTake = initialStock + 1; // More than available stock
+        Dosage dosesToTake = new Dosage(String.valueOf(initialStock + 1)); // More than available stock
 
         TakeCommand takePrescriptionCommand = new TakeCommand(
                 INDEX_FIRST_PRESCRIPTION, dosesToTake);
@@ -90,8 +92,8 @@ public class TakeCommandTest {
 
     @Test
     public void equals() {
-        int doses1 = 2;
-        int doses2 = 1;
+        Dosage doses1 = new Dosage("2");
+        Dosage doses2 = new Dosage("1");
 
         TakeCommand command1 = new TakeCommand(INDEX_FIRST_PRESCRIPTION, doses1);
         TakeCommand command2 = new TakeCommand(INDEX_FIRST_PRESCRIPTION, doses1);
