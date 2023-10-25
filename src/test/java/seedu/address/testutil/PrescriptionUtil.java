@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -22,6 +23,10 @@ public class PrescriptionUtil {
      */
     public static String getAddPrescriptionCommand(Prescription prescription) {
         return AddCommand.COMMAND_WORD + " " + getPrescriptionDetails(prescription);
+    }
+
+    public static String getEditPrescriptionCommand(Prescription prescription) {
+        return EditCommand.COMMAND_WORD + " 1 " + getPrescriptionDetails(prescription);
     }
 
     /**

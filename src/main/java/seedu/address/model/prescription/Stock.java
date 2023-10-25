@@ -41,6 +41,9 @@ public class Stock {
     public void setFullStock(String fullStock) {
         this.fullStock = fullStock;
     }
+    public String getFullStock() {
+        return fullStock;
+    }
 
     /**
      * increment the count of stock.

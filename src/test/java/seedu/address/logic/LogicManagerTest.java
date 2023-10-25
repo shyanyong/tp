@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.DOSAGE_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.END_DATE_DESC_ASPIRIN;
@@ -16,6 +17,8 @@ import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +27,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListCompletedCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -93,6 +97,13 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void executeListCompletedCommand_successful() throws Exception {
+        String listCompletedCommand = ListCompletedCommand.COMMAND_WORD;
+        assertCommandSuccess(listCompletedCommand, ListCompletedCommand.MESSAGE_EMPTY_LIST, model);
+        assertTrue(logic.getIsDisplayingCompletedList());
+    }
+
+    @Test
     public void getFilteredPrescriptionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPrescriptionList().remove(0));
     }
@@ -101,6 +112,42 @@ public class LogicManagerTest {
     public void getFilteredCompletedPrescriptionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredCompletedPrescriptionList()
                 .remove(0));
+    }
+
+    @Test
+    public void checkAndMoveEndedPrescriptions_successful() throws Exception {
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Create a date formatter to format the dates
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        // Calculate the end dates based on the current date and days to add
+        LocalDate endDate1 = currentDate.minusDays(10);
+        LocalDate endDate2 = currentDate.plusDays(10);
+        LocalDate endDate3 = currentDate.minusDays(20);
+
+        Prescription prescription1 = new PrescriptionBuilder()
+                .withStartDate("01/02/2021")
+                .withEndDate(dateFormatter.format(endDate1)).build();
+        Prescription prescription2 = new PrescriptionBuilder()
+                .withStartDate("01/03/2021")
+                .withEndDate(dateFormatter.format(endDate2)).build();
+        Prescription prescription3 = new PrescriptionBuilder()
+                .withStartDate("01/04/2020")
+                .withEndDate(dateFormatter.format(endDate3)).build();
+
+        model.addPrescription(prescription1);
+        model.addPrescription(prescription2);
+        model.addPrescription(prescription3);
+        logic.checkAndMoveEndedPrescriptions();
+
+        // Check if prescription1 and prescription3 are in the completed prescription list
+        assertTrue(model.getCompletedPrescriptionList().getPrescriptionList().contains(prescription1));
+        assertTrue(model.getCompletedPrescriptionList().getPrescriptionList().contains(prescription3));
+
+        // prescription2 should still be in the main list
+        assertTrue(model.getPrescriptionList().getPrescriptionList().contains(prescription2));
     }
 
     /**

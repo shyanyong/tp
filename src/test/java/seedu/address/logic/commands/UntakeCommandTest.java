@@ -33,10 +33,11 @@ public class UntakeCommandTest {
     }
 
     @Test
-    public void execute_validDosesToUntake_success() throws CommandException {
+    public void execute_validDosesToUntakeCompleted_success() throws CommandException {
         PrescriptionList prescriptionList = new PrescriptionList();
         PrescriptionList completedPrescriptionList = new PrescriptionList();
         Prescription prescription = new PrescriptionBuilder()
+                .withDosage("50")
                 .withConsumptionCount("100")
                 .withStock("100")
                 .build();
@@ -66,7 +67,46 @@ public class UntakeCommandTest {
                 .getTotalStock().get().toString());
 
         assertCommandSuccess(untakePrescriptionCommand, model, expectedMessage, expectedModel);
+        assertTrue(prescriptionToUntake.getIsCompleted());
+        assertEquals(initialStock + dosesToUntakeInt, newStock);
+    }
 
+    @Test
+    public void execute_validDosesToUntakeIncomplete_success() throws CommandException {
+        PrescriptionList prescriptionList = new PrescriptionList();
+        PrescriptionList completedPrescriptionList = new PrescriptionList();
+        Prescription prescription = new PrescriptionBuilder()
+                .withDosage("200")
+                .withConsumptionCount("100")
+                .withStock("100")
+                .build();
+        prescriptionList.addPrescription(prescription);
+        Model model = new ModelManager(prescriptionList, completedPrescriptionList, new UserPrefs());
+        Model expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
+                new UserPrefs());
+
+        Prescription prescriptionToUntake = model.getFilteredPrescriptionList()
+                .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
+
+        int initialStock = Integer.parseInt(prescriptionToUntake.getTotalStock().get().toString());
+        Dosage dosesToUntake = new Dosage("1"); //Valid number of doses
+        int dosesToUntakeInt = Integer.parseInt(dosesToUntake.toString());
+
+        UntakeCommand untakePrescriptionCommand = new UntakeCommand(
+                INDEX_FIRST_PRESCRIPTION, dosesToUntake);
+
+        String expectedMessage = String.format(UntakeCommand.MESSAGE_SUCCESS,
+                prescriptionToUntake.getName());
+        Prescription expectedPrescription = expectedModel.getPrescriptionByName(prescriptionToUntake.getName());
+        expectedPrescription.getTotalStock().get().incrementCount(dosesToUntakeInt);
+        expectedPrescription.getConsumptionCount().decrementCount(dosesToUntakeInt);
+        expectedModel.updateFilteredPrescriptionList(new SameNamePredicate(prescriptionToUntake.getName()));
+
+        int newStock = Integer.parseInt(expectedModel.getPrescriptionByName(prescriptionToUntake.getName())
+                .getTotalStock().get().toString());
+
+        assertCommandSuccess(untakePrescriptionCommand, model, expectedMessage, expectedModel);
+        assertFalse(prescriptionToUntake.getIsCompleted());
         assertEquals(initialStock + dosesToUntakeInt, newStock);
     }
 

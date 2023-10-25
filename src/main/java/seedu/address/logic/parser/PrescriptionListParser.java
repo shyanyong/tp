@@ -16,6 +16,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListCompletedCommand;
 import seedu.address.logic.commands.ListTodayCommand;
+import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.commands.TakeCommand;
 import seedu.address.logic.commands.UntakeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -77,6 +78,8 @@ public class PrescriptionListParser {
             return new ExitCommandParser().parse(arguments);
         case HelpCommand.COMMAND_WORD:
             return new HelpCommandParser().parse(arguments);
+        case ReminderCommand.COMMAND_WORD:
+            return new ReminderCommandParser().parse(arguments);
         case ListCompletedCommand.COMMAND_WORD:
             return new ListCompletedCommandParser().parse(arguments);
         default:
