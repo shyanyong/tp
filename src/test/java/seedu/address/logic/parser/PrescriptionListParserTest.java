@@ -34,12 +34,12 @@ public class PrescriptionListParserTest {
 
     @Test
     public void parseCommand_take() throws Exception {
-        assertTrue(parser.parseCommand(TakeCommand.COMMAND_WORD + " 1" + " c/5") instanceof TakeCommand);
+        assertTrue(parser.parseCommand(TakeCommand.COMMAND_WORD + " 1" + " d/5") instanceof TakeCommand);
     }
 
     @Test
     public void parseCommand_untake() throws Exception {
-        assertTrue(parser.parseCommand(UntakeCommand.COMMAND_WORD + " 1" + " c/5") instanceof UntakeCommand);
+        assertTrue(parser.parseCommand(UntakeCommand.COMMAND_WORD + " 1" + " d/5") instanceof UntakeCommand);
     }
 
     @Test
