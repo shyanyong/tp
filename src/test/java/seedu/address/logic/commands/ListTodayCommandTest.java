@@ -28,33 +28,34 @@ import seedu.address.model.prescription.Stock;
 public class ListTodayCommandTest {
     private Model model;
     private Model expectedModel;
+    private CommandResult expectedSuccessMessage;
+    private CommandResult expectedEmptyMessage;
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalPrescriptionList(), getCompletedPrescriptionList(), new UserPrefs());
         expectedModel = new ModelManager(model.getPrescriptionList(),
                 model.getCompletedPrescriptionList(), new UserPrefs());
+        expectedSuccessMessage = new CommandResult(ListTodayCommand.MESSAGE_SUCCESS, ListTodayCommand.COMMAND_WORD);
+        expectedEmptyMessage = new CommandResult(ListTodayCommand.MESSAGE_EMPTY_LIST, ListTodayCommand.COMMAND_WORD);
     }
 
     @Test
     public void execute_validDateWithMedications_listTodaySuccess() {
-        String expectedMessage = ListTodayCommand.MESSAGE_SUCCESS;
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
-        assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);
+        assertCommandSuccess(new ListTodayCommand(), model, expectedSuccessMessage, expectedModel);
     }
 
     @Test public void execute_noMedicationsForToday_listTodayEmpty() {
         model.setPrescriptionList(new PrescriptionList());
         assertTrue(model.getFilteredPrescriptionList().isEmpty());
 
-        String expectedMessage = ListTodayCommand.MESSAGE_EMPTY_LIST;
         expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
-        assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);
+        assertCommandSuccess(new ListTodayCommand(), model, expectedEmptyMessage, expectedModel);
     }
 
     @Test public void execute_validWeeklyMedicationsForToday_listTodaySucess() {
-        String expectedMessage = ListTodayCommand.MESSAGE_SUCCESS;
         model.setPrescriptionList(new PrescriptionList());
         assertTrue(model.getFilteredPrescriptionList().isEmpty());
 
@@ -72,12 +73,11 @@ public class ListTodayCommandTest {
         expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
-        assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);
+        assertCommandSuccess(new ListTodayCommand(), model, expectedSuccessMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidWeeklyMedicationsForToday_listTodayEmpty() {
-        String expectedMessage = ListTodayCommand.MESSAGE_EMPTY_LIST;
         model.setPrescriptionList(new PrescriptionList());
         assertTrue(model.getFilteredPrescriptionList().isEmpty());
 
@@ -95,11 +95,10 @@ public class ListTodayCommandTest {
         expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
-        assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);
+        assertCommandSuccess(new ListTodayCommand(), model, expectedEmptyMessage, expectedModel);
     }
 
     @Test public void execute_validMonthlyMedicationsForToday_listTodaySucess() {
-        String expectedMessage = ListTodayCommand.MESSAGE_SUCCESS;
         model.setPrescriptionList(new PrescriptionList());
         assertTrue(model.getFilteredPrescriptionList().isEmpty());
 
@@ -117,11 +116,10 @@ public class ListTodayCommandTest {
         expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
-        assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);
+        assertCommandSuccess(new ListTodayCommand(), model, expectedSuccessMessage, expectedModel);
     }
 
     @Test public void execute_invalidMonthlyMedicationsForToday_listTodayEmpty() {
-        String expectedMessage = ListTodayCommand.MESSAGE_EMPTY_LIST;
         model.setPrescriptionList(new PrescriptionList());
         assertTrue(model.getFilteredPrescriptionList().isEmpty());
 
@@ -139,7 +137,7 @@ public class ListTodayCommandTest {
         expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
-        assertCommandSuccess(new ListTodayCommand(), model, expectedMessage, expectedModel);
+        assertCommandSuccess(new ListTodayCommand(), model, expectedEmptyMessage, expectedModel);
     }
 
 }

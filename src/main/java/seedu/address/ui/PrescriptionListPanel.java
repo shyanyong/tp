@@ -19,6 +19,7 @@ public class PrescriptionListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Prescription> prescriptionListView;
+    private static boolean showStatus = false;
 
     /**
      * Creates a {@code PrescriptionListPanel} with the given {@code ObservableList}.
@@ -27,6 +28,10 @@ public class PrescriptionListPanel extends UiPart<Region> {
         super(FXML);
         prescriptionListView.setItems(prescriptionList);
         prescriptionListView.setCellFactory(listView -> new PrescriptionListViewCell());
+    }
+
+    public static void setShowStatus(boolean showStatus) {
+        PrescriptionListPanel.showStatus = showStatus;
     }
 
     /**
@@ -41,7 +46,7 @@ public class PrescriptionListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PrescriptionCard(prescription, getIndex() + 1).getRoot());
+                setGraphic(new PrescriptionCard(prescription, getIndex() + 1, showStatus).getRoot());
             }
         }
     }

@@ -28,9 +28,9 @@ public class ListCompletedCommand extends Command {
         model.updateFilteredCompletedPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
 
         if (completedPrescriptionList.isEmpty()) {
-            return new CommandResult(MESSAGE_EMPTY_LIST, true, false, false);
+            return new CommandResult(MESSAGE_EMPTY_LIST, COMMAND_WORD);
         } else {
-            return new CommandResult(MESSAGE_SUCCESS, true, false, false);
+            return new CommandResult(MESSAGE_SUCCESS, COMMAND_WORD);
         }
     }
 

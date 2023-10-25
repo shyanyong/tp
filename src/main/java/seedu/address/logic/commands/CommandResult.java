@@ -12,30 +12,14 @@ import seedu.address.commons.util.ToStringBuilder;
 public class CommandResult {
 
     private final String feedbackToUser;
-
-    private final boolean isListCompleted;
-
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
-
-    /** The application should exit. */
-    private final boolean exit;
+    private final String commandWord;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean isListCompleted, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, String commandWord) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.isListCompleted = isListCompleted;
-        this.showHelp = showHelp;
-        this.exit = exit;
-    }
-
-    /**
-     * Constructs a {@code CommandResult} with the specified fields.
-     */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, false, showHelp, exit);
+        this.commandWord = commandWord;
     }
 
     /**
@@ -43,23 +27,31 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, "");
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
+    public String getCommandWord() {
+        return commandWord;
+    }
+
+    public boolean isListToday() {
+        return commandWord.equals(ListTodayCommand.COMMAND_WORD);
+    }
+
     public boolean isListCompleted() {
-        return isListCompleted;
+        return commandWord.equals(ListCompletedCommand.COMMAND_WORD);
     }
 
     public boolean isShowHelp() {
-        return showHelp;
+        return commandWord.equals(HelpCommand.COMMAND_WORD);
     }
 
     public boolean isExit() {
-        return exit;
+        return commandWord.equals(ExitCommand.COMMAND_WORD);
     }
 
     @Override
@@ -75,23 +67,19 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && isListCompleted == otherCommandResult.isListCompleted
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && commandWord.equals(otherCommandResult.commandWord);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, isListCompleted, showHelp, exit);
+        return Objects.hash(feedbackToUser, commandWord);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("feedbackToUser", feedbackToUser)
-                .add("isListCompleted", isListCompleted)
-                .add("showHelp", showHelp)
-                .add("exit", exit)
+                .add("commandWord", commandWord)
                 .toString();
     }
 
