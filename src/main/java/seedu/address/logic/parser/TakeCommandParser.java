@@ -26,7 +26,7 @@ public class TakeCommandParser implements Parser<TakeCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DOSAGE);
         Index index;
-
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DOSAGE);
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
