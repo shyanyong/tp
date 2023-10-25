@@ -66,6 +66,9 @@ public class Messages {
                 .append(prescription.getTotalStock().get());
         }
 
+        builder.append("; ConsumptionCount: ")
+            .append(prescription.getConsumptionCount());
+
         builder.append("; isCompleted: ")
             .append(prescription.getIsCompleted());
 

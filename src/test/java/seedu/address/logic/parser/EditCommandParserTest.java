@@ -1,8 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.CONSUMPTION_COUNT_DESC_ASPIRIN;
-import static seedu.address.logic.commands.CommandTestUtil.CONSUMPTION_COUNT_DESC_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandTestUtil.DOSAGE_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.DOSAGE_DESC_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandTestUtil.END_DATE_DESC_ASPIRIN;
@@ -21,7 +19,6 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.NOTE_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.START_DATE_DESC_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.STOCK_DESC_ASPIRIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CONSUMPTION_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOSAGE_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOSAGE_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATE_ASPIRIN;
@@ -31,7 +28,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STOCK_ASPIRIN;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FREQUENCY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -117,14 +113,14 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_SECOND_PRESCRIPTION;
         String userInput = targetIndex.getOneBased() + NAME_DESC_ASPIRIN + DOSAGE_DESC_PROPRANOLOL
                 + FREQUENCY_DESC_ASPIRIN + START_DATE_DESC_ASPIRIN + END_DATE_DESC_ASPIRIN
-                + EXPIRY_DATE_DESC_ASPIRIN + STOCK_DESC_ASPIRIN + CONSUMPTION_COUNT_DESC_ASPIRIN
+                + EXPIRY_DATE_DESC_ASPIRIN + STOCK_DESC_ASPIRIN
                 + NOTE_DESC_ASPIRIN;
 
         EditPrescriptionDescriptor descriptor = new EditPrescriptionDescriptorBuilder().withName(VALID_NAME_ASPIRIN)
                 .withDosage(VALID_DOSAGE_PROPRANOLOL).withFrequency(VALID_FREQUENCY_ASPIRIN)
                 .withStartDate(VALID_START_DATE_ASPIRIN).withEndDate(VALID_END_DATE_ASPIRIN)
                 .withExpiryDate(VALID_EXPIRY_DATE_ASPIRIN).withTotalStock(VALID_STOCK_ASPIRIN)
-                .withConsumptionCount(VALID_CONSUMPTION_ASPIRIN).withNote(VALID_NOTE_ASPIRIN).build();
+                .withNote(VALID_NOTE_ASPIRIN).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -187,12 +183,6 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // consumption count
-        userInput = targetIndex.getOneBased() + CONSUMPTION_COUNT_DESC_ASPIRIN;
-        descriptor = new EditPrescriptionDescriptorBuilder().withConsumptionCount(VALID_CONSUMPTION_ASPIRIN).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
         // note
         userInput = targetIndex.getOneBased() + NOTE_DESC_ASPIRIN;
         descriptor = new EditPrescriptionDescriptorBuilder().withNote(VALID_NOTE_ASPIRIN).build();
@@ -217,10 +207,9 @@ public class EditCommandParserTest {
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DOSAGE));
 
         //multiple valid fields repeated
-        userInput = targetIndex.getOneBased() + DOSAGE_DESC_ASPIRIN + FREQUENCY_DESC_ASPIRIN
-                + CONSUMPTION_COUNT_DESC_ASPIRIN + DOSAGE_DESC_PROPRANOLOL
-                + FREQUENCY_DESC_PROPRANOLOL + CONSUMPTION_COUNT_DESC_PROPRANOLOL;
+        userInput = targetIndex.getOneBased() + FREQUENCY_DESC_ASPIRIN + DOSAGE_DESC_PROPRANOLOL
+                + FREQUENCY_DESC_PROPRANOLOL;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(
-                PREFIX_DOSAGE, PREFIX_FREQUENCY, PREFIX_CONSUMPTION));
+                PREFIX_FREQUENCY));
     }
 }

@@ -19,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PrescriptionList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.SameNamePredicate;
 import seedu.address.testutil.PrescriptionBuilder;
@@ -49,7 +50,8 @@ public class UntakeCommandTest {
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
 
         int initialStock = Integer.parseInt(prescriptionToUntake.getTotalStock().get().toString());
-        int dosesToUntake = 1; //Valid number of doses
+        Dosage dosesToUntake = new Dosage("1"); //Valid number of doses
+        int dosesToUntakeInt = Integer.parseInt(dosesToUntake.toString());
 
         UntakeCommand untakePrescriptionCommand = new UntakeCommand(
                 INDEX_FIRST_PRESCRIPTION, dosesToUntake);
@@ -57,8 +59,8 @@ public class UntakeCommandTest {
         String expectedMessage = String.format(UntakeCommand.MESSAGE_SUCCESS,
                 prescriptionToUntake.getName());
         Prescription expectedPrescription = expectedModel.getPrescriptionByName(prescriptionToUntake.getName());
-        expectedPrescription.getTotalStock().get().incrementCount(dosesToUntake);
-        expectedPrescription.getConsumptionCount().decrementCount(dosesToUntake);
+        expectedPrescription.getTotalStock().get().incrementCount(dosesToUntakeInt);
+        expectedPrescription.getConsumptionCount().decrementCount(dosesToUntakeInt);
         expectedModel.updateFilteredPrescriptionList(new SameNamePredicate(prescriptionToUntake.getName()));
 
         int newStock = Integer.parseInt(expectedModel.getPrescriptionByName(prescriptionToUntake.getName())
@@ -66,7 +68,7 @@ public class UntakeCommandTest {
 
         assertCommandSuccess(untakePrescriptionCommand, model, expectedMessage, expectedModel);
         assertTrue(prescriptionToUntake.getIsCompleted());
-        assertEquals(initialStock + dosesToUntake, newStock);
+        assertEquals(initialStock + dosesToUntakeInt, newStock);
     }
 
     @Test
@@ -87,7 +89,8 @@ public class UntakeCommandTest {
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
 
         int initialStock = Integer.parseInt(prescriptionToUntake.getTotalStock().get().toString());
-        int dosesToUntake = 1; //Valid number of doses
+        Dosage dosesToUntake = new Dosage("1"); //Valid number of doses
+        int dosesToUntakeInt = Integer.parseInt(dosesToUntake.toString());
 
         UntakeCommand untakePrescriptionCommand = new UntakeCommand(
                 INDEX_FIRST_PRESCRIPTION, dosesToUntake);
@@ -95,8 +98,8 @@ public class UntakeCommandTest {
         String expectedMessage = String.format(UntakeCommand.MESSAGE_SUCCESS,
                 prescriptionToUntake.getName());
         Prescription expectedPrescription = expectedModel.getPrescriptionByName(prescriptionToUntake.getName());
-        expectedPrescription.getTotalStock().get().incrementCount(dosesToUntake);
-        expectedPrescription.getConsumptionCount().decrementCount(dosesToUntake);
+        expectedPrescription.getTotalStock().get().incrementCount(dosesToUntakeInt);
+        expectedPrescription.getConsumptionCount().decrementCount(dosesToUntakeInt);
         expectedModel.updateFilteredPrescriptionList(new SameNamePredicate(prescriptionToUntake.getName()));
 
         int newStock = Integer.parseInt(expectedModel.getPrescriptionByName(prescriptionToUntake.getName())
@@ -104,7 +107,7 @@ public class UntakeCommandTest {
 
         assertCommandSuccess(untakePrescriptionCommand, model, expectedMessage, expectedModel);
         assertFalse(prescriptionToUntake.getIsCompleted());
-        assertEquals(initialStock + dosesToUntake, newStock);
+        assertEquals(initialStock + dosesToUntakeInt, newStock);
     }
 
     @Test
@@ -113,7 +116,7 @@ public class UntakeCommandTest {
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
 
         int initialConsumption = Integer.parseInt(prescriptionToUntake.getConsumptionCount().toString());
-        int dosesToUntake = initialConsumption + 1; // More than currently consumed
+        Dosage dosesToUntake = new Dosage(String.valueOf(initialConsumption + 1)); // More than currently consumed
 
         UntakeCommand untakePrescriptionCommand = new UntakeCommand(
                 INDEX_FIRST_PRESCRIPTION, dosesToUntake);
@@ -128,8 +131,8 @@ public class UntakeCommandTest {
 
     @Test
     public void equals() {
-        int doses1 = 2;
-        int doses2 = 1;
+        Dosage doses1 = new Dosage("2");
+        Dosage doses2 = new Dosage("1");
 
         UntakeCommand command1 = new UntakeCommand(INDEX_FIRST_PRESCRIPTION, doses1);
         UntakeCommand command2 = new UntakeCommand(INDEX_FIRST_PRESCRIPTION, doses1);

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's stock in the address book.
+ * Represents a Person's stock in the prescription list.
  * Guarantees: immutable; is valid as declared in {@link #isValidStock(String)}
  */
 public class Stock {

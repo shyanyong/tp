@@ -105,6 +105,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new PrescriptionList(model.getPrescriptionList()),
                 new PrescriptionList(getCompletedPrescriptionList()), new UserPrefs());
+        showPrescriptionAtIndex(expectedModel, INDEX_FIRST_PRESCRIPTION);
         expectedModel.setPrescription(model.getFilteredPrescriptionList().get(0), editedPrescription);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

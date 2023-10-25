@@ -1,11 +1,13 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TakeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.prescription.ConsumptionCount;
+import seedu.address.model.prescription.Dosage;
 
 /**
  * Parses input arguments and creates a new TakePrescriptionCommand object
@@ -21,20 +23,17 @@ public class TakeCommandParser implements Parser<TakeCommand> {
      */
     @Override
     public TakeCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DOSAGE);
+        Index index;
+
         try {
-            String[] argParts = args.trim().split("c/");
-
-            if (argParts.length != 2) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TakeCommand.MESSAGE_USAGE));
-            }
-
-            Index index = ParserUtil.parseIndex(argParts[0].trim());
-            ConsumptionCount consumptionCount = ParserUtil.parseConsumptionCount(argParts[1].trim());
-            int dosesToTake = Integer.parseInt(consumptionCount.getConsumptionCount());
-
-            return new TakeCommand(index, dosesToTake);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TakeCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    TakeCommand.MESSAGE_USAGE), pe);
         }
+        Dosage dosesToTake = ParserUtil.parseDosage(argMultimap.getValue(PREFIX_DOSAGE).orElse("1"));
+        return new TakeCommand(index, dosesToTake);
     }
 }

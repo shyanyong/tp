@@ -33,6 +33,7 @@ import seedu.address.model.PrescriptionList;
 import seedu.address.model.ReadOnlyPrescriptionList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.SameNamePredicate;
@@ -65,7 +66,8 @@ public class TakeCommandTest {
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
 
         int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().get().toString());
-        int dosesToTake = 1; //Valid number of doses
+        Dosage dosesToTake = new Dosage("1"); //Valid number of doses
+        int dosesToTakeInt = Integer.parseInt(dosesToTake.toString());
 
         TakeCommand takePrescriptionCommand = new TakeCommand(
                 INDEX_FIRST_PRESCRIPTION, dosesToTake);
@@ -73,8 +75,8 @@ public class TakeCommandTest {
         String expectedMessage = String.format(TakeCommand.MESSAGE_SUCCESS,
                                   prescriptionToTake.getName());
         Prescription expectedPrescription = expectedModel.getPrescriptionByName(prescriptionToTake.getName());
-        expectedPrescription.getTotalStock().get().decrementCount(dosesToTake);
-        expectedPrescription.getConsumptionCount().incrementCount(dosesToTake);
+        expectedPrescription.getTotalStock().get().decrementCount(dosesToTakeInt);
+        expectedPrescription.getConsumptionCount().incrementCount(dosesToTakeInt);
         expectedModel.updateFilteredPrescriptionList(new SameNamePredicate(prescriptionToTake.getName()));
 
         int newStock = Integer.parseInt(expectedModel.getPrescriptionByName(prescriptionToTake.getName())
@@ -82,7 +84,7 @@ public class TakeCommandTest {
 
         assertCommandSuccess(takePrescriptionCommand, model, expectedMessage, expectedModel);
         assertTrue(prescriptionToTake.getIsCompleted());
-        assertEquals(initialStock - dosesToTake, newStock);
+        assertEquals(initialStock - dosesToTakeInt, newStock);
     }
 
     @Test
@@ -104,7 +106,8 @@ public class TakeCommandTest {
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
 
         int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().get().toString());
-        int dosesToTake = 1; //Valid number of doses
+        Dosage dosesToTake = new Dosage("1"); //Valid number of doses
+        int dosesToTakeInt = Integer.parseInt(dosesToTake.toString());
 
         TakeCommand takePrescriptionCommand = new TakeCommand(
                 INDEX_FIRST_PRESCRIPTION, dosesToTake);
@@ -112,8 +115,8 @@ public class TakeCommandTest {
         String expectedMessage = String.format(TakeCommand.MESSAGE_SUCCESS,
                 prescriptionToTake.getName());
         Prescription expectedPrescription = expectedModel.getPrescriptionByName(prescriptionToTake.getName());
-        expectedPrescription.getTotalStock().get().decrementCount(dosesToTake);
-        expectedPrescription.getConsumptionCount().incrementCount(dosesToTake);
+        expectedPrescription.getTotalStock().get().decrementCount(dosesToTakeInt);
+        expectedPrescription.getConsumptionCount().incrementCount(dosesToTakeInt);
         expectedModel.updateFilteredPrescriptionList(new SameNamePredicate(prescriptionToTake.getName()));
 
         int newStock = Integer.parseInt(expectedModel.getPrescriptionByName(prescriptionToTake.getName())
@@ -121,7 +124,7 @@ public class TakeCommandTest {
 
         assertCommandSuccess(takePrescriptionCommand, model, expectedMessage, expectedModel);
         assertFalse(prescriptionToTake.getIsCompleted());
-        assertEquals(initialStock - dosesToTake, newStock);
+        assertEquals(initialStock - dosesToTakeInt, newStock);
     }
 
     @Test
@@ -130,7 +133,7 @@ public class TakeCommandTest {
                 .get(INDEX_FIRST_PRESCRIPTION.getZeroBased());
 
         int initialStock = Integer.parseInt(prescriptionToTake.getTotalStock().get().toString());
-        int dosesToTake = initialStock + 1; // More than available stock
+        Dosage dosesToTake = new Dosage(String.valueOf(initialStock + 1)); // More than available stock
 
         TakeCommand takePrescriptionCommand = new TakeCommand(
                 INDEX_FIRST_PRESCRIPTION, dosesToTake);
@@ -146,7 +149,8 @@ public class TakeCommandTest {
     @Test
     public void execute_outOfBoundary_throwsCommandException() {
         Index invalidIndex = Index.fromOneBased(5);
-        TakeCommand takeCommand = new TakeCommand(invalidIndex, 1);
+        Dosage dosesToTake = new Dosage("1");
+        TakeCommand takeCommand = new TakeCommand(invalidIndex, dosesToTake);
         TakeCommandTest.ModelStub modelStub = new TakeCommandTest.ModelStubAcceptingPrescriptionTaken();
 
         assertThrows(CommandException.class,
@@ -155,8 +159,8 @@ public class TakeCommandTest {
 
     @Test
     public void equals() {
-        int doses1 = 2;
-        int doses2 = 1;
+        Dosage doses1 = new Dosage("2");
+        Dosage doses2 = new Dosage("1");
 
         TakeCommand command1 = new TakeCommand(INDEX_FIRST_PRESCRIPTION, doses1);
         TakeCommand command2 = new TakeCommand(INDEX_FIRST_PRESCRIPTION, doses1);

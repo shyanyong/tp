@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.EditCommand.EditPrescriptionDescriptor;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
@@ -29,7 +28,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY, PREFIX_START_DATE,
-                        PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_CONSUMPTION, PREFIX_NOTE);
+                        PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE);
         Index index;
 
         try {
@@ -40,7 +39,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY, PREFIX_START_DATE,
-                PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_CONSUMPTION, PREFIX_NOTE);
+                PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE);
 
         EditPrescriptionDescriptor editPrescriptionDescriptor = new EditPrescriptionDescriptor();
 
@@ -74,11 +73,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_TOTAL_STOCK).isPresent()) {
             editPrescriptionDescriptor.setTotalStock(
                     ParserUtil.parseTotalStock(argMultimap.getValue(PREFIX_TOTAL_STOCK).get()));
-        }
-
-        if (argMultimap.getValue(PREFIX_CONSUMPTION).isPresent()) {
-            editPrescriptionDescriptor.setConsumptionCount(
-                    ParserUtil.parseConsumptionCount(argMultimap.getValue(PREFIX_CONSUMPTION).get()));
         }
 
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
