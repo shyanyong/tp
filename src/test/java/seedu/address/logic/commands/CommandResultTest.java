@@ -9,6 +9,54 @@ import org.junit.jupiter.api.Test;
 
 public class CommandResultTest {
     @Test
+    public void isListToday_success() {
+        CommandResult commandResult = new CommandResult("feedback", ListTodayCommand.COMMAND_WORD);
+        assertTrue(commandResult.isListToday());
+    }
+
+    @Test
+    public void isListToday_fail() {
+        CommandResult commandResult = new CommandResult("feedback", AddCommand.COMMAND_WORD);
+        assertFalse(commandResult.isListToday());
+    }
+
+    @Test
+    public void isListCompleted_success() {
+        CommandResult commandResult = new CommandResult("feedback", ListCompletedCommand.COMMAND_WORD);
+        assertTrue(commandResult.isListCompleted());
+    }
+
+    @Test
+    public void isListCompleted_fail() {
+        CommandResult commandResult = new CommandResult("feedback", HelpCommand.COMMAND_WORD);
+        assertFalse(commandResult.isListCompleted());
+    }
+
+    @Test
+    public void isShowHelp_success() {
+        CommandResult commandResult = new CommandResult("feedback", HelpCommand.COMMAND_WORD);
+        assertTrue(commandResult.isShowHelp());
+    }
+
+    @Test
+    public void isShowHelp_fail() {
+        CommandResult commandResult = new CommandResult("feedback", ListCommand.COMMAND_WORD);
+        assertFalse(commandResult.isShowHelp());
+    }
+
+    @Test
+    public void isExit_success() {
+        CommandResult commandResult = new CommandResult("feedback", ExitCommand.COMMAND_WORD);
+        assertTrue(commandResult.isExit());
+    }
+
+    @Test
+    public void isExit_fail() {
+        CommandResult commandResult = new CommandResult("feedback", ListCompletedCommand.COMMAND_WORD);
+        assertFalse(commandResult.isExit());
+    }
+
+    @Test
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
 

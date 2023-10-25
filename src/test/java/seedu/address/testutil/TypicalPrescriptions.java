@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.PrescriptionList;
+import seedu.address.model.prescription.Date;
+import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -89,6 +91,17 @@ public class TypicalPrescriptions {
         .withConsumptionCount("0")
         .withNote("Take before food")
         .build();
+
+    public static final Prescription EMPTY_PRESCRIPTION = new Prescription(
+            new Name("Aspirin"),
+            null,
+            null,
+            new Date("01/01/2023"),
+            null,
+            null,
+            null,
+        null
+    );
 
     private TypicalPrescriptions() {} // prevents instantiation
 
