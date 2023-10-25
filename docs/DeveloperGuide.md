@@ -177,11 +177,11 @@ Step 4: `Logic` then calls `AddCommand`'s `execute`. This will call `Model`'s `a
 
 The following sequence diagram shows how the `add` operation works.
 
-<puml src="diagrams/AddCommandSequenceDiagram.puml" width="550" />
+<puml src="diagrams/AddCommandSequenceDiagram.puml" height="350" />
 
 The following activity diagram summarizes what happens when the user executes an `add` command.
 
-<puml src="diagrams/AddCommandActivityDiagram.puml" width="550" />
+<puml src="diagrams/AddCommandActivityDiagram.puml" height="350" />
 
 Design considerations:
 
@@ -241,11 +241,11 @@ Step 4: The `Model` will then update the in-memory `FilteredList<Prescription>` 
 
 The following sequence diagram shows how the `listToday` operation works.
 
-<puml src="diagrams/ListTodayCommandSequenceDiagram.puml" width="550" />
+<puml src="diagrams/ListTodayCommandSequenceDiagram.puml" height="350" />
 
 The following activity diagram summarizes what happens when the user executes an `listToday` command.
 
-<puml src="diagrams/ListTodayCommandActivityDiagram.puml" width="550" />
+<puml src="diagrams/ListTodayCommandActivityDiagram.puml" height="350" />
 
 Design considerations:
 

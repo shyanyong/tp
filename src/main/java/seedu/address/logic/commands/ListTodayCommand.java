@@ -32,9 +32,9 @@ public class ListTodayCommand extends Command {
 
         ObservableList<Prescription> todayPrescriptions = model.getFilteredPrescriptionList();
         if (todayPrescriptions.isEmpty()) {
-            return new CommandResult(MESSAGE_EMPTY_LIST);
+            return new CommandResult(MESSAGE_EMPTY_LIST, COMMAND_WORD);
         } else {
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(MESSAGE_SUCCESS, COMMAND_WORD);
         }
     }
 

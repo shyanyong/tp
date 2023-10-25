@@ -180,6 +180,24 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    private void resetPrescriptionListView() {
+        prescriptionListPanelPlaceholder.getChildren().clear();
+        prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredPrescriptionList());
+        prescriptionListPanelPlaceholder.getChildren().add(prescriptionListPanel.getRoot());
+    }
+
+    @FXML
+    private void handleListToday() {
+        PrescriptionListPanel.setShowStatus(true);
+        resetPrescriptionListView();
+    }
+
+    @FXML
+    private void handleIsNotListToday() {
+        PrescriptionListPanel.setShowStatus(false);
+        resetPrescriptionListView();
+    }
+
     @FXML
     private void handleListCompleted() {
         prescriptionListPanelPlaceholder.getChildren().clear();
@@ -189,12 +207,10 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleIsNotListCompleted() {
-        prescriptionListPanelPlaceholder.getChildren().clear();
-        prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredPrescriptionList());
-        prescriptionListPanelPlaceholder.getChildren().add(prescriptionListPanel.getRoot());
+        resetPrescriptionListView();
     }
 
-    public PrescriptionListPanel getPersonListPanel() {
+    public PrescriptionListPanel getPrescriptionListPanel() {
         return prescriptionListPanel;
     }
 
@@ -208,26 +224,40 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isListCompleted()) {
-                handleListCompleted();
-            } else {
-                handleIsNotListCompleted();
-            }
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
+            handleCommand(commandResult);
             return commandResult;
         } catch (CommandException | ParseException | IOException e) {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Calls different UI methods based on the type of command.
+     *
+     */
+    private void handleCommand(CommandResult commandResult) {
+        assert commandResult != null;
+
+        if (commandResult.isListToday()) {
+            handleListToday();
+        } else {
+            handleIsNotListToday();
+        }
+
+        if (commandResult.isListCompleted()) {
+            handleListCompleted();
+        } else {
+            handleIsNotListCompleted();
+        }
+
+        if (commandResult.isShowHelp()) {
+            handleHelp();
+        }
+
+        if (commandResult.isExit()) {
+            handleExit();
         }
     }
 }

@@ -25,6 +25,7 @@ public class PrescriptionCard extends UiPart<Region> {
      */
 
     public final Prescription prescription;
+    private final boolean showStatus;
 
     @FXML
     private HBox cardPane;
@@ -52,9 +53,10 @@ public class PrescriptionCard extends UiPart<Region> {
     /**
      * Creates a {@code PrescriptionCode} with the given {@code Prescription} and index to display.
      */
-    public PrescriptionCard(Prescription prescription, int displayedIndex) {
+    public PrescriptionCard(Prescription prescription, int displayedIndex, boolean showStatus) {
         super(FXML);
         this.prescription = prescription;
+        this.showStatus = showStatus;
         id.setText(displayedIndex + ". ");
 
         name.setText(prescription.getName().toString());
@@ -106,7 +108,9 @@ public class PrescriptionCard extends UiPart<Region> {
     private void setCompletionStatus(Prescription prescription) {
         consumptionCount.getStyleClass().clear();
 
-        if (!prescription.getDosage().isPresent()) {
+        if (!showStatus) {
+            consumptionCount.setText("");
+        } else if (!prescription.getDosage().isPresent()) {
             consumptionCount.setText(String.format("Consumed %s",
                 prescription.getConsumptionCount().getConsumptionCount()));
             consumptionCount.getStyleClass().add("consumption-status-grey");
@@ -114,7 +118,7 @@ public class PrescriptionCard extends UiPart<Region> {
             consumptionCount.setText("Completed");
             consumptionCount.getStyleClass().add("consumption-status-green");
         } else {
-            consumptionCount.setText(String.format("Uncompleted %s/%s",
+            consumptionCount.setText(String.format("Incomplete %s/%s",
                 prescription.getConsumptionCount().getConsumptionCount(),
                 dosage.getText()));
             consumptionCount.getStyleClass().add("consumption-status-red");

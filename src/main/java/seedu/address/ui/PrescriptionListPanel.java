@@ -15,6 +15,7 @@ import seedu.address.model.prescription.Prescription;
  */
 public class PrescriptionListPanel extends UiPart<Region> {
     private static final String FXML = "PrescriptionListPanel.fxml";
+    private static boolean showStatus = false;
     private final Logger logger = LogsCenter.getLogger(PrescriptionListPanel.class);
 
     @FXML
@@ -29,6 +30,10 @@ public class PrescriptionListPanel extends UiPart<Region> {
         prescriptionListView.setCellFactory(listView -> new PrescriptionListViewCell());
     }
 
+    public static void setShowStatus(boolean showStatus) {
+        PrescriptionListPanel.showStatus = showStatus;
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Prescription} using a {@code PrescriptionCard}.
      */
@@ -41,7 +46,7 @@ public class PrescriptionListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PrescriptionCard(prescription, getIndex() + 1).getRoot());
+                setGraphic(new PrescriptionCard(prescription, getIndex() + 1, showStatus).getRoot());
             }
         }
     }
