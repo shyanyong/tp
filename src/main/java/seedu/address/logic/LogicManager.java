@@ -67,11 +67,13 @@ public class LogicManager implements Logic {
     /**
      * Deletes prescriptions that are past the end date and stores them in the completed prescription list.
      */
-    public void checkAndMoveEndedPrescriptions() throws IOException {
+    public void checkAndMoveEndedPrescriptions() {
         PrescriptionList prescriptionListCopy = new PrescriptionList(model.getPrescriptionList());
         for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
             if (prescription.isEnded()) {
                 model.deletePrescription(prescription);
+            }
+            if (!model.hasCompletedPrescription(prescription)) {
                 model.addCompletedPrescription(prescription);
             }
         }
