@@ -34,7 +34,6 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final PrescriptionListParser prescriptionListParser;
-    private boolean isDisplayingCompletedList;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -43,7 +42,6 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         prescriptionListParser = new PrescriptionListParser();
-        this.isDisplayingCompletedList = false;
     }
 
     @Override
@@ -53,17 +51,8 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = prescriptionListParser.parseCommand(commandText);
 
-        if (command instanceof ListCompletedCommand) {
-            // Handle the ListCompletedCommand
-            this.isDisplayingCompletedList = true;
-            checkAndMoveEndedPrescriptions();
-        } else {
-            // Handle other commands...
-            this.isDisplayingCompletedList = false;
-        }
-
         commandResult = command.execute(model);
-
+        checkAndMoveEndedPrescriptions();
         try {
             storage.savePrescriptionList(model.getPrescriptionList());
             storage.saveCompletedPrescriptionList(model.getCompletedPrescriptionList());
@@ -87,8 +76,6 @@ public class LogicManager implements Logic {
                 model.addCompletedPrescription(prescription);
             }
         }
-        storage.savePrescriptionList(model.getPrescriptionList());
-        storage.saveCompletedPrescriptionList(model.getCompletedPrescriptionList());
     }
 
     @Override
@@ -105,10 +92,6 @@ public class LogicManager implements Logic {
         return model.getFilteredCompletedPrescriptionList();
     }
 
-    @Override
-    public boolean getIsDisplayingCompletedList() {
-        return this.isDisplayingCompletedList;
-    }
     @Override
     public Path getPrescriptionListFilePath() {
         return model.getPrescriptionListFilePath();

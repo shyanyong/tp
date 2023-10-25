@@ -97,13 +97,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void executeListCompletedCommand_successful() throws Exception {
-        String listCompletedCommand = ListCompletedCommand.COMMAND_WORD;
-        assertCommandSuccess(listCompletedCommand, ListCompletedCommand.MESSAGE_EMPTY_LIST, model);
-        assertTrue(logic.getIsDisplayingCompletedList());
-    }
-
-    @Test
     public void getFilteredPrescriptionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPrescriptionList().remove(0));
     }
