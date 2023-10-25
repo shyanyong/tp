@@ -232,6 +232,11 @@ public class DeleteCommandTest {
         public void updateFilteredCompletedPrescriptionList(Predicate<Prescription> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasDrugClash(Prescription toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

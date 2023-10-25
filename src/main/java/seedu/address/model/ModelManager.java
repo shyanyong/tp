@@ -227,6 +227,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasDrugClash(Prescription toAdd) {
+        requireNonNull(toAdd);
+        for (Prescription prescription : prescriptionList.getPrescriptionList()) {
+            if (prescription.hasDrugClash(toAdd)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

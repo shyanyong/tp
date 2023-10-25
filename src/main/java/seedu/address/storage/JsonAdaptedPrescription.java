@@ -1,15 +1,16 @@
 package seedu.address.storage;
 
-// import java.util.ArrayList;
-// import java.util.HashSet;
-// import java.util.List;
-// import java.util.Set;
-// import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
@@ -18,6 +19,8 @@ import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.Stock;
+
+
 
 /**
  * Jackson-friendly version of {@link Prescription}.
@@ -36,16 +39,20 @@ class JsonAdaptedPrescription {
     private final String consumptionCount;
     private Boolean isCompleted;
     private String note;
-    // private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedDrug> drugs = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPrescription} with the given prescription details.
      */
     @JsonCreator
-    public JsonAdaptedPrescription(@JsonProperty("name") String name, @JsonProperty("dosage") String dosage,
-            @JsonProperty("frequency") String frequency, @JsonProperty("startDate") String startDate,
-            @JsonProperty("endDate") String endDate, @JsonProperty("expiryDate") String expiryDate,
-            @JsonProperty("totalStock") String totalStock, @JsonProperty("consumptionCount") String consumptionCount,
+    public JsonAdaptedPrescription(@JsonProperty("name") String name,
+                                   @JsonProperty("dosage") String dosage,
+                                   @JsonProperty("frequency") String frequency,
+                                   @JsonProperty("startDate") String startDate,
+                                   @JsonProperty("endDate") String endDate,
+                                   @JsonProperty("expiryDate") String expiryDate,
+                                   @JsonProperty("totalStock") String totalStock,
+                                   @JsonProperty("consumptionCount") String consumptionCount,
                                    @JsonProperty("isCompleted") Boolean isCompleted,
                                    @JsonProperty("note") String note) {
         this.name = name;
@@ -58,9 +65,9 @@ class JsonAdaptedPrescription {
         this.consumptionCount = consumptionCount;
         this.isCompleted = isCompleted;
         this.note = note;
-        // if (tags != null) {
-        //     this.tags.addAll(tags);
-        // }
+        if (drugs != null) {
+            this.drugs.addAll(drugs);
+        }
     }
 
     /**
@@ -89,9 +96,10 @@ class JsonAdaptedPrescription {
         if (source.getNote().isPresent()) {
             note = source.getNote().get().toString();
         }
-        // tags.addAll(source.getTags().stream()
-        //         .map(JsonAdaptedTag::new)
-        //         .collect(Collectors.toList()));
+        drugs.addAll(source.getConflictingDrugs()
+                .stream()
+                .map(JsonAdaptedDrug::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -100,10 +108,10 @@ class JsonAdaptedPrescription {
      * @throws IllegalValueException if there were any data constraints violated in the adapted prescription.
      */
     public Prescription toModelType() throws IllegalValueException {
-        // final List<Tag> personTags = new ArrayList<>();
-        // for (JsonAdaptedTag tag : tags) {
-        //     personTags.add(tag.toModelType());
-        // }
+        final List<Drug> conflictingDrugs = new ArrayList<>();
+        for (JsonAdaptedDrug drug : drugs) {
+            conflictingDrugs.add(drug.toModelType());
+        }
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -185,10 +193,10 @@ class JsonAdaptedPrescription {
             modelNote = new Note(note);
         }
 
-        // final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Drug> modelDrugs = new HashSet<>(conflictingDrugs);
         return new Prescription(modelName, modelDosage, modelFrequency, modelStartDate,
-                        modelEndDate, modelExpiryDate, modelTotalStock, modelConsumptionCount, modelIsCompleted,
-                modelNote);
+                modelEndDate, modelExpiryDate, modelTotalStock, modelConsumptionCount, modelIsCompleted,
+                modelNote, modelDrugs);
     }
 
 }

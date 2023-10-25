@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 import seedu.address.model.prescription.ConsumptionCount;
@@ -167,7 +168,7 @@ public class PrescriptionBuilder {
     public Prescription build() {
         return new Prescription(name, dosage.orElse(null), frequency.orElse(null),
             startDate, endDate.orElse(null), expiryDate.orElse(null), totalStock.orElse(null),
-            consumptionCount, isCompleted, note.orElse(null));
+            consumptionCount, isCompleted, note.orElse(null), new HashSet<>());
     }
 
 }

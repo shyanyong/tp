@@ -9,6 +9,8 @@ import static seedu.address.testutil.CompletedPrescriptions.ERGOTAMINE;
 import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 import static seedu.address.testutil.TypicalPrescriptions.PROPRANOLOL;
 
+import java.util.HashSet;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PrescriptionBuilder;
@@ -33,7 +35,7 @@ public class PrescriptionTest {
 
         // prescription with no end date
         Prescription prescriptionWithNoEnd = new Prescription(new Name("Aspirin"), null, null, null,
-                null, null, null, null);
+                null, null, null, null, new HashSet<>());
         assertFalse(prescriptionWithNoEnd.isEnded());
     }
 

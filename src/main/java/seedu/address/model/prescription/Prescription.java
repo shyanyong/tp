@@ -3,13 +3,14 @@ package seedu.address.model.prescription;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 // import java.util.Collections;
-// import java.util.HashSet;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
-// import java.util.Set;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.drug.Drug;
 // import seedu.address.model.tag.Tag;
 
 /**
@@ -31,15 +32,15 @@ public class Prescription {
     private final ConsumptionCount consumptionCount;
     private Boolean isCompleted;
     private final Optional<Note> note;
-    // private final Set<Tag> tags = new HashSet<>();
+    private final Set<Drug> conflictingDrugs = new HashSet<>();
 
     /**
      * Constructor for prescription without consumption count and isCompleted.
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
-                        Date endDate, Date expiryDate, Stock totalStock, Note note) {
+                        Date endDate, Date expiryDate, Stock totalStock, Note note, Set<Drug> conflictingDrugs) {
         this(name, dosage, frequency, startDate, endDate, expiryDate,
-            totalStock, new ConsumptionCount("0"), false, note);
+            totalStock, new ConsumptionCount("0"), false, note, conflictingDrugs);
     }
 
     /**
@@ -47,7 +48,7 @@ public class Prescription {
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
                         Date endDate, Date expiryDate, Stock totalStock, ConsumptionCount consumptionCount,
-                        Boolean isCompleted, Note note) {
+                        Boolean isCompleted, Note note, Set<Drug> conflictingDrugs) {
         requireAllNonNull(name);
         this.name = name;
         this.dosage = Optional.ofNullable(dosage);
@@ -59,6 +60,7 @@ public class Prescription {
         this.consumptionCount = consumptionCount;
         this.isCompleted = isCompleted;
         this.note = Optional.ofNullable(note);
+        this.conflictingDrugs.addAll(conflictingDrugs);
     }
 
     public Name getName() {
@@ -98,6 +100,10 @@ public class Prescription {
 
     public Optional<Note> getNote() {
         return note;
+    }
+
+    public Set<Drug> getConflictingDrugs() {
+        return conflictingDrugs;
     }
 
     public void setIsCompleted(Boolean isCompleted) {
@@ -187,5 +193,18 @@ public class Prescription {
                 .add("isCompleted", isCompleted)
                 .add("note", note)
                 .toString();
+    }
+
+    /**
+     * Returns true if this Prescription has a conflict with the drug to be added.
+     */
+    public boolean hasDrugClash(Prescription toAdd) {
+        Set<Drug> drugSet = toAdd.getConflictingDrugs();
+        for (Drug drug : drugSet) {
+            if (conflictingDrugs.contains(drug)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
