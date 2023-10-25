@@ -177,11 +177,11 @@ Step 4: `Logic` then calls `AddCommand`'s `execute`. This will call `Model`'s `a
 
 The following sequence diagram shows how the `add` operation works.
 
-**[ADD COMMAND SEQUENCE DIAGRAM]**
+<puml src="diagrams/AddCommandSequenceDiagram.puml" width="550" />
 
 The following activity diagram summarizes what happens when the user executes an `add` command.
 
-**[ADD COMMAND ACTIVITY DIAGRAM]**
+<puml src="diagrams/AddCommandActivityDiagram.puml" width="550" />
 
 Design considerations:
 
