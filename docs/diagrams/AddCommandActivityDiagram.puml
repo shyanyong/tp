@@ -6,4 +6,4 @@ start
 :Add prescription to Model's prescription list;
 :Show all prescriptions;
 stop
-@enduml
+@enduml;
