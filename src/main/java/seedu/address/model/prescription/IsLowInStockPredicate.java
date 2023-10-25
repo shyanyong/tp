@@ -8,10 +8,14 @@ import java.util.function.Predicate;
 public class IsLowInStockPredicate implements Predicate<Prescription> {
     @Override
     public boolean test(Prescription prescription) {
-        if (!prescription.getTotalStock().isPresent()) {
+        if (prescription.getTotalStock().isEmpty() || prescription.getDosage().isEmpty()) {
             return false;
         }
-        String prescriptionTotalStock = prescription.getTotalStock().get().getFullStock();
-        return Integer.parseInt(prescriptionTotalStock) < 10;
+        int prescriptionTotalStock = Integer.parseInt(prescription.getTotalStock().get().getFullStock());
+        int prescriptionDosages = Integer.parseInt(prescription.getDosage().get().toString());
+
+        return prescriptionDosages > 0
+                && prescriptionTotalStock <= 10
+                || prescriptionTotalStock / prescriptionDosages <= 7;
     }
 }
