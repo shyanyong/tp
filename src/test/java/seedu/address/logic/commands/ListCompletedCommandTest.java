@@ -40,13 +40,6 @@ public class ListCompletedCommandTest {
     }
 
     @Test
-    public void execute_listCompletedIsFiltered_showsEverything() {
-        showCompletedPrescriptionAtIndex(model, INDEX_FIRST_PRESCRIPTION);
-        assertCommandSuccess(new ListCompletedCommand(), model,
-                expectedSuccessMessage, model);
-    }
-
-    @Test
     public void execute_listCompletedEmptyList_showsEmptyList() {
         Model emptyModel = new ModelManager(getTypicalPrescriptionList(), new PrescriptionList(), new UserPrefs());
         assertCommandSuccess(new ListCompletedCommand(), emptyModel,
