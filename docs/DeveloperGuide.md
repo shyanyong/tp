@@ -190,6 +190,37 @@ Prescriptions may have a uneven consumption interval. For example, some prescrip
 To cater for this, we are using every prescription's `name` and `startDate` to identify each prescription. Every `Prescription` must therefore have both these fields. As such, if no start date was provided, it will be initialised to a default value.
 
 ### Edit feature
+The Edit Command is a fundamental feature of the BayMeds application, allowing users to modify the details of a prescription. It leverages the `EditPrescriptionDescriptor` and follows a specific edit mechanism.
+
+#### `EditPrescriptionDescriptor`
+
+The `EditPrescriptionDescriptor` is a crucial component for processing edit commands. It serves as a container for holding the new values that the user wishes to apply during the edit operation. This descriptor is essential for maintaining consistency and ensuring that only valid changes are made to a prescription.
+
+**Usage:**
+
+1. User initiates an edit command, e.g., `edit 1 mn/UpdatedMedicationName d/3`.
+
+2. The `EditCommandParser` processes the user's input, extracting the prescription index and the edits to be made.
+
+3. The `EditCommandParser` then creates an instance of the `EditPrescriptionDescriptor`, populating it with the provided changes. In the example above, the medication name (`mn`) is updated to "UpdatedMedicationName," and the dosage (`d`) is updated to "3".  
+
+4. The `EditCommandParser` then creates an instance of the `EditCommand` class, passing in the prescription index and the `EditPrescriptionDescriptor` instance.
+
+5. The `EditCommand` class then calls the `execute` method, which carries out checks to ensure that the prescription index is valid. If the prescription index is invalid, an error message is returned to the user. 
+
+6. The 'EditCommand' class uses the `EditPrescriptionDescriptor` instance and the Prescription to be edited to create a new Prescription with the edited fields.
+
+7. The edited prescription is then checked to ensure that it is valid. If the edited prescription is invalid, an error message is returned to the user.
+
+8. The `EditCommand` class then calls the `editPrescription` method in the `Model` class, passing in the prescription index and the edited prescription.
+
+
+
+The following class diagram shows the relationship between the `EditPrescriptionDescriptor` and the `EditCommand` class.
+
+![EditCommand](diagrams/EditCommandClassDiagram.svg)
+**[EDIT COMMAND CLASS DIAGRAM]**
+
 
 ### Take / untake feature
 
