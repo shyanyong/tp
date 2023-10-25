@@ -7,8 +7,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRESCRIPTION;
 import static seedu.address.testutil.TypicalPrescriptions.getTypicalPrescriptionList;
 
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PrescriptionList;
@@ -21,7 +21,6 @@ import seedu.address.model.UserPrefs;
 public class ListCompletedCommandTest {
 
     private Model model;
-    private Model expectedModel;
     private CommandResult expectedSuccessMessage;
     private CommandResult expectedEmptyMessage;
 
@@ -34,23 +33,23 @@ public class ListCompletedCommandTest {
                 ListCompletedCommand.COMMAND_WORD);
     }
 
-     @Test
-     public void execute_listCompletedIsNotFiltered_showsSameList() {
-         assertCommandSuccess(new ListCompletedCommand(), model,
-                 expectedSuccessMessage, model);
-     }
+    @Test
+    public void execute_listCompletedIsNotFiltered_showsSameList() {
+        assertCommandSuccess(new ListCompletedCommand(), model,
+                expectedSuccessMessage, model);
+    }
 
-     @Test
-     public void execute_listCompletedIsFiltered_showsEverything() {
-         showCompletedPrescriptionAtIndex(model, INDEX_FIRST_PRESCRIPTION);
-         assertCommandSuccess(new ListCompletedCommand(), model,
-                 expectedSuccessMessage, model);
-     }
+    @Test
+    public void execute_listCompletedIsFiltered_showsEverything() {
+        showCompletedPrescriptionAtIndex(model, INDEX_FIRST_PRESCRIPTION);
+        assertCommandSuccess(new ListCompletedCommand(), model,
+                expectedSuccessMessage, model);
+    }
 
-     @Test
-     public void execute_listCompletedEmptyList_showsEmptyList() {
+    @Test
+    public void execute_listCompletedEmptyList_showsEmptyList() {
         Model emptyModel = new ModelManager(getTypicalPrescriptionList(), new PrescriptionList(), new UserPrefs());
         assertCommandSuccess(new ListCompletedCommand(), emptyModel,
-                 expectedEmptyMessage, emptyModel);
-     }
+                expectedEmptyMessage, emptyModel);
+    }
 }
