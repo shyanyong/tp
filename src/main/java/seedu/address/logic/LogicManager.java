@@ -70,9 +70,13 @@ public class LogicManager implements Logic {
     public void checkAndMoveEndedPrescriptions() {
         PrescriptionList prescriptionListCopy = new PrescriptionList(model.getPrescriptionList());
         for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
-            if (prescription.isEnded()) {
-                model.deletePrescription(prescription);
-            }
+            deleteAndMovePrescription(prescription);
+        }
+    }
+
+    private void deleteAndMovePrescription(Prescription prescription) {
+        if (prescription.isEnded()) {
+            model.deletePrescription(prescription);
             if (!model.hasCompletedPrescription(prescription)) {
                 model.addCompletedPrescription(prescription);
             }
