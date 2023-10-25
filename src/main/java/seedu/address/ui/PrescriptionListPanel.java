@@ -15,11 +15,11 @@ import seedu.address.model.prescription.Prescription;
  */
 public class PrescriptionListPanel extends UiPart<Region> {
     private static final String FXML = "PrescriptionListPanel.fxml";
+    private static boolean showStatus = false;
     private final Logger logger = LogsCenter.getLogger(PrescriptionListPanel.class);
 
     @FXML
     private ListView<Prescription> prescriptionListView;
-    private static boolean showStatus = false;
 
     /**
      * Creates a {@code PrescriptionListPanel} with the given {@code ObservableList}.
