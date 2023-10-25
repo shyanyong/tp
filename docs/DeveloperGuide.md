@@ -122,14 +122,14 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the BayMeds data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the BayMeds data i.e., all `Prescription` objects (which are contained in a `UniquePrescriptionList` object).
+* stores the currently 'selected' `Prescription` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Prescription>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+[//]: # (**Note:** An alternative &#40;arguably, a more OOP&#41; model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>)
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
@@ -149,7 +149,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -185,7 +185,7 @@ The following activity diagram summarizes what happens when the user executes an
 
 Design considerations:
 
-Prescriptions may have a uneven consumption interval. For example, some prescriptions only needs to be consumed every Wednesday and Sunday. In such scenarios, users will need to input this prescription as 2 separate inputs with the same prescription name.
+Prescriptions may have an uneven consumption interval. For example, some prescriptions only needs to be consumed every Wednesday and Sunday. In such scenarios, users will need to input this prescription as 2 separate inputs with the same prescription name.
 
 To cater for this, we are using every prescription's `name` and `startDate` to identify each prescription. Every `Prescription` must therefore have both these fields. As such, if no start date was provided, it will be initialised to a default value.
 
@@ -222,6 +222,34 @@ The following class diagram shows the relationship between the `EditPrescription
 
 
 ### Take / untake feature
+
+**Note:** The untake feature is similar to the take feature but reverses the incrementing and decrementing of consumption count and stock respectively, given below is the guide for the take feature.
+
+The take prescription feature is facilitated by the `TakeCommandParser`.
+
+Given below is an example usage scenario and how the take prescription mechanism behaves at each step.
+
+Step 1. The user types the command `take 1 d/4`. Upon pressing enter, the `Ui` triggers the `execute` method in `Logic`, passing the input text to the `PrescriptionListparser` in `Logic`. The `PrescriptionListParser` then checks the command type to determine which command parser to call.
+
+Step 2. Upon checking that it is a `take` command, the `TakeCommandParser` will be created to `parse` the input text. It creates an `argMultiMap`, which contains the mappings of each recognised prefix in the input text, and its associated value.
+
+**Note:** If no dosage is specified, the default dosage to take will be 1.
+
+Step 3. The `TakeCommandParser` subsequently returns a new `TakeCommand` object with the index of the prescription to take and the dosage to take.
+
+Step 4: `Logic` then calls `TakeCommand`'s `execute`. This will call `Model`'s `getFilteredPrescriptionList` method and retrieve the prescription based on the index from the in-memory `PrescriptionList`, necessary checks are done to check if the index is valid and there is enough stock.
+`TakeCommand`'s executeTake is then called, incrementing the consumption count and decrementing the stock of the prescription. Finally, the completed status is set based on the consumption count and dosage of the prescription and the `Model` sets the `filteredPrescriptions` to show the prescription that was just taken from.
+
+The following class diagram shows the classes associated with executing a take command.
+
+<puml src="diagrams/TakeCommandClassDiagram.puml" height="350" />
+
+Design considerations:
+
+Prescriptions may have duplicate names but different start dates.
+
+To cater for this, the take command uses the index instead of the name of the medication when executing.
+
 
 ### List today feature
 
