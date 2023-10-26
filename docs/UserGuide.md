@@ -194,25 +194,27 @@ Example usage of list today command in BayMeds:
 
 ### Marking a medication as taken : `take`
 
-Marks a medication as consumed.
+Takes a specified dose from a prescription in the list of prescriptions.
 
 Format:
 ```
 take
-  --medication <medication_name>
-  [--amount <amount_taken>]
-  [--date <date>]
+  INDEX
+  [d/<dosage>]
 ```
 
-* `<medication_name>` should not be empty.
+* Takes a dose from the prescription at the specified `INDEX`. The index refers to the index number shown in the displayed prescription list. The index **must be a positive integer** 1, 2, 3, …​
+* Existing consumption count will be increased by the input value.
+* Existing stock will be decreased by the input value.
+* Since `d/<dosage>` is an optional input, if there is none given, the default dosage to take will be set as 1.
 
 Examples:
-* `take
-  --medication "Aspirin" --amount “1”  --date "20-09-2023"`.
+* `take 1 d/2`
+* `take 2`
 
-Example usage of take command in BayMeds:
+Example output of take command in BayMeds:
 
-<img src="images/ui/Ui-take.png" alt="Example of take command" width="460" height="330">
+<img src="images/ui/Ui-take.png" alt="Example output of take command" width="460" height="330">
 
 ### Saving the data
 
