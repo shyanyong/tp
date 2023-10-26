@@ -33,7 +33,7 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your pr
 
    * `add --medication "Doxazosin" --frequency "daily"` : Adds a prescription `Aspirin` to the list of prescriptions.
 
-   * `delete "Aspirin"` : Deletes the `Aspirin` prescription from the current list of prescriptions.
+   * `delete 1` : Deletes the first prescription from the current list of prescriptions.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -54,15 +54,12 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your pr
 * Parameters can be in any order.<br>
   e.g. if the command specifies `--medication <medication_name> --frequency <frequency>`, `--frequency <frequency> --medication <medication_name>` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
-### Viewing help : `help` [coming soon]
+### Viewing help : `help`
 
-_Details coming soon ..._
+Shows a popup window with a link to the User Guide.
 
 ### Adding a prescription : `add`
 
@@ -158,16 +155,15 @@ Deletes the specified prescription from the list of prescriptions.
 
 Format:
 ```
-delete
-  --medication <medication_name>
+delete <index>
 ```
 
-* `<medication_name>` should not be empty.
+* `<index>` should be a positive integer.
 
 Examples:
-* `delete --medication "Aspirin"`.
-* `delete --medication "Amoxicillin"`.
-* `delete --medication "Doxazosin"`.
+* `delete 1`.
+* `delete 3`.
+* `delete 4`.
 
 Example usage of delete command in BayMeds:
 
@@ -250,7 +246,7 @@ _Details coming soon ..._
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Help**        | `help`                                                                                                                                                                                                                                                          |
 | **Add**         | `add --medication <medication_name> --frequency <frequency>  [--start <start_date>] [--end <end_date>] [--remarks <remarks>]`, <br> e.g. `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"` |
-| **Delete**      | `delete --medication <medication_name>`, <br> e.g. `delete --medication "Aspirin"`                                                                                                                                                                              |
+| **Delete**      | `delete <index>`, <br> e.g. `delete 1"`                                                                                                                                                                              |
 | **Mark**        | `take --medication <medication_name> [--amount <amount_taken>] [--date <date>]`, <br> e.g. `take --medication "Aspirin" --amount "1" --date "20-09-2023"`                                                                                                       |
 | **List**        | `list`                                                                                                                                                                                                                                                          |
 |  **List today** | `list today`                                                                                                                                                                                                                                                    |
