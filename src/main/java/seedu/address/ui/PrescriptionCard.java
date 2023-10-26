@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 // import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.prescription.IsAboutToExpirePredicate;
+import seedu.address.model.prescription.IsLowInStockPredicate;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -15,6 +17,8 @@ import seedu.address.model.prescription.Prescription;
 public class PrescriptionCard extends UiPart<Region> {
 
     private static final String FXML = "PrescriptionListCard.fxml";
+    private static final IsAboutToExpirePredicate expirePredicate = new IsAboutToExpirePredicate();
+    private static final IsLowInStockPredicate stockPredicate = new IsLowInStockPredicate();
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -42,7 +46,11 @@ public class PrescriptionCard extends UiPart<Region> {
     @FXML
     private Label endDate;
     @FXML
+    private Label expiryDateHeader;
+    @FXML
     private Label expiryDate;
+    @FXML
+    private Label totalStockHeader;
     @FXML
     private Label totalStock;
     @FXML
@@ -83,12 +91,14 @@ public class PrescriptionCard extends UiPart<Region> {
 
         if (prescription.getExpiryDate().isPresent()) {
             expiryDate.setText(prescription.getExpiryDate().get().toString());
+            setExpiryDateHeaderStyle(prescription);
         } else {
             expiryDate.setText("");
         }
 
         if (prescription.getTotalStock().isPresent()) {
             totalStock.setText(prescription.getTotalStock().get().toString());
+            setStockHeaderStyle(prescription);
         } else {
             totalStock.setText("");
         }
@@ -103,6 +113,24 @@ public class PrescriptionCard extends UiPart<Region> {
         // prescription.getTags().stream()
         //         .sorted(Comparator.comparing(tag -> tag.tagName))
         //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    private void setExpiryDateHeaderStyle(Prescription prescription) {
+        expiryDateHeader.getStyleClass().clear();
+        if (expirePredicate.test(prescription)) {
+            expiryDateHeader.getStyleClass().add("cell_small_header_red");
+        } else {
+            expiryDateHeader.getStyleClass().add("cell_small_header");
+        }
+    }
+
+    private void setStockHeaderStyle(Prescription prescription) {
+        totalStockHeader.getStyleClass().clear();
+        if (stockPredicate.test(prescription)) {
+            totalStockHeader.getStyleClass().add("cell_small_header_red");
+        } else {
+            totalStockHeader.getStyleClass().add("cell_small_header");
+        }
     }
 
     private void setCompletionStatus(Prescription prescription) {

@@ -205,11 +205,6 @@ public class MainWindow extends UiPart<Stage> {
         prescriptionListPanelPlaceholder.getChildren().add(prescriptionListPanel.getRoot());
     }
 
-    @FXML
-    private void handleIsNotListCompleted() {
-        resetPrescriptionListView();
-    }
-
     public PrescriptionListPanel getPrescriptionListPanel() {
         return prescriptionListPanel;
     }
@@ -240,6 +235,10 @@ public class MainWindow extends UiPart<Stage> {
     private void handleCommand(CommandResult commandResult) {
         assert commandResult != null;
 
+        if (commandResult.affectsReminders()) {
+            resetPrescriptionListView();
+        }
+
         if (commandResult.isListToday()) {
             handleListToday();
         } else {
@@ -249,7 +248,7 @@ public class MainWindow extends UiPart<Stage> {
         if (commandResult.isListCompleted()) {
             handleListCompleted();
         } else {
-            handleIsNotListCompleted();
+            resetPrescriptionListView();
         }
 
         if (commandResult.isShowHelp()) {
