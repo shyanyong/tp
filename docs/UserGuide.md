@@ -132,7 +132,7 @@ Example output of list today command in BayMeds:
 
 <img src="images/ui/Ui-listToday.png" alt="Example of list today command" width="460" height="330">
 
-### Listing completed prescriptions : `listToday`
+### Listing completed prescriptions : `listCompleted`
 
 Lists all completed prescriptions.
 
