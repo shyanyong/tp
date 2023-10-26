@@ -119,22 +119,24 @@ Example usage of list command in BayMeds:
 
 <img src="images/ui/Ui-list.png" alt="Example of list command" width="460" height="330">
 
-### Editing a person : `edit`
+### Editing a prescription : `edit`
 
-Edits an existing person in the address book.
+Edits an existing prescription in the prescription list.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [mn/NAME] [d/DOSAGE] [f/FREQUENCY] [sd/START DATE] [ed/END DATE] [exd/EXPIRY DATE] [ts/TOTAL STOCK] [n/NOTE]`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the prescription at the specified `INDEX`. The index refers to the index number shown in the displayed prescription list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* Input values cannot be empty.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 d/2 f/Daily` Edits the dosage and frequency of the 1st prescription to be `2` and `Daily` respectively.
+*  `edit 2 mn/Creatine n/Red Pill` Edits the name of the 2nd prescription to be `Creatine` and note to be `Red Pill`.
+
+Example usage of edit command in BayMeds:
+
+<img src="images/ui/Ui-Edit.png" alt="Example of edit command" width="460" height="330">
 
 ### Locating persons by name : `find`
 
@@ -174,21 +176,21 @@ Example usage of delete command in BayMeds:
 
 <img src="images/ui/Ui-delete.png" alt="Example of delete command" width="460" height="330">
 
-### Listing untaken medication : `list today`
+### Listing untaken medication : `listToday`
 
 Lists all remaining medications to be taken for the day.
 
 Format:
 ```
-list today
+listToday
 ```
 
 Examples:
-* `list today`.
+* `listToday`.
 
 Example usage of list today command in BayMeds:
 
-<img src="images/ui/Ui-list_today.png" alt="Example of list today command" width="460" height="330">
+<img src="images/ui/Ui-ListToday.png" alt="Example of list today command" width="460" height="330">
 
 ### Marking a medication as taken : `take`
 
@@ -213,6 +215,24 @@ Examples:
 Example output of take command in BayMeds:
 
 <img src="images/ui/Ui-take.png" alt="Example output of take command" width="460" height="330">
+
+### Listing medications that are about to expire or are low in stock : `reminder`
+
+Lists all medications that are about to expire or are low in stock.
+Format:
+```
+reminder
+```
+
+*  Medications that are about to expire are defined as medications that are expiring within the next 7 days.
+*  Medications that are low in stock are defined as medications that either have less than 10 tabs left or have 7 dosages worth left.
+
+Examples:
+* `reminder`.
+
+Example usage of reminder command in BayMeds:
+
+<img src="images/ui/Ui-Reminder.png" alt="Example of reminder command" width="460" height="330">
 
 ### Saving the data
 
