@@ -17,7 +17,7 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your pr
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `BayMeds.jar` from [here](https://github.com/se-edu/addressbook-level3/releases). [coming soon]
+1. Download the latest `BayMeds.jar` from [here](https://github.com/AY2324S1-CS2103T-T15-2/tp/releases/tag/v1.3.trial).
 
 1. Copy the file to the folder you want to use as the _home folder_ for BayMeds.
 
@@ -31,9 +31,10 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your pr
 
    * `list` : Lists all prescriptions.
 
-   * `add --medication "Doxazosin" --frequency "daily"` : Adds a prescription `Aspirin` to the list of prescriptions.
+   * `add mn/Doxazosin f/Daily` : Adds a prescription `Doxazosin` to the list of prescriptions.
 
-   * `delete 1` : Deletes the first prescription from the current list of prescriptions.
+   * `delete 2` : Deletes the second prescription from the current list of prescriptions.
+
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -45,21 +46,27 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your pr
 
 **Notes about the command format:**<br>
 
-* Words in `<>` are the parameters to be supplied by the user, and should begin and end with double quotation marks " ".<br>
-  e.g. in `add --medication <medication_name>`, `<medication_name>` is a parameter which can be used as `add --medication "Aspirin"`.
+* Words in `<>` are the parameters to be supplied by the user.<br>
+  e.g. in `add mn/<medication_name>`, `<medication_name>` is a parameter which can be used as `add mn/Aspirin`.
 
 * Items in square brackets are optional.<br>
-  e.g. `--frequency <frequency> [--start <start_date>]` can be used as `--frequency "daily" --start "20-9-2023"` or as `--frequency "daily"`.
+  e.g. `mn/<medication_name> [sd/<start_date>]` can be used as `mn/Aspirin sd/25/10/2023` or as `mn/Aspirin`.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `--medication <medication_name> --frequency <frequency>`, `--frequency <frequency> --medication <medication_name>` is also acceptable.
+  e.g. if the command specifies `mn/<medication_name> f/<frequency>`, `f/<frequency> mn/<medication_name>` is also acceptable.
+
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
 ### Viewing help : `help`
 
-Shows a popup window with a link to the User Guide.
+Opens a help window. Embedded in the help window is a link to the official BayMeds user guide.
+
+Format:
+```
+help
+```
 
 ### Adding a prescription : `add`
 
@@ -68,38 +75,36 @@ Adds a prescription to the list of prescriptions.
 Format:
 ```
 add
-  --medication <medication_name>
-  --frequency <frequency>
-  [--start <start_date>]
-  [--end <end_date>]
-  [--remarks <remarks>]
+  mn/<medication_name>
+  [d/<dosage>]
+  [f/<frequency>]
+  [sd/<start_date>]
+  [ed/<end_date>]
+  [exp/<expiry_date>]
+  [ts/<total_stock>]
+  [n/<note>]
 ```
 
-* `<frequency>` should follow this format `<repetition dosage>`.
-  * e.g. `--frequency "daily 2"`.
-    * This means take 2 tabs everyday.
-  * e.g. `--frequency "daily 4"`.
-    * This means take 4 tabs everyday.
-  * e.g. `--frequency "weekly 2"`.
-    * This means take 2 tabs on a particular day every week. The day is determined by the `<start_date>` input. If `<start_date>` is a Wednesday, this means take 2 tabs every Wednesday.
-* If your prescriptions are to be taken every Wednesday and Sunday, add 2 separate entries into the list of prescriptions.
-  * `Add --medication "Accutane 1" --frequency "weekly 1" --start "27-09-2023"`.
-  * `Add --medication "Accutane 2" --frequency "weekly 1" --start "01-10-2023"`.
-* `<start_date>` and `<end_date>` should be in dd-mm-yyyy format.
-  * e.g. "20-09-2023".
+* If your prescriptions are to be taken on uneven intervals, or falls outside of the Daily/Weekly/Monthly categories, add 2 separate entries into the list of prescriptions.
+<br> For instance, if your prescriptions are to be taken every Wednesdays and Sundays, add a weekly entry for Wednesdays and another weekly entry for Sundays. BayMeds will track both entries separately and remind you both on Wednesdays and Sundays to consume your prescriptions.
+  * `add mn/Accutane sd/27/09/2023 f/Weekly`.
+  * `add mn/Accutane sd/01/10/2023 f/Weekly`.
+
+* `<start_date>` and `<end_date>` should be in dd/mm/yyyy format.
+  * e.g. "20/09/2023".
 * Since `--start <start_date>` is an optional input, if there is none given, the input date of the entry will be used as the default start date.
-* Remarks can consist of any text.
+* Note can consist of any text.
   * e.g. "To be taken after meals".
   * e.g. "Take after food".
 
 Examples:
-* `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"`.
-* `add --medication "Amoxicillin" --frequency "twice daily" --start "20-09-2023" --end "03-10-2024"`.
-* `add --medication "Doxazosin" --frequency "daily"`.
+* `add mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exd/04/10/2024 ts/100 n/Take during meals`.
+* `add mn/Amoxicillin f/Weekly sd/20/09/2023 ed/03/10/2024`.
+* `add mn/Doxazosin`.
 
-Example usage of add command in BayMeds:
+Example output of add command in BayMeds:
 
-<img src="images/ui/Ui-add.png" alt="Example of add command" width="460" height="330">
+<img src="images/ui/Ui-add.png" alt="Example output of add command" width="460" height="330">
 
 ### Listing all prescriptions : `list`
 
@@ -213,7 +218,7 @@ BayMeds data are saved in the hard disk automatically after any command that cha
 
 ### Editing the data file
 
-BayMeds data are saved automatically as a JSON file `[JAR file location]/data/BayMeds.json`. Advanced users are welcome to update data directly by editing that data file.
+BayMeds data are saved automatically as a JSON file `[JAR file location]/data/prescriptionList.json and completedPrescriptionList.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -245,8 +250,9 @@ _Details coming soon ..._
 | Action          | Format, Example                                                                                                                                                                                                                                                 |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Help**        | `help`                                                                                                                                                                                                                                                          |
-| **Add**         | `add --medication <medication_name> --frequency <frequency>  [--start <start_date>] [--end <end_date>] [--remarks <remarks>]`, <br> e.g. `add --medication "Aspirin" --frequency "daily" --start "20-09-2023" --end "03-10-2024" --remarks "Take during meals"` |
-| **Delete**      | `delete <index>`, <br> e.g. `delete 1"`                                                                                                                                                                              |
-| **Mark**        | `take --medication <medication_name> [--amount <amount_taken>] [--date <date>]`, <br> e.g. `take --medication "Aspirin" --amount "1" --date "20-09-2023"`                                                                                                       |
+                                                                                                    |
+| **Add**         | `add mn/<medication_name> [d/<dosage>] [f/<frequency>]  [sd/<start_date>] [ed/<end_date>] [exd/<expiry_date>] [ts/<total_stock>] [n/<note>]`, <br> e.g. `add mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exp/04/10/2024 ts/100 n/Take during meals` |
+| **Delete**      | `delete <index>`, <br> e.g. `delete 2`                                                                                                                                                                              |
+| **Mark**        | `take <index> [d/<dosage_taken>]`, <br> e.g. `take 1 d/1`                                                                                                       |
 | **List**        | `list`                                                                                                                                                                                                                                                          |
 |  **List today** | `list today`                                                                                                                                                                                                                                                    |
