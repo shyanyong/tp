@@ -58,15 +58,7 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your pr
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
-
-### Viewing help : `help`
-
-Opens a help window. Embedded in the help window is a link to the official BayMeds user guide.
-
-Format:
-```
-help
-```
+  
 
 ### Adding a prescription : `add`
 
@@ -103,8 +95,7 @@ Examples:
 * `add mn/Doxazosin`.
 
 Example output of add command in BayMeds:
-
-<img src="images/ui/Ui-add.png" alt="Example output of add command" width="460" height="330">
+![result for 'Example output of add command'](images/ui/Ui-add.png)
 
 ### Listing all prescriptions : `list`
 
@@ -116,8 +107,7 @@ list
 ```
 
 Example output of list command in BayMeds:
-
-<img src="images/ui/Ui-list.png" alt="Example of list command" width="460" height="330">
+![result for 'Example output of list command'](images/ui/Ui-list.png)
 
 ### Listing today's medications : `listToday`
 
@@ -129,8 +119,7 @@ listToday
 ```
 
 Example output of list today command in BayMeds:
-
-<img src="images/ui/Ui-listToday.png" alt="Example of list today command" width="460" height="330">
+![result for 'Example output of list today command'](images/ui/Ui-listToday.png)
 
 ### Listing completed prescriptions : `listCompleted`
 
@@ -142,8 +131,7 @@ listCompleted
 ```
 
 Example output of list completed command in BayMeds:
-
-<img src="images/ui/Ui-listCompleted.png" alt="Example of list completed command" width="460" height="330">
+![result for 'Example output of list completed command'](images/ui/Ui-listCompleted.png)
 
 ### Editing a prescription : `edit`
 
@@ -173,26 +161,25 @@ Examples:
 *  `edit 2 mn/Creatine n/Red Pill` Edits the name of the 2nd prescription to be `Creatine` and note to be `Red Pill`.
 
 Example output of edit command in BayMeds:
+![result for 'Example output of edit command'](images/ui/Ui-edit.png)
 
-<img src="images/ui/Ui-edit.png" alt="Example of edit command" width="460" height="330">
+### Locating prescriptions by name : `find`
 
-### Locating persons by name : `find`
-
-Finds persons whose names contain any of the given keywords.
+Finds prescriptions which names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case-insensitive. e.g `paracetamol` will match `Paracetamol`
+* The order of the keywords does not matter. e.g. `Ketoconazole Shampoo` will match `Shampoo Ketoconazole`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Para` will not match `Paracetamol`
+* Prescriptions matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `Ketorolac ophthalmic` will return `Ketotifen ophthalmic`, `Ketorolac Tromethamine`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find Ketoconazole` returns `Ketoconazole` and `Ketoconazole Shampoo`
+* `find Ketorolac ophthalmic` returns `Ketotifen ophthalmic`, `Ketorolac Tromethamine`<br>
+  ![result for 'find Ketorolac ophthalmic'](images/ui/Ui-find.png)
 
 ### Deleting a prescription : `delete`
 
@@ -211,8 +198,7 @@ Examples:
 * `delete 4`.
 
 Example output of delete command in BayMeds:
-
-<img src="images/ui/Ui-delete.png" alt="Example of delete command" width="460" height="330">
+![result for 'Example output of delete command'](images/ui/Ui-delete.png)
 
 ### Marking a medication as taken : `take`
 
@@ -235,8 +221,7 @@ Examples:
 * `take 2`
 
 Example output of take command in BayMeds:
-
-<img src="images/ui/Ui-take.png" alt="Example output of take command" width="460" height="330">
+![result for 'Example output of take command'](images/ui/Ui-take.png)
 
 ### Listing medications that are about to expire or are low in stock : `reminder`
 
@@ -250,8 +235,25 @@ reminder
 *  Medications that are low in stock are defined as medications that either have less than 10 tabs left or have 7 dosages worth left.
 
 Example output of reminder command in BayMeds:
+![result for 'Example output of reminder command'](images/ui/Ui-reminder.png)
 
-<img src="images/ui/Ui-reminder.png" alt="Example of reminder command" width="460" height="330">
+### Viewing help : `help`
+
+Opens a help window. Embedded in the help window is a link to the official BayMeds user guide.
+
+Format:
+```
+help
+```
+
+### Exiting BayMeds : `exit`
+
+Exits the application.
+
+Format:
+```
+exit
+```
 
 ### Saving the data
 
@@ -275,8 +277,19 @@ _Details coming soon ..._
 
 ## FAQ
 
+**Q**: How do I store the size and colour of the pill?<br>
+**A**: Add it as a note when adding the prescription.<br>
+
+**Q**: How do I know if I have taken the medication for the day?<br>
+**A**: Use `listToday` command to list out all medications to be taken for the day.
+Medication with a green label have been taken while those with a red label have yet to be taken.<br>
+
+**Q**: Is my data shared with other software or organisations?<br>
+**A**: Data is stored locally in the computer and is not stored in any external database nor shared with other third parties.
+We recommend locking your device before leaving it unattended to prevent others from accessing your prescription records and consumption history.<br>
+
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BayMeds home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BayMeds home folder.<br>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -288,12 +301,15 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action          | Format, Example                                                                                                                                                                                                                                                 |
-|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Help**        | `help`                                                                                                                                                                                                                                                          |
-                                                                                                    |
-| **Add**         | `add mn/<medication_name> [d/<dosage>] [f/<frequency>]  [sd/<start_date>] [ed/<end_date>] [exd/<expiry_date>] [ts/<total_stock>] [n/<note>]`, <br> e.g. `add mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exp/04/10/2024 ts/100 n/Take during meals` |
-| **Delete**      | `delete <index>`, <br> e.g. `delete 2`                                                                                                                                                                              |
-| **Mark**        | `take <index> [d/<dosage_taken>]`, <br> e.g. `take 1 d/1`                                                                                                       |
-| **List**        | `list`                                                                                                                                                                                                                                                          |
-|  **List today** | `list today`                                                                                                                                                                                                                                                    |
+| Action               | Format, Example                                                                                                                                                                                                                                                 |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**              | `add mn/<medication_name> [d/<dosage>] [f/<frequency>]  [sd/<start_date>] [ed/<end_date>] [exd/<expiry_date>] [ts/<total_stock>] [n/<note>]`, <br> e.g. `add mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exp/04/10/2024 ts/100 n/Take during meals`      |
+| **Delete**           | `delete <index>`, <br> e.g. `delete 2`                                                                                                                                                                                                                          |
+| **Mark**             | `take <index> [d/<dosage_taken>]`, <br> e.g. `take 1 d/1`                                                                                                                                                                                                       |
+| **List**             | `list`                                                                                                                                                                                                                                                          |
+| **List today**       | `listToday`                                                                                                                                                                                                                                                     |
+| **List completed**   | `listCompleted`                                                                                                                                                                                                                                                 |
+| **Find**             | `find <keyword>`, <br> e.g. `find Aspirin`                                                                                                                                                                                                                      |
+| **Reminder**         | `reminder`                                                                                                                                                                                                                                                      |
+| **Help**             | `help`                                                                                                                                                                                                                                                          |
+| **Exit**             | `exit`                                                                                                                                                                                                                                                          |
