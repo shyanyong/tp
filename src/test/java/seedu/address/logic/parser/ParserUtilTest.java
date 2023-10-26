@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRESCRIPTION;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
@@ -23,6 +24,7 @@ public class ParserUtilTest {
     private static final String INVALID_END_DATE = "1/1/2024";
     private static final String INVALID_EXPIRY_DATE = "1/1/2025";
     private static final String INVALID_TOTAL_STOCK = "a";
+    private static final String INVALID_CONSUMPTION = "a";
     private static final String INVALID_NOTE = "***";
 
     private static final String VALID_NAME = "Aspirin";
@@ -32,6 +34,7 @@ public class ParserUtilTest {
     private static final String VALID_END_DATE = "23/02/2024";
     private static final String VALID_EXPIRY_DATE = "12/12/2024";
     private static final String VALID_TOTAL_STOCK = "100";
+    private static final String VALID_CONSUMPTION = "1";
     private static final String VALID_NOTE = "Take after food";
 
     private static final String WHITESPACE = " \t\r\n";
@@ -215,6 +218,29 @@ public class ParserUtilTest {
         String totalStockWithWhitespace = WHITESPACE + VALID_TOTAL_STOCK + WHITESPACE;
         Stock expectedTotalStock = new Stock(VALID_TOTAL_STOCK);
         assertEquals(expectedTotalStock, ParserUtil.parseTotalStock(totalStockWithWhitespace));
+    }
+
+    @Test
+    public void parseConsumptionCount_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseConsumptionCount((String) null));
+    }
+
+    @Test
+    public void parseConsumptionCount_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseConsumptionCount(INVALID_CONSUMPTION));
+    }
+
+    @Test
+    public void parseConsumptionCount_validValueWithoutWhitespace_returnsConsumptionCount() throws Exception {
+        ConsumptionCount expectedConsumptionCount = new ConsumptionCount(VALID_CONSUMPTION);
+        assertEquals(expectedConsumptionCount, ParserUtil.parseConsumptionCount(VALID_CONSUMPTION));
+    }
+
+    @Test
+    public void parseConsumptionCount_validValueWithWhitespace_returnsTrimmedConsumptionCount() throws Exception {
+        String consumptionCountWithWhitespace = WHITESPACE + VALID_CONSUMPTION + WHITESPACE;
+        ConsumptionCount expectedConsumptionCount = new ConsumptionCount(VALID_CONSUMPTION);
+        assertEquals(expectedConsumptionCount, ParserUtil.parseConsumptionCount(consumptionCountWithWhitespace));
     }
 
     @Test
