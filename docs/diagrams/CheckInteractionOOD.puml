@@ -4,8 +4,9 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Model "1" --- "1" PrescriptionsList
 PrescriptionsList "1" --- "*" Prescription
-Prescription -- "conflictingDrugs *" Drug
-
+Prescription --- "*" Drug
+note on link: A prescription can have any number of conflicting drugs
 
 @enduml

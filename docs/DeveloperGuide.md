@@ -307,7 +307,7 @@ Step 4: The `Model` will then update the in-memory `FilteredList<Prescription>` 
 
 The following object oriented domain model shows the class structure of the problem domain.
 
-<puml src="diagrams/CheckInteraction.puml" height="350" />
+<puml src="diagrams/CheckInteractionOOD.puml" height="350" />
 
 ### \[Proposed\] Undo/redo feature
 
