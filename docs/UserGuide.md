@@ -35,6 +35,7 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your pr
 
    * `delete 2` : Deletes the second prescription from the current list of prescriptions.
 
+
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -54,7 +55,6 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your pr
 * Parameters can be in any order.<br>
   e.g. if the command specifies `mn/<medication_name> f/<frequency>`, `f/<frequency> mn/<medication_name>` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`) is not allowed.<br>
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
@@ -67,7 +67,6 @@ Format:
 ```
 help
 ```
-
 
 ### Adding a prescription : `add`
 
@@ -161,16 +160,15 @@ Deletes the specified prescription from the list of prescriptions.
 
 Format:
 ```
-delete
-  --medication <medication_name>
+delete <index>
 ```
 
-* `<medication_name>` should not be empty.
+* `<index>` should be a positive integer.
 
 Examples:
-* `delete --medication "Aspirin"`.
-* `delete --medication "Amoxicillin"`.
-* `delete --medication "Doxazosin"`.
+* `delete 1`.
+* `delete 3`.
+* `delete 4`.
 
 Example usage of delete command in BayMeds:
 
@@ -252,6 +250,7 @@ _Details coming soon ..._
 | Action          | Format, Example                                                                                                                                                                                                                                                 |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Help**        | `help`                                                                                                                                                                                                                                                          |
+                                                                                                    |
 | **Add**         | `add mn/<medication_name> [d/<dosage>] [f/<frequency>]  [sd/<start_date>] [ed/<end_date>] [exd/<expiry_date>] [ts/<total_stock>] [n/<note>]`, <br> e.g. `add mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exp/04/10/2024 ts/100 n/Take during meals` |
 | **Delete**      | `delete <index>`, <br> e.g. `delete 2`                                                                                                                                                                              |
 | **Mark**        | `take <index> [d/<dosage_taken>]`, <br> e.g. `take 1 d/1`                                                                                                       |
