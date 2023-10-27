@@ -25,6 +25,7 @@ public class TypicalPrescriptions {
             .withStock("100")
             .withConsumptionCount("0")
             .withNote("Take before food")
+            .withConflictingDrugs("Ibuprofen")
             .build();
 
     public static final Prescription PROPRANOLOL = new PrescriptionBuilder().withName("Propranolol")

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONFLICTING_DRUGS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
@@ -57,7 +58,7 @@ public class CommandTestUtil {
     public static final String VALID_NOTE_ASPIRIN = "Take before food";
     public static final String VALID_NOTE_PROPRANOLOL = "Take after food";
     // public static final String VALID_TAG_HUSBAND = "husband";
-    // public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_CONFLICTING_DRUG_IBUPROFEN = "Ibuprofen";
 
     public static final String NAME_DESC_ASPIRIN = " " + PREFIX_NAME + VALID_NAME_ASPIRIN;
     public static final String NAME_DESC_PROPRANOLOL = " " + PREFIX_NAME + VALID_NAME_PROPRANOLOL;
@@ -79,8 +80,9 @@ public class CommandTestUtil {
             + VALID_CONSUMPTION_PROPRANOLOL;
     public static final String NOTE_DESC_ASPIRIN = " " + PREFIX_NOTE + VALID_NOTE_ASPIRIN;
     public static final String NOTE_DESC_PROPRANOLOL = " " + PREFIX_NOTE + VALID_NOTE_PROPRANOLOL;
-
-    // public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
+    public static final String CONFLICTING_DRUG_DESC_ASPIRIN = " "
+            + PREFIX_CONFLICTING_DRUGS
+            + VALID_CONFLICTING_DRUG_IBUPROFEN;
     // public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "@sp!r!n"; // non-alphanumeric not allowed
@@ -91,7 +93,9 @@ public class CommandTestUtil {
     public static final String INVALID_EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE + "2024/1/1"; // invalid date format
     public static final String INVALID_STOCK_DESC = " " + PREFIX_TOTAL_STOCK + "a"; // alphabets not allowed
     public static final String INVALID_NOTE_DESC = " " + PREFIX_NOTE + "@invalid note"; // empty string not allowed
-    // public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_CONFLICTING_DRUGS_DESC = " " +
+            PREFIX_CONFLICTING_DRUGS
+            + "Ibuprofen*"; // '*' not allowed in drug names
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
