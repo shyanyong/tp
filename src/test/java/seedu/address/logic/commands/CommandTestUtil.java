@@ -93,8 +93,8 @@ public class CommandTestUtil {
     public static final String INVALID_EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE + "2024/1/1"; // invalid date format
     public static final String INVALID_STOCK_DESC = " " + PREFIX_TOTAL_STOCK + "a"; // alphabets not allowed
     public static final String INVALID_NOTE_DESC = " " + PREFIX_NOTE + "@invalid note"; // empty string not allowed
-    public static final String INVALID_CONFLICTING_DRUGS_DESC = " " +
-            PREFIX_CONFLICTING_DRUGS
+    public static final String INVALID_CONFLICTING_DRUGS_DESC = " "
+            + PREFIX_CONFLICTING_DRUGS
             + "Ibuprofen*"; // '*' not allowed in drug names
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

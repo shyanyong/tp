@@ -10,9 +10,9 @@ import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 import static seedu.address.testutil.TypicalPrescriptions.EMPTY_PRESCRIPTION;
 import static seedu.address.testutil.TypicalPrescriptions.PROPRANOLOL;
 
-import java.util.HashSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
