@@ -101,9 +101,9 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `BayMedsParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+1. When `Logic` is called upon to execute a command, it is passed to an `PrescriptionListParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a medication).
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a prescription).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
@@ -111,7 +111,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `BayMedsParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BayMedsParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `PrescriptionListParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BayMedsParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -144,7 +144,7 @@ The `Model` component,
 
 The `Storage` component,
 * can save both BayMeds data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `BayMedsStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* inherits from both `Storage` and `UserPrefsStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -202,11 +202,11 @@ Step 1. User initiates an edit command, e.g., `edit 1 mn/UpdatedMedicationName d
 
 Step 2. The `EditCommandParser` processes the user's input, extracting the prescription index and the edits to be made.
 
-Step 3. The `EditCommandParser` then creates an instance of the `EditPrescriptionDescriptor`, populating it with the provided changes. In the example above, the medication name (`mn`) is updated to "UpdatedMedicationName," and the dosage (`d`) is updated to "3".  
+Step 3. The `EditCommandParser` then creates an instance of the `EditPrescriptionDescriptor`, populating it with the provided changes. In the example above, the medication name (`mn`) is updated to "UpdatedMedicationName," and the dosage (`d`) is updated to "3".
 
 Step 4. The `EditCommandParser` then creates an instance of the `EditCommand` class, passing in the prescription index and the `EditPrescriptionDescriptor` instance.
 
-Step 5. The `EditCommand` class then calls the `execute` method, which carries out checks to ensure that the prescription index is valid. If the prescription index is invalid, an error message is returned to the user. 
+Step 5. The `EditCommand` class then calls the `execute` method, which carries out checks to ensure that the prescription index is valid. If the prescription index is invalid, an error message is returned to the user.
 
 Step 6. The 'EditCommand' class uses the `EditPrescriptionDescriptor` instance and the Prescription to be edited to create a new Prescription with the edited fields.
 
@@ -287,7 +287,27 @@ The result of `IsTodayPredicate` depends on the prescription's `startDate`. It i
 
 ### Remind prescription feature
 
-### Check prescription interaction feature
+### \[Proposed\] Check prescription interaction feature
+
+The check prescription interaction feature is facilitated by the `AddCommandParser`.
+
+Given below is an example usage scenario and how the check prescription interaction mechanism behaves at each step.
+
+Step 1. `Ui` and `Logic` works similarly to when [adding prescriptions](#add-feature). It creates an `argMultiMap`, which contains the mappings of each recognised prefix in the input text, and its associated value.
+
+**Note:** If there are extra fields in the input, it will throw a `ParseException` error.
+
+Step 2. The `AddCommandParser` subsequently returns a new `AddCommand` object.
+
+Step 3: `Logic` then calls `AddCommand`'s `execute`. The ModelManager will check through the Prescriptions in the PrescriptionList to ensure that there are no clashing Drugs.
+
+**Note:** If the prescription to be added contains a drug that will clash with an existing prescription, an warning message is returned to the user. The prescription will still be added.
+
+Step 4: The `Model` will then update the in-memory `FilteredList<Prescription>` with the new drugs.
+
+The following object oriented domain model shows the class structure of the problem domain.
+
+<puml src="diagrams/CheckInteractionOOD.puml" height="350" />
 
 ### \[Proposed\] Undo/redo feature
 

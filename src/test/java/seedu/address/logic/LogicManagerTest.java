@@ -27,7 +27,6 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ListCompletedCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -94,13 +93,6 @@ public class LogicManagerTest {
     public void execute_storageThrowsAdException_throwsCommandException() {
         assertCommandFailureForExceptionFromStorage(DUMMY_AD_EXCEPTION, String.format(
             LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
-    }
-
-    @Test
-    public void executeListCompletedCommand_successful() throws Exception {
-        String listCompletedCommand = ListCompletedCommand.COMMAND_WORD;
-        assertCommandSuccess(listCompletedCommand, ListCompletedCommand.MESSAGE_EMPTY_LIST, model);
-        assertTrue(logic.getIsDisplayingCompletedList());
     }
 
     @Test

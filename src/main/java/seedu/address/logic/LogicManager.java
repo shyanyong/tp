@@ -10,7 +10,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCompletedCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.PrescriptionListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -34,7 +33,6 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final PrescriptionListParser prescriptionListParser;
-    private boolean isDisplayingCompletedList;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -43,7 +41,6 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         prescriptionListParser = new PrescriptionListParser();
-        this.isDisplayingCompletedList = false;
     }
 
     @Override
@@ -53,17 +50,8 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = prescriptionListParser.parseCommand(commandText);
 
-        if (command instanceof ListCompletedCommand) {
-            // Handle the ListCompletedCommand
-            this.isDisplayingCompletedList = true;
-            checkAndMoveEndedPrescriptions();
-        } else {
-            // Handle other commands...
-            this.isDisplayingCompletedList = false;
-        }
-
         commandResult = command.execute(model);
-
+        checkAndMoveEndedPrescriptions();
         try {
             storage.savePrescriptionList(model.getPrescriptionList());
             storage.saveCompletedPrescriptionList(model.getCompletedPrescriptionList());
@@ -79,16 +67,20 @@ public class LogicManager implements Logic {
     /**
      * Deletes prescriptions that are past the end date and stores them in the completed prescription list.
      */
-    public void checkAndMoveEndedPrescriptions() throws IOException {
+    public void checkAndMoveEndedPrescriptions() {
         PrescriptionList prescriptionListCopy = new PrescriptionList(model.getPrescriptionList());
         for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
-            if (prescription.isEnded()) {
-                model.deletePrescription(prescription);
+            deleteAndMovePrescription(prescription);
+        }
+    }
+
+    private void deleteAndMovePrescription(Prescription prescription) {
+        if (prescription.isEnded()) {
+            model.deletePrescription(prescription);
+            if (!model.hasCompletedPrescription(prescription)) {
                 model.addCompletedPrescription(prescription);
             }
         }
-        storage.savePrescriptionList(model.getPrescriptionList());
-        storage.saveCompletedPrescriptionList(model.getCompletedPrescriptionList());
     }
 
     @Override
@@ -105,10 +97,6 @@ public class LogicManager implements Logic {
         return model.getFilteredCompletedPrescriptionList();
     }
 
-    @Override
-    public boolean getIsDisplayingCompletedList() {
-        return this.isDisplayingCompletedList;
-    }
     @Override
     public Path getPrescriptionListFilePath() {
         return model.getPrescriptionListFilePath();
