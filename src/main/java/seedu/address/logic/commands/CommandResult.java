@@ -46,6 +46,21 @@ public class CommandResult {
         return commandWord.equals(ListCompletedCommand.COMMAND_WORD);
     }
 
+    /**
+     * Checks if the command can alter a {@code Prescription}'s the expiry date or total stock.
+     */
+    public boolean affectsReminders() {
+        switch (commandWord) {
+        case AddCommand.COMMAND_WORD:
+        case TakeCommand.COMMAND_WORD:
+        case UntakeCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_WORD:
+            return true;
+        default:
+            return false;
+        }
+    }
+
     public boolean isShowHelp() {
         return commandWord.equals(HelpCommand.COMMAND_WORD);
     }
