@@ -33,6 +33,36 @@ public class CommandResultTest {
     }
 
     @Test
+    public void affectsReminders_addCommand_true() {
+        CommandResult commandResult = new CommandResult("feedback", AddCommand.COMMAND_WORD);
+        assertTrue(commandResult.affectsReminders());
+    }
+
+    @Test
+    public void affectsReminders_takeCommand_true() {
+        CommandResult commandResult = new CommandResult("feedback", TakeCommand.COMMAND_WORD);
+        assertTrue(commandResult.affectsReminders());
+    }
+
+    @Test
+    public void affectsReminders_untakeCommand_true() {
+        CommandResult commandResult = new CommandResult("feedback", UntakeCommand.COMMAND_WORD);
+        assertTrue(commandResult.affectsReminders());
+    }
+
+    @Test
+    public void affectsReminders_editCommand_true() {
+        CommandResult commandResult = new CommandResult("feedback", EditCommand.COMMAND_WORD);
+        assertTrue(commandResult.affectsReminders());
+    }
+
+    @Test
+    public void affectsReminders_invalidCommand_false() {
+        CommandResult commandResult = new CommandResult("feedback", ListCommand.COMMAND_WORD);
+        assertFalse(commandResult.affectsReminders());
+    }
+
+    @Test
     public void isShowHelp_success() {
         CommandResult commandResult = new CommandResult("feedback", HelpCommand.COMMAND_WORD);
         assertTrue(commandResult.isShowHelp());

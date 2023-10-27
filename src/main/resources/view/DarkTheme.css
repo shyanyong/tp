@@ -185,6 +185,12 @@
     -fx-text-fill: #F2E8E3;
 }
 
+.cell_small_header_red {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #D32F2F;
+}
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";

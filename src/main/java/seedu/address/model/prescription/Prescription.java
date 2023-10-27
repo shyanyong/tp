@@ -19,6 +19,9 @@ import seedu.address.model.drug.Drug;
  */
 public class Prescription {
 
+    private static final IsLowInStockPredicate STOCK_PREDICATE = new IsLowInStockPredicate();
+    private static final IsAboutToExpirePredicate EXPIRE_PREDICATE = new IsAboutToExpirePredicate();
+
     // Identity fields
     private final Name name;
 
@@ -142,6 +145,20 @@ public class Prescription {
             return currentDate.isAfter(prescriptionEndDate);
         }
         return false;
+    }
+
+    /**
+     * Returns true if the prescription is about to expire.
+     */
+    public boolean isAboutToExpire() {
+        return EXPIRE_PREDICATE.test(this);
+    }
+
+    /**
+     * Returns true if the prescription is low in stock.
+     */
+    public boolean isLowInStock() {
+        return STOCK_PREDICATE.test(this);
     }
 
     /**

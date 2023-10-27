@@ -42,7 +42,11 @@ public class PrescriptionCard extends UiPart<Region> {
     @FXML
     private Label endDate;
     @FXML
+    private Label expiryDateHeader;
+    @FXML
     private Label expiryDate;
+    @FXML
+    private Label totalStockHeader;
     @FXML
     private Label totalStock;
     @FXML
@@ -83,12 +87,14 @@ public class PrescriptionCard extends UiPart<Region> {
 
         if (prescription.getExpiryDate().isPresent()) {
             expiryDate.setText(prescription.getExpiryDate().get().toString());
+            setExpiryDateHeaderStyle(prescription);
         } else {
             expiryDate.setText("");
         }
 
         if (prescription.getTotalStock().isPresent()) {
             totalStock.setText(prescription.getTotalStock().get().toString());
+            setStockHeaderStyle(prescription);
         } else {
             totalStock.setText("");
         }
@@ -103,6 +109,24 @@ public class PrescriptionCard extends UiPart<Region> {
         // prescription.getTags().stream()
         //         .sorted(Comparator.comparing(tag -> tag.tagName))
         //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    private void setExpiryDateHeaderStyle(Prescription prescription) {
+        expiryDateHeader.getStyleClass().clear();
+        if (prescription.isAboutToExpire()) {
+            expiryDateHeader.getStyleClass().add("cell_small_header_red");
+        } else {
+            expiryDateHeader.getStyleClass().add("cell_small_header");
+        }
+    }
+
+    private void setStockHeaderStyle(Prescription prescription) {
+        totalStockHeader.getStyleClass().clear();
+        if (prescription.isLowInStock()) {
+            totalStockHeader.getStyleClass().add("cell_small_header_red");
+        } else {
+            totalStockHeader.getStyleClass().add("cell_small_header");
+        }
     }
 
     private void setCompletionStatus(Prescription prescription) {
