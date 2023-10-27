@@ -7,8 +7,6 @@ import javafx.scene.control.Label;
 // import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.prescription.IsAboutToExpirePredicate;
-import seedu.address.model.prescription.IsLowInStockPredicate;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -17,8 +15,6 @@ import seedu.address.model.prescription.Prescription;
 public class PrescriptionCard extends UiPart<Region> {
 
     private static final String FXML = "PrescriptionListCard.fxml";
-    private static final IsAboutToExpirePredicate expirePredicate = new IsAboutToExpirePredicate();
-    private static final IsLowInStockPredicate stockPredicate = new IsLowInStockPredicate();
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -117,7 +113,7 @@ public class PrescriptionCard extends UiPart<Region> {
 
     private void setExpiryDateHeaderStyle(Prescription prescription) {
         expiryDateHeader.getStyleClass().clear();
-        if (expirePredicate.test(prescription)) {
+        if (prescription.isAboutToExpire()) {
             expiryDateHeader.getStyleClass().add("cell_small_header_red");
         } else {
             expiryDateHeader.getStyleClass().add("cell_small_header");
@@ -126,7 +122,7 @@ public class PrescriptionCard extends UiPart<Region> {
 
     private void setStockHeaderStyle(Prescription prescription) {
         totalStockHeader.getStyleClass().clear();
-        if (stockPredicate.test(prescription)) {
+        if (prescription.isLowInStock()) {
             totalStockHeader.getStyleClass().add("cell_small_header_red");
         } else {
             totalStockHeader.getStyleClass().add("cell_small_header");
