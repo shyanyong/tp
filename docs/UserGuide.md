@@ -6,7 +6,27 @@
 
 # BayMeds v.2103 User Guide
 
-BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your prescriptions**. While it has a GUI (Graphical User Interface), most of the user interactions happen using a CLI (Command Line Interface). If you like to type fast, BayMeds can get your prescription management tasks done faster than traditional GUI apps.
+### What is BayMeds?
+
+BayMeds v.2103 (a.k.a BayMeds) is your go-to prescription management solution, catering to anyone seeking a streamlined and effective way to track prescriptions. Ideal for those with busy lives and complex medication regimens, BayMeds offer reminders for staying on top of prescription schedules and provides a platform to track prescription consumptions. With a focus on user-friendliness, BayMeds aims to promote medication adherence and reduce misusage.
+
+### What can I do with BayMeds?
+
+#### Track consumption of existing prescriptions
+
+BayMeds filters and shows you your prescriptions to be consumed each day. By marking prescriptions you have consumed, BayMeds will differentiate and show you the prescriptions that are completed and those that have yet to be completed for the day.
+
+#### Store important details of existing prescriptions
+
+BayMeds allows you to store details crucial to the consumption of the prescription, such as the end and expiry date of the prescription, as well as the current stock of pills available. You may also store specific requirements that a prescription may have, such as restricted consumption to only after heavy meals.
+
+#### Get reminders on prescriptions to be consumed
+
+BayMeds reminds you to consume your prescriptions for the day on a regular interval, to promote medication adherence.
+
+#### Track past prescriptions
+
+BayMeds enables storage of past prescriptions, i.e. prescriptions that you have completed in the past. This provides ease of access to such information when required, such as during a Doctor's visit, or when checking how many pills of a particular prescription I took in the past I have left.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -58,7 +78,7 @@ BayMeds v.2103, (a.k.a BayMeds), is a **desktop application for managing your pr
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
-  
+
 
 ### Adding a prescription : `add`
 
