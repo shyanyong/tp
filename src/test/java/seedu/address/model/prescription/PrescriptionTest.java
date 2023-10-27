@@ -11,7 +11,6 @@ import static seedu.address.testutil.TypicalPrescriptions.EMPTY_PRESCRIPTION;
 import static seedu.address.testutil.TypicalPrescriptions.PROPRANOLOL;
 
 import org.junit.jupiter.api.Test;
-
 import seedu.address.testutil.PrescriptionBuilder;
 
 import java.time.LocalDate;
@@ -37,7 +36,7 @@ public class PrescriptionTest {
 
         // prescription with no end date
         Prescription prescriptionWithNoEnd = new Prescription(new Name("Aspirin"), null, null, null,
-                null, null, null, null);
+            null, null, null, null);
         assertFalse(prescriptionWithNoEnd.isEnded());
     }
 
@@ -142,16 +141,16 @@ public class PrescriptionTest {
     @Test
     public void toStringMethod() {
         String expected = Prescription.class.getCanonicalName()
-                    + "{name=" + ASPIRIN.getName()
-                    + ", dosage=" + ASPIRIN.getDosage()
-                    + ", frequency=" + ASPIRIN.getFrequency()
-                    + ", startDate=" + ASPIRIN.getStartDate()
-                    + ", endDate=" + ASPIRIN.getEndDate()
-                    + ", expiryDate=" + ASPIRIN.getExpiryDate()
-                    + ", totalStock=" + ASPIRIN.getTotalStock()
-                    + ", consumptionCount=" + ASPIRIN.getConsumptionCount()
-                    + ", isCompleted=" + ASPIRIN.getIsCompleted()
-                    + ", note=" + ASPIRIN.getNote() + "}";
+            + "{name=" + ASPIRIN.getName()
+            + ", dosage=" + ASPIRIN.getDosage()
+            + ", frequency=" + ASPIRIN.getFrequency()
+            + ", startDate=" + ASPIRIN.getStartDate()
+            + ", endDate=" + ASPIRIN.getEndDate()
+            + ", expiryDate=" + ASPIRIN.getExpiryDate()
+            + ", totalStock=" + ASPIRIN.getTotalStock()
+            + ", consumptionCount=" + ASPIRIN.getConsumptionCount()
+            + ", isCompleted=" + ASPIRIN.getIsCompleted()
+            + ", note=" + ASPIRIN.getNote() + "}";
         assertEquals(expected, ASPIRIN.toString());
     }
 }
