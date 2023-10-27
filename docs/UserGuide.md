@@ -8,7 +8,7 @@
 
 ### What is BayMeds?
 
-BayMeds v.2103 (a.k.a BayMeds) is your go-to prescription management solution, catering to anyone seeking a streamlined and effective way to track prescriptions. Ideal for those with busy lives and complex medication regimens, BayMeds offer reminders for staying on top of prescription schedules and provides a platform to track prescription consumptions. With a focus on user-friendliness, BayMeds aims to promote medication adherence and reduce misusage.
+BayMeds v.2103 (a.k.a BayMeds) is your go-to prescription management solution, catering to chronically ill patients or caregivers seeking a streamlined and effective way to track prescriptions. Ideal for those with busy lives and complex medication regimens, BayMeds offer reminders for staying on top of prescription schedules and provides a platform to track prescription consumptions. With a focus on user-friendliness, BayMeds aims to promote medication adherence and reduce misusage.
 
 ### What can I do with BayMeds?
 
@@ -42,7 +42,9 @@ BayMeds enables storage of past prescriptions, i.e. prescriptions that you have 
 1. Copy the file to the folder you want to use as the _home folder_ for BayMeds.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BayMeds.jar` command to run the application.<br>
-   A GUI similar to the one below should appear in a few seconds. Note how the app contains some sample data.<br>
+
+
+   A GUI similar to the one below should appear in a few seconds. Note how the app contains some sample data.<br><br>
    ![Ui](images/Ui.png)
 
 1. Type commands in the command box and press Enter to execute it. <br> e.g. typing the command **`help`** and pressing Enter will open the help window.<br>
@@ -82,7 +84,9 @@ BayMeds enables storage of past prescriptions, i.e. prescriptions that you have 
 
 ### Adding a prescription : `add`
 
-Adds a prescription to the list of prescriptions.
+Upon getting a new prescription from the doctor, BayMeds allows you to add the prescription to the list.
+
+To add the prescription, type the following command.
 
 Format:
 ```
@@ -97,25 +101,52 @@ add
   [n/<note>]
 ```
 
-* If your prescriptions are to be taken on uneven intervals, or falls outside of the Daily/Weekly/Monthly categories, add 2 separate entries into the list of prescriptions.
-<br> For instance, if your prescriptions are to be taken every Wednesdays and Sundays, add a weekly entry for Wednesdays and another weekly entry for Sundays. BayMeds will track both entries separately and remind you both on Wednesdays and Sundays to consume your prescriptions.
-  * `add mn/Accutane sd/27/09/2023 f/Weekly`.
-  * `add mn/Accutane sd/01/10/2023 f/Weekly`.
+The prescription will then be added and shown in the list.
 
-* `<start_date>` and `<end_date>` should be in dd/mm/yyyy format.
-  * e.g. "20/09/2023".
-* Since `--start <start_date>` is an optional input, if there is none given, the input date of the entry will be used as the default start date.
-* Note can consist of any text.
+#### Notes:
+* `<medication_name>`, as the name suggests, refers to the name of the medication.
+  * e.g. Aspirin, Doxazosin, Propronolol
+* `<dosage>` refers to the number of pills to be taken. It only accepts a numeric value.
+  * e.g. For 1 pill, type 1.
+* `<frequency>` refers to the interval to consume the prescription. It only accepts the inputs `Daily`, `Weekly` or `Monthly`.
+* `<start_date>`, `<end_date>` and `<expiry_date>` should be in dd/mm/yyyy format.
+  * e.g. For 20th Septemeber 2023, type `20/09/2023`.
+* `<total_stock>` refers to the total number of pills you have. It only accepts a numeric value.
+  * e.g. For 100 pills, type 100.
+* `<note>` refers to any important or special information you would like to include.
   * e.g. "To be taken after meals".
   * e.g. "Take after food".
 
-Examples:
-* `add mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exd/04/10/2024 ts/100 n/Take during meals`.
-* `add mn/Amoxicillin f/Weekly sd/20/09/2023 ed/03/10/2024`.
-* `add mn/Doxazosin`.
+#### Example 1:
+```
+add mn/Isotretinoin d/1 f/Weekly sd/01/08/2023 ed/25/12/2023 exd/01/01/2024 ts/100 n/Take only after dinner
+```
+Typing this command will add a new prescription with the following information.
+* Medication name: Isotretinoin
+* Dosage: 1
+* Frequency: Weekly
+* Start date: 01/08/2023
+* End date: 25/12/2023
+* Expiry date: 01/01/2024
+* Total stock: 100
+* Note: Take only after dinner
 
-Example output of add command in BayMeds:
+After successfully adding the prescription, you will get the following result: <br>
+
 ![result for 'Example output of add command'](images/ui/Ui-add.png)
+
+#### Example 2:
+```
+add mn/Doxazosin
+```
+Typing this command will add a new prescription with the following information.
+* Medication name: Doxazosin
+
+After successfully adding the prescription, you will get the following result: <br>
+
+![result for 'Example output of add command'](images/ui/Ui-add-2.png)
+
+Note: As shown in this example, the date of which this entry was entered will be used as the default start date if no start date was given.
 
 ### Listing all prescriptions : `list`
 
