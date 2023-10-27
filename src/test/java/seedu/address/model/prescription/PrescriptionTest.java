@@ -11,10 +11,11 @@ import static seedu.address.testutil.TypicalPrescriptions.EMPTY_PRESCRIPTION;
 import static seedu.address.testutil.TypicalPrescriptions.PROPRANOLOL;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.testutil.PrescriptionBuilder;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import seedu.address.testutil.PrescriptionBuilder;
 
 public class PrescriptionTest {
 
