@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.geometry.Insets?>
+
+<StackPane styleClass="modern-box-pane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here...">
+    <padding>
+      <Insets top="10" right="15" bottom="10" left="15" />
+    </padding>
+  </TextField>
+</StackPane>
+
