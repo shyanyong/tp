@@ -6,6 +6,10 @@
 
 # BayMeds v.2103 User Guide
 
+## Welcome to the BayMeds User Guide!
+
+This guide provides step-by-step documentation on BayMeds' features and commonly encountered errors. In addition, the [quick start guide](#quick-start) shows you how to get started in a matter of minutes!
+
 ### What is BayMeds?
 
 BayMeds v.2103 (a.k.a BayMeds) is your go-to prescription management solution, catering to chronically ill patients or caregivers seeking a streamlined and effective way to track prescriptions. Ideal for those with busy lives and complex medication regimens, BayMeds offer reminders for staying on top of prescription schedules and provides a platform to track prescription consumptions. With a focus on user-friendliness, BayMeds aims to promote medication adherence and reduce misusage.
@@ -28,20 +32,40 @@ BayMeds reminds you to consume your prescriptions for the day on a regular inter
 
 BayMeds enables storage of past prescriptions, i.e. prescriptions that you have completed in the past. This provides ease of access to such information when required, such as during a Doctor's visit, or when checking how many pills of a particular prescription I took in the past I have left.
 
-<!-- * Table of Contents -->
-<page-nav-print />
+### Table of Contents
+* <span style="color:red">**To be added.**</span>
+
+### How to use this guide
+
+Navigate to the Table of Contents anytime by clicking the button in the bottom right corner of your screen.
+
+Also, here are some common icons you may encounter in this guide.
+
+| Icon                      | Description            |
+|---------------------------|------------------------|
+| <box type="definition" /> | Examples               |
+| <box type ="tip" />       | Useful tips            |
+| <box type="info" />       | Additional information |
+| <box type="warning" />    | Warning                |
+| <box type="wrong" />      | Errors                 |
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
 
+<box type="tip">
+
+If you are experienced in using JAR applications, simply download the latest version [here](https://github.com/AY2324S1-CS2103T-T15-2/tp/releases) and start the application.
+
+</box>
+
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `BayMeds.jar` from [here](https://github.com/AY2324S1-CS2103T-T15-2/tp/releases/tag/v1.3.trial).
+1. Download the latest `BayMeds.jar` from [here](https://github.com/AY2324S1-CS2103T-T15-2/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for BayMeds.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BayMeds.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BayMeds.jar` command to start the application.<br>
 
 
    A GUI similar to the one below should appear in a few seconds. Note how the app contains some sample data.<br><br>
@@ -51,36 +75,42 @@ BayMeds enables storage of past prescriptions, i.e. prescriptions that you have 
 
    Some example commands you can try:
 
-   * `list` : Lists all prescriptions.
+   * `list` : Shows all your prescriptions.
 
-   * `add mn/Doxazosin f/Daily` : Adds a prescription `Doxazosin` to the list of prescriptions.
+   * `add mn/Doxazosin f/Daily` : Adds a prescription `Doxazosin` to the list.
 
-   * `delete 2` : Deletes the second prescription from the current list of prescriptions.
+   * `delete 2` : Deletes the second prescription in the list.
 
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the [features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
-<box type="info" seamless>
+<box type="info" header="**Notes about the command format**">
 
-**Notes about the command format:**<br>
+* Words in `<>` are parameters you can enter.
+  <box type="definition" header="Example" seamless>
 
-* Words in `<>` are the parameters to be supplied by the user.<br>
-  e.g. in `add mn/<medication_name>`, `<medication_name>` is a parameter which can be used as `add mn/Aspirin`.
+  For `add mn/<medication_name>`, `<medication_name>` is a parameter which can be used as `add mn/Aspirin`.
+  </box>
 
-* Items in square brackets are optional.<br>
-  e.g. `mn/<medication_name> [sd/<start_date>]` can be used as `mn/Aspirin sd/25/10/2023` or as `mn/Aspirin`.
+* Items in square brackets are optional.
+  <box type="definition" header="Example" seamless>
 
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `mn/<medication_name> f/<frequency>`, `f/<frequency> mn/<medication_name>` is also acceptable.
+  `<medication_name> [sd/<start_date>]` can be used as `mn/Aspirin sd/25/10/2023` or as `mn/Aspirin`.
+  </box>
 
+* Parameters can be in any order.
+  <box type="definition" header="Example" seamless>
+
+  For `mn/<medication_name> f/<frequency>`, `f/<frequency> mn/<medication_name>` is also acceptable.
+  </box>
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</box>
 
+</box>
 
 ### Adding a prescription : `add`
 
@@ -103,21 +133,45 @@ add
 
 The prescription will then be added and shown in the list.
 
-#### Notes:
-* `<medication_name>`, as the name suggests, refers to the name of the medication.
-  * e.g. Aspirin, Doxazosin, Propronolol
-* `<dosage>` refers to the number of pills to be taken. It only accepts a numeric value.
-  * e.g. For 1 pill, type 1.
-* `<frequency>` refers to the interval to consume the prescription. It only accepts the inputs `Daily`, `Weekly` or `Monthly`.
-* `<start_date>`, `<end_date>` and `<expiry_date>` should be in dd/mm/yyyy format.
-  * e.g. For 20th Septemeber 2023, type `20/09/2023`.
-* `<total_stock>` refers to the total number of pills you have. It only accepts a numeric value.
-  * e.g. For 100 pills, type 100.
-* `<note>` refers to any important or special information you would like to include.
-  * e.g. "To be taken after meals".
-  * e.g. "Take after food".
+<box type="info" header="Notes">
 
-#### Example 1:
+* `<medication_name>`, as the name suggests, refers to the name of the medication.
+  <box type="definition" header="Example" seamless>
+
+  Aspirin, Doxazosin, Propranolol
+  </box>
+
+* `<dosage>` refers to the number of pills to be taken. It only accepts a numeric value.
+  <box type="definition" header="Example" seamless>
+
+  For 1 pill, type 1.
+  </box>
+
+* `<frequency>` refers to the interval to consume the prescription. It only accepts the inputs `Daily`, `Weekly` or `Monthly`.
+
+* `<start_date>`, `<end_date>` and `<expiry_date>` should be in <span style="color:red">**dd/mm/yyyy format**</span>.
+  <box type="definition" header="Example" seamless>
+
+  For 20th Septemeber 2023, type `20/09/2023`.
+  </box>
+  
+* `<total_stock>` refers to the total number of pills you have. It only accepts a numeric value.
+  <box type="definition" header="Example" seamless>
+
+  For 100 pills, type 100.
+  </box>
+  
+* `<note>` refers to any important or special information you would like to include.
+  <box type="definition" header="Example" seamless>
+
+  "To be taken after meals".
+  "Take after food".
+  </box>
+
+</box>
+
+<box type="definition" header="#### Example 1">
+
 ```
 add mn/Isotretinoin d/1 f/Weekly sd/01/08/2023 ed/25/12/2023 exd/01/01/2024 ts/100 n/Take only after dinner
 ```
@@ -135,7 +189,10 @@ After successfully adding the prescription, you will get the following result: <
 
 ![result for 'Example output of add command'](images/ui/Ui-add.png)
 
-#### Example 2:
+</box>
+
+<box type="definition" header="#### Example 2">
+
 ```
 add mn/Doxazosin
 ```
@@ -146,47 +203,73 @@ After successfully adding the prescription, you will get the following result: <
 
 ![result for 'Example output of add command'](images/ui/Ui-add-2.png)
 
-Note: As shown in this example, the date of which this entry was entered will be used as the default start date if no start date was given.
+<box type="info">
+
+As shown in this example, the date of which this entry was entered will be used as the default start date if no start date was given.
+</box>
+
+</box>
 
 ### Listing all prescriptions : `list`
 
-Shows a list of all prescriptions.
+If you want to view your all of your current prescriptions, type the following command.
 
 Format:
 ```
 list
 ```
 
-Example output of list command in BayMeds:
+You will then be able to see all your current prescriptions on the right side.
+
+<box type="definition" header="#### Example">
+
+If you have prescriptions in the list, you will get something similar to this.
+
 ![result for 'Example output of list command'](images/ui/Ui-list.png)
+
+</box>
 
 ### Listing today's medications : `listToday`
 
-Lists all medications to be taken for the day.
+If you need to see which prescriptions you need to take **today**, type the following command.
 
 Format:
 ```
 listToday
 ```
 
-Example output of list today command in BayMeds:
+You will then be able to see today's prescriptions on the right side.
+
+<box type="definition" header="#### Example">
+
+If you have prescriptions to take today, you will see something similar to this.
+
 ![result for 'Example output of list today command'](images/ui/Ui-listToday.png)
+
+</box>
 
 ### Listing completed prescriptions : `listCompleted`
 
-Lists all completed prescriptions.
+If you need a simple way to summarise your consumption history, type the following command.
 
 Format:
 ```
 listCompleted
 ```
 
-Example output of list completed command in BayMeds:
+You will then be able to see your completed prescriptions on the right side.
+
+<box type="definition" header="#### Example">
+
+If you have completed prescriptions, you will see something similar to this.
+
 ![result for 'Example output of list completed command'](images/ui/Ui-listCompleted.png)
+
+</box>
 
 ### Editing a prescription : `edit`
 
-Edits an existing prescription in the prescription list.
+If you made a mistake and would like to make some changes to your entry, type the following command.
 
 Format:
 ```
@@ -202,17 +285,38 @@ edit
   [n/NOTE]
 ```
 
-* Edits the prescription at the specified `INDEX`. The index refers to the index number shown in the displayed prescription list. The index **must be a positive integer** 1, 2, 3, …​
+This edits the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+
+<box type="info" header="Notes">
+
+* The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * Input values cannot be empty.
 
-Examples:
-*  `edit 1 d/2 f/Daily` Edits the dosage and frequency of the 1st prescription to be `2` and `Daily` respectively.
-*  `edit 2 mn/Creatine n/Red Pill` Edits the name of the 2nd prescription to be `Creatine` and note to be `Red Pill`.
+</box>
 
-Example output of edit command in BayMeds:
+<box type="definition" header="#### Example 1">
+
+```
+edit 1 d/2 f/Daily
+```
+
+Typing this command edits the dosage and frequency of the 1st prescription to be `2` and `Daily` respectively.
+
 ![result for 'Example output of edit command'](images/ui/Ui-edit.png)
+
+</box>
+
+<box type="definition" header="#### Example 2">
+
+```
+edit 2 mn/Creatine n/Red Pill
+```
+
+Typing this command edits the name of the 2nd prescription to be `Creatine` and note to be `Red Pill`.
+
+</box>
 
 ### Locating prescriptions by name : `find`
 
@@ -234,26 +338,36 @@ Examples:
 
 ### Deleting a prescription : `delete`
 
-Deletes the specified prescription from the list of prescriptions.
+You can delete a prescription from the list **permanently** by typing the following command.
 
 Format:
 ```
-delete <index>
+delete INDEX
 ```
+
+This deletes the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+
+<box type="info" header="Notes">
 
 * `<index>` should be a positive integer.
 
-Examples:
-* `delete 1`.
-* `delete 3`.
-* `delete 4`.
+</box>
 
-Example output of delete command in BayMeds:
+<box type="definition" header="#### Example">
+
+```
+delete 3
+```
+
+Typing this command deletes the 3rd prescription from the list.
+
 ![result for 'Example output of delete command'](images/ui/Ui-delete.png)
+
+</box>
 
 ### Marking a medication as taken : `take`
 
-Takes a specified dose from a prescription in the list of prescriptions.
+You can take BayMeds that you have taken a medication by typing the following command.
 
 Format:
 ```
@@ -262,31 +376,57 @@ take
   [d/<dosage>]
 ```
 
-* Takes a dose from the prescription at the specified `INDEX`. The index refers to the index number shown in the displayed prescription list. The index **must be a positive integer** 1, 2, 3, …​
+This tells BayMeds that you have taken the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+
+<box type="info" header="Notes">
+
 * Existing consumption count will be increased by the input value.
 * Existing stock will be decreased by the input value.
 * Since `d/<dosage>` is an optional input, if there is none given, the default dosage to take will be set as 1.
 
-Examples:
-* `take 1 d/2`
-* `take 2`
+</box>
 
-Example output of take command in BayMeds:
+<box type="definition" header="#### Example 1">
+
+```
+take 1 d/2
+```
+
 ![result for 'Example output of take command'](images/ui/Ui-take.png)
+
+</box>
+
+<box type="definition" header="#### Example 2">
+
+```take 2```
+
+</box>
 
 ### Listing medications that are about to expire or are low in stock : `reminder`
 
-Lists all medications that are about to expire or are low in stock.
+If you need to kno which medications are near expiry or are low in stock, type the following command.
+
 Format:
 ```
 reminder
 ```
 
+You will then be able to see medications that are near expiry or low in stock on the right side.
+
+<box type="info" header="Notes">
+
 *  Medications that are about to expire are defined as medications that are expiring within the next 7 days.
 *  Medications that are low in stock are defined as medications that either have less than 10 tabs left or have 7 dosages worth left.
 
-Example output of reminder command in BayMeds:
+</box>
+
+<box type="definition" header="#### Example">
+
+If you have prescriptions near expiry or low in stock, you will see something similar to this.
+
 ![result for 'Example output of reminder command'](images/ui/Ui-reminder.png)
+
+</box>
 
 ### Viewing help : `help`
 
