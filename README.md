@@ -2,7 +2,6 @@
 
 # BayMeds v.2103
 
-### UI Mockup
 ![Ui](docs/images/Ui.png)
 
 
