@@ -1,6 +1,5 @@
 package seedu.address.logic;
 
-import java.io.IOException;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
@@ -12,9 +11,10 @@ import seedu.address.model.ReadOnlyPrescriptionList;
 import seedu.address.model.prescription.Prescription;
 
 /**
- * API of the LogicPrescription component
+ * API of the Logic component
  */
 public interface Logic {
+
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
@@ -22,7 +22,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
+    CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
      * Returns the PrescriptionList.
@@ -30,6 +30,13 @@ public interface Logic {
      * @see seedu.address.model.Model#getPrescriptionList()
      */
     ReadOnlyPrescriptionList getPrescriptionList();
+
+    /**
+     * Returns the CompletedPrescriptionList.
+     *
+     * @see seedu.address.model.Model#getPrescriptionList()
+     */
+    ReadOnlyPrescriptionList getCompletedPrescriptionList();
 
     /** Returns an unmodifiable view of the filtered list of prescriptions */
     ObservableList<Prescription> getFilteredPrescriptionList();
@@ -52,5 +59,8 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    void checkAndMoveEndedPrescriptions() throws IOException;
+    /**
+     * Deletes prescriptions that are past the end date and stores them in the completed prescription list.
+     */
+    void checkAndMoveEndedPrescriptions();
 }

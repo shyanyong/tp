@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -189,13 +188,13 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleListToday() {
         PrescriptionListPanel.setShowStatus(true);
-        resetPrescriptionListView();
+        // resetPrescriptionListView();
     }
 
     @FXML
     private void handleIsNotListToday() {
         PrescriptionListPanel.setShowStatus(false);
-        resetPrescriptionListView();
+        // resetPrescriptionListView();
     }
 
     @FXML
@@ -214,14 +213,14 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             handleCommand(commandResult);
             return commandResult;
-        } catch (CommandException | ParseException | IOException e) {
+        } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -235,14 +234,9 @@ public class MainWindow extends UiPart<Stage> {
     private void handleCommand(CommandResult commandResult) {
         assert commandResult != null;
 
-        if (commandResult.affectsReminders()) {
-            resetPrescriptionListView();
-        }
-
+        PrescriptionListPanel.setShowStatus(false);
         if (commandResult.isListToday()) {
-            handleListToday();
-        } else {
-            handleIsNotListToday();
+            PrescriptionListPanel.setShowStatus(true);
         }
 
         if (commandResult.isListCompleted()) {
