@@ -453,7 +453,7 @@ listConflicts 3
 
 Typing this lists out conflicting drugs of the 3rd prescription from the list.
 
-![result for 'Example output of delete command'](images/ui/Ui-delete.png)
+![result for 'Example output of listConflicts command'](images/ui/Ui-listConflicts.png)
 
 </box>
 
@@ -472,7 +472,7 @@ This lists out all the conflicting drugs from all the prescriptions in the list.
 
 </box>
 
-![result for 'Example output of delete command'](images/ui/Ui-delete.png)
+![result for 'Example output of listAllConflicts command'](images/ui/Ui-listAllConflicts.png)
 
 </box>
 
