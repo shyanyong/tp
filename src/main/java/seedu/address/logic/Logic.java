@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -58,6 +59,10 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    LocalDate getStoredDate();
+
+    void setStoredDate(LocalDate storedDate);
 
     /**
      * Deletes prescriptions that are past the end date and stores them in the completed prescription list.
