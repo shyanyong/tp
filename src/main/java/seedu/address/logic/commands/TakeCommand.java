@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -12,8 +14,10 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.prescription.ConsumptionCount;
+import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.IsCompletedPredicate;
+import seedu.address.model.prescription.LastConsumedDate;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.SameNamePredicate;
 import seedu.address.model.prescription.Stock;
@@ -70,12 +74,23 @@ public class TakeCommand extends Command {
         Prescription prescription = lastShownList.get(targetIndex.getZeroBased());
         Optional<Stock> totalStock = prescription.getTotalStock();
         ConsumptionCount consumptionCount = prescription.getConsumptionCount();
+        Optional<LastConsumedDate> lastConsumedDate = prescription.getLastConsumedDate();
 
         if (totalStock.isPresent() && (Integer.parseInt(totalStock.get().toString()) < dosesToTake)) {
             throw new CommandException(MESSAGE_INSUFFICIENT_STOCK);
         }
 
-        executeTake(totalStock, consumptionCount);
+        Date todaysDate = new Date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+
+        if (lastConsumedDate.isPresent()) {
+            lastConsumedDate.get().setLastConsumedDate(todaysDate);
+        } else {
+            lastConsumedDate = Optional.of(new LastConsumedDate(todaysDate));
+        }
+
+        executeTake(totalStock, consumptionCount, lastConsumedDate);
+
 
         Predicate<Prescription> isCompletedPredicate = new IsCompletedPredicate();
         prescription.setIsCompleted(isCompletedPredicate.test(prescription));
@@ -92,7 +107,8 @@ public class TakeCommand extends Command {
      * @param totalStock The stock of the prescription.
      * @param consumptionCount The consumption count of the prescription.
      */
-    public void executeTake(Optional<Stock> totalStock, ConsumptionCount consumptionCount) {
+    public void executeTake(Optional<Stock> totalStock, ConsumptionCount consumptionCount, Optional<LastConsumedDate>
+            lastConsumedDate) {
         if (totalStock.isPresent()) {
             totalStock.get().decrementCount(dosesToTake);
         }

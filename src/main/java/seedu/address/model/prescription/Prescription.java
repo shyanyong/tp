@@ -32,23 +32,25 @@ public class Prescription {
     private final ConsumptionCount consumptionCount;
     private Boolean isCompleted;
     private final Optional<Note> note;
+    private final Optional<LastConsumedDate> lastConsumedDate;
     // private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Constructor for prescription without consumption count and isCompleted.
+     * Constructor for prescription without consumption count and isCompleted and lastConsumedDate.
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
             Date endDate, Date expiryDate, Stock totalStock, Note note) {
         this(name, dosage, frequency, startDate, endDate, expiryDate,
-                totalStock, new ConsumptionCount("0"), false, note);
+                totalStock, new ConsumptionCount("0"), false, note, null);
     }
+
 
     /**
      * Every field must be present and not null.
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
             Date endDate, Date expiryDate, Stock totalStock, ConsumptionCount consumptionCount,
-            Boolean isCompleted, Note note) {
+            Boolean isCompleted, Note note, LastConsumedDate lastConsumedDate) {
         requireAllNonNull(name);
         this.name = name;
         this.dosage = Optional.ofNullable(dosage);
@@ -60,6 +62,7 @@ public class Prescription {
         this.consumptionCount = consumptionCount;
         this.isCompleted = isCompleted;
         this.note = Optional.ofNullable(note);
+        this.lastConsumedDate = Optional.ofNullable(lastConsumedDate);
     }
 
     public Name getName() {
@@ -99,6 +102,9 @@ public class Prescription {
 
     public Optional<Note> getNote() {
         return note;
+    }
+    public Optional<LastConsumedDate> getLastConsumedDate() {
+        return lastConsumedDate;
     }
 
     public void setIsCompleted(Boolean isCompleted) {

@@ -27,6 +27,7 @@ import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
 import seedu.address.model.prescription.IsValidDatesPredicate;
+import seedu.address.model.prescription.LastConsumedDate;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
@@ -124,9 +125,11 @@ public class EditCommand extends Command {
                 .orElse(prescriptionToEdit.getIsCompleted());
         Note updatedNote = editPrescriptionDescriptor.getNote().orElse(
                 prescriptionToEdit.getNote().orElse(null));
+        LastConsumedDate updatedLastConsumedDate = prescriptionToEdit.getLastConsumedDate().orElse(null);
 
         return new Prescription(updatedName, updatedDosage, updatedFrequency, updatedStartDate, updatedEndDate,
-                updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote);
+                updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote,
+                updatedLastConsumedDate);
     }
 
     @Override

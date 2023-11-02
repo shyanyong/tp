@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.PrescriptionList;
 import seedu.address.model.ReadOnlyPrescriptionList;
+import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.storage.Storage;
 
@@ -74,6 +76,66 @@ public class LogicManager implements Logic {
             deleteAndMovePrescription(prescription);
         }
     }
+
+    /**
+     * Checks the prescription and resets the consumption count.
+     */
+    public void checkAndChangeConsumptionCount() {
+        PrescriptionList prescriptionListCopy = new PrescriptionList(getPrescriptionList());
+        LocalDate todaysDate = LocalDate.now();
+        for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
+            if (!prescription.getLastConsumedDate().isPresent()) {
+                continue;
+            }
+            if (!prescription.getFrequency().isPresent()) {
+                continue;
+            }
+            String frequency = prescription.getFrequency().get().getFrequency();
+            if (frequency == "Daily") {
+                checkAndResetConsumptionCountDaily(prescription);
+            } else if (frequency == "Weekly") {
+                checkAndResetConsumptionCountWeekly(prescription);
+            } else if (frequency == "Monthly") {
+                checkAndResetConsumptionCountMonthly(prescription);
+            }
+        }
+    }
+    /**
+     * Checks the prescription and resets the consumption count.
+     */
+    public void checkAndResetConsumptionCountDaily(Prescription prescription) {
+        LocalDate todaysDate = LocalDate.now();
+        Date lastConsumedDate = prescription.getLastConsumedDate().get().getLastConsumedDate();
+        if (lastConsumedDate.getDate().isBefore(todaysDate)) {
+            prescription.getConsumptionCount().setConsumptionCount("0");
+        }
+    }
+
+    /**
+     * Checks the prescription and resets the consumption count.
+     */
+    public void checkAndResetConsumptionCountWeekly(Prescription prescription) {
+        LocalDate todaysDate = LocalDate.now();
+        Date lastConsumedDate = prescription.getLastConsumedDate().get().getLastConsumedDate();
+
+        if (lastConsumedDate.getDate().isBefore(todaysDate.minusDays(7))) {
+            prescription.getConsumptionCount().setConsumptionCount("0");
+        }
+    }
+
+    /**
+     * Checks the prescription and resets the consumption count.
+     */
+    public void checkAndResetConsumptionCountMonthly(Prescription prescription) {
+        LocalDate todaysDate = LocalDate.now();
+        Date lastConsumedDate = prescription.getLastConsumedDate().get().getLastConsumedDate();
+
+        if (lastConsumedDate.getDate().isBefore(todaysDate.minusDays(30))) {
+            prescription.getConsumptionCount().setConsumptionCount("0");
+        }
+    }
+
+
 
     private void deleteAndMovePrescription(Prescription prescription) {
         model.deletePrescription(prescription);

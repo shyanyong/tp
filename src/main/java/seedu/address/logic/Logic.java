@@ -63,4 +63,6 @@ public interface Logic {
      * Deletes prescriptions that are past the end date and stores them in the completed prescription list.
      */
     void checkAndMoveEndedPrescriptions();
+
+    void checkAndChangeConsumptionCount();
 }

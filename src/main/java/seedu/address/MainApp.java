@@ -80,6 +80,7 @@ public class MainApp extends Application {
     private Logic initLogicManager(Model model, Storage storage) {
         Logic logic = new LogicManager(model, storage);
         logic.checkAndMoveEndedPrescriptions();
+        logic.checkAndChangeConsumptionCount();
         return logic;
     }
 

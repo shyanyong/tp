@@ -188,7 +188,7 @@ class JsonAdaptedPrescription {
         // final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Prescription(modelName, modelDosage, modelFrequency, modelStartDate,
                         modelEndDate, modelExpiryDate, modelTotalStock, modelConsumptionCount, modelIsCompleted,
-                modelNote);
+                modelNote, null);
     }
 
 }
