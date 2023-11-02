@@ -3,13 +3,13 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRESCRIPTIONS;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.Prescription;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Lists all conflicting drugs from existing prescriptions.

@@ -11,7 +11,6 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.drug.Drug;
-// import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Prescription in the prescription list.
@@ -105,6 +104,10 @@ public class Prescription {
         return note;
     }
 
+    public void addConflictingDrug(Drug drug) {
+        conflictingDrugs.add(drug);
+    }
+
     public Set<Drug> getConflictingDrugs() {
         return conflictingDrugs;
     }
@@ -112,14 +115,6 @@ public class Prescription {
     public void setIsCompleted(Boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
-
-    // /
-    //  * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-    //  * if modification is attempted.
-    //  */
-    // public Set<Tag> getTags() {
-    //     return Collections.unmodifiableSet(tags);
-    // }
 
     /**
      * Returns true if both prescriptions have the same name.
@@ -216,12 +211,15 @@ public class Prescription {
      * Returns true if this Prescription has a conflict with the drug to be added.
      */
     public boolean hasDrugClash(Prescription toAdd) {
-        Set<Drug> drugSet = toAdd.getConflictingDrugs();
-        for (Drug drug : drugSet) {
+        for (Drug drug : conflictingDrugs) {
             if (conflictingDrugs.contains(drug)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public Drug getDrug() {
+        return new Drug(name.toString());
     }
 }
