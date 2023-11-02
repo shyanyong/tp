@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -94,6 +96,17 @@ public class ModelManager implements Model {
     public void setCompletedPrescriptionListFilePath(Path completedPrescriptionListFilePath) {
         requireNonNull(completedPrescriptionListFilePath);
         userPrefs.setCompletedPrescriptionListFilePath(completedPrescriptionListFilePath);
+    }
+
+    @Override
+    public LocalDate getStoredDate() {
+        return userPrefs.getStoredDate();
+    }
+
+    @Override
+    public void setStoredDate(LocalDate storedDate) {
+        requireNonNull(storedDate);
+        userPrefs.setStoredDate(storedDate);
     }
 
     //=========== PrescriptionList ================================================================================

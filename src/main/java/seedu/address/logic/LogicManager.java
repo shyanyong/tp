@@ -75,6 +75,18 @@ public class LogicManager implements Logic {
         }
     }
 
+    /**
+     * Resets the consumption count of all prescriptions in the prescription list.
+     */
+    public void checkAndResetConsumptionCount() {
+        PrescriptionList prescriptionListCopy = new PrescriptionList(getPrescriptionList());
+        for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
+            prescription.resetConsumptionCount();
+        }
+    }
+
+
+
     private void deleteAndMovePrescription(Prescription prescription) {
         model.deletePrescription(prescription);
 

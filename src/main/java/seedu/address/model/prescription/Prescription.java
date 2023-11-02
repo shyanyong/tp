@@ -139,6 +139,10 @@ public class Prescription {
         return false;
     }
 
+    public void resetConsumptionCount() {
+        consumptionCount.resetConsumptionCount();
+    }
+
     /**
      * Returns true if the prescription is about to expire.
      */

@@ -2,6 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -71,6 +72,15 @@ public class MainApp extends Application {
         logic = initLogicManager(model, storage);
 
         ui = new UiManager(logic);
+
+        LocalDate oldDate = userPrefs.getStoredDate();
+        LocalDate currentDate = LocalDate.now();
+
+        if (oldDate == null || oldDate.isBefore(currentDate)) {
+            //reset consumption count
+            logic.checkAndResetConsumptionCount();
+            userPrefs.setStoredDate(currentDate);
+        }
     }
 
     /**
@@ -194,7 +204,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
-
         return initializedPrefs;
     }
 
