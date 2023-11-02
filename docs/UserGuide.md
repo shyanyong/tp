@@ -229,9 +229,9 @@ If you have prescriptions in the list, you will get something similar to this.
 
 </box>
 
-### Listing today's medications : `listToday`
+### How to list today's medications : `listToday`
 
-If you need to see which prescriptions you need to take **today**, type the following command.
+If you would like to see which prescriptions you need to take **today**, type the following command.
 
 Format:
 ```
@@ -404,7 +404,7 @@ take 1 d/2
 
 ### Listing medications that are about to expire or are low in stock : `reminder`
 
-If you need to kno which medications are near expiry or are low in stock, type the following command.
+If you need to know which medications are near expiry or are low in stock, type the following command.
 
 Format:
 ```
