@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalPrescriptions.getTypicalPrescription
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,7 +70,7 @@ public class ListTodayCommandTest {
         Date endDate = new Date(endDateString);
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Weekly"),
                 startDate, endDate, endDate, new Stock("100"),
-                new ConsumptionCount("1"), false, new Note("test")));
+                new ConsumptionCount("1"), false, new Note("test"), new HashSet<>()));
         expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
@@ -91,7 +92,7 @@ public class ListTodayCommandTest {
         Date endDate = new Date(endDateString);
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Weekly"),
                 startDate, endDate, endDate, new Stock("100"),
-                new ConsumptionCount("1"), false, new Note("test")));
+                new ConsumptionCount("1"), false, new Note("test"), new HashSet<>()));
         expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
@@ -112,7 +113,7 @@ public class ListTodayCommandTest {
         Date endDate = new Date(endDateString);
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Monthly"),
                 startDate, endDate, endDate, new Stock("100"),
-                new ConsumptionCount("1"), false, new Note("test")));
+                new ConsumptionCount("1"), false, new Note("test"), new HashSet<>()));
         expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());
@@ -133,7 +134,7 @@ public class ListTodayCommandTest {
         Date endDate = new Date(endDateString);
         model.addPrescription(new Prescription(new Name("Paracetamol"), new Dosage("1"), new Frequency("Monthly"),
                 startDate, endDate, endDate, new Stock("100"),
-                new ConsumptionCount("1"), false, new Note("test")));
+                new ConsumptionCount("1"), false, new Note("test"), new HashSet<>()));
         expectedModel = new ModelManager(model.getPrescriptionList(), model.getCompletedPrescriptionList(),
                 new UserPrefs());
         expectedModel.updateFilteredPrescriptionList(new IsTodayPredicate());

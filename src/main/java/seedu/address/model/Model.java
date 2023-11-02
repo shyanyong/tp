@@ -150,4 +150,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCompletedPrescriptionList(Predicate<Prescription> predicate);
+
+    boolean hasDrugClash(Prescription toAdd);
 }

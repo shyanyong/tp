@@ -14,6 +14,7 @@ import static seedu.address.testutil.TypicalPrescriptions.PROPRANOLOL;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +40,7 @@ public class PrescriptionTest {
 
         // prescription with no end date
         Prescription prescriptionWithNoEnd = new Prescription(new Name("Aspirin"), null, null, null,
-            null, null, null, null);
+                null, null, null, null, new HashSet<>());
         assertFalse(prescriptionWithNoEnd.isEnded());
     }
 
