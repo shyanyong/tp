@@ -155,6 +155,6 @@ public interface Model {
     LocalDate getStoredDate();
 
     void setStoredDate(LocalDate storedDate);
-  
+
     boolean hasDrugClash(Prescription toAdd);
 }
