@@ -84,6 +84,26 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_prefixSubstring_prescriptionsFound() {
+        String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("AsP");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPrescriptionList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ASPIRIN), model.getFilteredPrescriptionList());
+    }
+
+    @Test
+    public void execute_postfixSubstring_prescriptionsFound() {
+        String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("spIriN");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPrescriptionList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ASPIRIN), model.getFilteredPrescriptionList());
+    }
+
+    @Test
     public void toStringMethod() {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
         FindCommand findCommand = new FindCommand(predicate);
