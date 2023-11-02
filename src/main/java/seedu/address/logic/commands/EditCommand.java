@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
+import static seedu.address.model.prescription.Prescription.DATES_PREDICATE;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +29,6 @@ import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
-import seedu.address.model.prescription.IsValidDatesPredicate;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
@@ -59,10 +59,11 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PRESCRIPTION_SUCCESS = "Edited Prescription: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists "
-        + "in the prescription list.";
+            + "in the prescription list.";
 
     private final Index index;
     private final EditPrescriptionDescriptor editPrescriptionDescriptor;
+
     /**
      * Creates an EditCommand to edit the specified {@code Prescription}
      */
@@ -91,9 +92,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
         }
 
-        Predicate<Prescription> isValidDates = new IsValidDatesPredicate();
-
-        if (!isValidDates.test(editedPrescription)) {
+        if (!DATES_PREDICATE.test(editedPrescription)) {
             throw new CommandException(MESSAGE_INVALID_DATES);
         }
 
@@ -106,21 +105,21 @@ public class EditCommand extends Command {
         assert prescriptionToEdit != null;
 
         Name updatedName = editPrescriptionDescriptor.getName().orElse(
-            prescriptionToEdit.getName());
+                prescriptionToEdit.getName());
         Dosage updatedDosage = editPrescriptionDescriptor.getDosage().orElse(
-            prescriptionToEdit.getDosage().orElse(null));
+                prescriptionToEdit.getDosage().orElse(null));
         Frequency updatedFrequency = editPrescriptionDescriptor.getFrequency().orElse(
-            prescriptionToEdit.getFrequency().orElse(null));
+                prescriptionToEdit.getFrequency().orElse(null));
         Date updatedStartDate = editPrescriptionDescriptor.getStartDate().orElse(
-            prescriptionToEdit.getStartDate());
+                prescriptionToEdit.getStartDate());
         Date updatedEndDate = editPrescriptionDescriptor.getEndDate().orElse(
-            prescriptionToEdit.getEndDate().orElse(null));
+                prescriptionToEdit.getEndDate().orElse(null));
         Date updatedExpiryDate = editPrescriptionDescriptor.getExpiryDate().orElse(
-            prescriptionToEdit.getExpiryDate().orElse(null));
+                prescriptionToEdit.getExpiryDate().orElse(null));
         Stock updatedTotalStock = editPrescriptionDescriptor.getTotalStock().orElse(
-            prescriptionToEdit.getTotalStock().orElse(null));
+                prescriptionToEdit.getTotalStock().orElse(null));
         ConsumptionCount updatedConsumptionCount = editPrescriptionDescriptor.getConsumptionCount().orElse(
-            prescriptionToEdit.getConsumptionCount());
+                prescriptionToEdit.getConsumptionCount());
         Boolean updatedIsCompleted = editPrescriptionDescriptor.getIsCompleted()
                 .orElse(prescriptionToEdit.getIsCompleted());
         Note updatedNote = editPrescriptionDescriptor.getNote().orElse(

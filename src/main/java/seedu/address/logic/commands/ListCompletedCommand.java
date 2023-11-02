@@ -24,9 +24,9 @@ public class ListCompletedCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        ObservableList<Prescription> completedPrescriptionList = model.getFilteredCompletedPrescriptionList();
         model.updateFilteredCompletedPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
 
+        ObservableList<Prescription> completedPrescriptionList = model.getFilteredCompletedPrescriptionList();
         if (completedPrescriptionList.isEmpty()) {
             return new CommandResult(MESSAGE_EMPTY_LIST, COMMAND_WORD);
         } else {

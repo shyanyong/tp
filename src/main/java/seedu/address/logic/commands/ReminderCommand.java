@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.prescription.Prescription.EXPIRE_PREDICATE;
+import static seedu.address.model.prescription.Prescription.STOCK_PREDICATE;
 
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.prescription.IsAboutToExpirePredicate;
-import seedu.address.model.prescription.IsLowInStockPredicate;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -27,10 +27,8 @@ public class ReminderCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Predicate<Prescription> isAboutToExpire = new IsAboutToExpirePredicate();
-        Predicate<Prescription> isLowInStock = new IsLowInStockPredicate();
-        Predicate<Prescription> isAboutToExpireAndLowInStock = isAboutToExpire.or(isLowInStock);
-        model.updateFilteredPrescriptionList(isAboutToExpireAndLowInStock);
+        Predicate<Prescription> isAboutToExpireOrLowInStock = EXPIRE_PREDICATE.or(STOCK_PREDICATE);
+        model.updateFilteredPrescriptionList(isAboutToExpireOrLowInStock);
 
         ObservableList<Prescription> reminderPrescriptions = model.getFilteredPrescriptionList();
         if (reminderPrescriptions.isEmpty()) {
