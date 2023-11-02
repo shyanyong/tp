@@ -24,15 +24,18 @@ public class TakeCommandParser implements Parser<TakeCommand> {
     @Override
     public TakeCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DOSAGE);
-        Index index;
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DOSAGE);
+
+        Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     TakeCommand.MESSAGE_USAGE), pe);
         }
+
         Dosage dosesToTake = ParserUtil.parseDosage(argMultimap.getValue(PREFIX_DOSAGE).orElse("1"));
         return new TakeCommand(index, dosesToTake);
     }

@@ -44,17 +44,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException, IOException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
         Command command = prescriptionListParser.parseCommand(commandText);
-
         commandResult = command.execute(model);
-        checkAndMoveEndedPrescriptions();
+
         try {
-            storage.savePrescriptionList(model.getPrescriptionList());
-            storage.saveCompletedPrescriptionList(model.getCompletedPrescriptionList());
+            checkAndMoveEndedPrescriptions();
+            storage.savePrescriptionList(getPrescriptionList());
+            storage.saveCompletedPrescriptionList(getCompletedPrescriptionList());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
@@ -64,28 +64,33 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    /**
-     * Deletes prescriptions that are past the end date and stores them in the completed prescription list.
-     */
+    @Override
     public void checkAndMoveEndedPrescriptions() {
-        PrescriptionList prescriptionListCopy = new PrescriptionList(model.getPrescriptionList());
+        PrescriptionList prescriptionListCopy = new PrescriptionList(getPrescriptionList());
         for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
+            if (!prescription.isEnded()) {
+                continue;
+            }
             deleteAndMovePrescription(prescription);
         }
     }
 
     private void deleteAndMovePrescription(Prescription prescription) {
-        if (prescription.isEnded()) {
-            model.deletePrescription(prescription);
-            if (!model.hasCompletedPrescription(prescription)) {
-                model.addCompletedPrescription(prescription);
-            }
+        model.deletePrescription(prescription);
+
+        if (!model.hasCompletedPrescription(prescription)) {
+            model.addCompletedPrescription(prescription);
         }
     }
 
     @Override
     public ReadOnlyPrescriptionList getPrescriptionList() {
         return model.getPrescriptionList();
+    }
+
+    @Override
+    public ReadOnlyPrescriptionList getCompletedPrescriptionList() {
+        return model.getCompletedPrescriptionList();
     }
 
     @Override

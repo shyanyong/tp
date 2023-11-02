@@ -21,10 +21,8 @@ public class Prescription {
     private static final IsLowInStockPredicate STOCK_PREDICATE = new IsLowInStockPredicate();
     private static final IsAboutToExpirePredicate EXPIRE_PREDICATE = new IsAboutToExpirePredicate();
 
-    // Identity fields
-    private final Name name;
-
     // Data fields
+    private final Name name;
     private final Optional<Dosage> dosage;
     private final Optional<Frequency> frequency;
     private final Date startDate;
@@ -40,17 +38,17 @@ public class Prescription {
      * Constructor for prescription without consumption count and isCompleted.
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
-                        Date endDate, Date expiryDate, Stock totalStock, Note note) {
+            Date endDate, Date expiryDate, Stock totalStock, Note note) {
         this(name, dosage, frequency, startDate, endDate, expiryDate,
-            totalStock, new ConsumptionCount("0"), false, note);
+                totalStock, new ConsumptionCount("0"), false, note);
     }
 
     /**
      * Every field must be present and not null.
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
-                        Date endDate, Date expiryDate, Stock totalStock, ConsumptionCount consumptionCount,
-                        Boolean isCompleted, Note note) {
+            Date endDate, Date expiryDate, Stock totalStock, ConsumptionCount consumptionCount,
+            Boolean isCompleted, Note note) {
         requireAllNonNull(name);
         this.name = name;
         this.dosage = Optional.ofNullable(dosage);

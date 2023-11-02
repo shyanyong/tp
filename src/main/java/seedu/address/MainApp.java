@@ -21,7 +21,6 @@ import seedu.address.model.PrescriptionList;
 import seedu.address.model.ReadOnlyPrescriptionList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.prescription.Prescription;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.CompletedPrescriptionListStorage;
 import seedu.address.storage.JsonCompletedPrescriptionListStorage;
@@ -61,17 +60,27 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         PrescriptionListStorage prescriptionListStorage = new JsonPrescriptionListStorage(
-            userPrefs.getPrescriptionListFilePath());
+                userPrefs.getPrescriptionListFilePath());
         CompletedPrescriptionListStorage completedPrescriptionListStorage = new JsonCompletedPrescriptionListStorage(
-            userPrefs.getCompletedPrescriptionListFilePath());
+                userPrefs.getCompletedPrescriptionListFilePath());
 
         storage = new StorageManager(prescriptionListStorage, completedPrescriptionListStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = initLogicManager(model, storage);
 
         ui = new UiManager(logic);
+    }
+
+    /**
+     * Returns a {@code LogicManager} with the already intialised {@code model} and {@code storage}, and
+     * sort prescriptions into whether they have ended or not.
+     */
+    private Logic initLogicManager(Model model, Storage storage) {
+        Logic logic = new LogicManager(model, storage);
+        logic.checkAndMoveEndedPrescriptions();
+        return logic;
     }
 
     /**
@@ -189,25 +198,9 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
-    /**
-     * Deletes prescriptions that are past the end date and stores them in the completed prescription list.
-     */
-    private void checkAndMoveEndedPrescriptions() throws IOException {
-        PrescriptionList prescriptionListCopy = new PrescriptionList(model.getPrescriptionList());
-        for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
-            if (prescription.isEnded()) {
-                model.deletePrescription(prescription);
-                model.addCompletedPrescription(prescription);
-            }
-        }
-        storage.savePrescriptionList(model.getPrescriptionList());
-        storage.saveCompletedPrescriptionList(model.getCompletedPrescriptionList());
-    }
-
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         logger.info("Starting BayMeds v.2103 " + MainApp.VERSION);
-        checkAndMoveEndedPrescriptions();
         ui.start(primaryStage);
     }
 

@@ -24,15 +24,18 @@ public class UntakeCommandParser implements Parser<UntakeCommand> {
     @Override
     public UntakeCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DOSAGE);
-        Index index;
 
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DOSAGE);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DOSAGE);
+
+        Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     UntakeCommand.MESSAGE_USAGE), pe);
         }
+
         Dosage dosesToUntake = ParserUtil.parseDosage(argMultimap.getValue(PREFIX_DOSAGE).orElse("1"));
         return new UntakeCommand(index, dosesToUntake);
     }
