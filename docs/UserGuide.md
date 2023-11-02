@@ -267,7 +267,7 @@ If you have completed prescriptions, you will see something similar to this.
 
 </box>
 
-### Editing a prescription : `edit`
+### How to edit a prescription : `edit`
 
 If you made a mistake and would like to make some changes to your entry, type the following command.
 
