@@ -15,7 +15,6 @@ import static seedu.address.model.prescription.Prescription.DATES_PREDICATE;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
@@ -28,7 +27,6 @@ import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.Stock;
-// import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
