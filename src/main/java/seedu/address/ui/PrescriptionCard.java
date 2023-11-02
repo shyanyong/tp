@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
-// import java.util.Comparator;
+import static seedu.address.model.prescription.Prescription.EXPIRE_PREDICATE;
+import static seedu.address.model.prescription.Prescription.STOCK_PREDICATE;
 
+// import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 // import javafx.scene.layout.FlowPane;
@@ -113,7 +115,7 @@ public class PrescriptionCard extends UiPart<Region> {
 
     private void setExpiryDateHeaderStyle(Prescription prescription) {
         expiryDateHeader.getStyleClass().clear();
-        if (prescription.isAboutToExpire()) {
+        if (EXPIRE_PREDICATE.test(prescription)) {
             expiryDateHeader.getStyleClass().add("cell_small_header_red");
         } else {
             expiryDateHeader.getStyleClass().add("cell_small_header");
@@ -122,7 +124,7 @@ public class PrescriptionCard extends UiPart<Region> {
 
     private void setStockHeaderStyle(Prescription prescription) {
         totalStockHeader.getStyleClass().clear();
-        if (prescription.isLowInStock()) {
+        if (STOCK_PREDICATE.test(prescription)) {
             totalStockHeader.getStyleClass().add("cell_small_header_red");
         } else {
             totalStockHeader.getStyleClass().add("cell_small_header");

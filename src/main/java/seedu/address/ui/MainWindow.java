@@ -186,18 +186,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    private void handleListToday() {
-        PrescriptionListPanel.setShowStatus(true);
-        // resetPrescriptionListView();
-    }
-
-    @FXML
-    private void handleIsNotListToday() {
-        PrescriptionListPanel.setShowStatus(false);
-        // resetPrescriptionListView();
-    }
-
-    @FXML
     private void handleListCompleted() {
         prescriptionListPanelPlaceholder.getChildren().clear();
         prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredCompletedPrescriptionList());

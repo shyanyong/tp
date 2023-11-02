@@ -23,7 +23,7 @@ public class JsonAdaptedPrescriptionTest {
     private static final String INVALID_END_DATE = "01/2/2024";
     private static final String INVALID_EXPIRY_DATE = "2024/01/23";
     private static final String INVALID_STOCK = "EFGH";
-    private static final String INVALID_CONSUMPTION = "IJKL";
+    // private static final String INVALID_CONSUMPTION = "IJKL";
     private static final String INVALID_NOTE = " ";
 
     private static final String VALID_NAME = ASPIRIN.getName().toString();

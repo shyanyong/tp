@@ -3,7 +3,7 @@ package seedu.address.model.prescription;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Prescription}'s {@code Date} is today.
+ * Tests that a {@code Prescription}'s {@code name} is the same as the target.
  */
 public class SameNamePredicate implements Predicate<Prescription> {
 
