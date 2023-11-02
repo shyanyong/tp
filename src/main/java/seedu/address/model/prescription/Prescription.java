@@ -144,6 +144,10 @@ public class Prescription {
         return false;
     }
 
+    public void resetConsumptionCount() {
+        consumptionCount.resetConsumptionCount();
+    }
+
     /**
      * Returns true if both prescriptions have the same identity and data fields.
      * This defines a stronger notion of equality between two prescriptions.

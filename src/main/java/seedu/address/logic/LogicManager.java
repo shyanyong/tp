@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -53,6 +54,7 @@ public class LogicManager implements Logic {
 
         try {
             checkAndMoveEndedPrescriptions();
+            checkAndResetConsumptionCount();
             storage.savePrescriptionList(getPrescriptionList());
             storage.saveCompletedPrescriptionList(getCompletedPrescriptionList());
         } catch (AccessDeniedException e) {
@@ -74,6 +76,28 @@ public class LogicManager implements Logic {
             deleteAndMovePrescription(prescription);
         }
     }
+
+    /**
+     * Resets the consumption count of all prescriptions in the prescription list.
+     */
+    public void checkAndResetConsumptionCount() {
+
+        LocalDate storedDate = model.getStoredDate();
+
+        if (!(storedDate == null || storedDate.isBefore(LocalDate.now()))) {
+            return;
+        }
+
+        PrescriptionList prescriptionListCopy = new PrescriptionList(getPrescriptionList());
+
+        for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
+            prescription.resetConsumptionCount();
+        }
+
+        model.setStoredDate(LocalDate.now());
+    }
+
+
 
     private void deleteAndMovePrescription(Prescription prescription) {
         model.deletePrescription(prescription);
@@ -115,5 +139,15 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public LocalDate getStoredDate() {
+        return model.getStoredDate();
+    }
+
+    @Override
+    public void setStoredDate(LocalDate storedDate) {
+        model.setStoredDate(storedDate);
     }
 }
