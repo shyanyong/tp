@@ -428,6 +428,54 @@ If you have prescriptions near expiry or low in stock, you will see something si
 
 </box>
 
+### Listing a prescription's conflicting drugs : `listConflicts`
+
+You may list out the conflicting drugs of a prescription.
+
+Format:
+```
+listConflicts INDEX
+```
+
+This lists out the conflicting drugs of the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+
+<box type="info" header="Notes">
+
+* `<index>` should be a positive integer.
+
+</box>
+
+<box type="definition" header="#### Example">
+
+```
+listConflicts 3
+```
+
+Typing this lists out conflicting drugs of the 3rd prescription from the list.
+
+![result for 'Example output of delete command'](images/ui/Ui-delete.png)
+
+</box>
+
+### Listing all conflicting drugs : `listAllConflicts`
+
+You may list out all the conflicting drugs from all prescriptions. 
+
+Format:
+```
+listAllConflicts
+```
+
+This lists out all the conflicting drugs from all the prescriptions in the list.
+
+
+
+</box>
+
+![result for 'Example output of delete command'](images/ui/Ui-delete.png)
+
+</box>
+
 ### Viewing help : `help`
 
 Opens a help window. Embedded in the help window is a link to the official BayMeds user guide.
@@ -492,15 +540,17 @@ We recommend locking your device before leaving it unattended to prevent others 
 
 ## Command summary
 
-| Action               | Format, Example                                                                                                                                                                                                                                                 |
-|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**              | `add mn/<medication_name> [d/<dosage>] [f/<frequency>]  [sd/<start_date>] [ed/<end_date>] [exd/<expiry_date>] [ts/<total_stock>] [n/<note>]`, <br> e.g. `add mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exp/04/10/2024 ts/100 n/Take during meals`      |
-| **Delete**           | `delete <index>`, <br> e.g. `delete 2`                                                                                                                                                                                                                          |
-| **Mark**             | `take <index> [d/<dosage_taken>]`, <br> e.g. `take 1 d/1`                                                                                                                                                                                                       |
-| **List**             | `list`                                                                                                                                                                                                                                                          |
-| **List today**       | `listToday`                                                                                                                                                                                                                                                     |
-| **List completed**   | `listCompleted`                                                                                                                                                                                                                                                 |
-| **Find**             | `find <keyword>`, <br> e.g. `find Aspirin`                                                                                                                                                                                                                      |
-| **Reminder**         | `reminder`                                                                                                                                                                                                                                                      |
-| **Help**             | `help`                                                                                                                                                                                                                                                          |
-| **Exit**             | `exit`                                                                                                                                                                                                                                                          |
+| Action                   | Format, Example                                                                                                                                                                                                                                                 |
+|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**                  | `add mn/<medication_name> [d/<dosage>] [f/<frequency>]  [sd/<start_date>] [ed/<end_date>] [exd/<expiry_date>] [ts/<total_stock>] [n/<note>]`, <br> e.g. `add mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exp/04/10/2024 ts/100 n/Take during meals`      |
+| **Delete**               | `delete <index>`, <br> e.g. `delete 2`                                                                                                                                                                                                                          |
+| **Mark**                 | `take <index> [d/<dosage_taken>]`, <br> e.g. `take 1 d/1`                                                                                                                                                                                                       |
+| **List**                 | `list`                                                                                                                                                                                                                                                          |
+| **List today**           | `listToday`                                                                                                                                                                                                                                                     |
+| **List completed**       | `listCompleted`                                                                                                                                                                                                                                                 |
+| **Find**                 | `find <keyword>`, <br> e.g. `find Aspirin`                                                                                                                                                                                                                      |
+| **Reminder**             | `reminder`                                                                                                                                                                                                                                                      |
+| **List conflicts**       | `listConflicts`                                                                                                                                                                                                                                                 |
+| **List all conflicts**   | `listAllConflicts`                                                                                                                                                                                                                                              |
+| **Help**                 | `help`                                                                                                                                                                                                                                                          |
+| **Exit**                 | `exit`                                                                                                                                                                                                                                                          |
