@@ -367,7 +367,7 @@ Typing this command deletes the 3rd prescription from the list.
 
 ### Marking a medication as taken : `take`
 
-You can take BayMeds that you have taken a medication by typing the following command.
+You can tell BayMeds that you have taken a medication by typing the following command.
 
 Format:
 ```
@@ -399,6 +399,43 @@ take 1 d/2
 <box type="definition" header="#### Example 2">
 
 ```take 2```
+
+</box>
+
+### Marking a medication as untaken : `untake`
+
+You can tell BayMeds that you have untaken a medication by typing the following command.
+
+Format:
+```
+untake
+  INDEX
+  [d/<dosage>]
+```
+
+This tells BayMeds that you have untaken the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+
+<box type="info" header="Notes">
+
+* Existing consumption count will be decreased by the input value.
+* Existing stock will be increased by the input value.
+* Since `d/<dosage>` is an optional input, if there is none given, the default dosage to untake will be set as 1.
+
+</box>
+
+<box type="definition" header="#### Example 1">
+
+```
+untake 1 d/2
+```
+
+[//]: # (![result for 'Example output of take command']&#40;images/ui/Ui-take.png&#41;)
+
+</box>
+
+<box type="definition" header="#### Example 2">
+
+```untake 2```
 
 </box>
 
