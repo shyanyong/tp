@@ -128,6 +128,7 @@ add
   [ed/<end_date>]
   [exp/<expiry_date>]
   [ts/<total_stock>]
+  [cfdg/<conflicting_drugs>]
   [n/<note>]
 ```
 
@@ -158,6 +159,11 @@ The prescription will then be added and shown in the list.
   <box type="definition" header="Example" seamless>
 
   For 100 pills, type 100.
+  </box>
+* `<conflicting_drugs>` refers to the drugs that conflict with your prescription. It accepts space separated drug names.
+  <box type="definition" header="Example" seamless>
+
+  If your prescription has 2 conflicting drugs (Paracetamol and Aspirin), type Paracetamol Aspirin.
   </box>
 * `<note>` refers to any important or special information you would like to include.
   <box type="definition" header="Example" seamless>
@@ -459,7 +465,8 @@ Typing this lists out conflicting drugs of the 3rd prescription from the list.
 
 You may list out all the conflicting drugs from all prescriptions.
 
-Format:
+<box type="definition" header="#### Example">
+
 ```
 listAllConflicts
 ```
@@ -467,6 +474,8 @@ listAllConflicts
 This lists out all the conflicting drugs from all the prescriptions in the list.
 
 ![result for 'Example output of listAllConflicts command'](images/ui/Ui-listAllConflicts.png)
+
+</box>
 
 ### Viewing help : `help`
 
