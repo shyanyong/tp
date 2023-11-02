@@ -243,6 +243,10 @@ public class DeleteCommandTest {
         public void setStoredDate(LocalDate storedDate) {
             throw new AssertionError("This method should not be called.");
         }
+          
+        public boolean hasDrugClash(Prescription toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

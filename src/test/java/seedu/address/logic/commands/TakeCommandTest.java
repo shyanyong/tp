@@ -313,12 +313,16 @@ public class TakeCommandTest {
         }
 
         @Override
-        public void setStoredDate(LocalDate storedDate) {
+        public LocalDate getStoredDate() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public LocalDate getStoredDate() {
+        public void setStoredDate(LocalDate storedDate) {
+            throw new AssertionError("This method should not be called.");
+        }
+          
+        public boolean hasDrugClash(Prescription toAdd) {
             throw new AssertionError("This method should not be called.");
         }
     }

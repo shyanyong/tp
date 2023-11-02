@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONFLICTING_DRUGS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
@@ -9,24 +10,23 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
+import static seedu.address.model.prescription.Prescription.DATES_PREDICATE;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.function.Predicate;
-// import java.util.Set;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
-import seedu.address.model.prescription.IsValidDatesPredicate;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.Stock;
-// import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -41,7 +41,8 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY,
-                        PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE);
+                    PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE,
+                        PREFIX_CONFLICTING_DRUGS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -86,13 +87,12 @@ public class AddCommandParser implements Parser<AddCommand> {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
         }
 
-        // Set<Tag> tagList = ParserUtilPrescription.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Drug> conflictingDrugs = ParserUtil.parseDrugs(argMultimap.getAllValues(PREFIX_CONFLICTING_DRUGS));
 
         Prescription prescription = new Prescription(name, dosage, frequency, startDate, endDate,
-                expiryDate, totalStock, note);
+                expiryDate, totalStock, note, conflictingDrugs);
 
-        Predicate<Prescription> isValidDates = new IsValidDatesPredicate();
-        if (!isValidDates.test(prescription)) {
+        if (!DATES_PREDICATE.test(prescription)) {
             throw new ParseException(AddCommand.MESSAGE_INVALID_DATES);
         }
 

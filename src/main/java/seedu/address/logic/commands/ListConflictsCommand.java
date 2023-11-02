@@ -9,28 +9,30 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.Prescription;
 
 /**
  * Deletes a prescription from prescription list.
  */
-public class DeleteCommand extends Command {
+public class ListConflictsCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "listConflicts";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a prescription from the prescription list. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists conflicting drugs"
+            + "for the prescription at the index. \n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Prescription deleted: %1$s.";
+    public static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Here are the conflicting drugs.";
 
 
     private final Index targetIndex;
 
     /**
-     * Creates an DeletePrescriptionCommand to delete the specified {@code Prescription}
+     * Creates a ListConflictsCommand to list the conflicting drugs.
      */
-    public DeleteCommand(Index targetIndex) {
+    public ListConflictsCommand(Index targetIndex) {
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
@@ -44,10 +46,12 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX);
         }
 
-        Prescription prescriptionToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePrescription(prescriptionToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
-                Messages.format(prescriptionToDelete)));
+        Prescription prescriptionToListConflicts = lastShownList.get(targetIndex.getZeroBased());
+        StringBuilder conflictingDrugsString = new StringBuilder();
+        for (Drug drug : prescriptionToListConflicts.getConflictingDrugs()) {
+            conflictingDrugsString.append(drug.toString() + "\n");
+        }
+        return new CommandResult(MESSAGE_DELETE_PRESCRIPTION_SUCCESS + "\n" + conflictingDrugsString.toString());
     }
 
     @Override
@@ -57,18 +61,18 @@ public class DeleteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
+        if (!(other instanceof ListConflictsCommand)) {
             return false;
         }
 
-        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+        ListConflictsCommand otherListConflictsCommand = (ListConflictsCommand) other;
+        return targetIndex.equals(otherListConflictsCommand.targetIndex);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("toDelete", targetIndex)
+                .add("toListConflicts", targetIndex)
                 .toString();
     }
 }

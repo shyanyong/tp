@@ -10,11 +10,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
+import static seedu.address.model.prescription.Prescription.DATES_PREDICATE;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Predicate;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -22,11 +23,11 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
-import seedu.address.model.prescription.IsValidDatesPredicate;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
@@ -90,9 +91,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
         }
 
-        Predicate<Prescription> isValidDates = new IsValidDatesPredicate();
-
-        if (!isValidDates.test(editedPrescription)) {
+        if (!DATES_PREDICATE.test(editedPrescription)) {
             throw new CommandException(MESSAGE_INVALID_DATES);
         }
 
@@ -123,10 +122,12 @@ public class EditCommand extends Command {
         Boolean updatedIsCompleted = editPrescriptionDescriptor.getIsCompleted()
                 .orElse(prescriptionToEdit.getIsCompleted());
         Note updatedNote = editPrescriptionDescriptor.getNote().orElse(
-                prescriptionToEdit.getNote().orElse(null));
+            prescriptionToEdit.getNote().orElse(null));
+        Set<Drug> conflictingDrugs = prescriptionToEdit.getConflictingDrugs();
 
         return new Prescription(updatedName, updatedDosage, updatedFrequency, updatedStartDate, updatedEndDate,
-                updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote);
+                updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote,
+                conflictingDrugs);
     }
 
     @Override
