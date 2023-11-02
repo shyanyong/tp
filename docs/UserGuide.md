@@ -154,13 +154,11 @@ The prescription will then be added and shown in the list.
 
   For 20th Septemeber 2023, type `20/09/2023`.
   </box>
-  
 * `<total_stock>` refers to the total number of pills you have. It only accepts a numeric value.
   <box type="definition" header="Example" seamless>
 
   For 100 pills, type 100.
   </box>
-  
 * `<note>` refers to any important or special information you would like to include.
   <box type="definition" header="Example" seamless>
 
@@ -459,7 +457,7 @@ Typing this lists out conflicting drugs of the 3rd prescription from the list.
 
 ### Listing all conflicting drugs : `listAllConflicts`
 
-You may list out all the conflicting drugs from all prescriptions. 
+You may list out all the conflicting drugs from all prescriptions.
 
 Format:
 ```
@@ -468,13 +466,7 @@ listAllConflicts
 
 This lists out all the conflicting drugs from all the prescriptions in the list.
 
-
-
-</box>
-
 ![result for 'Example output of listAllConflicts command'](images/ui/Ui-listAllConflicts.png)
-
-</box>
 
 ### Viewing help : `help`
 
