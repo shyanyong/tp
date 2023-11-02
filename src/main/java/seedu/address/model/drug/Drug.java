@@ -58,7 +58,7 @@ public class Drug {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + drugName + ']';
+        return drugName;
     }
 
 }
