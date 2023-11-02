@@ -54,6 +54,7 @@ public class LogicManager implements Logic {
 
         try {
             checkAndMoveEndedPrescriptions();
+            checkAndResetConsumptionCount();
             storage.savePrescriptionList(getPrescriptionList());
             storage.saveCompletedPrescriptionList(getCompletedPrescriptionList());
         } catch (AccessDeniedException e) {
@@ -80,10 +81,20 @@ public class LogicManager implements Logic {
      * Resets the consumption count of all prescriptions in the prescription list.
      */
     public void checkAndResetConsumptionCount() {
+
+        LocalDate storedDate = model.getStoredDate();
+
+        if (!(storedDate == null || storedDate.isBefore(LocalDate.now()))) {
+            return;
+        }
+
         PrescriptionList prescriptionListCopy = new PrescriptionList(getPrescriptionList());
+
         for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
             prescription.resetConsumptionCount();
         }
+
+        model.setStoredDate(LocalDate.now());
     }
 
 

@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 

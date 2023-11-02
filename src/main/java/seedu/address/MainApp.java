@@ -77,10 +77,8 @@ public class MainApp extends Application {
         LocalDate currentDate = LocalDate.now();
 
         if (oldDate == null || oldDate.isBefore(currentDate)) {
-            //reset consumption count
             logic.checkAndResetConsumptionCount();
             logic.setStoredDate(currentDate);
-            System.out.println("date set to " + currentDate);
         }
     }
 
