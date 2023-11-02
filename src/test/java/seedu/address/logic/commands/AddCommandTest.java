@@ -57,26 +57,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Prescription alice = new PrescriptionBuilder().withName("Alice").build();
-        Prescription bob = new PrescriptionBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Prescription aspirin = new PrescriptionBuilder().withName("Aspirin").build();
+        Prescription propranolol = new PrescriptionBuilder().withName("Propranolol").build();
+        AddCommand addAspirinCommand = new AddCommand(aspirin);
+        AddCommand addPropranololCommand = new AddCommand(propranolol);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addAspirinCommand.equals(addAspirinCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addAspirinCommandCopy = new AddCommand(aspirin);
+        assertTrue(addAspirinCommand.equals(addAspirinCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addAspirinCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAspirinCommand.equals(null));
 
         // different prescription -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addAspirinCommand.equals(addPropranololCommand));
     }
 
     @Test

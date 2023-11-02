@@ -18,8 +18,12 @@ import seedu.address.commons.util.ToStringBuilder;
  */
 public class Prescription {
 
-    private static final IsLowInStockPredicate STOCK_PREDICATE = new IsLowInStockPredicate();
-    private static final IsAboutToExpirePredicate EXPIRE_PREDICATE = new IsAboutToExpirePredicate();
+    // Predicates
+    public static final IsCompletedPredicate COMPLETED_PREDICATE = new IsCompletedPredicate();
+    public static final IsTodayPredicate TODAY_PREDICATE = new IsTodayPredicate();
+    public static final IsValidDatesPredicate DATES_PREDICATE = new IsValidDatesPredicate();
+    public static final IsLowInStockPredicate STOCK_PREDICATE = new IsLowInStockPredicate();
+    public static final IsAboutToExpirePredicate EXPIRE_PREDICATE = new IsAboutToExpirePredicate();
 
     // Data fields
     private final Name name;
@@ -137,20 +141,6 @@ public class Prescription {
             return currentDate.isAfter(prescriptionEndDate);
         }
         return false;
-    }
-
-    /**
-     * Returns true if the prescription is about to expire.
-     */
-    public boolean isAboutToExpire() {
-        return EXPIRE_PREDICATE.test(this);
-    }
-
-    /**
-     * Returns true if the prescription is low in stock.
-     */
-    public boolean isLowInStock() {
-        return STOCK_PREDICATE.test(this);
     }
 
     /**

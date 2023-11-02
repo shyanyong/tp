@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_PROPRANOLOL;
+import static seedu.address.model.prescription.Prescription.EXPIRE_PREDICATE;
+import static seedu.address.model.prescription.Prescription.STOCK_PREDICATE;
 import static seedu.address.testutil.CompletedPrescriptions.ERGOTAMINE;
 import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 import static seedu.address.testutil.TypicalPrescriptions.EMPTY_PRESCRIPTION;
@@ -43,7 +45,6 @@ public class PrescriptionTest {
 
     @Test
     public void isAboutToExpire() {
-        LocalDate localDate = LocalDate.now();
 
         Prescription expiringPrescription = new PrescriptionBuilder(EMPTY_PRESCRIPTION)
             .withExpiryDate(LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
@@ -54,31 +55,35 @@ public class PrescriptionTest {
             .build();
 
         // expiring
-        assertTrue(expiringPrescription.isAboutToExpire());
+        assertTrue(EXPIRE_PREDICATE.test(expiringPrescription));
 
         // not expiring
-        assertFalse(notExpiringPrescription.isAboutToExpire());
+        assertFalse(EXPIRE_PREDICATE.test(notExpiringPrescription));
 
         // no expiry date
-        assertFalse(EMPTY_PRESCRIPTION.isAboutToExpire());
+        assertFalse(EXPIRE_PREDICATE.test(EMPTY_PRESCRIPTION));
     }
 
     @Test
     public void isLowInStock() {
         // low stock
-        assertTrue(new PrescriptionBuilder(EMPTY_PRESCRIPTION).withDosage("1").withStock("10").build().isLowInStock());
+        assertTrue(STOCK_PREDICATE.test(new PrescriptionBuilder(EMPTY_PRESCRIPTION)
+                .withDosage("1").withStock("10").build()));
 
         // enough stock
-        assertFalse(new PrescriptionBuilder(EMPTY_PRESCRIPTION).withDosage("1").withStock("11").build().isLowInStock());
+        assertFalse(STOCK_PREDICATE.test(new PrescriptionBuilder(EMPTY_PRESCRIPTION)
+                .withDosage("1").withStock("11").build()));
 
         // dosage not inputted
-        assertFalse(new PrescriptionBuilder(EMPTY_PRESCRIPTION).withStock("10").build().isLowInStock());
+        assertFalse(STOCK_PREDICATE.test(new PrescriptionBuilder(EMPTY_PRESCRIPTION)
+                .withStock("10").build()));
 
         // stock not inputted
-        assertFalse(new PrescriptionBuilder(EMPTY_PRESCRIPTION).withDosage("5").build().isLowInStock());
+        assertFalse(STOCK_PREDICATE.test(new PrescriptionBuilder(EMPTY_PRESCRIPTION)
+                .withDosage("5").build()));
 
         // dosage and stock not inputted
-        assertFalse(EMPTY_PRESCRIPTION.isLowInStock());
+        assertFalse(STOCK_PREDICATE.test(EMPTY_PRESCRIPTION));
     }
 
     @Test

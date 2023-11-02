@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
+import static seedu.address.model.prescription.Prescription.COMPLETED_PREDICATE;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Dosage;
-import seedu.address.model.prescription.IsCompletedPredicate;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.SameNamePredicate;
 import seedu.address.model.prescription.Stock;
@@ -77,8 +77,7 @@ public class TakeCommand extends Command {
 
         executeTake(totalStock, consumptionCount);
 
-        Predicate<Prescription> isCompletedPredicate = new IsCompletedPredicate();
-        prescription.setIsCompleted(isCompletedPredicate.test(prescription));
+        prescription.setIsCompleted(COMPLETED_PREDICATE.test(prescription));
 
         Predicate<Prescription> isSameName = new SameNamePredicate(prescription.getName());
         model.updateFilteredPrescriptionList(isSameName);

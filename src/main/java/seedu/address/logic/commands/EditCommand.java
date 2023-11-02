@@ -10,11 +10,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
+import static seedu.address.model.prescription.Prescription.DATES_PREDICATE;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -26,7 +26,6 @@ import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
-import seedu.address.model.prescription.IsValidDatesPredicate;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
@@ -90,9 +89,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
         }
 
-        Predicate<Prescription> isValidDates = new IsValidDatesPredicate();
-
-        if (!isValidDates.test(editedPrescription)) {
+        if (!DATES_PREDICATE.test(editedPrescription)) {
             throw new CommandException(MESSAGE_INVALID_DATES);
         }
 
