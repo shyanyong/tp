@@ -88,7 +88,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Set<Name> conflictingDrugs = ParserUtil.parseDrugs(argMultimap.getAllValues(PREFIX_CONFLICTING_DRUGS));
-
+        System.out.println(conflictingDrugs);
         Prescription prescription = new Prescription(name, dosage, frequency, startDate, endDate,
                 expiryDate, totalStock, note, conflictingDrugs);
 

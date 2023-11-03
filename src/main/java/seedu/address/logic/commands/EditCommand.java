@@ -123,8 +123,12 @@ public class EditCommand extends Command {
         Boolean updatedIsCompleted = editPrescriptionDescriptor.getIsCompleted()
                 .orElse(prescriptionToEdit.getIsCompleted());
         Note updatedNote = editPrescriptionDescriptor.getNote().orElse(
-            prescriptionToEdit.getNote().orElse(null));
-        Set<Name> conflictingDrugs = prescriptionToEdit.getConflictingDrugs();
+                prescriptionToEdit.getNote().orElse(null));
+        Set<Name> conflictingDrugs = editPrescriptionDescriptor.getConflictingDrugs();
+        if (conflictingDrugs.isEmpty()) {
+            conflictingDrugs = prescriptionToEdit.getConflictingDrugs();
+        }
+
 
         return new Prescription(updatedName, updatedDosage, updatedFrequency, updatedStartDate, updatedEndDate,
                 updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote,
