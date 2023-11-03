@@ -201,10 +201,8 @@ public class Prescription {
      * Returns true if this Prescription has a conflict with the drug to be added.
      */
     public boolean hasDrugClash(Prescription toAdd) {
-        for (Name drug : conflictingDrugs) {
-            if (conflictingDrugs.contains(drug)) {
-                return true;
-            }
+        if (conflictingDrugs.contains(toAdd.getDrug())) {
+            return true;
         }
         return false;
     }
