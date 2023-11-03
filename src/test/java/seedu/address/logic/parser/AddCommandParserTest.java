@@ -31,7 +31,6 @@ import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
@@ -100,6 +99,6 @@ public class AddCommandParserTest {
                         + END_DATE_DESC_PROPRANOLOL + EXPIRY_DATE_DESC_PROPRANOLOL
                         + STOCK_DESC_PROPRANOLOL + INVALID_CONFLICTING_DRUGS_DESC
                 + NOTE_DESC_PROPRANOLOL,
-                Drug.MESSAGE_CONSTRAINTS);
+                Name.MESSAGE_CONSTRAINTS);
     }
 }

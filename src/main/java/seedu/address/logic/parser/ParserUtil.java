@@ -9,7 +9,6 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
@@ -182,21 +181,21 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code Drug} is invalid.
      */
-    public static Drug parseDrug(String drug) throws ParseException {
+    public static Name parseDrug(String drug) throws ParseException {
         requireNonNull(drug);
         String trimmedDrug = drug.trim();
-        if (!Drug.isValidDrugName(trimmedDrug)) {
-            throw new ParseException(Drug.MESSAGE_CONSTRAINTS);
+        if (!Name.isValidName(trimmedDrug)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Drug(trimmedDrug);
+        return new Name(trimmedDrug);
     }
 
     /**
      * Parses {@code Collection<String> Drugs} into a {@code Set<Drug>}.
      */
-    public static Set<Drug> parseDrugs(Collection<String> drugs) throws ParseException {
+    public static Set<Name> parseDrugs(Collection<String> drugs) throws ParseException {
         requireNonNull(drugs);
-        final Set<Drug> drugSet = new HashSet<>();
+        final Set<Name> drugSet = new HashSet<>();
         for (String drugList : drugs) {
             for (String drugName : drugList.split(" ")) {
                 drugSet.add(parseDrug(drugName.trim()));
