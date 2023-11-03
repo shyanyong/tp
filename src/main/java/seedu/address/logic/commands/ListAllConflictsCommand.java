@@ -18,7 +18,8 @@ public class ListAllConflictsCommand extends Command {
 
     public static final String COMMAND_WORD = "listAllConflicts";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all conflicting medications from all prescriptions\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all conflicting "
+            + "medications from all prescriptions\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed all conflicting medications.";
