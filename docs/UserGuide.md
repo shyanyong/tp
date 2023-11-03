@@ -363,9 +363,11 @@ Typing this command deletes the 3rd prescription from the list.
 
 </box>
 
-### Marking a medication as taken : `take`
+### How to take a medication : `take`
 
-You can tell BayMeds that you have taken a medication by typing the following command.
+You can tell BayMeds that you have taken a medication.
+
+To take a medication, type the following command.
 
 Format:
 ```
@@ -378,31 +380,44 @@ This tells BayMeds that you have taken the prescription at the specified `INDEX`
 
 <box type="info" header="Notes">
 
+* `<dosage>` refers to the number of pills to be taken. It only accepts a numeric value. For 1 pill, type 1.
+* Since `<dosage>` is an optional input, if there is none given, the default dosage to take will be set as 1.
 * Existing consumption count will be increased by the input value.
 * Existing stock will be decreased by the input value.
-* Since `d/<dosage>` is an optional input, if there is none given, the default dosage to take will be set as 1.
 
+If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-todays-medications--listtoday).
 </box>
 
 <box type="definition" header="#### Example 1">
 
 ```
-take 1 d/2
+take 1
 ```
+Typing this command will take 1 dose from the 1st prescription.
 
-![result for 'Example output of take command'](images/ui/Ui-take.png)
+![result for 'Example output of take command'](images/ui/Ui-take1.png)
 
+As shown in this example, the dosage taken is set as 1 if not dosage is specified.
 </box>
 
 <box type="definition" header="#### Example 2">
 
-```take 2```
+```
+take 2 d/2
+```
+Typing this command will take 2 doses from the 2nd prescription.
+
+![result for 'Example output of take command'](images/ui/Ui-take2.png)
 
 </box>
 
-### Marking a medication as untaken : `untake`
+### How to untake a medication : `untake`
 
-You can tell BayMeds that you have untaken a medication by typing the following command.
+If you have accidentally indicated that you have taken a medication, Baymeds can also help you untake the medication.
+
+This command is similar to the take command.
+
+To untake a medication, type the following command.
 
 Format:
 ```
@@ -415,25 +430,38 @@ This tells BayMeds that you have untaken the prescription at the specified `INDE
 
 <box type="info" header="Notes">
 
+* `<dosage>` refers to the number of pills to be untaken. It only accepts a numeric value. For 1 pill, type 1.
+* Since `<dosage>` is an optional input, if there is none given, the default dosage to untake will be set as 1.
 * Existing consumption count will be decreased by the input value.
 * Existing stock will be increased by the input value.
-* Since `d/<dosage>` is an optional input, if there is none given, the default dosage to untake will be set as 1.
 
+If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-todays-medications--listtoday).
 </box>
 
 <box type="definition" header="#### Example 1">
 
 ```
-untake 1 d/2
+untake 1
 ```
+Typing this command will untake 1 dose from the 1st prescription.
 
-[//]: # (![result for 'Example output of take command']&#40;images/ui/Ui-take.png&#41;)
+Using the same prescription list as shown in [take](#how-to-take-a-medication--take), you will get the following result:
 
+![result for 'Example output of take command'](images/ui/Ui-untake1.png)
+
+As shown in this example, the dosage to untake is set as 1 if not dosage is specified.
 </box>
 
 <box type="definition" header="#### Example 2">
 
-```untake 2```
+```
+untake 2 d/2
+```
+Typing this command will untake 2 doses from the 2nd prescription.
+
+Using the same prescription list as shown in [take](#how-to-take-a-medication--take), you will get the following result:
+
+![result for 'Example output of take command'](images/ui/Ui-untake2.png)
 
 </box>
 
