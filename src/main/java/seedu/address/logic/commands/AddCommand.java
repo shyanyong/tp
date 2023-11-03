@@ -75,7 +75,6 @@ public class AddCommand extends Command {
         }
 
         if (model.hasDrugClash(toAdd)) {
-            System.out.println(toAdd);
             model.addPrescription(toAdd);
             return new CommandResult(MESSAGE_DRUG_CLASH
                     + String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));

@@ -86,9 +86,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
         }
-
         Set<Name> conflictingDrugs = ParserUtil.parseDrugs(argMultimap.getAllValues(PREFIX_CONFLICTING_DRUGS));
-        System.out.println(conflictingDrugs);
+
         Prescription prescription = new Prescription(name, dosage, frequency, startDate, endDate,
                 expiryDate, totalStock, note, conflictingDrugs);
 
