@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
 import static seedu.address.model.prescription.Prescription.DATES_PREDICATE;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -281,6 +282,9 @@ public class EditCommand extends Command {
         }
 
         public Set<Name> getConflictingDrugs() {
+            if (this.conflictingDrugs == null) {
+                return new HashSet<>();
+            }
             return this.conflictingDrugs;
         }
 
