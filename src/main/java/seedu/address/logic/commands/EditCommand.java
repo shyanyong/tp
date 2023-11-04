@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
+import static seedu.address.model.prescription.Prescription.COMPLETED_PREDICATE;
 import static seedu.address.model.prescription.Prescription.DATES_PREDICATE;
 
 import java.util.HashSet;
@@ -97,6 +98,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DATES);
         }
 
+        editedPrescription.setIsCompleted(COMPLETED_PREDICATE.test(editedPrescription));
         model.setPrescription(prescriptionToEdit, editedPrescription);
         return new CommandResult(String.format(MESSAGE_EDIT_PRESCRIPTION_SUCCESS, Messages.format(editedPrescription)));
     }
