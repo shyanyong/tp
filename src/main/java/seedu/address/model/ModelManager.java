@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.TakeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Prescription;
 
@@ -94,6 +97,17 @@ public class ModelManager implements Model {
     public void setCompletedPrescriptionListFilePath(Path completedPrescriptionListFilePath) {
         requireNonNull(completedPrescriptionListFilePath);
         userPrefs.setCompletedPrescriptionListFilePath(completedPrescriptionListFilePath);
+    }
+
+    @Override
+    public LocalDate getStoredDate() {
+        return userPrefs.getStoredDate();
+    }
+
+    @Override
+    public void setStoredDate(LocalDate storedDate) {
+        requireNonNull(storedDate);
+        userPrefs.setStoredDate(storedDate);
     }
 
     //=========== PrescriptionList ================================================================================
@@ -224,6 +238,31 @@ public class ModelManager implements Model {
     public void updateFilteredCompletedPrescriptionList(Predicate<Prescription> predicate) {
         requireNonNull(predicate);
         filteredCompletedPrescriptions.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean hasDrugClash(Prescription toAdd) {
+        requireNonNull(toAdd);
+
+        boolean result = false;
+        for (Prescription prescription : prescriptionList.getPrescriptionList()) {
+            if (prescription.hasDrugClash(toAdd)) {
+                toAdd.addConflictingDrug(prescription.getDrug());
+                result = true;
+            }
+        }
+
+        Set<Drug> drugSet = toAdd.getConflictingDrugs();
+        for (Drug drug : drugSet) {
+            for (Prescription prescription : prescriptionList.getPrescriptionList()) {
+                if (prescription.getDrug().equals(drug)) {
+                    prescription.addConflictingDrug(toAdd.getDrug());
+                    result = true;
+                }
+            }
+        }
+
+        return result;
     }
 
     @Override

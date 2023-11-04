@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PRESCRIPTION;
 import static seedu.address.testutil.TypicalPrescriptions.getTypicalPrescriptionList;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -308,6 +309,20 @@ public class TakeCommandTest {
 
         @Override
         public void updateFilteredCompletedPrescriptionList(Predicate<Prescription> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public LocalDate getStoredDate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStoredDate(LocalDate storedDate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean hasDrugClash(Prescription toAdd) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -15,6 +15,7 @@ import static seedu.address.model.prescription.Prescription.DATES_PREDICATE;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -22,6 +23,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
@@ -120,10 +122,12 @@ public class EditCommand extends Command {
         Boolean updatedIsCompleted = editPrescriptionDescriptor.getIsCompleted()
                 .orElse(prescriptionToEdit.getIsCompleted());
         Note updatedNote = editPrescriptionDescriptor.getNote().orElse(
-                prescriptionToEdit.getNote().orElse(null));
+            prescriptionToEdit.getNote().orElse(null));
+        Set<Drug> conflictingDrugs = prescriptionToEdit.getConflictingDrugs();
 
         return new Prescription(updatedName, updatedDosage, updatedFrequency, updatedStartDate, updatedEndDate,
-                updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote);
+                updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote,
+                conflictingDrugs);
     }
 
     @Override

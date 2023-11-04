@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRESCRIPTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PRESCRIPTION;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -230,6 +231,20 @@ public class DeleteCommandTest {
 
         @Override
         public void updateFilteredCompletedPrescriptionList(Predicate<Prescription> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public LocalDate getStoredDate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStoredDate(LocalDate storedDate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean hasDrugClash(Prescription toAdd) {
             throw new AssertionError("This method should not be called.");
         }
     }

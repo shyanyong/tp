@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -219,6 +220,20 @@ public class AddCommandTest {
         public void updateFilteredCompletedPrescriptionList(Predicate<Prescription> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public LocalDate getStoredDate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStoredDate(LocalDate storedDate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean hasDrugClash(Prescription toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -236,6 +251,11 @@ public class AddCommandTest {
         public boolean hasPrescription(Prescription prescription) {
             requireNonNull(prescription);
             return this.prescription.isSamePrescription(prescription);
+        }
+
+        @Override
+        public boolean hasDrugClash(Prescription toAdd) {
+            return false;
         }
     }
 
@@ -260,6 +280,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyPrescriptionList getPrescriptionList() {
             return new PrescriptionList();
+        }
+
+        @Override
+        public boolean hasDrugClash(Prescription toAdd) {
+            return false;
         }
     }
 

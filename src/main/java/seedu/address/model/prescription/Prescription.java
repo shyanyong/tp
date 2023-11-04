@@ -3,14 +3,14 @@ package seedu.address.model.prescription;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 // import java.util.Collections;
-// import java.util.HashSet;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
-// import java.util.Set;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-// import seedu.address.model.tag.Tag;
+import seedu.address.model.drug.Drug;
 
 /**
  * Represents a Prescription in the prescription list.
@@ -36,23 +36,23 @@ public class Prescription {
     private final ConsumptionCount consumptionCount;
     private Boolean isCompleted;
     private final Optional<Note> note;
-    // private final Set<Tag> tags = new HashSet<>();
+    private final Set<Drug> conflictingDrugs = new HashSet<>();
 
     /**
      * Constructor for prescription without consumption count and isCompleted.
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
-            Date endDate, Date expiryDate, Stock totalStock, Note note) {
+                        Date endDate, Date expiryDate, Stock totalStock, Note note, Set<Drug> conflictingDrugs) {
         this(name, dosage, frequency, startDate, endDate, expiryDate,
-                totalStock, new ConsumptionCount("0"), false, note);
+            totalStock, new ConsumptionCount("0"), false, note, conflictingDrugs);
     }
 
     /**
      * Every field must be present and not null.
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
-            Date endDate, Date expiryDate, Stock totalStock, ConsumptionCount consumptionCount,
-            Boolean isCompleted, Note note) {
+                        Date endDate, Date expiryDate, Stock totalStock, ConsumptionCount consumptionCount,
+                        Boolean isCompleted, Note note, Set<Drug> conflictingDrugs) {
         requireAllNonNull(name);
         this.name = name;
         this.dosage = Optional.ofNullable(dosage);
@@ -64,6 +64,7 @@ public class Prescription {
         this.consumptionCount = consumptionCount;
         this.isCompleted = isCompleted;
         this.note = Optional.ofNullable(note);
+        this.conflictingDrugs.addAll(conflictingDrugs);
     }
 
     public Name getName() {
@@ -105,17 +106,17 @@ public class Prescription {
         return note;
     }
 
+    public void addConflictingDrug(Drug drug) {
+        conflictingDrugs.add(drug);
+    }
+
+    public Set<Drug> getConflictingDrugs() {
+        return conflictingDrugs;
+    }
+
     public void setIsCompleted(Boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
-
-    // /
-    //  * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-    //  * if modification is attempted.
-    //  */
-    // public Set<Tag> getTags() {
-    //     return Collections.unmodifiableSet(tags);
-    // }
 
     /**
      * Returns true if both prescriptions have the same name.
@@ -141,6 +142,10 @@ public class Prescription {
             return currentDate.isAfter(prescriptionEndDate);
         }
         return false;
+    }
+
+    public void resetConsumptionCount() {
+        consumptionCount.resetConsumptionCount();
     }
 
     /**
@@ -192,5 +197,21 @@ public class Prescription {
                 .add("isCompleted", isCompleted)
                 .add("note", note)
                 .toString();
+    }
+
+    /**
+     * Returns true if this Prescription has a conflict with the drug to be added.
+     */
+    public boolean hasDrugClash(Prescription toAdd) {
+        for (Drug drug : conflictingDrugs) {
+            if (conflictingDrugs.contains(drug)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Drug getDrug() {
+        return new Drug(name.toString());
     }
 }

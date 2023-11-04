@@ -2,12 +2,14 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-// import java.util.Collection;
-// import java.util.HashSet;
-// import java.util.Set;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
@@ -15,7 +17,8 @@ import seedu.address.model.prescription.Frequency;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Stock;
-// import seedu.address.model.tag.Tag;
+
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -27,6 +30,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -172,30 +176,32 @@ public class ParserUtil {
         return new Note(trimmedNote);
     }
 
-    // /**
-    //  * Parses a {@code String tag} into a {@code Tag}.
-    //  * Leading and trailing whitespaces will be trimmed.
-    //  *
-    //  * @throws ParseException if the given {@code tag} is invalid.
-    //  */
-    // public static Tag parseTag(String tag) throws ParseException {
-    //     requireNonNull(tag);
-    //     String trimmedTag = tag.trim();
-    //     if (!Tag.isValidTagName(trimmedTag)) {
-    //         throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-    //     }
-    //     return new Tag(trimmedTag);
-    // }
+    /**
+     * Parses a {@code String Drug} into a {@code Drug}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Drug} is invalid.
+     */
+    public static Drug parseDrug(String drug) throws ParseException {
+        requireNonNull(drug);
+        String trimmedDrug = drug.trim();
+        if (!Drug.isValidDrugName(trimmedDrug)) {
+            throw new ParseException(Drug.MESSAGE_CONSTRAINTS);
+        }
+        return new Drug(trimmedDrug);
+    }
 
-    // /**
-    //  * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-    //  */
-    // public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-    //     requireNonNull(tags);
-    //     final Set<Tag> tagSet = new HashSet<>();
-    //     for (String tagName : tags) {
-    //         tagSet.add(parseTag(tagName));
-    //     }
-    //     return tagSet;
-    // }
+    /**
+     * Parses {@code Collection<String> Drugs} into a {@code Set<Drug>}.
+     */
+    public static Set<Drug> parseDrugs(Collection<String> drugs) throws ParseException {
+        requireNonNull(drugs);
+        final Set<Drug> drugSet = new HashSet<>();
+        for (String drugList : drugs) {
+            for (String drugName : drugList.split(" ")) {
+                drugSet.add(parseDrug(drugName.trim()));
+            }
+        }
+        return drugSet;
+    }
 }
