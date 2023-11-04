@@ -328,16 +328,16 @@ Finds prescriptions which names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `paracetamol` will match `Paracetamol`
-* The order of the keywords does not matter. e.g. `Ketoconazole Shampoo` will match `Shampoo Ketoconazole`
+* The search is case-insensitive. e.g `paracetamol` will match `Paracetamol`.
+* The order of the keywords does not matter. e.g. `Ketoconazole Shampoo` will match `Shampoo Ketoconazole`.
 * Only the name is searched.
-* Only full words will be matched e.g. `Para` will not match `Paracetamol`
+* Substrings will be matched e.g. `Para` will match `Paracetamol`.
 * Prescriptions matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Ketorolac ophthalmic` will return `Ketotifen ophthalmic`, `Ketorolac Tromethamine`
+  e.g. `Ketorolac ophthalmic` will return `Ketotifen ophthalmic`, `Ketorolac Tromethamine`.
 
 Examples:
-* `find Ketoconazole` returns `Ketoconazole` and `Ketoconazole Shampoo`
-* `find Ketorolac ophthalmic` returns `Ketotifen ophthalmic`, `Ketorolac Tromethamine`<br>
+* `find Ketoconazole` returns `Ketoconazole` and `Ketoconazole Shampoo`.
+* `find Ketorolac ophthalmic` returns `Ketotifen ophthalmic`, `Ketorolac Tromethamine`.<br>
   ![result for 'find Ketorolac ophthalmic'](images/ui/Ui-find.png)
 
 ### Deleting a prescription : `delete`
