@@ -24,9 +24,9 @@ BayMeds filters and shows you your prescriptions to be consumed each day. By mar
 
 BayMeds allows you to store details crucial to the consumption of the prescription, such as the end and expiry date of the prescription, as well as the current stock of pills available. You may also store specific requirements that a prescription may have, such as restricted consumption to only after heavy meals.
 
-#### Get reminders on prescriptions to be consumed
+#### Get warnings for conflicting drugs
 
-BayMeds reminds you to consume your prescriptions for the day on a regular interval, to promote medication adherence.
+BayMeds informs you when you have drugs that conflicts with each other, e.g. drugs that react with other drugs or affect the efficacy of other drugs. This is especially useful for patients with multiple prescriptions, as it helps to prevent the consumption of conflicting drugs.
 
 #### Track past prescriptions
 
@@ -471,14 +471,14 @@ If you have prescriptions near expiry or low in stock, you will see something si
 
 ### Listing a prescription's conflicting drugs : `listConflicts`
 
-You may list out the conflicting drugs of a prescription.
+If you want to view the list of drugs that conflict with a prescription at a particular index, type the following command.
 
 Format:
 ```
 listConflicts INDEX
 ```
 
-This lists out the conflicting drugs of the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+You will then be able to see the conflicting drugs on the left side.
 
 <box type="info" header="Notes">
 
@@ -489,10 +489,10 @@ This lists out the conflicting drugs of the prescription at the specified `INDEX
 <box type="definition" header="#### Example">
 
 ```
-listConflicts 3
+listConflicts 2
 ```
 
-Typing this lists out conflicting drugs of the 3rd prescription from the list.
+If you have conflicting drugs for the prescription at the index, you will see something similar to this.
 
 ![result for 'Example output of listConflicts command'](images/ui/Ui-listConflicts.png)
 
@@ -500,7 +500,14 @@ Typing this lists out conflicting drugs of the 3rd prescription from the list.
 
 ### Listing all conflicting drugs : `listAllConflicts`
 
-You may list out all the conflicting drugs from all prescriptions.
+If you need to view all drugs that conflict with your current prescriptions, type the following command.
+
+Format:
+```
+listAllConflicts
+```
+
+You will then be able to see all conflicting drugs on the left side.
 
 <box type="definition" header="#### Example">
 
@@ -508,7 +515,7 @@ You may list out all the conflicting drugs from all prescriptions.
 listAllConflicts
 ```
 
-This lists out all the conflicting drugs from all the prescriptions in the list.
+If you have conflicting drugs for the current prescriptions, you will see something similar to this.
 
 ![result for 'Example output of listAllConflicts command'](images/ui/Ui-listAllConflicts.png)
 
