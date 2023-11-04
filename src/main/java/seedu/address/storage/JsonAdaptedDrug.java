@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.drug.Drug;
+import seedu.address.model.prescription.Name;
 
 /**
- * Jackson-friendly version of {@link Drug}.
+ * Jackson-friendly version of {@link Name}.
  */
 class JsonAdaptedDrug {
 
@@ -22,10 +22,10 @@ class JsonAdaptedDrug {
     }
 
     /**
-     * Converts a given {@code Drug} into this class for Jackson use.
+     * Converts a given {@code Name} into this class for Jackson use.
      */
-    public JsonAdaptedDrug(Drug source) {
-        drugName = source.drugName;
+    public JsonAdaptedDrug(Name source) {
+        drugName = source.toString();
     }
 
     @JsonValue
@@ -38,11 +38,11 @@ class JsonAdaptedDrug {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted drug.
      */
-    public Drug toModelType() throws IllegalValueException {
-        if (!Drug.isValidDrugName(drugName)) {
-            throw new IllegalValueException(Drug.MESSAGE_CONSTRAINTS);
+    public Name toModelType() throws IllegalValueException {
+        if (!Name.isValidName(drugName)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Drug(drugName);
+        return new Name(drugName);
     }
 
 }

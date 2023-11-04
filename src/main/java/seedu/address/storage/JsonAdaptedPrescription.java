@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
@@ -108,7 +107,7 @@ class JsonAdaptedPrescription {
      * @throws IllegalValueException if there were any data constraints violated in the adapted prescription.
      */
     public Prescription toModelType() throws IllegalValueException {
-        final List<Drug> conflictingDrugs = new ArrayList<>();
+        final List<Name> conflictingDrugs = new ArrayList<>();
         for (JsonAdaptedDrug drug : drugs) {
             conflictingDrugs.add(drug.toModelType());
         }
@@ -193,7 +192,7 @@ class JsonAdaptedPrescription {
             modelNote = new Note(note);
         }
 
-        final Set<Drug> modelDrugs = new HashSet<>(conflictingDrugs);
+        final Set<Name> modelDrugs = new HashSet<>(conflictingDrugs);
         return new Prescription(modelName, modelDosage, modelFrequency, modelStartDate,
                 modelEndDate, modelExpiryDate, modelTotalStock, modelConsumptionCount, modelIsCompleted,
                 modelNote, modelDrugs);

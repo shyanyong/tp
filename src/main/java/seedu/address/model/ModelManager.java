@@ -15,7 +15,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.TakeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Prescription;
 
@@ -252,8 +251,8 @@ public class ModelManager implements Model {
             }
         }
 
-        Set<Drug> drugSet = toAdd.getConflictingDrugs();
-        for (Drug drug : drugSet) {
+        Set<Name> drugSet = toAdd.getConflictingDrugs();
+        for (Name drug : drugSet) {
             for (Prescription prescription : prescriptionList.getPrescriptionList()) {
                 if (prescription.getDrug().equals(drug)) {
                     prescription.addConflictingDrug(toAdd.getDrug());

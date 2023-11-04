@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.AddCommand.MESSAGE_INVALID_DATES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONFLICTING_DRUGS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
@@ -12,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_STOCK;
 import static seedu.address.model.prescription.Prescription.DATES_PREDICATE;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,7 +25,6 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
@@ -51,6 +52,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_END_DATE + "END DATE] "
             + "[" + PREFIX_EXPIRY_DATE + "EXPIRY DATE] "
             + "[" + PREFIX_TOTAL_STOCK + "TOTAL STOCK] "
+            + "[" + PREFIX_CONFLICTING_DRUGS + "CONFLICTING_DRUGS] "
             + "[" + PREFIX_NOTE + "NOTE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "Aspirin "
@@ -122,8 +124,12 @@ public class EditCommand extends Command {
         Boolean updatedIsCompleted = editPrescriptionDescriptor.getIsCompleted()
                 .orElse(prescriptionToEdit.getIsCompleted());
         Note updatedNote = editPrescriptionDescriptor.getNote().orElse(
-            prescriptionToEdit.getNote().orElse(null));
-        Set<Drug> conflictingDrugs = prescriptionToEdit.getConflictingDrugs();
+                prescriptionToEdit.getNote().orElse(null));
+        Set<Name> conflictingDrugs = editPrescriptionDescriptor.getConflictingDrugs();
+        if (conflictingDrugs.isEmpty()) {
+            conflictingDrugs = prescriptionToEdit.getConflictingDrugs();
+        }
+
 
         return new Prescription(updatedName, updatedDosage, updatedFrequency, updatedStartDate, updatedEndDate,
                 updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote,
@@ -169,6 +175,7 @@ public class EditCommand extends Command {
         private ConsumptionCount consumptionCount;
         private Boolean isCompleted;
         private Note note;
+        private Set<Name> conflictingDrugs;
         public EditPrescriptionDescriptor() {}
 
         /**
@@ -185,12 +192,13 @@ public class EditCommand extends Command {
             setConsumptionCount(toCopy.consumptionCount);
             setIsCompleted(toCopy.isCompleted);
             setNote(toCopy.note);
+            setConflictingDrugs(toCopy.conflictingDrugs);
         }
 
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(
                     name, dosage, frequency, startDate, endDate, expiryDate, totalStock, consumptionCount,
-                    isCompleted, note);
+                    isCompleted, note, conflictingDrugs);
         }
 
         public void setName(Name name) {
@@ -273,6 +281,17 @@ public class EditCommand extends Command {
             return Optional.ofNullable(note);
         }
 
+        public Set<Name> getConflictingDrugs() {
+            if (this.conflictingDrugs == null) {
+                return new HashSet<>();
+            }
+            return this.conflictingDrugs;
+        }
+
+        public void setConflictingDrugs(Set<Name> conflictingDrugs) {
+            this.conflictingDrugs = conflictingDrugs;
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -294,7 +313,8 @@ public class EditCommand extends Command {
                     && Objects.equals(totalStock, otherEditPrescriptionDescriptor.totalStock)
                     && Objects.equals(consumptionCount, otherEditPrescriptionDescriptor.consumptionCount)
                     && isCompleted == otherEditPrescriptionDescriptor.isCompleted
-                    && Objects.equals(note, otherEditPrescriptionDescriptor.note);
+                    && Objects.equals(note, otherEditPrescriptionDescriptor.note)
+                    && Objects.equals(conflictingDrugs, otherEditPrescriptionDescriptor.conflictingDrugs);
         }
 
         @Override
@@ -310,6 +330,7 @@ public class EditCommand extends Command {
                     .add("consumptionCount", consumptionCount)
                     .add("isCompleted", isCompleted)
                     .add("note", note)
+                    .add("drugs", conflictingDrugs)
                     .toString();
         }
     }

@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
@@ -49,7 +48,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY,
-                PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE);
+                PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE,
+                        PREFIX_CONFLICTING_DRUGS);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
         Dosage dosage = null;
@@ -86,8 +86,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
         }
-
-        Set<Drug> conflictingDrugs = ParserUtil.parseDrugs(argMultimap.getAllValues(PREFIX_CONFLICTING_DRUGS));
+        Set<Name> conflictingDrugs = ParserUtil.parseDrugs(argMultimap.getAllValues(PREFIX_CONFLICTING_DRUGS));
 
         Prescription prescription = new Prescription(name, dosage, frequency, startDate, endDate,
                 expiryDate, totalStock, note, conflictingDrugs);

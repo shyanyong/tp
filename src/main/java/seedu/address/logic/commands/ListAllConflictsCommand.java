@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.Model;
-import seedu.address.model.drug.Drug;
+import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -18,10 +18,11 @@ public class ListAllConflictsCommand extends Command {
 
     public static final String COMMAND_WORD = "listAllConflicts";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all conflicting drugs from all prescriptions\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all conflicting "
+            + "medications from all prescriptions\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Listed all conflicting drugs.";
+    public static final String MESSAGE_SUCCESS = "Listed all conflicting medications.";
 
     public static final String MESSAGE_EMPTY_LIST = "No prescriptions found.";
 
@@ -32,7 +33,7 @@ public class ListAllConflictsCommand extends Command {
         model.updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
 
         ObservableList<Prescription> prescriptionList = model.getFilteredPrescriptionList();
-        Set<Drug> conflictingDrugs = new HashSet<Drug>();
+        Set<Name> conflictingDrugs = new HashSet<Name>();
         for (Prescription prescription : prescriptionList) {
             conflictingDrugs.addAll(prescription.getConflictingDrugs());
         }
@@ -41,7 +42,7 @@ public class ListAllConflictsCommand extends Command {
             return new CommandResult(MESSAGE_EMPTY_LIST);
         } else {
             StringBuilder conflictingDrugsString = new StringBuilder();
-            for (Drug drug : conflictingDrugs) {
+            for (Name drug : conflictingDrugs) {
                 conflictingDrugsString.append(drug.toString() + "\n");
             }
             return new CommandResult(MESSAGE_SUCCESS + "\n" + conflictingDrugsString.toString());

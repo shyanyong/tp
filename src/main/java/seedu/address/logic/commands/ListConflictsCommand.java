@@ -9,7 +9,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.drug.Drug;
+import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -48,7 +48,7 @@ public class ListConflictsCommand extends Command {
 
         Prescription prescriptionToListConflicts = lastShownList.get(targetIndex.getZeroBased());
         StringBuilder conflictingDrugsString = new StringBuilder();
-        for (Drug drug : prescriptionToListConflicts.getConflictingDrugs()) {
+        for (Name drug : prescriptionToListConflicts.getConflictingDrugs()) {
             conflictingDrugsString.append(drug.toString() + "\n");
         }
         return new CommandResult(MESSAGE_DELETE_PRESCRIPTION_SUCCESS + "\n" + conflictingDrugsString.toString());
