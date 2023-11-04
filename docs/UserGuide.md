@@ -413,9 +413,9 @@ Typing this command will take 2 doses from the 2nd prescription.
 
 ### How to untake a medication : `untake`
 
-If you have accidentally indicated that you have taken a medication, Baymeds can also help you untake the medication.
+If you have accidentally indicated that you have taken a medication, Baymeds can also help you untake the medication similar to the [take](#how-to-take-a-medication--take) feature.
 
-This command is similar to the take command.
+Note that this feature is meant to revert errors made by the user, updating changes to the stock and consumption count and does not indicate that the medication has actually been untaken.
 
 To untake a medication, type the following command.
 
