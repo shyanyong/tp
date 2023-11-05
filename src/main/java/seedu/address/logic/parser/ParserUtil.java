@@ -105,10 +105,6 @@ public class ParserUtil {
         int month = Integer.parseInt(dateArray[1]);
         int year = Integer.parseInt(dateArray[2]);
 
-        System.out.println(day);
-        System.out.println(month);
-        System.out.println(year);
-
         if (!Date.isValidDate(day, month, year)) {
             throw new ParseException(Date.MESSAGE_INVALID_DATE);
         }
