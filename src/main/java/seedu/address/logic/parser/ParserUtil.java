@@ -66,8 +66,17 @@ public class ParserUtil {
     public static Dosage parseDosage(String dosage) throws ParseException {
         requireNonNull(dosage);
         String trimmedDosage = dosage.trim();
-        if (!Dosage.isValidDosage(trimmedDosage)) {
+
+        if (!Dosage.isValidDosageFormat(trimmedDosage)) {
             throw new ParseException(Dosage.MESSAGE_CONSTRAINTS);
+        }
+
+        if (!Dosage.isLargeNumber(trimmedDosage)) {
+            throw new ParseException(Dosage.MESSAGE_LARGE_DOSAGE);
+        }
+
+        if (Dosage.isInvalidDosage(trimmedDosage)) {
+            throw new ParseException(Dosage.MESSAGE_INVALID_DOSAGE);
         }
         return new Dosage(trimmedDosage);
     }
@@ -130,9 +139,14 @@ public class ParserUtil {
     public static Stock parseTotalStock(String totalStock) throws ParseException {
         requireNonNull(totalStock);
         String trimmedTotalStock = totalStock.trim();
-        if (!Stock.isValidStock(trimmedTotalStock)) {
+        if (!Stock.isValidStockFormat(trimmedTotalStock)) {
             throw new ParseException(Stock.MESSAGE_CONSTRAINTS);
         }
+
+        if (!Stock.isValidStock(trimmedTotalStock)) {
+            throw new ParseException(Stock.MESSAGE_LARGE_STOCK);
+        }
+
         return new Stock(trimmedTotalStock);
     }
 

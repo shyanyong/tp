@@ -167,7 +167,7 @@ class JsonAdaptedPrescription {
         Stock modelTotalStock;
         if (totalStock == null) {
             modelTotalStock = null;
-        } else if (!Stock.isValidStock(totalStock)) {
+        } else if (!Stock.isValidStockFormat(totalStock)) {
             throw new IllegalValueException(Stock.MESSAGE_CONSTRAINTS);
         } else {
             modelTotalStock = new Stock(totalStock);
