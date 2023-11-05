@@ -52,7 +52,8 @@ public class AddCommandIntegrationTest {
         expectedModel.addPrescription(validPrescription);
 
         assertCommandSuccess(new AddCommand(validPrescription), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPrescription)),
+                String.format(AddCommand.MESSAGE_DRUG_CLASH
+                        + AddCommand.MESSAGE_SUCCESS, Messages.format(validPrescription)),
                 expectedModel);
     }
 
