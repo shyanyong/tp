@@ -3,6 +3,7 @@ package seedu.address.model.prescription;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
@@ -49,46 +50,6 @@ public class Date {
      */
     public static boolean isValidDateFormat(String test) {
         return test.matches(VALIDATION_REGEX);
-    }
-
-    /**
-     * Returns true if a given string is a valid date.
-     */
-    public static boolean isValidDate(int day, int month, int year) {
-
-        if (day < 1 || day > 31) {
-            return false;
-        }
-
-        if (day > 28) {
-            int maxDay = 31;
-            switch (month) {
-            case 2:
-                maxDay = (IsoChronology.INSTANCE.isLeapYear(year) ? 29 : 28);
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                maxDay = 30;
-                break;
-            default:
-            }
-            if (day > maxDay) {
-                return false;
-            }
-        }
-
-        if (month > 12 || month < 1) {
-            return false;
-        }
-
-        if (!(year > 0000)) {
-            return false;
-        }
-
-        return true;
-
     }
 
     @Override

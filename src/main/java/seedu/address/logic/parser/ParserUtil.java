@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -105,7 +107,13 @@ public class ParserUtil {
         int month = Integer.parseInt(dateArray[1]);
         int year = Integer.parseInt(dateArray[2]);
 
-        if (!Date.isValidDate(day, month, year)) {
+        if (year < 1 || year > 9999) {
+            throw new ParseException(Date.MESSAGE_INVALID_DATE);
+        }
+
+        try {
+            LocalDate localdate = LocalDate.of(year, month, day);
+        } catch (DateTimeException e) {
             throw new ParseException(Date.MESSAGE_INVALID_DATE);
         }
 
