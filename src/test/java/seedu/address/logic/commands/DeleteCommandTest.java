@@ -45,7 +45,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_prescriptionAcceptedByModel_deleteSuccessful() throws Exception {
-        DeleteCommandTest.ModelStubAcceptingPrescriptionDeleted modelStub = new ModelStubAcceptingPrescriptionDeleted();
+        ModelStubAcceptingPrescriptionDeleted modelStub = new ModelStubAcceptingPrescriptionDeleted();
         Index validIndex = Index.fromOneBased(1);
         Prescription validPrescription = new PrescriptionBuilder().build();
         CommandResult commandResult = new DeleteCommand(validIndex).execute(modelStub);
@@ -56,7 +56,6 @@ public class DeleteCommandTest {
 
         assertEquals(Collections.emptyList(), modelStub.prescriptionsAdded);
     }
-
     @Test
     public void execute_outOfBoundary_throwsCommandException() {
         Index invalidIndex = Index.fromOneBased(5);
@@ -259,8 +258,6 @@ public class DeleteCommandTest {
             requireNonNull(prescription);
             this.prescription = prescription;
         }
-
-
 
         @Override
         public boolean hasPrescription(Prescription prescription) {

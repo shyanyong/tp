@@ -170,7 +170,7 @@ public class PrescriptionBuilder {
     public Prescription build() {
         return new Prescription(name, dosage.orElse(null), frequency.orElse(null),
             startDate, endDate.orElse(null), expiryDate.orElse(null), totalStock.orElse(null),
-            consumptionCount, isCompleted, note.orElse(null), new HashSet<>());
+            consumptionCount, isCompleted, note.orElse(null), conflictingDrugs);
     }
 
 }
