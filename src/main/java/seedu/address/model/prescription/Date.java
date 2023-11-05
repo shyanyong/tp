@@ -3,9 +3,7 @@ package seedu.address.model.prescription;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 
 /**
