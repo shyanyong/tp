@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONFLICTING_DRUGS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
@@ -31,27 +32,37 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_ASPIRIN = "Aspirin";
     public static final String VALID_NAME_PROPRANOLOL = "Propranolol";
+    public static final String VALID_NAME_METHADONE = "Methadone";
+
     public static final String VALID_DOSAGE_ASPIRIN = "1";
     public static final String VALID_DOSAGE_PROPRANOLOL = "4";
+
     public static final String VALID_FREQUENCY_ASPIRIN = "Daily";
     public static final String VALID_FREQUENCY_PROPRANOLOL = "Weekly";
+
     public static final String VALID_START_DATE_ASPIRIN = "01/10/2023";
     public static final String VALID_START_DATE_PROPRANOLOL = "01/08/2023";
+
     public static final String VALID_END_DATE_ASPIRIN = "23/02/2024";
     public static final String VALID_END_DATE_PROPRANOLOL = "20/12/2024";
+
     public static final String VALID_EXPIRY_DATE_ASPIRIN = "12/12/2024";
     public static final String VALID_EXPIRY_DATE_PROPRANOLOL = "22/07/2024";
+
     public static final String VALID_STOCK_ASPIRIN = "100";
+    public static final String VALID_STOCK_PROPRANOLOL = "500";
+
     public static final String VALID_CONSUMPTION_ASPIRIN = "1";
     public static final String VALID_CONSUMPTION_PROPRANOLOL = "2";
-    public static final String VALID_STOCK_PROPRANOLOL = "500";
+
     public static final String VALID_NOTE_ASPIRIN = "Take before food";
     public static final String VALID_NOTE_PROPRANOLOL = "Take after food";
     // public static final String VALID_TAG_HUSBAND = "husband";
-    // public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_CONFLICTING_DRUG_IBUPROFEN = "Ibuprofen";
 
     public static final String NAME_DESC_ASPIRIN = " " + PREFIX_NAME + VALID_NAME_ASPIRIN;
     public static final String NAME_DESC_PROPRANOLOL = " " + PREFIX_NAME + VALID_NAME_PROPRANOLOL;
+    public static final String NAME_DESC_METHADONE = " " + PREFIX_NAME + VALID_NAME_METHADONE;
     public static final String DOSAGE_DESC_ASPIRIN = " " + PREFIX_DOSAGE + VALID_DOSAGE_ASPIRIN;
     public static final String DOSAGE_DESC_PROPRANOLOL = " " + PREFIX_DOSAGE + VALID_DOSAGE_PROPRANOLOL;
     public static final String FREQUENCY_DESC_ASPIRIN = " " + PREFIX_FREQUENCY + VALID_FREQUENCY_ASPIRIN;
@@ -64,21 +75,27 @@ public class CommandTestUtil {
     public static final String EXPIRY_DATE_DESC_PROPRANOLOL = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_PROPRANOLOL;
     public static final String STOCK_DESC_ASPIRIN = " " + PREFIX_TOTAL_STOCK + VALID_STOCK_ASPIRIN;
     public static final String STOCK_DESC_PROPRANOLOL = " " + PREFIX_TOTAL_STOCK + VALID_STOCK_PROPRANOLOL;
+    public static final String CONSUMPTION_COUNT_DESC_ASPIRIN = " " + PREFIX_DOSAGE + VALID_CONSUMPTION_ASPIRIN;
+    public static final String CONSUMPTION_COUNT_DESC_PROPRANOLOL = " " + PREFIX_DOSAGE
+            + VALID_CONSUMPTION_PROPRANOLOL;
     public static final String NOTE_DESC_ASPIRIN = " " + PREFIX_NOTE + VALID_NOTE_ASPIRIN;
     public static final String NOTE_DESC_PROPRANOLOL = " " + PREFIX_NOTE + VALID_NOTE_PROPRANOLOL;
-
-    // public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
+    public static final String CONFLICTING_DRUG_DESC_ASPIRIN = " "
+            + PREFIX_CONFLICTING_DRUGS
+            + VALID_CONFLICTING_DRUG_IBUPROFEN;
     // public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String NAME_DESC = " " + PREFIX_NAME + "@sp!r!n"; // non-alphanumeric not allowed
-    public static final String DOSAGE_DESC = " " + PREFIX_DOSAGE + "a"; // alphabets not allowed
-    public static final String FREQUENCY_DESC = " " + PREFIX_FREQUENCY + "Forever"; // invalid value
-    public static final String START_DATE_DESC = " " + PREFIX_START_DATE + "1/1/2023"; // invalid date format
-    public static final String END_DATE_DESC = " " + PREFIX_END_DATE + "1/2/24"; // invalid date format
-    public static final String EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE + "2024/1/1"; // invalid date format
-    public static final String STOCK_DESC = " " + PREFIX_TOTAL_STOCK + "a"; // alphabets not allowed
-    public static final String NOTE_DESC = " " + PREFIX_NOTE; // empty string not allowed
-    // public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "@sp!r!n"; // non-alphanumeric not allowed
+    public static final String INVALID_DOSAGE_DESC = " " + PREFIX_DOSAGE + "a"; // alphabets not allowed
+    public static final String INVALID_FREQUENCY_DESC = " " + PREFIX_FREQUENCY + "Forever"; // invalid value
+    public static final String INVALID_START_DATE_DESC = " " + PREFIX_START_DATE + "1/1/2023"; // invalid date format
+    public static final String INVALID_END_DATE_DESC = " " + PREFIX_END_DATE + "1/2/24"; // invalid date format
+    public static final String INVALID_EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE + "2024/1/1"; // invalid date format
+    public static final String INVALID_STOCK_DESC = " " + PREFIX_TOTAL_STOCK + "a"; // alphabets not allowed
+    public static final String INVALID_NOTE_DESC = " " + PREFIX_NOTE + "@invalid note"; // empty string not allowed
+    public static final String INVALID_CONFLICTING_DRUGS_DESC = " "
+            + PREFIX_CONFLICTING_DRUGS
+            + "Ibuprofen*"; // '*' not allowed in drug names
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -156,6 +173,21 @@ public class CommandTestUtil {
         model.updateFilteredPrescriptionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPrescriptionList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered completed list to show only the prescription at the given
+     * {@code targetIndex} in the
+     * {@code model}'s completed prescription list.
+     */
+    public static void showCompletedPrescriptionAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCompletedPrescriptionList().size());
+
+        Prescription prescription = model.getFilteredCompletedPrescriptionList().get(targetIndex.getZeroBased());
+        final String[] splitName = prescription.getName().toString().split("\\s+");
+        model.updateFilteredCompletedPrescriptionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredCompletedPrescriptionList().size());
     }
 
 }

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONFLICTING_DRUGS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
@@ -15,6 +16,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.prescription.Prescription;
+
 
 /**
  * Adds a prescription to the prescription list.
@@ -32,6 +34,7 @@ public class AddCommand extends Command {
             + PREFIX_END_DATE + "end_date "
             + PREFIX_EXPIRY_DATE + "expiry_date "
             + PREFIX_TOTAL_STOCK + "total_stock "
+            + PREFIX_CONFLICTING_DRUGS + "conflicting_drugs "
             + PREFIX_NOTE + "note \n"
             // + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
@@ -42,12 +45,14 @@ public class AddCommand extends Command {
             + PREFIX_END_DATE + "25/12/2023 "
             + PREFIX_EXPIRY_DATE + "01/01/2024 "
             + PREFIX_TOTAL_STOCK + "100 "
+            + PREFIX_CONFLICTING_DRUGS + "Paracetamol Amoxicillin "
             + PREFIX_NOTE + "Test note";
+
 
     public static final String MESSAGE_SUCCESS = "New prescription added: %1$s.";
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already "
             + "exists in the prescription list.";
-
+    public static final String MESSAGE_DRUG_CLASH = "There are conflicting drugs in BayMeds. \n";
     public static final String MESSAGE_INVALID_DATES = "Start date must be before end date, "
             + "and end date must be before expiry date.";
 
@@ -69,6 +74,11 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
         }
 
+        if (model.hasDrugClash(toAdd)) {
+            model.addPrescription(toAdd);
+            return new CommandResult(MESSAGE_DRUG_CLASH
+                    + String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        }
         model.addPrescription(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
@@ -78,7 +88,6 @@ public class AddCommand extends Command {
         if (other == this) {
             return true;
         }
-
         // instanceof handles nulls
         if (!(other instanceof AddCommand)) {
             return false;

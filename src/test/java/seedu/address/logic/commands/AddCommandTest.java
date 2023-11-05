@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -57,26 +58,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Prescription alice = new PrescriptionBuilder().withName("Alice").build();
-        Prescription bob = new PrescriptionBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Prescription aspirin = new PrescriptionBuilder().withName("Aspirin").build();
+        Prescription propranolol = new PrescriptionBuilder().withName("Propranolol").build();
+        AddCommand addAspirinCommand = new AddCommand(aspirin);
+        AddCommand addPropranololCommand = new AddCommand(propranolol);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addAspirinCommand.equals(addAspirinCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addAspirinCommandCopy = new AddCommand(aspirin);
+        assertTrue(addAspirinCommand.equals(addAspirinCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addAspirinCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAspirinCommand.equals(null));
 
         // different prescription -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addAspirinCommand.equals(addPropranololCommand));
     }
 
     @Test
@@ -116,7 +117,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPrescriptionListFilePath(Path addressBookFilePath) {
+        public void setPrescriptionListFilePath(Path prescriptionListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getCompletedPrescriptionListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCompletedPrescriptionListFilePath(Path prescriptionListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -164,6 +175,65 @@ public class AddCommandTest {
         public void updateFilteredPrescriptionList(Predicate<Prescription> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void addCompletedPrescription(Prescription prescription) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCompletedPrescriptionList(ReadOnlyPrescriptionList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyPrescriptionList getCompletedPrescriptionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCompletedPrescription(Prescription prescription) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCompletedPrescription(Prescription target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCompletedPrescription(Prescription target, Prescription editedPrescription) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Prescription> getFilteredCompletedPrescriptionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Prescription getCompletedPrescriptionByName(Name prescriptionName) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void updateFilteredCompletedPrescriptionList(Predicate<Prescription> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public LocalDate getStoredDate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStoredDate(LocalDate storedDate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean hasDrugClash(Prescription toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -181,6 +251,11 @@ public class AddCommandTest {
         public boolean hasPrescription(Prescription prescription) {
             requireNonNull(prescription);
             return this.prescription.isSamePrescription(prescription);
+        }
+
+        @Override
+        public boolean hasDrugClash(Prescription toAdd) {
+            return false;
         }
     }
 
@@ -205,6 +280,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyPrescriptionList getPrescriptionList() {
             return new PrescriptionList();
+        }
+
+        @Override
+        public boolean hasDrugClash(Prescription toAdd) {
+            return false;
         }
     }
 

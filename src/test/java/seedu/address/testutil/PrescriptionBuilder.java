@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
@@ -10,6 +12,7 @@ import seedu.address.model.prescription.Name;
 import seedu.address.model.prescription.Note;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.Stock;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Prescription objects.
@@ -37,7 +40,7 @@ public class PrescriptionBuilder {
     private ConsumptionCount consumptionCount;
     private Boolean isCompleted;
     private Optional<Note> note;
-    // private Set<Tag> tags;
+    private Set<Name> conflictingDrugs;
 
     /**
      * Creates a {@code PrescriptionBuilder} with the default details.
@@ -53,7 +56,7 @@ public class PrescriptionBuilder {
         consumptionCount = DEFAULT_CONSUMPTION;
         isCompleted = DEFAULT_ISCOMPLETED;
         note = Optional.ofNullable(DEFAULT_NOTE);
-        // tags = new HashSet<>();
+        conflictingDrugs = new HashSet<>();
     }
 
     /**
@@ -70,7 +73,7 @@ public class PrescriptionBuilder {
         consumptionCount = prescriptionToCopy.getConsumptionCount();
         isCompleted = prescriptionToCopy.getIsCompleted();
         note = prescriptionToCopy.getNote();
-        // tags = new HashSet<>(personToCopy.getTags());
+        conflictingDrugs = prescriptionToCopy.getConflictingDrugs();
     }
 
     /**
@@ -81,13 +84,13 @@ public class PrescriptionBuilder {
         return this;
     }
 
-    // /**
-    //  * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Prescription} that we are building.
-    //  */
-    // public PersonBuilder withTags(String ... tags) {
-    //     this.tags = SampleDataUtil.getTagSet(tags);
-    //     return this;
-    // }
+    /**
+      * Parses the {@code drugs} into a {@code Set<Drug>} and set it to the {@code Prescription} that we are building.
+      */
+    public PrescriptionBuilder withConflictingDrugs(String ... conflictingDrugs) {
+        this.conflictingDrugs = SampleDataUtil.getDrugSet(conflictingDrugs);
+        return this;
+    }
 
     /**
      * Sets the {@code Dosage} of the {@code Prescription} that we are building.
@@ -167,7 +170,7 @@ public class PrescriptionBuilder {
     public Prescription build() {
         return new Prescription(name, dosage.orElse(null), frequency.orElse(null),
             startDate, endDate.orElse(null), expiryDate.orElse(null), totalStock.orElse(null),
-            consumptionCount, isCompleted, note.orElse(null));
+            consumptionCount, isCompleted, note.orElse(null), conflictingDrugs);
     }
 
 }

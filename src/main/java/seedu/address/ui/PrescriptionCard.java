@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
-// import java.util.Comparator;
+import static seedu.address.model.prescription.Prescription.EXPIRE_PREDICATE;
+import static seedu.address.model.prescription.Prescription.STOCK_PREDICATE;
 
+// import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 // import javafx.scene.layout.FlowPane;
@@ -25,6 +27,7 @@ public class PrescriptionCard extends UiPart<Region> {
      */
 
     public final Prescription prescription;
+    private final boolean showStatus;
 
     @FXML
     private HBox cardPane;
@@ -41,7 +44,11 @@ public class PrescriptionCard extends UiPart<Region> {
     @FXML
     private Label endDate;
     @FXML
+    private Label expiryDateHeader;
+    @FXML
     private Label expiryDate;
+    @FXML
+    private Label totalStockHeader;
     @FXML
     private Label totalStock;
     @FXML
@@ -52,9 +59,10 @@ public class PrescriptionCard extends UiPart<Region> {
     /**
      * Creates a {@code PrescriptionCode} with the given {@code Prescription} and index to display.
      */
-    public PrescriptionCard(Prescription prescription, int displayedIndex) {
+    public PrescriptionCard(Prescription prescription, int displayedIndex, boolean showStatus) {
         super(FXML);
         this.prescription = prescription;
+        this.showStatus = showStatus;
         id.setText(displayedIndex + ". ");
 
         name.setText(prescription.getName().toString());
@@ -81,12 +89,14 @@ public class PrescriptionCard extends UiPart<Region> {
 
         if (prescription.getExpiryDate().isPresent()) {
             expiryDate.setText(prescription.getExpiryDate().get().toString());
+            setExpiryDateHeaderStyle(prescription);
         } else {
             expiryDate.setText("");
         }
 
         if (prescription.getTotalStock().isPresent()) {
             totalStock.setText(prescription.getTotalStock().get().toString());
+            setStockHeaderStyle(prescription);
         } else {
             totalStock.setText("");
         }
@@ -103,16 +113,40 @@ public class PrescriptionCard extends UiPart<Region> {
         //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
+    private void setExpiryDateHeaderStyle(Prescription prescription) {
+        expiryDateHeader.getStyleClass().clear();
+        if (EXPIRE_PREDICATE.test(prescription)) {
+            expiryDateHeader.getStyleClass().add("cell_small_header_red");
+        } else {
+            expiryDateHeader.getStyleClass().add("cell_small_header");
+        }
+    }
+
+    private void setStockHeaderStyle(Prescription prescription) {
+        totalStockHeader.getStyleClass().clear();
+        if (STOCK_PREDICATE.test(prescription)) {
+            totalStockHeader.getStyleClass().add("cell_small_header_red");
+        } else {
+            totalStockHeader.getStyleClass().add("cell_small_header");
+        }
+    }
+
     private void setCompletionStatus(Prescription prescription) {
         consumptionCount.getStyleClass().clear();
 
-        if (prescription.getIsCompleted()) {
+        if (!showStatus) {
+            consumptionCount.setText("");
+        } else if (!prescription.getDosage().isPresent()) {
+            consumptionCount.setText(String.format("Consumed %s",
+                prescription.getConsumptionCount().getConsumptionCount()));
+            consumptionCount.getStyleClass().add("consumption-status-grey");
+        } else if (prescription.getIsCompleted()) {
             consumptionCount.setText("Completed");
             consumptionCount.getStyleClass().add("consumption-status-green");
         } else {
-            consumptionCount.setText(String.format("Uncompleted %s/%s",
+            consumptionCount.setText(String.format("Incomplete %s/%s",
                 prescription.getConsumptionCount().getConsumptionCount(),
-                prescription.getDosage().get().toString()));
+                dosage.getText()));
             consumptionCount.getStyleClass().add("consumption-status-red");
         }
     }

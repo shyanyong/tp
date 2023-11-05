@@ -7,7 +7,7 @@ public class CliSyntax {
 
     /* Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("mn/");
-    // public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_CONFLICTING_DRUGS = new Prefix("cfdg/");
     public static final Prefix PREFIX_DOSAGE = new Prefix("d/");
     public static final Prefix PREFIX_FREQUENCY = new Prefix("f/");
     public static final Prefix PREFIX_START_DATE = new Prefix("sd/");
@@ -15,6 +15,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_EXPIRY_DATE = new Prefix("exd/");
     public static final Prefix PREFIX_TOTAL_STOCK = new Prefix("ts/");
     public static final Prefix PREFIX_NOTE = new Prefix("n/");
-    public static final Prefix PREFIX_CONSUMPTION = new Prefix("c/");
-    public static final Prefix PREFIX_INDEX = new Prefix("i/");
 }

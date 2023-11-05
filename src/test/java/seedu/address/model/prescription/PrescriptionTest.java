@@ -5,8 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PROPRANOLOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_PROPRANOLOL;
+import static seedu.address.model.prescription.Prescription.EXPIRE_PREDICATE;
+import static seedu.address.model.prescription.Prescription.STOCK_PREDICATE;
+import static seedu.address.testutil.CompletedPrescriptions.ERGOTAMINE;
 import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
+import static seedu.address.testutil.TypicalPrescriptions.EMPTY_PRESCRIPTION;
 import static seedu.address.testutil.TypicalPrescriptions.PROPRANOLOL;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +29,63 @@ public class PrescriptionTest {
         assertThrows(UnsupportedOperationException.class, () -> prescription.getTags().remove(0));
     }
      */
+
+    @Test
+    public void isEnded() {
+        // completed prescription
+        assertTrue(ERGOTAMINE.isEnded());
+
+        // incomplete prescription
+        assertFalse(ASPIRIN.isEnded());
+
+        // prescription with no end date
+        Prescription prescriptionWithNoEnd = new Prescription(new Name("Aspirin"), null, null, null,
+                null, null, null, null, new HashSet<>());
+        assertFalse(prescriptionWithNoEnd.isEnded());
+    }
+
+    @Test
+    public void isAboutToExpire() {
+
+        Prescription expiringPrescription = new PrescriptionBuilder(EMPTY_PRESCRIPTION)
+            .withExpiryDate(LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+            .build();
+
+        Prescription notExpiringPrescription = new PrescriptionBuilder(EMPTY_PRESCRIPTION)
+            .withExpiryDate(LocalDate.now().plusDays(8).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+            .build();
+
+        // expiring
+        assertTrue(EXPIRE_PREDICATE.test(expiringPrescription));
+
+        // not expiring
+        assertFalse(EXPIRE_PREDICATE.test(notExpiringPrescription));
+
+        // no expiry date
+        assertFalse(EXPIRE_PREDICATE.test(EMPTY_PRESCRIPTION));
+    }
+
+    @Test
+    public void isLowInStock() {
+        // low stock
+        assertTrue(STOCK_PREDICATE.test(new PrescriptionBuilder(EMPTY_PRESCRIPTION)
+                .withDosage("1").withStock("10").build()));
+
+        // enough stock
+        assertFalse(STOCK_PREDICATE.test(new PrescriptionBuilder(EMPTY_PRESCRIPTION)
+                .withDosage("1").withStock("11").build()));
+
+        // dosage not inputted
+        assertFalse(STOCK_PREDICATE.test(new PrescriptionBuilder(EMPTY_PRESCRIPTION)
+                .withStock("10").build()));
+
+        // stock not inputted
+        assertFalse(STOCK_PREDICATE.test(new PrescriptionBuilder(EMPTY_PRESCRIPTION)
+                .withDosage("5").build()));
+
+        // dosage and stock not inputted
+        assertFalse(STOCK_PREDICATE.test(EMPTY_PRESCRIPTION));
+    }
 
     @Test
     public void isSamePrescription() {
@@ -83,16 +148,16 @@ public class PrescriptionTest {
     @Test
     public void toStringMethod() {
         String expected = Prescription.class.getCanonicalName()
-                    + "{name=" + ASPIRIN.getName()
-                    + ", dosage=" + ASPIRIN.getDosage()
-                    + ", frequency=" + ASPIRIN.getFrequency()
-                    + ", startDate=" + ASPIRIN.getStartDate()
-                    + ", endDate=" + ASPIRIN.getEndDate()
-                    + ", expiryDate=" + ASPIRIN.getExpiryDate()
-                    + ", totalStock=" + ASPIRIN.getTotalStock()
-                    + ", consumptionCount=" + ASPIRIN.getConsumptionCount()
-                    + ", isCompleted=" + ASPIRIN.getIsCompleted()
-                    + ", note=" + ASPIRIN.getNote() + "}";
+            + "{name=" + ASPIRIN.getName()
+            + ", dosage=" + ASPIRIN.getDosage()
+            + ", frequency=" + ASPIRIN.getFrequency()
+            + ", startDate=" + ASPIRIN.getStartDate()
+            + ", endDate=" + ASPIRIN.getEndDate()
+            + ", expiryDate=" + ASPIRIN.getExpiryDate()
+            + ", totalStock=" + ASPIRIN.getTotalStock()
+            + ", consumptionCount=" + ASPIRIN.getConsumptionCount()
+            + ", isCompleted=" + ASPIRIN.getIsCompleted()
+            + ", note=" + ASPIRIN.getNote() + "}";
         assertEquals(expected, ASPIRIN.toString());
     }
 }

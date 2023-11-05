@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.CompletedPrescriptions.getCompletedPrescriptionList;
 import static seedu.address.testutil.TypicalPrescriptions.ASPIRIN;
 import static seedu.address.testutil.TypicalPrescriptions.PROPRANOLOL;
 import static seedu.address.testutil.TypicalPrescriptions.ZOMIG;
@@ -30,8 +31,9 @@ public class FindCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalPrescriptionList(), new UserPrefs());
-        expectedModel = new ModelManager(model.getPrescriptionList(), new UserPrefs());
+        model = new ModelManager(getTypicalPrescriptionList(), getCompletedPrescriptionList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPrescriptionList(),
+            model.getCompletedPrescriptionList(), new UserPrefs());
     }
     @Test
     public void equals() {
@@ -79,6 +81,26 @@ public class FindCommandTest {
         expectedModel.updateFilteredPrescriptionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ASPIRIN, PROPRANOLOL, ZOMIG), model.getFilteredPrescriptionList());
+    }
+
+    @Test
+    public void execute_prefixSubstring_prescriptionsFound() {
+        String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("AsP");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPrescriptionList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ASPIRIN), model.getFilteredPrescriptionList());
+    }
+
+    @Test
+    public void execute_postfixSubstring_prescriptionsFound() {
+        String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("spIriN");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPrescriptionList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ASPIRIN), model.getFilteredPrescriptionList());
     }
 
     @Test

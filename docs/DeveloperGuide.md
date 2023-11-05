@@ -101,9 +101,9 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `BayMedsParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+1. When `Logic` is called upon to execute a command, it is passed to an `PrescriptionListParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a medication).
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a prescription).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
@@ -111,7 +111,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `BayMedsParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BayMedsParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `PrescriptionListParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BayMedsParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -122,14 +122,14 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the BayMeds data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the BayMeds data i.e., all `Prescription` objects (which are contained in a `UniquePrescriptionList` object).
+* stores the currently 'selected' `Prescription` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Prescription>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+[//]: # (**Note:** An alternative &#40;arguably, a more OOP&#41; model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>)
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
@@ -144,18 +144,170 @@ The `Model` component,
 
 The `Storage` component,
 * can save both BayMeds data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `BayMedsStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* inherits from both `Storage` and `UserPrefsStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Add feature
+
+The add prescription feature is facilitated by the `AddCommandParser`.
+
+Given below is an example usage scenario and how the add prescription mechanism behaves at each step.
+
+Step 1. The user types the command `add mn/Propranolol d/4 f/Daily ed/20/01/2024`. Upon pressing enter, the `Ui` triggers the `execute` method in `Logic`, passing the input text to the `PrescriptionListparser` in `Logic`. The `PrescriptionListParser` then checks the command type to determine which command parser to call.
+
+Step 2. Upon checking that it is an `add` command, the `AddCommandParser` will be created to `parse` the input text. It creates an `argMultiMap`, which contains the mappings of each recognised prefix in the input text, and its associated value.
+
+**Note:** If there are absent prefixes that are compulsory, it will throw a `ParseException` error.
+
+Step 3. The `AddCommandParser` will then create a new `Prescription` object using the `argMultiMap` with the prefix fields and values present. Optional fields which were not provided will be initialised as `null`. The `AddCommandParser` subsequently returns a new `AddCommand` object with the prescription to be added stored as an attribute.
+
+**Note:** For the prescription's `startDate`, it will be initialised to `LocalDate.now()` if no start date is given, using the date of creation as the default `startDate` value.
+
+Step 4: `Logic` then calls `AddCommand`'s `execute`. This will call `Model`'s `addPrescription` method, passing the prescription to be added. The `Model` will interact with the in-memory `PrescriptionList`, adding the prescription into it. Finally, the `Model` sets the `filteredPrescriptions` to show all prescriptions in the existing `PrescriptionList`.
+
+The following sequence diagram shows how the `add` operation works.
+
+<puml src="diagrams/AddCommandSequenceDiagram.puml" height="350" />
+
+The following activity diagram summarizes what happens when the user executes an `add` command.
+
+<puml src="diagrams/AddCommandActivityDiagram.puml" height="350" />
+
+Design considerations:
+
+Prescriptions may have an uneven consumption interval. For example, some prescriptions only needs to be consumed every Wednesday and Sunday. In such scenarios, users will need to input this prescription as 2 separate inputs with the same prescription name.
+
+To cater for this, we are using every prescription's `name` and `startDate` to identify each prescription. Every `Prescription` must therefore have both these fields. As such, if no start date was provided, it will be initialised to a default value.
+
+### Edit feature
+The Edit Command is a fundamental feature of the BayMeds application, allowing users to modify the details of a prescription. It leverages the `EditPrescriptionDescriptor` and follows a specific edit mechanism.
+
+#### `EditPrescriptionDescriptor`
+
+The `EditPrescriptionDescriptor` is a crucial component for processing edit commands. It serves as a container for holding the new values that the user wishes to apply during the edit operation. This descriptor is essential for maintaining consistency and ensuring that only valid changes are made to a prescription.
+
+Shown is an example of the usage of the edit command, which shows the EditPrescriptionDescriptor in action.
+
+Step 1. User initiates an edit command, e.g., `edit 1 mn/UpdatedMedicationName d/3`.
+
+Step 2. The `EditCommandParser` processes the user's input, extracting the prescription index and the edits to be made.
+
+Step 3. The `EditCommandParser` then creates an instance of the `EditPrescriptionDescriptor`, populating it with the provided changes. In the example above, the medication name (`mn`) is updated to "UpdatedMedicationName," and the dosage (`d`) is updated to "3".
+
+Step 4. The `EditCommandParser` then creates an instance of the `EditCommand` class, passing in the prescription index and the `EditPrescriptionDescriptor` instance.
+
+Step 5. The `EditCommand` class then calls the `execute` method, which carries out checks to ensure that the prescription index is valid. If the prescription index is invalid, an error message is returned to the user.
+
+Step 6. The 'EditCommand' class uses the `EditPrescriptionDescriptor` instance and the Prescription to be edited to create a new Prescription with the edited fields.
+
+Step 7. The edited prescription is then checked to ensure that it is valid. If the edited prescription is invalid, an error message is returned to the user.
+
+Step 8. The `EditCommand` class then calls the `editPrescription` method in the `Model` class, passing in the prescription index and the edited prescription.
+
+
+
+The following class diagram shows the relationship between the `EditPrescriptionDescriptor` and the `EditCommand` class.
+
+<puml src="diagrams/EditCommandClassDiagram.puml" width="550" />
+
+
+### Take / untake feature
+
+**Note:** The untake feature is similar to the take feature but reverses the incrementing and decrementing of consumption count and stock respectively, given below is the guide for the take feature.
+
+The take prescription feature is facilitated by the `TakeCommandParser`.
+
+Given below is an example usage scenario and how the take prescription mechanism behaves at each step.
+
+Step 1. The user types the command `take 1 d/4`. Upon pressing enter, the `Ui` triggers the `execute` method in `Logic`, passing the input text to the `PrescriptionListparser` in `Logic`. The `PrescriptionListParser` then checks the command type to determine which command parser to call.
+
+Step 2. Upon checking that it is a `take` command, the `TakeCommandParser` will be created to `parse` the input text. It creates an `argMultiMap`, which contains the mappings of each recognised prefix in the input text, and its associated value.
+
+**Note:** If no dosage is specified, the default dosage to take will be 1.
+
+Step 3. The `TakeCommandParser` subsequently returns a new `TakeCommand` object with the index of the prescription to take and the dosage to take.
+
+Step 4: `Logic` then calls `TakeCommand`'s `execute`. This will call `Model`'s `getFilteredPrescriptionList` method and retrieve the prescription based on the index from the in-memory `PrescriptionList`, necessary checks are done to check if the index is valid and there is enough stock.
+`TakeCommand`'s executeTake is then called, incrementing the consumption count and decrementing the stock of the prescription. Finally, the completed status is set based on the consumption count and dosage of the prescription and the `Model` sets the `filteredPrescriptions` to show the prescription that was just taken from.
+
+The following class diagram shows the classes associated with executing a take command.
+
+<puml src="diagrams/TakeCommandClassDiagram.puml" height="350" />
+
+Design considerations:
+
+Prescriptions may have duplicate names but different start dates.
+
+To cater for this, the take command uses the index instead of the name of the medication when executing.
+
+
+### List today feature
+
+The list today feature is facilitated by the `ListTodayCommandParser`.
+
+Given below is an example usage scenario and how the list today mechanism behaves at each step.
+
+Step 1. `Ui` and `Logic` works similarly to when [adding prescriptions](#add-feature). However, a `ListTodayCommandParser` is created instead.
+
+**Note:** If there are extra fields in the input, it will throw a `ParseException` error.
+
+Step 2. The `ListTodayCommandParser` subsequently returns a new `ListTodayCommand` object.
+
+Step 3: `Logic` then calls `ListTodayCommand`'s `execute`. This will create a new `IsTodayPredicate` object which is passed into the method call for `Model`'s `updateFilteredPrescriptionList`.
+
+Step 4: The `Model` will then update the in-memory `FilteredList<Prescription>` with the new predicate. Finally, the `Model` sets the `filteredPrescriptions` to show only today's prescription in the existing `PrescriptionList`.
+
+The following sequence diagram shows how the `listToday` operation works.
+
+<puml src="diagrams/ListTodayCommandSequenceDiagram.puml" height="350" />
+
+The following activity diagram summarizes what happens when the user executes an `listToday` command.
+
+<puml src="diagrams/ListTodayCommandActivityDiagram.puml" height="350" />
+
+Design considerations:
+
+As there are no input parameters for `ListTodayCommand`, it is possible to implement this without `ListTodayCommandParser`. However, `ListTodayCommandParser` was created to utilise methods in `argMultiMap` to check for extra fields.
+
+The result of `IsTodayPredicate` depends on the prescription's `startDate`. It is intentional that monthly frequencies are based on increments of 30 days rather than the absolute day of each month.
+
+### List completed feature
+
+### Find feature
+
+### Remind prescription feature
+
+### \[Proposed\] Check prescription interaction feature
+
+The check prescription interaction feature is facilitated by the `AddCommandParser`.
+
+Given below is an example usage scenario and how the check prescription interaction mechanism behaves at each step.
+
+Step 1. `Ui` and `Logic` works similarly to when [adding prescriptions](#add-feature). It creates an `argMultiMap`, which contains the mappings of each recognised prefix in the input text, and its associated value.
+
+**Note:** If there are extra fields in the input, it will throw a `ParseException` error.
+
+Step 2. The `AddCommandParser` subsequently returns a new `AddCommand` object.
+
+Step 3: `Logic` then calls `AddCommand`'s `execute`. The ModelManager will check through the Prescriptions in the PrescriptionList to ensure that there are no clashing Drugs.
+
+**Note:** If the prescription to be added contains a drug that will clash with an existing prescription, an warning message is returned to the user. The prescription will still be added.
+
+Step 4: The `Model` will then update the in-memory `FilteredList<Prescription>` with the new drugs.
+
+The following object oriented domain model shows the class structure of the problem domain.
+
+<puml src="diagrams/CheckInteractionOOD.puml" height="350" />
 
 ### \[Proposed\] Undo/redo feature
 

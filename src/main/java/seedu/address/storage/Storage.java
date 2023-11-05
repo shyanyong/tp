@@ -12,7 +12,7 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the StoragePrescription component
  */
-public interface Storage extends PrescriptionListStorage, UserPrefsStorage {
+public interface Storage extends PrescriptionListStorage, CompletedPrescriptionListStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataLoadingException;
@@ -28,5 +28,14 @@ public interface Storage extends PrescriptionListStorage, UserPrefsStorage {
 
     @Override
     void savePrescriptionList(ReadOnlyPrescriptionList prescriptionList) throws IOException;
+
+    @Override
+    Path getCompletedPrescriptionListFilePath();
+
+    @Override
+    Optional<ReadOnlyPrescriptionList> readCompletedPrescriptionList() throws DataLoadingException;
+
+    @Override
+    void saveCompletedPrescriptionList(ReadOnlyPrescriptionList completedPrescriptionList) throws IOException;
 
 }

@@ -7,6 +7,7 @@ import java.util.function.Predicate;
  * Tests that a {@code Prescription}'s {@code Date} is valid.
  */
 public class IsValidDatesPredicate implements Predicate<Prescription> {
+
     @Override
     public boolean test(Prescription prescription) {
         LocalDate startDate = prescription.getStartDate().getDate();
@@ -19,7 +20,14 @@ public class IsValidDatesPredicate implements Predicate<Prescription> {
             expiryDate = prescription.getExpiryDate().get().getDate();
         }
 
-        return startDate.isBefore(endDate) && endDate.isBefore(expiryDate);
-
+        if (endDate == null && expiryDate == null) {
+            return true;
+        } else if (expiryDate == null) {
+            return startDate.isBefore(endDate);
+        } else if (endDate == null) {
+            return startDate.isBefore(expiryDate);
+        } else {
+            return startDate.isBefore(endDate) && endDate.isBefore(expiryDate);
+        }
     }
 }

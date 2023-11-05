@@ -45,6 +45,10 @@ public class ConsumptionCount {
         this.consumptionCount = Integer.toString(currentCount);
     }
 
+    public void resetConsumptionCount() {
+        this.consumptionCount = "0";
+    }
+
     public void setConsumptionCount(String count) {
         this.consumptionCount = count;
     }

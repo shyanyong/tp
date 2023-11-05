@@ -2,12 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.function.Predicate;
-
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.prescription.IsTodayPredicate;
 import seedu.address.model.prescription.Prescription;
 
 /**
@@ -27,14 +24,13 @@ public class ListTodayCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Predicate<Prescription> isToday = new IsTodayPredicate();
-        model.updateFilteredPrescriptionList(isToday);
+        model.updateFilteredPrescriptionList(Prescription.TODAY_PREDICATE);
 
         ObservableList<Prescription> todayPrescriptions = model.getFilteredPrescriptionList();
         if (todayPrescriptions.isEmpty()) {
-            return new CommandResult(MESSAGE_EMPTY_LIST);
+            return new CommandResult(MESSAGE_EMPTY_LIST, COMMAND_WORD);
         } else {
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(MESSAGE_SUCCESS, COMMAND_WORD);
         }
     }
 

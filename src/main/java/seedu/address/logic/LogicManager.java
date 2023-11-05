@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.PrescriptionListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.PrescriptionList;
 import seedu.address.model.ReadOnlyPrescriptionList;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.storage.Storage;
@@ -51,7 +53,10 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.savePrescriptionList(model.getPrescriptionList());
+            checkAndMoveEndedPrescriptions();
+            checkAndResetConsumptionCount();
+            storage.savePrescriptionList(getPrescriptionList());
+            storage.saveCompletedPrescriptionList(getCompletedPrescriptionList());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
@@ -62,13 +67,63 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void checkAndMoveEndedPrescriptions() {
+        PrescriptionList prescriptionListCopy = new PrescriptionList(getPrescriptionList());
+        for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
+            if (!prescription.isEnded()) {
+                continue;
+            }
+            deleteAndMovePrescription(prescription);
+        }
+    }
+
+    /**
+     * Resets the consumption count of all prescriptions in the prescription list.
+     */
+    public void checkAndResetConsumptionCount() {
+
+        LocalDate storedDate = model.getStoredDate();
+
+        if (!(storedDate == null || storedDate.isBefore(LocalDate.now()))) {
+            return;
+        }
+
+        PrescriptionList prescriptionListCopy = new PrescriptionList(getPrescriptionList());
+
+        for (Prescription prescription : prescriptionListCopy.getPrescriptionList()) {
+            prescription.resetConsumptionCount();
+        }
+
+        model.setStoredDate(LocalDate.now());
+    }
+
+
+
+    private void deleteAndMovePrescription(Prescription prescription) {
+        model.deletePrescription(prescription);
+
+        if (!model.hasCompletedPrescription(prescription)) {
+            model.addCompletedPrescription(prescription);
+        }
+    }
+
+    @Override
     public ReadOnlyPrescriptionList getPrescriptionList() {
         return model.getPrescriptionList();
     }
 
     @Override
+    public ReadOnlyPrescriptionList getCompletedPrescriptionList() {
+        return model.getCompletedPrescriptionList();
+    }
+
+    @Override
     public ObservableList<Prescription> getFilteredPrescriptionList() {
         return model.getFilteredPrescriptionList();
+    }
+    @Override
+    public ObservableList<Prescription> getFilteredCompletedPrescriptionList() {
+        return model.getFilteredCompletedPrescriptionList();
     }
 
     @Override
@@ -84,5 +139,15 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public LocalDate getStoredDate() {
+        return model.getStoredDate();
+    }
+
+    @Override
+    public void setStoredDate(LocalDate storedDate) {
+        model.setStoredDate(storedDate);
     }
 }

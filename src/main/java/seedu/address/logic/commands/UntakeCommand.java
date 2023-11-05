@@ -1,15 +1,19 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
+import static seedu.address.model.prescription.Prescription.COMPLETED_PREDICATE;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.prescription.Name;
+import seedu.address.model.prescription.ConsumptionCount;
+import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.SameNamePredicate;
 import seedu.address.model.prescription.Stock;
@@ -22,28 +26,27 @@ public class UntakeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Untakes a specified number of doses of a prescription.\n"
-            + "Parameters: "
-            + PREFIX_NAME + "medication_name "
-            + PREFIX_CONSUMPTION + "number_of_doses \n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_DOSAGE + "number_of_doses (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Aspirin "
-            + PREFIX_CONSUMPTION + "2";
+            + "1 "
+            + PREFIX_DOSAGE + "2";
 
     public static final String MESSAGE_SUCCESS = "Doses untaken from: %1$s";
     public static final String MESSAGE_INSUFFICIENT_CONSUMPTION = "Cannot untake more than what you have consumed.";
 
-    private final Name prescriptionName;
+    private final Index targetIndex;
     private final int dosesToUntake;
 
     /**
      * Creates an UntakePrescriptionCommand to untake the specified number of doses from a prescription.
      *
-     * @param prescriptionName Name of the prescription.
-     * @param dosesToTake      Number of doses to untake.
+     * @param targetIndex      The index of the prescription in the prescription list.
+     * @param dosesToUntake      Number of doses to untake.
      */
-    public UntakeCommand(Name prescriptionName, int dosesToTake) {
-        this.prescriptionName = prescriptionName;
-        this.dosesToUntake = dosesToTake;
+    public UntakeCommand(Index targetIndex, Dosage dosesToUntake) {
+        this.targetIndex = targetIndex;
+        this.dosesToUntake = Integer.parseInt(dosesToUntake.toString());
     }
 
     /**
@@ -53,35 +56,45 @@ public class UntakeCommand extends Command {
      * @return A CommandResult with the result of the execution.
      * @throws CommandException If there are errors in executing the command.
      */
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Prescription prescription = model.getPrescriptionByName(prescriptionName);
+        List<Prescription> lastShownList = model.getFilteredPrescriptionList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX);
+        }
+
+        Prescription prescription = lastShownList.get(targetIndex.getZeroBased());
         Optional<Stock> totalStock = prescription.getTotalStock();
+        ConsumptionCount consumptionCount = prescription.getConsumptionCount();
 
         if (Integer.parseInt(prescription.getConsumptionCount().getConsumptionCount()) - dosesToUntake < 0) {
             throw new CommandException(MESSAGE_INSUFFICIENT_CONSUMPTION);
         }
 
+        executeUntake(totalStock, consumptionCount);
+
+        prescription.setIsCompleted(COMPLETED_PREDICATE.test(prescription));
+
+        Predicate<Prescription> isSameName = new SameNamePredicate(prescription.getName());
+        model.updateFilteredPrescriptionList(isSameName);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, prescription.getName()));
+    }
+
+    /**
+     * Changes the stock and consumption count of the prescription being untaken.
+     *
+     * @param totalStock The stock of the prescription.
+     * @param consumptionCount The consumption count of the prescription.
+     */
+    public void executeUntake(Optional<Stock> totalStock, ConsumptionCount consumptionCount) {
         if (totalStock.isPresent()) {
             totalStock.get().incrementCount(dosesToUntake);
         }
-        prescription.getConsumptionCount().decrementCount(dosesToUntake);
-
-        if (prescription.getDosage().isPresent()
-                && Integer.parseInt(prescription.getConsumptionCount().toString())
-                >= Integer.parseInt(prescription.getDosage().get().toString())) {
-            prescription.setIsCompleted(true);
-        } else {
-            prescription.setIsCompleted(false);
-        }
-
-        Predicate<Prescription> isSameName = new SameNamePredicate(prescriptionName);
-        model.updateFilteredPrescriptionList(isSameName);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionName));
+        consumptionCount.decrementCount(dosesToUntake);
     }
 
     @Override
@@ -95,7 +108,7 @@ public class UntakeCommand extends Command {
         }
 
         UntakeCommand otherCommand = (UntakeCommand) other;
-        return prescriptionName.equals(otherCommand.prescriptionName)
+        return targetIndex.equals(otherCommand.targetIndex)
                 && dosesToUntake == otherCommand.dosesToUntake;
     }
 }

@@ -14,12 +14,9 @@ public class IsTodayPredicate implements Predicate<Prescription> {
     public boolean test(Prescription prescription) {
         LocalDate today = LocalDate.now();
         LocalDate startDate = prescription.getStartDate().getDate();
-        Optional<Date> endDate = prescription.getEndDate();
         long daysBetween = ChronoUnit.DAYS.between(startDate, today);
 
-        if ((prescription.getEndDate().isPresent()
-            && today.isAfter(endDate.get().getDate()))
-            || today.isBefore(startDate)) {
+        if (today.isBefore(startDate)) {
             return false;
         }
 

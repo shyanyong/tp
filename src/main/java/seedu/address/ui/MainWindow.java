@@ -179,7 +179,20 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PrescriptionListPanel getPersonListPanel() {
+    private void resetPrescriptionListView() {
+        prescriptionListPanelPlaceholder.getChildren().clear();
+        prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredPrescriptionList());
+        prescriptionListPanelPlaceholder.getChildren().add(prescriptionListPanel.getRoot());
+    }
+
+    @FXML
+    private void handleListCompleted() {
+        prescriptionListPanelPlaceholder.getChildren().clear();
+        prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredCompletedPrescriptionList());
+        prescriptionListPanelPlaceholder.getChildren().add(prescriptionListPanel.getRoot());
+    }
+
+    public PrescriptionListPanel getPrescriptionListPanel() {
         return prescriptionListPanel;
     }
 
@@ -193,20 +206,39 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
+            handleCommand(commandResult);
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Calls different UI methods based on the type of command.
+     *
+     */
+    private void handleCommand(CommandResult commandResult) {
+        assert commandResult != null;
+
+        PrescriptionListPanel.setShowStatus(false);
+        if (commandResult.isListToday()) {
+            PrescriptionListPanel.setShowStatus(true);
+        }
+
+        if (commandResult.isListCompleted()) {
+            handleListCompleted();
+        } else {
+            resetPrescriptionListView();
+        }
+
+        if (commandResult.isShowHelp()) {
+            handleHelp();
+        }
+
+        if (commandResult.isExit()) {
+            handleExit();
         }
     }
 }

@@ -35,7 +35,7 @@ public class Dosage {
      * Returns true if a given string is a valid dosage.
      */
     public static boolean isValidDosage(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) > 0;
     }
 
 

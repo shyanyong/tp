@@ -41,6 +41,14 @@
      -fx-padding: 5;
 }
 
+.consumption-status-grey {
+     -fx-background-color: #6c7a89;
+     -fx-background-radius: 1em;
+     -fx-font-size: 11pt;
+     -fx-text-fill: #F2E8E3;
+     -fx-padding: 5;
+}
+
 /* AB3 Styles */
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
@@ -177,6 +185,12 @@
     -fx-text-fill: #F2E8E3;
 }
 
+.cell_small_header_red {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #D32F2F;
+}
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
