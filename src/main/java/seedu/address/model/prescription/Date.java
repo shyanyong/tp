@@ -4,16 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
+import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Prescription's date in the prescription list.
- * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDateFormat(String)}
  */
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Dates should be in the dd/mm/yyyy format, and it should not be blank.";
+
+    public static final String MESSAGE_INVALID_DATE = "Invalid date. Please enter a valid date.";
 
     /*
      * The first character of the date must not be a whitespace,
@@ -30,7 +33,7 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
-        checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDateFormat(date), MESSAGE_CONSTRAINTS);
         fullDate = date;
     }
 
@@ -44,8 +47,48 @@ public class Date {
     /**
      * Returns true if a given string is a valid date.
      */
-    public static boolean isValidDate(String test) {
+    public static boolean isValidDateFormat(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given string is a valid date.
+     */
+    public static boolean isValidDate(int day, int month, int year) {
+
+        if (day < 1 || day > 31) {
+            return false;
+        }
+
+        if (day > 28) {
+            int maxDay = 31;
+            switch (month) {
+            case 2:
+                maxDay = (IsoChronology.INSTANCE.isLeapYear(year) ? 29 : 28);
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                maxDay = 30;
+                break;
+            default:
+            }
+            if (day > maxDay) {
+                return false;
+            }
+        }
+
+        if (month > 12 || month < 1) {
+            return false;
+        }
+
+        if (!(year > 0000)) {
+            return false;
+        }
+
+        return true;
+
     }
 
     @Override

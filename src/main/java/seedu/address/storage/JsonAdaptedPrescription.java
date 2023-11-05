@@ -141,7 +141,7 @@ class JsonAdaptedPrescription {
         if (startDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Date.isValidDate(startDate)) {
+        if (!Date.isValidDateFormat(startDate)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
         final Date modelStartDate = new Date(startDate);
@@ -149,7 +149,7 @@ class JsonAdaptedPrescription {
         Date modelEndDate;
         if (endDate == null) {
             modelEndDate = null;
-        } else if (!Date.isValidDate(endDate)) {
+        } else if (!Date.isValidDateFormat(endDate)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         } else {
             modelEndDate = new Date(endDate);
@@ -158,7 +158,7 @@ class JsonAdaptedPrescription {
         Date modelExpiryDate;
         if (expiryDate == null) {
             modelExpiryDate = null;
-        } else if (!Date.isValidDate(expiryDate)) {
+        } else if (!Date.isValidDateFormat(expiryDate)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         } else {
             modelExpiryDate = new Date(expiryDate);

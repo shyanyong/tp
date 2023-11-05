@@ -20,24 +20,54 @@ public class DateTest {
     }
 
     @Test
-    public void isValidDate() {
+    public void isValidDateFormat() {
         // null date
-        assertThrows(NullPointerException.class, () -> Date.isValidDate(null));
+        assertThrows(NullPointerException.class, () -> Date.isValidDateFormat(null));
 
         // invalid date
-        assertFalse(Date.isValidDate("")); // empty string
-        assertFalse(Date.isValidDate(" ")); // spaces only
-        assertFalse(Date.isValidDate("^")); // non-alphanumeric characters
-        assertFalse(Date.isValidDate("1/01/2023")); // contains incorrect date format
-        assertFalse(Date.isValidDate("01/1/2023")); // contains incorrect date format
-        assertFalse(Date.isValidDate("01/01/23")); // contains incorrect date format
-        assertFalse(Date.isValidDate("2023/01/01")); // contains incorrect date format
+        assertFalse(Date.isValidDateFormat("")); // empty string
+        assertFalse(Date.isValidDateFormat(" ")); // spaces only
+        assertFalse(Date.isValidDateFormat("^")); // non-alphanumeric characters
+        assertFalse(Date.isValidDateFormat("1/01/2023")); // contains incorrect date format
+        assertFalse(Date.isValidDateFormat("01/1/2023")); // contains incorrect date format
+        assertFalse(Date.isValidDateFormat("01/01/23")); // contains incorrect date format
+        assertFalse(Date.isValidDateFormat("2023/01/01")); // contains incorrect date format
 
         // valid date
-        assertTrue(Date.isValidDate("01/01/2023")); // day and month are single digit
-        assertTrue(Date.isValidDate("21/01/2023")); // month is single digit
-        assertTrue(Date.isValidDate("01/12/2023")); // day is single digit
-        assertTrue(Date.isValidDate("21/12/2023")); // day and month are double digits
+        assertTrue(Date.isValidDateFormat("01/01/2023")); // day and month are single digit
+        assertTrue(Date.isValidDateFormat("21/01/2023")); // month is single digit
+        assertTrue(Date.isValidDateFormat("01/12/2023")); // day is single digit
+        assertTrue(Date.isValidDateFormat("21/12/2023")); // day and month are double digits
+    }
+
+    @Test
+    public void isValidDate() {
+        // day is invalid
+        assertFalse(Date.isValidDate(00, 1, 2023));
+        assertFalse(Date.isValidDate(32, 1, 2023));
+
+        // month is invalid
+        assertFalse(Date.isValidDate(01, 00, 2023));
+        assertFalse(Date.isValidDate(01, 13, 2023));
+
+        // year is invalid
+        assertFalse(Date.isValidDate(01, 1, 0000));
+
+        // invalid february not leap year
+        assertFalse(Date.isValidDate(29, 2, 2023));
+        assertFalse(Date.isValidDate(30, 2, 2023));
+
+        //invalid february leap year
+        assertFalse(Date.isValidDate(30, 2, 2024));
+
+        //valid february leap year
+        assertTrue(Date.isValidDate(29, 2, 2024));
+
+        //invalid months with 30 days
+        assertFalse(Date.isValidDate(31, 4, 2023));
+        assertFalse(Date.isValidDate(31, 6, 2023));
+        assertFalse(Date.isValidDate(31, 9, 2023));
+        assertFalse(Date.isValidDate(31, 11, 2023));
     }
 
     @Test

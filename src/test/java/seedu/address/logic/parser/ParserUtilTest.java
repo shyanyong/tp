@@ -130,71 +130,71 @@ public class ParserUtilTest {
 
     @Test
     public void parseStartDate_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseStartDate((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDate((String) null));
     }
 
     @Test
     public void parseStartDate_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseStartDate(INVALID_START_DATE));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_START_DATE));
     }
 
     @Test
     public void parseStartDate_validValueWithoutWhitespace_returnsStartDate() throws Exception {
         Date expectedStartDate = new Date(VALID_START_DATE);
-        assertEquals(expectedStartDate, ParserUtil.parseStartDate(VALID_START_DATE));
+        assertEquals(expectedStartDate, ParserUtil.parseDate(VALID_START_DATE));
     }
 
     @Test
     public void parseStartDate_validValueWithWhitespace_returnsTrimmedStartDate() throws Exception {
         String startDateWithWhitespace = WHITESPACE + VALID_START_DATE + WHITESPACE;
         Date expectedStartDate = new Date(VALID_START_DATE);
-        assertEquals(expectedStartDate, ParserUtil.parseStartDate(startDateWithWhitespace));
+        assertEquals(expectedStartDate, ParserUtil.parseDate(startDateWithWhitespace));
     }
 
     @Test
     public void parseEndDate_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEndDate((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDate((String) null));
     }
 
     @Test
     public void parseEndDate_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseEndDate(INVALID_END_DATE));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_END_DATE));
     }
 
     @Test
     public void parseEndDate_validValueWithoutWhitespace_returnsEndDate() throws Exception {
         Date expectedEndDate = new Date(VALID_END_DATE);
-        assertEquals(expectedEndDate, ParserUtil.parseEndDate(VALID_END_DATE));
+        assertEquals(expectedEndDate, ParserUtil.parseDate(VALID_END_DATE));
     }
 
     @Test
     public void parseEndDate_validValueWithWhitespace_returnsTrimmedEndDate() throws Exception {
         String endDateWithWhitespace = WHITESPACE + VALID_END_DATE + WHITESPACE;
         Date expectedEndDate = new Date(VALID_END_DATE);
-        assertEquals(expectedEndDate, ParserUtil.parseEndDate(endDateWithWhitespace));
+        assertEquals(expectedEndDate, ParserUtil.parseDate(endDateWithWhitespace));
     }
 
     @Test
     public void parseExpiryDate_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseExpiryDate((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDate((String) null));
     }
 
     @Test
     public void parseExpiryDate_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseExpiryDate(INVALID_EXPIRY_DATE));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_EXPIRY_DATE));
     }
 
     @Test
     public void parseExpiryDate_validValueWithoutWhitespace_returnsExpiryDate() throws Exception {
         Date expectedExpiryDate = new Date(VALID_EXPIRY_DATE);
-        assertEquals(expectedExpiryDate, ParserUtil.parseExpiryDate(VALID_EXPIRY_DATE));
+        assertEquals(expectedExpiryDate, ParserUtil.parseDate(VALID_EXPIRY_DATE));
     }
 
     @Test
     public void parseExpiryDate_validValueWithWhitespace_returnsTrimmedExpiryDate() throws Exception {
         String expiryDateWithWhitespace = WHITESPACE + VALID_EXPIRY_DATE + WHITESPACE;
         Date expectedExpiryDate = new Date(VALID_EXPIRY_DATE);
-        assertEquals(expectedExpiryDate, ParserUtil.parseExpiryDate(expiryDateWithWhitespace));
+        assertEquals(expectedExpiryDate, ParserUtil.parseDate(expiryDateWithWhitespace));
     }
 
     @Test
