@@ -59,16 +59,16 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (argMultimap.getValue(PREFIX_START_DATE).isPresent()) {
             editPrescriptionDescriptor.setStartDate(
-                    ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_START_DATE).get()));
+                    ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
-            editPrescriptionDescriptor.setEndDate(ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_END_DATE).get()));
+            editPrescriptionDescriptor.setEndDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()) {
             editPrescriptionDescriptor.setExpiryDate(
-                    ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get()));
+                    ParserUtil.parseDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_TOTAL_STOCK).isPresent()) {
