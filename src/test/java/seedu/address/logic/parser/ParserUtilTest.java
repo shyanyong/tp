@@ -19,6 +19,7 @@ import seedu.address.model.prescription.Stock;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "@sp!r!n";
     private static final String INVALID_DOSAGE = "abc";
+    private static final String INVALID_LARGE_VALUE = "9999999999";
     private static final String INVALID_FREQUENCY = "Yearly";
     private static final String INVALID_DATE = "1/1/2023";
     private static final String INVALID_TOTAL_STOCK = "a";
@@ -101,6 +102,16 @@ public class ParserUtilTest {
         String dosageWithWhitespace = WHITESPACE + VALID_DOSAGE + WHITESPACE;
         Dosage expectedDosage = new Dosage(VALID_DOSAGE);
         assertEquals(expectedDosage, ParserUtil.parseDosage(dosageWithWhitespace));
+    }
+
+    @Test
+    public void parseDosage_invalidLargeValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDosage(INVALID_LARGE_VALUE));
+    }
+
+    @Test
+    public void parseDosage_invalidDosage_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDosage("0"));
     }
 
     @Test
@@ -212,6 +223,11 @@ public class ParserUtilTest {
         String totalStockWithWhitespace = WHITESPACE + VALID_TOTAL_STOCK + WHITESPACE;
         Stock expectedTotalStock = new Stock(VALID_TOTAL_STOCK);
         assertEquals(expectedTotalStock, ParserUtil.parseTotalStock(totalStockWithWhitespace));
+    }
+
+    @Test
+    public void parseTotalStock_invalidLargeValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTotalStock(INVALID_LARGE_VALUE));
     }
 
     @Test
