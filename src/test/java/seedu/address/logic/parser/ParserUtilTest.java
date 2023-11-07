@@ -20,9 +20,7 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "@sp!r!n";
     private static final String INVALID_DOSAGE = "abc";
     private static final String INVALID_FREQUENCY = "Yearly";
-    private static final String INVALID_START_DATE = "1/1/2023";
-    private static final String INVALID_END_DATE = "1/1/2024";
-    private static final String INVALID_EXPIRY_DATE = "1/1/2025";
+    private static final String INVALID_DATE = "1/1/2023";
     private static final String INVALID_TOTAL_STOCK = "a";
     private static final String INVALID_CONSUMPTION = "a";
     private static final String INVALID_NOTE = "***";
@@ -129,72 +127,68 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseStartDate_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseStartDate((String) null));
+    public void parseDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDate((String) null));
     }
 
     @Test
-    public void parseStartDate_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseStartDate(INVALID_START_DATE));
+    public void parseDate_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DATE));
     }
 
     @Test
-    public void parseStartDate_validValueWithoutWhitespace_returnsStartDate() throws Exception {
+    public void parseDate_validValueWithoutWhitespace_returnsStartDate() throws Exception {
         Date expectedStartDate = new Date(VALID_START_DATE);
-        assertEquals(expectedStartDate, ParserUtil.parseStartDate(VALID_START_DATE));
+        assertEquals(expectedStartDate, ParserUtil.parseDate(VALID_START_DATE));
     }
 
     @Test
-    public void parseStartDate_validValueWithWhitespace_returnsTrimmedStartDate() throws Exception {
+    public void parseDate_validValueWithWhitespace_returnsTrimmedStartDate() throws Exception {
         String startDateWithWhitespace = WHITESPACE + VALID_START_DATE + WHITESPACE;
         Date expectedStartDate = new Date(VALID_START_DATE);
-        assertEquals(expectedStartDate, ParserUtil.parseStartDate(startDateWithWhitespace));
+        assertEquals(expectedStartDate, ParserUtil.parseDate(startDateWithWhitespace));
     }
 
     @Test
-    public void parseEndDate_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEndDate((String) null));
+    public void parseDate_invalidDay_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("00/01/2023"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("32/01/2023"));
     }
 
     @Test
-    public void parseEndDate_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseEndDate(INVALID_END_DATE));
+    public void parseDate_invalidMonth_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("01/00/2023"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("01/13/2023"));
     }
 
     @Test
-    public void parseEndDate_validValueWithoutWhitespace_returnsEndDate() throws Exception {
-        Date expectedEndDate = new Date(VALID_END_DATE);
-        assertEquals(expectedEndDate, ParserUtil.parseEndDate(VALID_END_DATE));
+    public void parseDate_invalidYear_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("01/01/0000"));
     }
 
     @Test
-    public void parseEndDate_validValueWithWhitespace_returnsTrimmedEndDate() throws Exception {
-        String endDateWithWhitespace = WHITESPACE + VALID_END_DATE + WHITESPACE;
-        Date expectedEndDate = new Date(VALID_END_DATE);
-        assertEquals(expectedEndDate, ParserUtil.parseEndDate(endDateWithWhitespace));
+    public void parseDate_invalidFebruaryNotLeapYear_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("29/02/2023"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("30/02/2023"));
     }
 
     @Test
-    public void parseExpiryDate_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseExpiryDate((String) null));
+    public void parseDate_invalidFebruaryLeapYear_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("30/02/2024"));
     }
 
     @Test
-    public void parseExpiryDate_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseExpiryDate(INVALID_EXPIRY_DATE));
+    public void parseDate_validFebruaryLeapYear_returnsDate() throws Exception {
+        Date expectedStartDate = new Date("29/02/2024");
+        assertEquals(expectedStartDate, ParserUtil.parseDate("29/02/2024"));
     }
 
     @Test
-    public void parseExpiryDate_validValueWithoutWhitespace_returnsExpiryDate() throws Exception {
-        Date expectedExpiryDate = new Date(VALID_EXPIRY_DATE);
-        assertEquals(expectedExpiryDate, ParserUtil.parseExpiryDate(VALID_EXPIRY_DATE));
-    }
-
-    @Test
-    public void parseExpiryDate_validValueWithWhitespace_returnsTrimmedExpiryDate() throws Exception {
-        String expiryDateWithWhitespace = WHITESPACE + VALID_EXPIRY_DATE + WHITESPACE;
-        Date expectedExpiryDate = new Date(VALID_EXPIRY_DATE);
-        assertEquals(expectedExpiryDate, ParserUtil.parseExpiryDate(expiryDateWithWhitespace));
+    public void parseDate_invalidMonthsWith30Days_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("31/04/2023"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("31/06/2023"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("31/09/2023"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("31/11/2023"));
     }
 
     @Test

@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -86,49 +88,38 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String StartDate} into a {@code Date}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code startDate} is invalid.
-     */
-    public static Date parseStartDate(String startDate) throws ParseException {
-        requireNonNull(startDate);
-        String trimmedStartDate = startDate.trim();
-        if (!Date.isValidDate(trimmedStartDate)) {
-            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
-        }
-        return new Date(trimmedStartDate);
-    }
-
-    /**
      * Parses a {@code String EndDate} into a {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code endDate} is invalid.
      */
-    public static Date parseEndDate(String endDate) throws ParseException {
-        requireNonNull(endDate);
-        String trimmedEndDate = endDate.trim();
-        if (!Date.isValidDate(trimmedEndDate)) {
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+
+        if (!Date.isValidDateFormat(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new Date(trimmedEndDate);
+
+        String[] dateArray = trimmedDate.split("/");
+
+        int day = Integer.parseInt(dateArray[0]);
+        int month = Integer.parseInt(dateArray[1]);
+        int year = Integer.parseInt(dateArray[2]);
+
+        if (year < 1 || year > 9999) {
+            throw new ParseException(Date.MESSAGE_INVALID_DATE);
+        }
+
+        try {
+            LocalDate localDate = LocalDate.of(year, month, day);
+        } catch (DateTimeException e) {
+            throw new ParseException(Date.MESSAGE_INVALID_DATE);
+        }
+
+        return new Date(trimmedDate);
     }
 
-    /**
-     * Parses a {@code String ExpiryDate} into a {@code Date}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code expiryDate} is invalid.
-     */
-    public static Date parseExpiryDate(String expiryDate) throws ParseException {
-        requireNonNull(expiryDate);
-        String trimmedExpiryDate = expiryDate.trim();
-        if (!Date.isValidDate(trimmedExpiryDate)) {
-            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
-        }
-        return new Date(trimmedExpiryDate);
-    }
 
     /**
      * Parses a {@code String TotalStock} into a {@code Stock}.

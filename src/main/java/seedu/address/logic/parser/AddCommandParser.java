@@ -64,17 +64,17 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Date startDate = new Date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         if (argMultimap.getValue(PREFIX_START_DATE).isPresent()) {
-            startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_START_DATE).get());
+            startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
         }
 
         Date endDate = null;
         if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
-            endDate = ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_END_DATE).get());
+            endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
         }
 
         Date expiryDate = null;
         if (argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()) {
-            expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
+            expiryDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
         }
 
         Stock totalStock = null;
