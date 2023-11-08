@@ -243,12 +243,20 @@ listToday
 ```
 
 You will then be able to see today's prescriptions on the right side.
+<box type="info" header="Notes">
+* Only the medications to be taken on the current day will be shown. 
+* Medications to be taken are determined by their frequency and start dates.
+* Medications that have been completed for the day will be shown as completed.
+* Medications that have yet to be completed for the day will be shown as incomplete .
+* Medications that do not have a frequency will be shown, and amount that has been consumed will be shown.
+</box>
 
 <box type="definition" header="#### Example">
 
 If you have prescriptions to take today, you will see something similar to this.
 
 ![result for 'Example output of list today command'](images/ui/Ui-listToday.png)
+
 
 </box>
 
@@ -610,6 +618,18 @@ We recommend locking your device before leaving it unattended to prevent others 
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BayMeds home folder.<br>
+
+**Q**: What if I eat extra medication by accident?<br>
+**A**: The application allows you to take extra dosages even if it differs from the intended frequency and dosage.
+This allows you to correctly and effectively track dosages that you may have mistakenly taken.<br>
+
+**Q**: Can I manually reset the completion status of a medication?<br>
+**A**: No, the completion status of a medication is automatically reset upon the beginning of a new day.  
+If you have wrongly inputted the taking of a medication, use the [untake](#how-to-untake-a-medication--untake) command.<br>
+
+**Q**: What happens if my drug has no valid details but I take it?<br>
+**A**: You will still be allowed to take the drug, allowing you to keep track of the drugs that you have taken.<br>
+
 
 --------------------------------------------------------------------------------------------------------------------
 
