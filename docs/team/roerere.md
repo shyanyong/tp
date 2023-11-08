@@ -15,7 +15,7 @@ Given below are my contributions to the project.
   * Updated entire AB3 test code to be suitable for BayMeds (Pull requests [\#60](), [\#126]()).
   * Reimplemented `list` feature for BayMeds (Pull requests [\#55]()).
   * Reimplemented entire frontend to allow for a modern and clean GUI that automatically scales with screen resolution (Pull requests [\#91]()).
-  * Enhanced GUI to look differently when `take` and `untake` were implemented (Pull requests [\#142]().
+  * Enhanced GUI to look differently when `take` and `untake` were implemented (Pull requests [\#142]()).
 
 * **Documentation**:
   * User Guide:
