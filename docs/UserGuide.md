@@ -8,7 +8,7 @@
 
 ## Welcome to the BayMeds User Guide!
 
-This guide provides step-by-step documentation on BayMeds' features and commonly encountered errors. In addition, the [quick start guide](#quick-start) shows you how to get started in a matter of minutes!
+This guide provides a step-by-step documentation on BayMeds' features and commonly encountered errors. In addition, the [quick start guide](#quick-start) shows you how to get started in a matter of minutes!
 
 ### What is BayMeds?
 
@@ -96,7 +96,7 @@ If you are experienced in using JAR applications, simply download the latest ver
   For `add mn/<medication_name>`, `<medication_name>` is a parameter which can be used as `add mn/Aspirin`.
   </box>
 
-* Items in square brackets are optional.
+* Items in `[]` are optional.
   <box type="definition" header="Example" seamless>
 
   `<medication_name> [sd/<start_date>]` can be used as `mn/Aspirin sd/25/10/2023` or as `mn/Aspirin`.
@@ -112,7 +112,7 @@ If you are experienced in using JAR applications, simply download the latest ver
 
 </box>
 
-### Adding a prescription : `add`
+### How to add a prescription : `add`
 
 Upon getting a new prescription from the doctor, BayMeds allows you to add the prescription to the list.
 
@@ -136,7 +136,7 @@ The prescription will then be added and shown in the list.
 
 <box type="info" header="Notes">
 
-* `<medication_name>`, as the name suggests, refers to the name of the medication.
+* `<medication_name>` refers to the name of the medication.
   <box type="definition" header="Example" seamless>
 
   Aspirin, Doxazosin, Propranolol
@@ -155,16 +155,19 @@ The prescription will then be added and shown in the list.
 
   For 20th Septemeber 2023, type `20/09/2023`.
   </box>
+
 * `<total_stock>` refers to the total number of pills you have. It only accepts a numeric value.
   <box type="definition" header="Example" seamless>
 
   For 100 pills, type 100.
   </box>
+
 * `<conflicting_drugs>` refers to the drugs that conflict with your prescription. It accepts space separated drug names.
   <box type="definition" header="Example" seamless>
 
   If your prescription has 2 conflicting drugs (Paracetamol and Aspirin), type Paracetamol Aspirin.
   </box>
+
 * `<note>` refers to any important or special information you would like to include.
   <box type="definition" header="Example" seamless>
 
@@ -209,21 +212,31 @@ After successfully adding the prescription, you will get the following result: <
 
 <box type="info">
 
-As shown in this example, the date of which this entry was entered will be used as the default start date if no start date was given.
+As shown in this example, the date of which this entry was entered (e.g. 27/10/2023) will be used as the default start date if no start date was given.
 </box>
 
 </box>
 
-### Listing all prescriptions : `list`
+### How to list all current prescriptions : `list`
 
-If you want to view your all of your current prescriptions, type the following command.
+BayMeds allows you to list all prescriptions you are currently taking.
+
+In order to do so, type the following command.
 
 Format:
 ```
 list
 ```
 
-You will then be able to see all your current prescriptions on the right side.
+You will then be able to see the relevant prescriptions in your list.
+
+<box type="info" header="Notes">
+
+If you would like to only view prescriptions that you have to consume for the day, use [listToday](#how-to-list-todays-medications-listtoday) instead.
+
+If you would like to view prescriptions that you have consumed in the past, use [listCompleted](#listing-completed-prescriptions-listcompleted) instead.
+
+</box>
 
 <box type="definition" header="#### Example">
 
@@ -233,22 +246,28 @@ If you have prescriptions in the list, you will get something similar to this.
 
 </box>
 
-### How to list today's medications : `listToday`
+### How to list today's prescriptions : `listToday`
 
-If you would like to see which prescriptions you need to take **today**, type the following command.
+BayMeds allows you to list all prescriptions that you need to consume for the day.
+
+In order to do so, type the following command.
 
 Format:
 ```
 listToday
 ```
 
-You will then be able to see today's prescriptions on the right side.
+You will then be able to see the relevant prescriptions in the list.
 <box type="info" header="Notes">
-* Only the medications to be taken on the current day will be shown. 
+* Only the medications to be taken on the current day will be shown.
 * Medications to be taken are determined by their frequency and start dates.
 * Medications that have been completed for the day will be shown as completed.
 * Medications that have yet to be completed for the day will be shown as incomplete .
 * Medications that do not have a frequency will be shown, and amount that has been consumed will be shown.
+
+If you would like to prescriptions that you are currently taking, use [list](#how-to-list-all-current-prescriptions-list) instead.
+
+If you would like to view prescriptions that you have consumed in the past, use [listCompleted](#listing-completed-prescriptions-listcompleted) instead.
 </box>
 
 <box type="definition" header="#### Example">
@@ -260,16 +279,26 @@ If you have prescriptions to take today, you will see something similar to this.
 
 </box>
 
-### Listing completed prescriptions : `listCompleted`
+### How to list completed prescriptions : `listCompleted`
 
-If you need a simple way to summarise your consumption history, type the following command.
+BayMeds allows you to list prescriptions that you have consumed in the past.
+
+In order to do so, type the following command.
 
 Format:
 ```
 listCompleted
 ```
 
-You will then be able to see your completed prescriptions on the right side.
+You will then be able to see your completed prescriptions in the list.
+
+<box type="info" header="Notes">
+
+If you would like to prescriptions that you are currently taking, use [list](#how-to-list-all-current-prescriptions-list) instead.
+
+If you would like to only view prescriptions that you have to consume for the day, use [listToday](#how-to-list-todays-medications-listtoday) instead.
+
+</box>
 
 <box type="definition" header="#### Example">
 
@@ -281,29 +310,36 @@ If you have completed prescriptions, you will see something similar to this.
 
 ### How to edit a prescription : `edit`
 
-If you made a mistake and would like to make some changes to your entry, type the following command.
+You may wish to update any of the fields of the prescription for a variety of reasons, such as a change in dosage, or an increase in stock. BayMeds allows you to edit such fields in the prescription.
+
+In order to do so, type the following command.
 
 Format:
 ```
 edit
-  INDEX
-  [mn/NAME]
-  [d/DOSAGE]
-  [f/FREQUENCY]
-  [sd/START DATE]
-  [ed/END DATE]
-  [exd/EXPIRY DATE]
-  [ts/TOTAL STOCK]
-  [n/NOTE]
+  <index>
+  [mn/<medication_name>]
+  [d/<dosage>]
+  [f/<frequency>]
+  [sd/<start_date>]
+  [ed/<end_date>]
+  [exd/<expiry_date>]
+  [ts/<total_stock>]
+  [n/<note>]
 ```
 
-This edits the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+Based on fields you specify, the corresponding fields of the index-identified prescription will be updated with the new value.
 
 <box type="info" header="Notes">
 
-* The index **must be a positive integer** 1, 2, 3, …​
+* The `<index>` specifies the perscription to be edited.
+  <box type="definition" header="Example" seamless>
+
+    To edit the first prescription in the list (currently being displayed), specify the `<index>` as 1.
+  </box>
+
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+
 * Input values cannot be empty.
 
 </box>
@@ -314,7 +350,7 @@ This edits the prescription at the specified `INDEX`. The index refers to the in
 edit 1 d/2 f/Daily
 ```
 
-Typing this command edits the dosage and frequency of the 1st prescription to be `2` and `Daily` respectively.
+By typing this command, you will edit the dosage and frequency of the first prescription on the list (currently being displayed) to be `2` and `Daily` respectively.
 
 ![result for 'Example output of edit command'](images/ui/Ui-edit.png)
 
@@ -326,27 +362,35 @@ Typing this command edits the dosage and frequency of the 1st prescription to be
 edit 2 mn/Creatine n/Red Pill
 ```
 
-Typing this command edits the name of the 2nd prescription to be `Creatine` and note to be `Red Pill`.
+By typing this command, you will edit the name and note of the second prescription on the list (currently being displayed) to be `Creatine` and `Red Pill` respectively.
 
 </box>
 
-### Locating prescriptions by name : `find`
+### How to find prescriptions by name : `find`
 
-Finds prescriptions which names contain any of the given keywords.
+With a complex medication regime, BayMeds allows you to easily filter and find your prescriptions with names that contain the specified keyword.
 
 Format:
 ```
-find KEYWORD [MORE_KEYWORDS]
+find <keyword>...
 ```
+<box type="info" header="Notes">
 
 * The search is case-insensitive. e.g `paracetamol` will match `Paracetamol`.
+
 * The order of the keywords does not matter. e.g. `Ketoconazole Shampoo` will match `Shampoo Ketoconazole`.
+
 * Only the name is searched.
+
 * Substrings will be matched e.g. `Para` will match `Paracetamol`.
+
 * Prescriptions matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Ketorolac ophthalmic` will return `Ketotifen ophthalmic`, `Ketorolac Tromethamine`.
 
+</box>
+
 <box type="definition" header="#### Example">
+
 ```
 find Ketorolac ophthalmic
 ```
@@ -356,20 +400,26 @@ Displays `Ketotifen ophthalmic`, `Ketorolac Tromethamine`.<br>
 
 </box>
 
-### Deleting a prescription : `delete`
+### How to delete a prescription : `delete`
 
-You can delete a prescription from the list **permanently** by typing the following command.
+Should you need to remove your prescriptions, BayMeds allows you to **permanently** delete a specified prescription from the list (currently being displayed).
+
+In order to do so, type the following command.
 
 Format:
 ```
-delete INDEX
+delete <index>
 ```
 
-This deletes the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+This will cause the prescription at that index to be removed from the list (currently being displayed) and **permanently** deleted.
 
 <box type="info" header="Notes">
 
-* `<index>` should be a positive integer.
+* The `<index>` specifies the perscription to be edited.
+  <box type="definition" header="Example" seamless>
+
+    To edit the first prescription in the list (currently being displayed), specify the `<index>` as 1.
+  </box>
 
 </box>
 
@@ -379,7 +429,7 @@ This deletes the prescription at the specified `INDEX`. The index refers to the 
 delete 3
 ```
 
-Typing this command deletes the 3rd prescription from the list.
+By typing this command, you will delete the third prescription from the list (currently being displayed).
 
 ![result for 'Example output of delete command'](images/ui/Ui-delete.png)
 
@@ -387,14 +437,14 @@ Typing this command deletes the 3rd prescription from the list.
 
 ### How to take a medication : `take`
 
-You can tell BayMeds that you have taken a medication.
+Upon consuming a medication, BayMeds allows you to indicate that you have taken that medication.
 
-To take a medication, type the following command.
+In order to do so, type the following command.
 
 Format:
 ```
 take
-  INDEX
+  <index>
   [d/<dosage>]
 ```
 
@@ -402,12 +452,20 @@ This tells BayMeds that you have taken the prescription at the specified `INDEX`
 
 <box type="info" header="Notes">
 
-* `<dosage>` refers to the number of pills to be taken. It only accepts a numeric value. For 1 pill, type 1.
-* Since `<dosage>` is an optional input, if there is none given, the default dosage to take will be set as 1.
+* `<dosage>` refers to the number of pills you have taken. It only accepts a numeric value.
+  <box type="definition" header="Example" seamless>
+
+  If you have taken 2 pills, specify the `<dosage>` as 2.
+  </box>
+
+* Since `<dosage>` is an optional input, it will be set as 1 if no input is given.
+
 * Existing consumption count will be increased by the input value.
+
 * Existing stock will be decreased by the input value.
 
-If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-todays-medications--listtoday).
+If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-todays-medications-listtoday).
+
 </box>
 
 <box type="definition" header="#### Example 1">
@@ -415,11 +473,11 @@ If you would like to see the updated consumption count and stock, use [listToday
 ```
 take 1
 ```
-Typing this command will take 1 dose from the 1st prescription.
+By typing this command, you will indicate that you have taken 1 dose from the first prescription.
 
 ![result for 'Example output of take command'](images/ui/Ui-take1.png)
 
-As shown in this example, the dosage taken is set as 1 if not dosage is specified.
+As shown in this example, the dosage taken is set as 1 if dosage is not specified.
 </box>
 
 <box type="definition" header="#### Example 2">
@@ -427,7 +485,7 @@ As shown in this example, the dosage taken is set as 1 if not dosage is specifie
 ```
 take 2 d/2
 ```
-Typing this command will take 2 doses from the 2nd prescription.
+By typing this command, you will take 2 doses from the second prescription.
 
 ![result for 'Example output of take command'](images/ui/Ui-take2.png)
 
@@ -435,20 +493,20 @@ Typing this command will take 2 doses from the 2nd prescription.
 
 ### How to untake a medication : `untake`
 
-If you have accidentally indicated that you have taken a medication, Baymeds can also help you untake the medication similar to the [take](#how-to-take-a-medication--take) feature.
+If you have accidentally indicated that you have taken a medication, Baymeds allows you untake the medication similar to the [take](#how-to-take-a-medication-take) feature.
 
 Note that this feature is meant to revert errors made by the user, updating changes to the stock and consumption count and does not indicate that the medication has actually been untaken.
 
-To untake a medication, type the following command.
+In order to do so, type the following command.
 
 Format:
 ```
 untake
-  INDEX
+  <index>
   [d/<dosage>]
 ```
 
-This tells BayMeds that you have untaken the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+This tells BayMeds that you have untaken the prescription at the specified `<index>`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
 
 <box type="info" header="Notes">
 
@@ -624,7 +682,7 @@ We recommend locking your device before leaving it unattended to prevent others 
 This allows you to correctly and effectively track dosages that you may have mistakenly taken.<br>
 
 **Q**: Can I manually reset the completion status of a medication?<br>
-**A**: No, the completion status of a medication is automatically reset upon the beginning of a new day.  
+**A**: No, the completion status of a medication is automatically reset upon the beginning of a new day.
 If you have wrongly inputted the taking of a medication, use the [untake](#how-to-untake-a-medication--untake) command.<br>
 
 **Q**: What happens if my drug has no valid details but I take it?<br>

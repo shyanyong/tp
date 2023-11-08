@@ -45,7 +45,7 @@ public class Stock {
      */
     public static boolean isValidStock(String test) {
         try {
-            int stockValue = Integer.parseInt(test);
+            Integer.parseInt(test);
         } catch (NumberFormatException e) {
             return false;
         }

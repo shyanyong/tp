@@ -54,7 +54,7 @@ public class Dosage {
      */
     public static boolean isLargeNumber(String test) {
         try {
-            int dosageValue = Integer.parseInt(test);
+            Integer.parseInt(test);
         } catch (NumberFormatException e) {
             return false;
         }
