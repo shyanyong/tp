@@ -326,7 +326,10 @@ Typing this command edits the name of the 2nd prescription to be `Creatine` and 
 
 Finds prescriptions which names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format:
+```
+find KEYWORD [MORE_KEYWORDS]
+```
 
 * The search is case-insensitive. e.g `paracetamol` will match `Paracetamol`.
 * The order of the keywords does not matter. e.g. `Ketoconazole Shampoo` will match `Shampoo Ketoconazole`.
@@ -335,10 +338,15 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Prescriptions matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Ketorolac ophthalmic` will return `Ketotifen ophthalmic`, `Ketorolac Tromethamine`.
 
-Examples:
-* `find Ketoconazole` returns `Ketoconazole` and `Ketoconazole Shampoo`.
-* `find Ketorolac ophthalmic` returns `Ketotifen ophthalmic`, `Ketorolac Tromethamine`.<br>
-  ![result for 'find Ketorolac ophthalmic'](images/ui/Ui-find.png)
+<box type="definition" header="#### Example">
+```
+find Ketorolac ophthalmic
+```
+Displays `Ketotifen ophthalmic`, `Ketorolac Tromethamine`.<br>
+
+![result for 'find Ketorolac ophthalmic'](images/ui/Ui-find.png)
+
+</box>
 
 ### Deleting a prescription : `delete`
 
