@@ -11,11 +11,11 @@ Given below are my contributions to the project.
 
 * **New Feature**: Added the ability to add conflicting drugs.
   * What it does: Allows the user to add multiple conflicting drugs to a prescription.
-  * Justification: This feature allows a user to specify which drugs are conflicting so as to manage the possible clashes when planning the consumption schedule.
-  * Highlights: This enhancement affects existing commands and commands to be added in future.
+  * Justification: This feature allows a user to specify which drugs are conflicting to manage the possible clashes when planning the consumption schedule.
+  * Highlights: This enhancement affects existing commands and commands to be added in the future.
     The implementation was also complex as the algorithm ensures that the conflicting relationship between drugs are bidirectional.
     If drug A conflicts with drug B, the algorithm ensures that drug B must also conflict with drug A.  
-  * Future plans: Seperate drug names by commas instead of spaces to allow for more complex drug names that might have multiple words. 
+  * Future plans: Separate drug names by commas instead of spaces to allow for more complex drug names that might have multiple words. 
   
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=teerenjing&breakdown=true)
