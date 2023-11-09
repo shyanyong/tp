@@ -150,10 +150,10 @@ The prescription will then be added and shown in the list.
 
 * `<frequency>` refers to the interval to consume the prescription. It only accepts the inputs `Daily`, `Weekly` or `Monthly`.
 
-* `<start_date>`, `<end_date>` and `<expiry_date>` should be in <span style="color:red">**dd/mm/yyyy format**</span>.
+* `<start_date>`, `<end_date>` and `<expiry_date>` should be in <span style="color:red">**dd/mm/yyyy format**</span>. In addition, `<expiry_date>` cannot be earlier than the `<end_date>`, and similarly, `<end_date>` cannot be earlier than the `<start_date>`
   <box type="definition" header="Example" seamless>
 
-  For 20th Septemeber 2023, type `20/09/2023`.
+  For 20th September 2023, type `20/09/2023`.
   </box>
 
 * `<total_stock>` refers to the total number of pills you have. It only accepts a numeric value.
