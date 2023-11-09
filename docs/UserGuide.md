@@ -776,6 +776,12 @@ If your changes to the data file makes its format invalid, BayMeds will discard 
 **A**: Use `listToday` to list out all medications to be taken for the day.
 Medications with a green label will indicate that they have been taken while those with a red label will indicate otherwise.<br>
 
+**Q**: What should I do if I accidentally **add** a prescription with an end date to be in the past?<br>
+**A**: By doing this, the prescription will now be stored as a completed prescription. Thus, it will not be shown in your list of current prescriptions.<br>
+
+**Q**: What should I do if I accidentally **set** the end date of a prescription to be in the past?<br>
+**A**: By doing this, the prescription will now be stored as a completed prescription. As mentioned in [listCompleted](#how-to-list-completed-prescriptions-listcompleted), interacting with this list is disabled by design. Thus, you may add a new prescription with the same details but corrected end date using the [add](#how-to-add-a-prescription-add) command.<br>
+
 **Q**: Is my data shared with other software or organisations?<br>
 **A**: Data is stored locally in the computer and is not stored in any external database nor shared with other third parties.
 We recommend locking your device before leaving it unattended to prevent others from accessing your prescription records and consumption history.<br>
