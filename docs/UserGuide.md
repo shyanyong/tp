@@ -32,22 +32,46 @@ BayMeds informs you when you have drugs that conflicts with each other, e.g. dru
 
 BayMeds enables storage of past prescriptions, i.e. prescriptions that you have completed in the past. This provides ease of access to such information when required, such as during a Doctor's visit, or when checking how many pills of a particular prescription I took in the past I have left.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## Table of Contents
-* <span style="color:red">**To be added.**</span>
+1. [How to use this guide](#how-to-use-this-guide)
+2. [Quick start](#quick-start)
+3. [Graphical User Interface](#graphical-user-interface)
+4. [Features](#features)
+   1. [How to add a prescription : `add`](#how-to-add-a-prescription-add)
+   2. [How to list all current prescriptions : `list`](#how-to-list-all-current-prescriptions-list)
+   3. [How to list today's prescriptions : `listToday`](#how-to-list-today-s-prescriptions-listtoday)
+   4. [How to list completed prescriptions : `listCompleted`](#how-to-list-completed-prescriptions-listcompleted)
+   5. [How to edit a prescription : `edit`](#how-to-edit-a-prescription-edit)
+   6. [How to find prescriptions by name : `find`](#how-to-find-prescriptions-by-name-find)
+   7. [How to delete a prescription : `delete`](#how-to-delete-a-prescription-delete)
+   8. [How to take a medication : `take`](#how-to-take-a-medication-take)
+   9. [How to untake a medication : `untake`](#how-to-untake-a-medication-untake)
+   10. [How to list medications that are about to expire or low in stock : `reminder`](#how-to-list-medications-that-are-about-to-expire-or-low-in-stock-reminder)
+   11. [How to list a prescription's conflicting drugs : `listConflicts`](#how-to-list-a-prescription-s-conflicting-drugs-listconflicts)
+   12. [How to list all conflicting drugs : `listAllConflicts`](#how-to-list-all-conflicting-drugs-listallconflicts)
+   13. [How to view help : `help`](#how-to-view-help-help)
+   14. [How to exit BayMeds : `exit`](#how-to-exit-baymeds-exit)
+5. [Saving the data](#saving-the-data)
+6. [Editing the data file](#editing-the-data-file)
+7. [FAQ](#faq)
+8. [Known issues](#known-issues)
+9. [Command summary](#command-summary)
 
 ## How to use this guide
 
-Navigate to the Table of Contents anytime by clicking the button in the bottom right corner of your screen.
+Navigate to the start of this guide anytime by clicking the button in the bottom right corner of your screen.
 
 Also, here are some common icons you may encounter in this guide.
 
-| Icon                      | Description            |
-|---------------------------|------------------------|
-| <box type="definition" /> | Examples               |
-| <box type ="tip" />       | Useful tips            |
-| <box type="info" />       | Additional information |
-| <box type="warning" />    | Warning                |
-| <box type="wrong" />      | Errors                 |
+| Icon                                                          | Description            |
+|---------------------------------------------------------------|------------------------|
+| <box type="definition" />                                     | Examples               |
+| <box type ="tip" />                                           | Useful tips            |
+| <box type="info" />                                           | Additional information |
+| <box type="warning" icon=":fa-solid-triangle-exclamation:" /> | Warning                |
+| <box type="wrong" />                                          | Errors                 |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -83,6 +107,37 @@ If you are experienced in using JAR applications, simply download the latest ver
 
 
 1. Refer to the [features](#features) below for details of each command.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Graphical User Interface
+
+BayMeds allows you to manage your prescriptions using only a single user interface! Hover over the circles to find out more about the different parts!
+
+<annotate src="images/Ui.png" alt="Ui">
+  <a-point x="4%" y="3%" content="You can access various menu functions here." label="1" header="Menu Bar" opacity="0.8" trigger="hover focus" />
+  <a-point x="20%" y="24.5%" content="This is where you will input your commands." label="2" header="Command Box" opacity="0.8" trigger="hover focus" />
+  <a-point x="24%" y="50%" content="BayMeds will show you messages through this box."  label="3" header="Result Display" opacity="0.8" trigger="hover focus" />
+  <a-point x="75%" y="40%" content="This is where you can view your list of prescriptions."  label="4" header="List Display" opacity="0.8" trigger="hover focus" />
+</annotate>
+
+<div><br></div>
+
+##### 1: Menu Bar
+
+You can access various menu functions here.
+
+##### 2: Command Box
+
+This is where you will input your commands.
+
+##### 3: Result Display
+
+BayMeds will show you messages through this box.
+
+##### 4: List Display
+
+This is where you can view your list of prescriptions.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -234,9 +289,9 @@ You will then be able to see the relevant prescriptions in the list.
 
 <box type="info" header="Notes">
 
-If you would like to only view prescriptions that you have to consume **for the day**, use [listToday](#how-to-list-todays-medications-listtoday) instead.
+If you would like to only view prescriptions that you have to consume **for the day**, use [listToday](#how-to-list-today-s-prescriptions-listtoday) instead.
 
-If you would like to view prescriptions that you have consumed **in the past**, use [listCompleted](#listing-completed-prescriptions-listcompleted) instead.
+If you would like to view prescriptions that you have consumed **in the past**, use [listCompleted](#how-to-list-completed-prescriptions-listcompleted) instead.
 
 </box>
 
@@ -266,7 +321,7 @@ You will then be able to see the relevant prescriptions in the list.
 * Only the medications to be taken for the day will be displayed.
 
 * Medications to be taken are determined by their frequency and start dates.
-  <box type="definition" header="Example">
+  <box type="definition" header="Example" seamless>
 
   If the `<frequency>` of a particular prescription is `Daily`, it will appear in this list everyday.
 
@@ -279,7 +334,7 @@ You will then be able to see the relevant prescriptions in the list.
 
 If you would like to prescriptions that you are currently taking, use [list](#how-to-list-all-current-prescriptions-list) instead.
 
-If you would like to view prescriptions that you have consumed in the past, use [listCompleted](#listing-completed-prescriptions-listcompleted) instead.
+If you would like to view prescriptions that you have consumed in the past, use [listCompleted](#how-to-list-completed-prescriptions-listcompleted) instead.
 </box>
 
 <box type="definition" header="#### Example">
@@ -307,14 +362,14 @@ You will then be able to see the relevant prescriptions in the list.
 
 If you would like to prescriptions that you are currently taking, use [list](#how-to-list-all-current-prescriptions-list) instead.
 
-If you would like to only view prescriptions that you have to consume for the day, use [listToday](#how-to-list-todays-medications-listtoday) instead.
+If you would like to only view prescriptions that you have to consume for the day, use [listToday](#how-to-list-today-s-prescriptions-listtoday) instead.
 
-<box type="warning" header="Important">
+<box type="warning" icon=":fa-solid-triangle-exclamation:" header="Important">
 
-  The list of prescriptions shown after using this command will **not** respond to other commands such as `add`, `edit`, `take` etc. This is because this list is meant to store your consumption history for record-keeping purposes. Thus, apart from viewing these prescriptions, other interactions with this list is intentionally disabled.
+  The list of prescriptions shown after using this command will **not** respond to other commands such as `add`, `edit`, `take` etc. This is because this list is meant to store your consumption history for record-keeping purposes. Thus, apart from viewing these prescriptions, other interactions with this list are intentionally disabled.
   <box type="definition" header="Example" seamless>
 
-  If you use `edit` while the list of completed prescriptions is displayed, `edit` will function based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+  If you use `edit` while the list of completed prescriptions is displayed, `edit` will function based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-today-s-prescriptions-listtoday).
   </box>
 </box>
 
@@ -362,9 +417,9 @@ Based on the fields you specify, the corresponding fields of the index-identifie
 
 * Input values cannot be empty.
 
-<box type="warning" header="Important">
+<box type="warning" icon=":fa-solid-triangle-exclamation:" header="Important">
 
-If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [edit](#how-to-edit-a-prescription-edit) will not update these prescriptions. Instead, it will update based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [edit](#how-to-edit-a-prescription-edit) will not update these prescriptions. Instead, it will update based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-today-s-prescriptions-listtoday).
 </box>
 
 </box>
@@ -470,9 +525,9 @@ This will cause the prescription at that index to be removed from the list (curr
     To delete the first prescription in the list (currently being displayed), specify the `<index>` as 1.
   </box>
 
-<box type="Warning" header="Important">
+<box type="warning" icon=":fa-solid-triangle-exclamation:" header="Important">
 
-If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [delete](#how-to-edit-a-prescription-edit) will not remove these prescriptions. Instead, it will delete based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [delete](#how-to-delete-a-prescription-delete) will not remove these prescriptions. Instead, it will delete based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-today-s-prescriptions-listtoday).
 </box>
 
 </box>
@@ -524,11 +579,11 @@ This will update the index-identified prescription with the specified amount of 
 
 * The stock field of the prescription will be decreased by the specified `<dosage>`.
 
-* If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-todays-medications-listtoday).
+* If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-today-s-prescriptions-listtoday).
 
-<box type="warning" header="Important">
+<box type="warning" icon=":fa-solid-triangle-exclamation:" header="Important">
 
-If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [take](#how-to-take-a-medication-take) will not update these prescriptions. Instead, it will update based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [take](#how-to-take-a-medication-take) will not update these prescriptions. Instead, it will update based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-today-s-prescriptions-listtoday).
 </box>
 
 </box>
@@ -595,11 +650,11 @@ This will update the index-identified prescription with the specified amount of 
 
 * The stock field of the prescription will be increased by the specified `<dosage>`.
 
-If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-todays-medications-listtoday).
+If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-today-s-prescriptions-listtoday).
 
-<box type="warning" header="Important">
+<box type="warning" icon=":fa-solid-triangle-exclamation:" header="Important">
 
-If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [untake](#how-to-untake-a-medication-untake) will not update these prescriptions. Instead, it will update based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [untake](#how-to-untake-a-medication-untake) will not update these prescriptions. Instead, it will update based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-today-s-prescriptions-listtoday).
 </box>
 
 </box>
@@ -683,9 +738,9 @@ You will then be able to see the conflicting drugs in the text box on the left.
 
 * This differs from the [listAllConflicts](#how-to-list-all-conflicting-drugs-listallconflicts) command. While `listAllConflicts` lists drugs that conflict will **all** your current prescriptions, `listConflicts` will only list drugs that conflict with the specified prescription.
 
-<box type="warning" header="Important">
+<box type="warning" icon=":fa-solid-triangle-exclamation:" header="Important">
 
-If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [listConflicts](#how-to-list-a-prescriptions-conflicting-drugs-listconflicts) will not follow this list. Instead, it will use the list based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [listConflicts](#how-to-list-a-prescription-s-conflicting-drugs-listconflicts) will not follow this list. Instead, it will use the list based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-today-s-prescriptions-listtoday).
 </box>
 
 </box>
@@ -717,7 +772,7 @@ You will then be able to see all conflicting drugs in the text box on the left.
 
 <box type="info" header="Notes">
 
-* This differs from the [listConflicts](#how-to-list-a-prescriptions-conflicting-drugs-listconflicts) command. `listAllConflicts` lists drugs that conflict will **all** your current prescriptions, while `listConflicts` will only list drugs that conflict with a specified prescription.
+* This differs from the [listConflicts](#how-to-list-a-prescription-s-conflicting-drugs-listconflicts) command. `listAllConflicts` lists drugs that conflict will **all** your current prescriptions, while `listConflicts` will only list drugs that conflict with a specified prescription.
 
 </box>
 
@@ -751,55 +806,74 @@ Format:
 exit
 ```
 
-### Saving the data
+--------------------------------------------------------------------------------------------------------------------
+
+## Saving the data
 
 BayMeds data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file
+## Editing the data file
 
 BayMeds data are saved automatically as a JSON file `[JAR file location]/data/prescriptionList.json and completedPrescriptionList.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<box type="warning" seamless>
+<box type="warning" icon=":fa-solid-triangle-exclamation:">
 
 **Caution:**
-If your changes to the data file makes its format invalid, BayMeds will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.
+If your changes are in an invalid format, BayMeds will discard all data and start with an empty data file at the next run. Hence, it is recommended to make a backup of the file before editing it.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
-**Q**: How do I store the size and colour of the pill?<br>
-**A**: You may add it as a `note` when adding the prescription.<br>
+<box type="info" icon=":fa-solid-q:" light header="How do I store the size and colour of the pill?">
 
-**Q**: How do I know if I have taken the medication for the day?<br>
-**A**: Use `listToday` to list out all medications to be taken for the day.
-Medications with a green label will indicate that they have been taken while those with a red label will indicate otherwise.<br>
+You may add it as a `note` when adding the prescription.
+</box>
 
-**Q**: What should I do if I accidentally **add** a prescription with an end date to be in the past?<br>
-**A**: By doing this, the prescription will now be stored as a completed prescription. Thus, it will not be shown in your list of current prescriptions.<br>
+<box type="info" icon=":fa-solid-q:" light header="How do I know if I have taken the medication for the day?">
 
-**Q**: What should I do if I accidentally **set** the end date of a prescription to be in the past?<br>
-**A**: By doing this, the prescription will now be stored as a completed prescription. As mentioned in [listCompleted](#how-to-list-completed-prescriptions-listcompleted), interacting with this list is disabled by design. Thus, you may add a new prescription with the same details but corrected end date using the [add](#how-to-add-a-prescription-add) command.<br>
+Use `listToday` to list out all medications to be taken for the day.<br>
+Medications with a green label will indicate that they have been taken while those with a red label will indicate otherwise.
+</box>
 
-**Q**: Is my data shared with other software or organisations?<br>
-**A**: Data is stored locally in the computer and is not stored in any external database nor shared with other third parties.
-We recommend locking your device before leaving it unattended to prevent others from accessing your prescription records and consumption history.<br>
+<box type="info" icon=":fa-solid-q:" light header="What should I do if I accidentally **add** a prescription with an end date to be in the past?">
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BayMeds home folder.<br>
+By doing this, the prescription will now be stored as a completed prescription. Thus, it will not be shown in your list of current prescriptions.
+</box>
 
-**Q**: What if I eat extra medication by accident?<br>
-**A**: The application allows you to take extra dosages even if it differs from the intended frequency and dosage.
-This allows you to correctly and effectively track dosages that you may have mistakenly taken.<br>
+<box type="info" icon=":fa-solid-q:" light header="What should I do if I accidentally **set** the end date of a prescription to be in the past?">
 
-**Q**: Can I manually reset the completion status of a medication?<br>
-**A**: No, the completion status of a medication is automatically reset upon the beginning of a new day.
-If you have wrongly inputted the taking of a medication, use the [untake](#how-to-untake-a-medication--untake) command.<br>
+By doing this, the prescription will now be stored as a completed prescription. As mentioned in [listCompleted](#how-to-list-completed-prescriptions-listcompleted), interacting with this list is disabled by design. Thus, you may add a new prescription with the same details but corrected end date using the [add](#how-to-add-a-prescription-add) command.
+</box>
 
-**Q**: What happens if my drug has no valid details but I take it?<br>
-**A**: You will still be allowed to take the drug, allowing you to keep track of the drugs that you have taken.<br>
+<box type="info" icon=":fa-solid-q:" light header="Is my data shared with other software or organisations?">
 
+Data is stored locally in the computer and is not stored in any external database nor shared with other third parties.<br>
+We recommend locking your device before leaving it unattended to prevent others from accessing your prescription records and consumption history.
+</box>
+
+<box type="info" icon=":fa-solid-q:" light header="How do I transfer my data to another Computer?">
+
+Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BayMeds home folder.
+</box>
+
+<box type="info" icon=":fa-solid-q:" light header="What if I eat extra medication by accident?">
+
+The application allows you to take extra dosages even if it differs from the intended frequency and dosage.<br>
+This allows you to correctly and effectively track dosages that you may have mistakenly taken.
+</box>
+
+<box type="info" icon=":fa-solid-q:" light header="Can I manually reset the completion status of a medication?">
+
+No, the completion status of a medication is automatically reset upon the beginning of a new day.<br>
+If you have wrongly inputted the taking of a medication, use the [untake](#how-to-untake-a-medication-untake) command.
+</box>
+
+<box type="info" icon=":fa-solid-q:" light header="What happens if my drug has no valid details but I take it?">
+
+You will still be allowed to take the drug, allowing you to keep track of the drugs that you have taken.
+</box>
 
 --------------------------------------------------------------------------------------------------------------------
 
