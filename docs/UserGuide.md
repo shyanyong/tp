@@ -287,7 +287,7 @@ You will then be able to see the relevant prescriptions in the list.
 * Only the medications to be taken for the day will be displayed.
 
 * Medications to be taken are determined by their frequency and start dates.
-  <box type="definition" header="Example">
+  <box type="definition" header="Example" seamless>
 
   If the `<frequency>` of a particular prescription is `Daily`, it will appear in this list everyday.
 
@@ -491,7 +491,7 @@ This will cause the prescription at that index to be removed from the list (curr
     To delete the first prescription in the list (currently being displayed), specify the `<index>` as 1.
   </box>
 
-<box type="Warning" header="Important">
+<box type="warning" header="Important">
 
 If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [delete](#how-to-delete-a-prescription-delete) will not remove these prescriptions. Instead, it will delete based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-today-s-prescriptions-listtoday).
 </box>
