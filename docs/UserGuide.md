@@ -32,10 +32,13 @@ BayMeds informs you when you have drugs that conflicts with each other, e.g. dru
 
 BayMeds enables storage of past prescriptions, i.e. prescriptions that you have completed in the past. This provides ease of access to such information when required, such as during a Doctor's visit, or when checking how many pills of a particular prescription I took in the past I have left.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## Table of Contents
 1. [How to use this guide](#how-to-use-this-guide)
 2. [Quick start](#quick-start)
-3. [Features](#features)
+3. [Graphical User Interface](#graphical-user-interface)
+4. [Features](#features)
    1. [How to add a prescription : `add`](#how-to-add-a-prescription-add)
    2. [How to list all current prescriptions : `list`](#how-to-list-all-current-prescriptions-list)
    3. [How to list today's prescriptions : `listToday`](#how-to-list-today-s-prescriptions-listtoday)
@@ -50,11 +53,11 @@ BayMeds enables storage of past prescriptions, i.e. prescriptions that you have 
    12. [How to list all conflicting drugs : `listAllConflicts`](#how-to-list-all-conflicting-drugs-listallconflicts)
    13. [How to view help : `help`](#how-to-view-help-help)
    14. [How to exit BayMeds : `exit`](#how-to-exit-baymeds-exit)
-4. [Saving the data](#saving-the-data)
-5. [Editing the data file](#editing-the-data-file)
-6. [FAQ](#faq)
-7. [Known issues](#known-issues)
-8. [Command summary](#command-summary)
+5. [Saving the data](#saving-the-data)
+6. [Editing the data file](#editing-the-data-file)
+7. [FAQ](#faq)
+8. [Known issues](#known-issues)
+9. [Command summary](#command-summary)
 
 ## How to use this guide
 
@@ -104,6 +107,37 @@ If you are experienced in using JAR applications, simply download the latest ver
 
 
 1. Refer to the [features](#features) below for details of each command.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Graphical User Interface
+
+BayMeds allows you to manage your prescriptions using only a single user interface! Hover over the circles to find out more about the different parts!
+
+<annotate src="images/Ui.png" alt="Ui">
+  <a-point x="4%" y="3%" content="You can access various menu functions here." label="1" header="Menu Bar" opacity="0.8" trigger="hover focus" />
+  <a-point x="20%" y="24.5%" content="This is where you will input your commands." label="2" header="Command Box" opacity="0.8" trigger="hover focus" />
+  <a-point x="24%" y="50%" content="BayMeds will show you messages through this box."  label="3" header="Result Display" opacity="0.8" trigger="hover focus" />
+  <a-point x="75%" y="40%" content="This is where you can view your list of prescriptions."  label="4" header="List Display" opacity="0.8" trigger="hover focus" />
+</annotate>
+
+<div><br></div>
+
+##### 1: Menu Bar
+
+You can access various menu functions here.
+
+##### 2: Command Box
+
+This is where you will input your commands.
+
+##### 3: Result Display
+
+BayMeds will show you messages through this box.
+
+##### 4: List Display
+
+This is where you can view your list of prescriptions.
 
 --------------------------------------------------------------------------------------------------------------------
 
