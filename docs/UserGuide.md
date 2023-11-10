@@ -8,13 +8,13 @@
 
 ## Welcome to the BayMeds User Guide!
 
-This guide provides step-by-step documentation on BayMeds' features and commonly encountered errors. In addition, the [quick start guide](#quick-start) shows you how to get started in a matter of minutes!
+This guide provides a step-by-step documentation on how to use BayMeds' features and how to tackle commonly encountered errors. In addition, the [quick start guide](#quick-start) shows you how to get started in a matter of minutes!
 
-### What is BayMeds?
+## What is BayMeds?
 
 BayMeds v.2103 (a.k.a BayMeds) is your go-to prescription management solution, catering to chronically ill patients or caregivers seeking a streamlined and effective way to track prescriptions. Ideal for those with busy lives and complex medication regimens, BayMeds offer reminders for staying on top of prescription schedules and provides a platform to track prescription consumptions. With a focus on user-friendliness, BayMeds aims to promote medication adherence and reduce misusage.
 
-### What can I do with BayMeds?
+## What can I do with BayMeds?
 
 #### Track consumption of existing prescriptions
 
@@ -32,10 +32,10 @@ BayMeds informs you when you have drugs that conflicts with each other, e.g. dru
 
 BayMeds enables storage of past prescriptions, i.e. prescriptions that you have completed in the past. This provides ease of access to such information when required, such as during a Doctor's visit, or when checking how many pills of a particular prescription I took in the past I have left.
 
-### Table of Contents
+## Table of Contents
 * <span style="color:red">**To be added.**</span>
 
-### How to use this guide
+## How to use this guide
 
 Navigate to the Table of Contents anytime by clicking the button in the bottom right corner of your screen.
 
@@ -96,7 +96,7 @@ If you are experienced in using JAR applications, simply download the latest ver
   For `add mn/<medication_name>`, `<medication_name>` is a parameter which can be used as `add mn/Aspirin`.
   </box>
 
-* Items in square brackets are optional.
+* Items in `[]` are optional.
   <box type="definition" header="Example" seamless>
 
   `<medication_name> [sd/<start_date>]` can be used as `mn/Aspirin sd/25/10/2023` or as `mn/Aspirin`.
@@ -112,7 +112,7 @@ If you are experienced in using JAR applications, simply download the latest ver
 
 </box>
 
-### Adding a prescription : `add`
+### How to add a prescription : `add`
 
 Upon getting a new prescription from the doctor, BayMeds allows you to add the prescription to the list.
 
@@ -136,7 +136,7 @@ The prescription will then be added and shown in the list.
 
 <box type="info" header="Notes">
 
-* `<medication_name>`, as the name suggests, refers to the name of the medication.
+* `<medication_name>` refers to the name of the medication.
   <box type="definition" header="Example" seamless>
 
   Aspirin, Doxazosin, Propranolol
@@ -150,21 +150,24 @@ The prescription will then be added and shown in the list.
 
 * `<frequency>` refers to the interval to consume the prescription. It only accepts the inputs `Daily`, `Weekly` or `Monthly`.
 
-* `<start_date>`, `<end_date>` and `<expiry_date>` should be in <span style="color:red">**dd/mm/yyyy format**</span>.
+* `<start_date>`, `<end_date>` and `<expiry_date>` should be in <span style="color:red">**dd/mm/yyyy format**</span>. In addition, `<expiry_date>` cannot be earlier than the `<end_date>`, and similarly, `<end_date>` cannot be earlier than the `<start_date>`
   <box type="definition" header="Example" seamless>
 
-  For 20th Septemeber 2023, type `20/09/2023`.
+  For 20th September 2023, type `20/09/2023`.
   </box>
+
 * `<total_stock>` refers to the total number of pills you have. It only accepts a numeric value.
   <box type="definition" header="Example" seamless>
 
   For 100 pills, type 100.
   </box>
+
 * `<conflicting_drugs>` refers to the drugs that conflict with your prescription. It accepts space separated drug names.
   <box type="definition" header="Example" seamless>
 
   If your prescription has 2 conflicting drugs (Paracetamol and Aspirin), type Paracetamol Aspirin.
   </box>
+
 * `<note>` refers to any important or special information you would like to include.
   <box type="definition" header="Example" seamless>
 
@@ -179,7 +182,8 @@ The prescription will then be added and shown in the list.
 ```
 add mn/Isotretinoin d/1 f/Weekly sd/01/08/2023 ed/25/12/2023 exd/01/01/2024 ts/100 n/Take only after dinner
 ```
-Typing this command will add a new prescription with the following information.
+By typing this, you will add a new prescription with the following information.
+
 * Medication name: Isotretinoin
 * Dosage: 1
 * Frequency: Weekly
@@ -200,7 +204,8 @@ After successfully adding the prescription, you will get the following result: <
 ```
 add mn/Doxazosin
 ```
-Typing this command will add a new prescription with the following information.
+By typing this, you will add a new prescription with the following information.
+
 * Medication name: Doxazosin
 
 After successfully adding the prescription, you will get the following result: <br>
@@ -209,71 +214,115 @@ After successfully adding the prescription, you will get the following result: <
 
 <box type="info">
 
-As shown in this example, the date of which this entry was entered will be used as the default start date if no start date was given.
+As shown in this example, the date of which this entry was entered (e.g. 27/10/2023) will be used as the default start date if no start date was given.
 </box>
 
 </box>
 
-### Listing all prescriptions : `list`
+### How to list all current prescriptions : `list`
 
-If you want to view your all of your current prescriptions, type the following command.
+BayMeds allows you to list all prescriptions you are **currently** taking.
+
+To list all **current** prescriptions, type the following command.
 
 Format:
 ```
 list
 ```
 
-You will then be able to see all your current prescriptions on the right side.
+You will then be able to see the relevant prescriptions in the list.
+
+<box type="info" header="Notes">
+
+If you would like to only view prescriptions that you have to consume **for the day**, use [listToday](#how-to-list-todays-medications-listtoday) instead.
+
+If you would like to view prescriptions that you have consumed **in the past**, use [listCompleted](#listing-completed-prescriptions-listcompleted) instead.
+
+</box>
 
 <box type="definition" header="#### Example">
 
-If you have prescriptions in the list, you will get something similar to this.
+By typing `list`, you will see your **current** prescriptions displayed in the list on the right.
 
 ![result for 'Example output of list command'](images/ui/Ui-list.png)
 
 </box>
 
-### How to list today's medications : `listToday`
+### How to list today's prescriptions : `listToday`
 
-If you would like to see which prescriptions you need to take **today**, type the following command.
+BayMeds allows you to list all prescriptions that you need to consume **for the day**.
+
+To list these prescriptions, type the following command.
 
 Format:
 ```
 listToday
 ```
 
-You will then be able to see today's prescriptions on the right side.
+You will then be able to see the relevant prescriptions in the list.
+
 <box type="info" header="Notes">
-* Only the medications to be taken on the current day will be shown. 
+
+* Only the medications to be taken for the day will be displayed.
+
 * Medications to be taken are determined by their frequency and start dates.
-* Medications that have been completed for the day will be shown as completed.
-* Medications that have yet to be completed for the day will be shown as incomplete .
-* Medications that do not have a frequency will be shown, and amount that has been consumed will be shown.
+  <box type="definition" header="Example">
+
+  If the `<frequency>` of a particular prescription is `Daily`, it will appear in this list everyday.
+
+  If the `<frequency>` of a particular prescription is `Weekly`, and the `<start_date>` falls on a Wednesday, it will appear in this list only on Wednesdays.
+  </box>
+
+* In this list, prescriptions will have an indicator to show whether or not it has been completed for the day.
+
+* As `<frequency>` is an optional input, prescriptions that do not have a frequency will continue to appear in this list. This is so that in the event you are unaware of the frequency, or if the frequency is irregular, you may continue to track the prescription consumption if you wish to take it on that day.
+
+If you would like to prescriptions that you are currently taking, use [list](#how-to-list-all-current-prescriptions-list) instead.
+
+If you would like to view prescriptions that you have consumed in the past, use [listCompleted](#listing-completed-prescriptions-listcompleted) instead.
 </box>
 
 <box type="definition" header="#### Example">
 
-If you have prescriptions to take today, you will see something similar to this.
+By typing `listToday`, you will see your prescriptions for the day displayed in the list on the right.
 
 ![result for 'Example output of list today command'](images/ui/Ui-listToday.png)
 
-
 </box>
 
-### Listing completed prescriptions : `listCompleted`
+### How to list completed prescriptions : `listCompleted`
 
-If you need a simple way to summarise your consumption history, type the following command.
+BayMeds allows you to list prescriptions that you have consumed **in the past**.
+
+To list these prescriptions, type the following command.
 
 Format:
 ```
 listCompleted
 ```
 
-You will then be able to see your completed prescriptions on the right side.
+You will then be able to see the relevant prescriptions in the list.
+
+<box type="info" header="Notes">
+
+If you would like to prescriptions that you are currently taking, use [list](#how-to-list-all-current-prescriptions-list) instead.
+
+If you would like to only view prescriptions that you have to consume for the day, use [listToday](#how-to-list-todays-medications-listtoday) instead.
+
+<box type="warning" header="Important">
+
+  The list of prescriptions shown after using this command will **not** respond to other commands such as `add`, `edit`, `take` etc. This is because this list is meant to store your consumption history for record-keeping purposes. Thus, apart from viewing these prescriptions, other interactions with this list is intentionally disabled.
+  <box type="definition" header="Example" seamless>
+
+  If you use `edit` while the list of completed prescriptions is displayed, `edit` will function based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+  </box>
+</box>
+
+</box>
 
 <box type="definition" header="#### Example">
 
-If you have completed prescriptions, you will see something similar to this.
+By typing `listCompleted`, you will see your **completed** prescriptions in the list on the right.
 
 ![result for 'Example output of list completed command'](images/ui/Ui-listCompleted.png)
 
@@ -281,30 +330,42 @@ If you have completed prescriptions, you will see something similar to this.
 
 ### How to edit a prescription : `edit`
 
-If you made a mistake and would like to make some changes to your entry, type the following command.
+You may wish to update any of the fields of the prescription for a variety of reasons, such as a change in dosage, or an increase in stock. BayMeds allows you to edit such fields in the prescription.
+
+To edit a prescription, type the following command.
 
 Format:
 ```
 edit
-  INDEX
-  [mn/NAME]
-  [d/DOSAGE]
-  [f/FREQUENCY]
-  [sd/START DATE]
-  [ed/END DATE]
-  [exd/EXPIRY DATE]
-  [ts/TOTAL STOCK]
-  [n/NOTE]
+  <index>
+  [mn/<medication_name>]
+  [d/<dosage>]
+  [f/<frequency>]
+  [sd/<start_date>]
+  [ed/<end_date>]
+  [exd/<expiry_date>]
+  [ts/<total_stock>]
+  [n/<note>]
 ```
 
-This edits the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+Based on the fields you specify, the corresponding fields of the index-identified prescription will be updated with the new value. Fields that are not specified will continue to remain the same.
 
 <box type="info" header="Notes">
 
-* The index **must be a positive integer** 1, 2, 3, …​
+* The `<index>` specifies the prescription to be edited.
+  <box type="definition" header="Example" seamless>
+
+    To edit the first prescription in the list (currently being displayed), specify the `<index>` as 1.
+  </box>
+
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+
 * Input values cannot be empty.
+
+<box type="warning" header="Important">
+
+If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [edit](#how-to-edit-a-prescription-edit) will not update these prescriptions. Instead, it will update based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+</box>
 
 </box>
 
@@ -314,7 +375,7 @@ This edits the prescription at the specified `INDEX`. The index refers to the in
 edit 1 d/2 f/Daily
 ```
 
-Typing this command edits the dosage and frequency of the 1st prescription to be `2` and `Daily` respectively.
+By typing this, you will edit the dosage and frequency of the first prescription on the list to be `2` and `Daily` respectively.
 
 ![result for 'Example output of edit command'](images/ui/Ui-edit.png)
 
@@ -326,50 +387,93 @@ Typing this command edits the dosage and frequency of the 1st prescription to be
 edit 2 mn/Creatine n/Red Pill
 ```
 
-Typing this command edits the name of the 2nd prescription to be `Creatine` and note to be `Red Pill`.
+By typing this, you will edit the name and note of the second prescription on the list to be `Creatine` and `Red Pill` respectively.
 
 </box>
 
-### Locating prescriptions by name : `find`
+### How to find prescriptions by name : `find`
 
-Finds prescriptions which names contain any of the given keywords.
+With a complex medication regimen, BayMeds allows you to easily filter and find your prescriptions with names that contain the specified keyword.
+
+To find matching prescriptions, type the following command.
 
 Format:
 ```
-find KEYWORD [MORE_KEYWORDS]
+find <keyword>...
 ```
+<box type="info" header="Notes">
 
-* The search is case-insensitive. e.g `paracetamol` will match `Paracetamol`.
-* The order of the keywords does not matter. e.g. `Ketoconazole Shampoo` will match `Shampoo Ketoconazole`.
-* Only the name is searched.
-* Substrings will be matched e.g. `Para` will match `Paracetamol`.
-* Prescriptions matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Ketorolac ophthalmic` will return `Ketotifen ophthalmic`, `Ketorolac Tromethamine`.
+* The `...` indicates that you can include multiple `<keywords>`.
+  <Box type="definition" header="Example" seamless>
+
+  You can indicate `find Ketoconazole Shampoo`.
+  </Box>
+
+* The search is case-insensitive.
+  <Box type="definition" header="Example" seamless>
+
+  `find paracetamol` will also match `Paracetamol`.
+  </Box>
+
+* The order of the keywords does not matter.
+  <Box type="definition" header="Example" seamless>
+
+  `find Ketoconazole Shampoo` will match `Shampoo Ketoconazole`.
+  </Box>
+
+* Only the medication name is searched and matched.
+
+* Substrings will be matched.
+  <Box type="definition" header="Example" seamless>
+
+  `find Para` will match `Paracetamol`.
+  </Box>
+
+* Prescriptions will be matched as long as any part of it matches the `<keyword>`.
+  <Box type="definition" header="Example" seamless>
+
+  `Ketorolac ophthalmic` will return both `Ketotifen ophthalmic` and `Ketorolac Tromethamine`.
+  </Box>
+
+</box>
 
 <box type="definition" header="#### Example">
+
 ```
 find Ketorolac ophthalmic
 ```
-Displays `Ketotifen ophthalmic`, `Ketorolac Tromethamine`.<br>
+
+By typing this, the list will display both `Ketotifen ophthalmic` and `Ketorolac Tromethamine`.<br>
 
 ![result for 'find Ketorolac ophthalmic'](images/ui/Ui-find.png)
 
 </box>
 
-### Deleting a prescription : `delete`
+### How to delete a prescription : `delete`
 
-You can delete a prescription from the list **permanently** by typing the following command.
+Should you need to remove your prescriptions, BayMeds allows you to **permanently** delete a specified prescription from the list (currently being displayed).
+
+To delete a prescription, type the following command.
 
 Format:
 ```
-delete INDEX
+delete <index>
 ```
 
-This deletes the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+This will cause the prescription at that index to be removed from the list (currently being displayed) and **permanently** deleted.
 
 <box type="info" header="Notes">
 
-* `<index>` should be a positive integer.
+* The `<index>` specifies the prescription to be deleted.
+  <box type="definition" header="Example" seamless>
+
+    To delete the first prescription in the list (currently being displayed), specify the `<index>` as 1.
+  </box>
+
+<box type="Warning" header="Important">
+
+If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [delete](#how-to-edit-a-prescription-edit) will not remove these prescriptions. Instead, it will delete based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+</box>
 
 </box>
 
@@ -379,7 +483,7 @@ This deletes the prescription at the specified `INDEX`. The index refers to the 
 delete 3
 ```
 
-Typing this command deletes the 3rd prescription from the list.
+By typing this, you will delete the third prescription from the list.
 
 ![result for 'Example output of delete command'](images/ui/Ui-delete.png)
 
@@ -387,27 +491,46 @@ Typing this command deletes the 3rd prescription from the list.
 
 ### How to take a medication : `take`
 
-You can tell BayMeds that you have taken a medication.
+Upon consuming a medication, you may wish to indicate that you have taken 1 / 4 pills, or that you have completed your dosage for the day. BayMeds allows you to update prescriptions with the amount of dosage you have taken.
 
-To take a medication, type the following command.
+In order to do so, type the following command.
 
 Format:
 ```
 take
-  INDEX
+  <index>
   [d/<dosage>]
 ```
 
-This tells BayMeds that you have taken the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+This will update the index-identified prescription with the specified amount of `<dosage>`.
 
 <box type="info" header="Notes">
 
-* `<dosage>` refers to the number of pills to be taken. It only accepts a numeric value. For 1 pill, type 1.
-* Since `<dosage>` is an optional input, if there is none given, the default dosage to take will be set as 1.
-* Existing consumption count will be increased by the input value.
-* Existing stock will be decreased by the input value.
+* The `<index>` specifies the prescription to be marked as taken.
+  <box type="definition" header="Example" seamless>
 
-If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-todays-medications--listtoday).
+    To update the first prescription in the list (currently being displayed), specify the `<index>` as 1.
+  </box>
+
+* `<dosage>` refers to the number of pills you have taken. It only accepts a numeric value.
+  <box type="definition" header="Example" seamless>
+
+  If you have taken 2 pills, specify the `<dosage>` as 2.
+  </box>
+
+* Since `<dosage>` is an optional input, it will be set as 1 if no input is given.
+
+* The amount consumed will be increased by the specified `<dosage>`.
+
+* The stock field of the prescription will be decreased by the specified `<dosage>`.
+
+* If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-todays-medications-listtoday).
+
+<box type="warning" header="Important">
+
+If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [take](#how-to-take-a-medication-take) will not update these prescriptions. Instead, it will update based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+</box>
+
 </box>
 
 <box type="definition" header="#### Example 1">
@@ -415,11 +538,12 @@ If you would like to see the updated consumption count and stock, use [listToday
 ```
 take 1
 ```
-Typing this command will take 1 dose from the 1st prescription.
+By typing this, you will indicate that you have taken 1 dose from the first prescription.
 
 ![result for 'Example output of take command'](images/ui/Ui-take1.png)
 
-As shown in this example, the dosage taken is set as 1 if not dosage is specified.
+As shown in this example, the dosage taken is set as 1 if dosage is not specified.
+
 </box>
 
 <box type="definition" header="#### Example 2">
@@ -427,7 +551,8 @@ As shown in this example, the dosage taken is set as 1 if not dosage is specifie
 ```
 take 2 d/2
 ```
-Typing this command will take 2 doses from the 2nd prescription.
+
+By typing this, you will take 2 doses from the second prescription.
 
 ![result for 'Example output of take command'](images/ui/Ui-take2.png)
 
@@ -435,29 +560,48 @@ Typing this command will take 2 doses from the 2nd prescription.
 
 ### How to untake a medication : `untake`
 
-If you have accidentally indicated that you have taken a medication, Baymeds can also help you untake the medication similar to the [take](#how-to-take-a-medication--take) feature.
+If you have accidentally indicated that you have taken a medication, Baymeds allows you untake the medication similar to the [take](#how-to-take-a-medication-take) feature.
 
 Note that this feature is meant to revert errors made by the user, updating changes to the stock and consumption count and does not indicate that the medication has actually been untaken.
 
-To untake a medication, type the following command.
+In order to do so, type the following command.
 
 Format:
 ```
 untake
-  INDEX
+  <index>
   [d/<dosage>]
 ```
 
-This tells BayMeds that you have untaken the prescription at the specified `INDEX`. The index refers to the index number shown according to [list](#listing-all-prescriptions--list).
+This will update the index-identified prescription with the specified amount of `<dosage>` to be removed.
 
 <box type="info" header="Notes">
 
-* `<dosage>` refers to the number of pills to be untaken. It only accepts a numeric value. For 1 pill, type 1.
-* Since `<dosage>` is an optional input, if there is none given, the default dosage to untake will be set as 1.
-* Existing consumption count will be decreased by the input value.
-* Existing stock will be increased by the input value.
+* The `<index>` specifies the prescription to be marked as taken.
+  <box type="definition" header="Example" seamless>
 
-If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-todays-medications--listtoday).
+    To update the first prescription in the list (currently being displayed), specify the `<index>` as 1.
+  </box>
+
+* `<dosage>` refers to the number of pills you want to mark as not consumed. It only accepts a numeric value.
+  <box type="definition" header="Example" seamless>
+
+  If you wish to mark 2 pills of the prescription as not consumed, specify the `<dosage>` as 2.
+  </box>
+
+* Since `<dosage>` is an optional input, it will be set as 1 if no input is given.
+
+* The amount consumed will be decreased by the specified `<dosage>`.
+
+* The stock field of the prescription will be increased by the specified `<dosage>`.
+
+If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-todays-medications-listtoday).
+
+<box type="warning" header="Important">
+
+If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [untake](#how-to-untake-a-medication-untake) will not update these prescriptions. Instead, it will update based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+</box>
+
 </box>
 
 <box type="definition" header="#### Example 1">
@@ -465,11 +609,11 @@ If you would like to see the updated consumption count and stock, use [listToday
 ```
 untake 1
 ```
-Typing this command will untake 1 dose from the 1st prescription.
+By typing this, you will update 1 dose from the first prescription as not consumed.
 
-Using the same prescription list as shown in [take](#how-to-take-a-medication--take), you will get the following result:
+Using the same prescription list as shown in [take](#how-to-take-a-medication-take), you will get the following result:
 
-![result for 'Example output of take command'](images/ui/Ui-untake1.png)
+![result for 'Example output of untake command'](images/ui/Ui-untake1.png)
 
 As shown in this example, the dosage to untake is set as 1 if not dosage is specified.
 </box>
@@ -479,54 +623,70 @@ As shown in this example, the dosage to untake is set as 1 if not dosage is spec
 ```
 untake 2 d/2
 ```
-Typing this command will untake 2 doses from the 2nd prescription.
+By typing this, you will update 2 doses from the second prescription as not consumed.
 
-Using the same prescription list as shown in [take](#how-to-take-a-medication--take), you will get the following result:
+Using the same prescription list as shown in [take](#how-to-take-a-medication-take), you will get the following result:
 
-![result for 'Example output of take command'](images/ui/Ui-untake2.png)
+![result for 'Example output of untake command'](images/ui/Ui-untake2.png)
 
 </box>
 
-### Listing medications that are about to expire or are low in stock : `reminder`
+### How to list medications that are about to expire or low in stock : `reminder`
 
-If you need to know which medications are near expiry or are low in stock, type the following command.
+To reduce your risk of running out of medications or consuming expired medications, BayMeds allows you to filter and view prescriptions that are either **expiring** or **low in stock**.
+
+To list these prescriptions, type the following command.
 
 Format:
 ```
 reminder
 ```
 
-You will then be able to see medications that are near expiry or low in stock on the right side.
+You will then be able to see the relevant prescriptions.
 
 <box type="info" header="Notes">
 
-*  Medications that are about to expire are defined as medications that are expiring within the next 7 days.
-*  Medications that are low in stock are defined as medications that either have less than 10 tabs left or have 7 dosages worth left.
+*  Medications that are expiring within the next 7 days will be shown.
+
+*  Medications that either have less than 10 tabs left or have 7 dosages worth left will be shown.
 
 </box>
 
 <box type="definition" header="#### Example">
 
-If you have prescriptions near expiry or low in stock, you will see something similar to this.
+By typing `reminder`, you will see the prescriptions that are **expiring** or **low in stock** in the list on the right.
 
 ![result for 'Example output of reminder command'](images/ui/Ui-reminder.png)
 
 </box>
 
-### Listing a prescription's conflicting drugs : `listConflicts`
+### How to list a prescription's conflicting drugs : `listConflicts`
 
-If you want to view the list of drugs that conflict with a prescription at a particular index, type the following command.
+As you can store drugs that conflict with the prescription, BayMeds allows you to view this list of conflicting drugs.
+
+To view the drugs that conflict with a specific prescription, type the following command.
 
 Format:
 ```
-listConflicts INDEX
+listConflicts <index>
 ```
 
-You will then be able to see the conflicting drugs on the left side.
+You will then be able to see the conflicting drugs in the text box on the left.
 
 <box type="info" header="Notes">
 
-* `<index>` should be a positive integer.
+* The `<index>` specifies the prescription to show.
+  <box type="definition" header="Example" seamless>
+
+    To show the conflicting drugs of the first prescription in the list (currently being displayed), specify the `<index>` as 1.
+  </box>
+
+* This differs from the [listAllConflicts](#how-to-list-all-conflicting-drugs-listallconflicts) command. While `listAllConflicts` lists drugs that conflict will **all** your current prescriptions, `listConflicts` will only list drugs that conflict with the specified prescription.
+
+<box type="warning" header="Important">
+
+If the currently displayed list shows your completed prescriptions (i.e. prescriptions that you have consumed in the past), [listConflicts](#how-to-list-a-prescriptions-conflicting-drugs-listconflicts) will not follow this list. Instead, it will use the list based on the most recently displayed list from either [list](#how-to-list-all-current-prescriptions-list) or [listToday](#how-to-list-todays-prescriptions-listtoday).
+</box>
 
 </box>
 
@@ -536,47 +696,55 @@ You will then be able to see the conflicting drugs on the left side.
 listConflicts 2
 ```
 
-If you have conflicting drugs for the prescription at the index, you will see something similar to this.
+By typing this, the drugs that conflict with the second prescription, Paracetamol, in the list will be shown in the text box on the left.
 
 ![result for 'Example output of listConflicts command'](images/ui/Ui-listConflicts.png)
 
 </box>
 
-### Listing all conflicting drugs : `listAllConflicts`
+### How to list all conflicting drugs : `listAllConflicts`
 
-If you need to view all drugs that conflict with your current prescriptions, type the following command.
+Should you need to see **all** the drugs that conflict with all your current prescriptions, BayMeds allows you to view all these drugs in a single list.
+
+In order to list **all** conflicting drugs, type the following command.
 
 Format:
 ```
 listAllConflicts
 ```
 
-You will then be able to see all conflicting drugs on the left side.
+You will then be able to see all conflicting drugs in the text box on the left.
+
+<box type="info" header="Notes">
+
+* This differs from the [listConflicts](#how-to-list-a-prescriptions-conflicting-drugs-listconflicts) command. `listAllConflicts` lists drugs that conflict will **all** your current prescriptions, while `listConflicts` will only list drugs that conflict with a specified prescription.
+
+</box>
 
 <box type="definition" header="#### Example">
 
-```
-listAllConflicts
-```
-
-If you have conflicting drugs for the current prescriptions, you will see something similar to this.
+By typing `listAllConflicts`, all drugs that conflict with **all** your current prescriptions will be shown in the text box on the left.
 
 ![result for 'Example output of listAllConflicts command'](images/ui/Ui-listAllConflicts.png)
 
 </box>
 
-### Viewing help : `help`
+### How to view help : `help`
 
-Opens a help window. Embedded in the help window is a link to the official BayMeds user guide.
+If you need more information about how to use BayMeds, BayMeds allows you to view our [User Guide](#welcome-to-the-baymeds-user-guide).
+
+To open the help window, type the following command.
 
 Format:
 ```
 help
 ```
 
-### Exiting BayMeds : `exit`
+You will then see a help window with the link to our [User Guide](#welcome-to-the-baymeds-user-guide) pop up.
 
-Exits the application.
+### How to exit BayMeds : `exit`
+
+To exit BayMeds, type the following command.
 
 Format:
 ```
@@ -597,20 +765,22 @@ BayMeds data are saved automatically as a JSON file `[JAR file location]/data/pr
 If your changes to the data file makes its format invalid, BayMeds will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.
 </box>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I store the size and colour of the pill?<br>
-**A**: Add it as a note when adding the prescription.<br>
+**A**: You may add it as a `note` when adding the prescription.<br>
 
 **Q**: How do I know if I have taken the medication for the day?<br>
-**A**: Use `listToday` command to list out all medications to be taken for the day.
-Medication with a green label have been taken while those with a red label have yet to be taken.<br>
+**A**: Use `listToday` to list out all medications to be taken for the day.
+Medications with a green label will indicate that they have been taken while those with a red label will indicate otherwise.<br>
+
+**Q**: What should I do if I accidentally **add** a prescription with an end date to be in the past?<br>
+**A**: By doing this, the prescription will now be stored as a completed prescription. Thus, it will not be shown in your list of current prescriptions.<br>
+
+**Q**: What should I do if I accidentally **set** the end date of a prescription to be in the past?<br>
+**A**: By doing this, the prescription will now be stored as a completed prescription. As mentioned in [listCompleted](#how-to-list-completed-prescriptions-listcompleted), interacting with this list is disabled by design. Thus, you may add a new prescription with the same details but corrected end date using the [add](#how-to-add-a-prescription-add) command.<br>
 
 **Q**: Is my data shared with other software or organisations?<br>
 **A**: Data is stored locally in the computer and is not stored in any external database nor shared with other third parties.
@@ -624,7 +794,7 @@ We recommend locking your device before leaving it unattended to prevent others 
 This allows you to correctly and effectively track dosages that you may have mistakenly taken.<br>
 
 **Q**: Can I manually reset the completion status of a medication?<br>
-**A**: No, the completion status of a medication is automatically reset upon the beginning of a new day.  
+**A**: No, the completion status of a medication is automatically reset upon the beginning of a new day.
 If you have wrongly inputted the taking of a medication, use the [untake](#how-to-untake-a-medication--untake) command.<br>
 
 **Q**: What happens if my drug has no valid details but I take it?<br>
