@@ -23,11 +23,11 @@ public class IsValidDatesPredicate implements Predicate<Prescription> {
         if (endDate == null && expiryDate == null) {
             return true;
         } else if (expiryDate == null) {
-            return startDate.isBefore(endDate);
+            return !startDate.isAfter(endDate);
         } else if (endDate == null) {
-            return startDate.isBefore(expiryDate);
+            return !startDate.isAfter(expiryDate);
         } else {
-            return startDate.isBefore(endDate) && endDate.isBefore(expiryDate);
+            return !startDate.isAfter(endDate) && !endDate.isAfter(expiryDate);
         }
     }
 }

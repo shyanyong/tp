@@ -62,8 +62,9 @@ public class FindCommandTest {
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
+    // EP: Whitespace
     @Test
-    public void execute_zeroKeywords_noPrescriptionFound() {
+    public void execute_whitespace_noPrescriptionFound() {
         String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
@@ -72,6 +73,18 @@ public class FindCommandTest {
         assertEquals(Collections.emptyList(), model.getFilteredPrescriptionList());
     }
 
+    // EP: Single Word
+    @Test
+    public void execute_singleKeyword_onePrescriptionFound() {
+        String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("Aspirin");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPrescriptionList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ASPIRIN), model.getFilteredPrescriptionList());
+    }
+
+    // EP: Multiple words
     @Test
     public void execute_multipleKeywords_multiplePrescriptionsFound() {
         String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 3);
@@ -83,20 +96,66 @@ public class FindCommandTest {
         assertEquals(Arrays.asList(ASPIRIN, PROPRANOLOL, ZOMIG), model.getFilteredPrescriptionList());
     }
 
+    // EP: Prefix substring
     @Test
     public void execute_prefixSubstring_prescriptionsFound() {
         String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
-        NameContainsKeywordsPredicate predicate = preparePredicate("AsP");
+        NameContainsKeywordsPredicate predicate = preparePredicate("Asp");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPrescriptionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ASPIRIN), model.getFilteredPrescriptionList());
     }
 
+    // EP: Substring in the middle
+    @Test
+    public void execute_subStringInMiddle_prescriptionsFound() {
+        String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("pir");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPrescriptionList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ASPIRIN), model.getFilteredPrescriptionList());
+    }
+
+    // EP: Postfix substring
     @Test
     public void execute_postfixSubstring_prescriptionsFound() {
         String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
-        NameContainsKeywordsPredicate predicate = preparePredicate("spIriN");
+        NameContainsKeywordsPredicate predicate = preparePredicate("irin");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPrescriptionList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ASPIRIN), model.getFilteredPrescriptionList());
+    }
+
+    // EP: All small letters
+    @Test
+    public void execute_allSmallLetters_prescriptionsFound() {
+        String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("aspirin");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPrescriptionList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ASPIRIN), model.getFilteredPrescriptionList());
+    }
+
+    // EP: All capital letters
+    @Test
+    public void execute_allCapitalLetters_prescriptionsFound() {
+        String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("ASPIRIN");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPrescriptionList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ASPIRIN), model.getFilteredPrescriptionList());
+    }
+
+    // EP: Mixed case
+    @Test
+    public void execute_mixedCase_prescriptionsFound() {
+        String expectedMessage = String.format(MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("aSpIrIn");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPrescriptionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

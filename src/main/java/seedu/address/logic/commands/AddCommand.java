@@ -53,8 +53,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already "
             + "exists in the prescription list.";
     public static final String MESSAGE_DRUG_CLASH = "There are conflicting drugs in BayMeds. \n";
-    public static final String MESSAGE_INVALID_DATES = "Start date must be before end date, "
-            + "and end date must be before expiry date.";
+    public static final String MESSAGE_INVALID_DATES = "Start date cannot be after end date, "
+            + "and expiry date cannot be before start or end date.";
 
     private final Prescription toAdd;
 

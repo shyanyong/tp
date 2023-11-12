@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
@@ -108,7 +107,7 @@ class JsonAdaptedPrescription {
      * @throws IllegalValueException if there were any data constraints violated in the adapted prescription.
      */
     public Prescription toModelType() throws IllegalValueException {
-        final List<Drug> conflictingDrugs = new ArrayList<>();
+        final List<Name> conflictingDrugs = new ArrayList<>();
         for (JsonAdaptedDrug drug : drugs) {
             conflictingDrugs.add(drug.toModelType());
         }
@@ -142,7 +141,7 @@ class JsonAdaptedPrescription {
         if (startDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Date.isValidDate(startDate)) {
+        if (!Date.isValidDateFormat(startDate)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
         final Date modelStartDate = new Date(startDate);
@@ -150,7 +149,7 @@ class JsonAdaptedPrescription {
         Date modelEndDate;
         if (endDate == null) {
             modelEndDate = null;
-        } else if (!Date.isValidDate(endDate)) {
+        } else if (!Date.isValidDateFormat(endDate)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         } else {
             modelEndDate = new Date(endDate);
@@ -159,7 +158,7 @@ class JsonAdaptedPrescription {
         Date modelExpiryDate;
         if (expiryDate == null) {
             modelExpiryDate = null;
-        } else if (!Date.isValidDate(expiryDate)) {
+        } else if (!Date.isValidDateFormat(expiryDate)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         } else {
             modelExpiryDate = new Date(expiryDate);
@@ -168,7 +167,7 @@ class JsonAdaptedPrescription {
         Stock modelTotalStock;
         if (totalStock == null) {
             modelTotalStock = null;
-        } else if (!Stock.isValidStock(totalStock)) {
+        } else if (!Stock.isValidStockFormat(totalStock)) {
             throw new IllegalValueException(Stock.MESSAGE_CONSTRAINTS);
         } else {
             modelTotalStock = new Stock(totalStock);
@@ -193,7 +192,7 @@ class JsonAdaptedPrescription {
             modelNote = new Note(note);
         }
 
-        final Set<Drug> modelDrugs = new HashSet<>(conflictingDrugs);
+        final Set<Name> modelDrugs = new HashSet<>(conflictingDrugs);
         return new Prescription(modelName, modelDosage, modelFrequency, modelStartDate,
                 modelEndDate, modelExpiryDate, modelTotalStock, modelConsumptionCount, modelIsCompleted,
                 modelNote, modelDrugs);

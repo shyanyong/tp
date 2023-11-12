@@ -22,18 +22,18 @@ public class StockTest {
     @Test
     public void isValidStock() {
         // null stock
-        assertThrows(NullPointerException.class, () -> Stock.isValidStock(null));
+        assertThrows(NullPointerException.class, () -> Stock.isValidStockFormat(null));
 
         // invalid stock
-        assertFalse(Stock.isValidStock("")); // empty string
-        assertFalse(Stock.isValidStock(" ")); // spaces only
-        assertFalse(Stock.isValidStock("^")); // non-alphanumeric characters
-        assertFalse(Stock.isValidStock("a")); // alphabets
+        assertFalse(Stock.isValidStockFormat("")); // empty string
+        assertFalse(Stock.isValidStockFormat(" ")); // spaces only
+        assertFalse(Stock.isValidStockFormat("^")); // non-alphanumeric characters
+        assertFalse(Stock.isValidStockFormat("a")); // alphabets
 
         // valid stock
-        assertTrue(Stock.isValidStock("1")); // single digit
-        assertTrue(Stock.isValidStock("12")); // double digit
-        assertTrue(Stock.isValidStock("02")); // trailing zero
+        assertTrue(Stock.isValidStockFormat("1")); // single digit
+        assertTrue(Stock.isValidStockFormat("12")); // double digit
+        assertTrue(Stock.isValidStockFormat("02")); // trailing zero
     }
 
     @Test

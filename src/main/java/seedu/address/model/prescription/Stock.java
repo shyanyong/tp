@@ -5,12 +5,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's stock in the prescription list.
- * Guarantees: immutable; is valid as declared in {@link #isValidStock(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidStockFormat(String)}
  */
 public class Stock {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Stocks should only contain numeric characters, and it should not be blank.";
+    public static final String MESSAGE_LARGE_STOCK =
+            "The stock value inputted is too large. Please input a smaller stock value.";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -27,15 +29,27 @@ public class Stock {
      */
     public Stock(String stock) {
         requireNonNull(stock);
-        checkArgument(isValidStock(stock), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidStockFormat(stock), MESSAGE_CONSTRAINTS);
         fullStock = stock;
     }
 
     /**
      * Returns true if a given string is a valid stock.
      */
-    public static boolean isValidStock(String test) {
+    public static boolean isValidStockFormat(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given string is a valid stock.
+     */
+    public static boolean isValidStock(String test) {
+        try {
+            Integer.parseInt(test);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
     public void setFullStock(String fullStock) {

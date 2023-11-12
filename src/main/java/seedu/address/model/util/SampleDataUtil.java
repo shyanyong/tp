@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.PrescriptionList;
 import seedu.address.model.ReadOnlyPrescriptionList;
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
@@ -51,11 +50,11 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a set containing the list of strings given.
      */
-    public static Set<Drug> getDrugSet(String... strings) {
+    public static Set<Name> getDrugSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Drug::new)
+                .map(Name::new)
                 .collect(Collectors.toSet());
     }
 

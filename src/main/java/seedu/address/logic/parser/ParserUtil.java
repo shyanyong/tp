@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +11,6 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
@@ -65,8 +66,17 @@ public class ParserUtil {
     public static Dosage parseDosage(String dosage) throws ParseException {
         requireNonNull(dosage);
         String trimmedDosage = dosage.trim();
-        if (!Dosage.isValidDosage(trimmedDosage)) {
+
+        if (!Dosage.isValidDosageFormat(trimmedDosage)) {
             throw new ParseException(Dosage.MESSAGE_CONSTRAINTS);
+        }
+
+        if (!Dosage.isLargeNumber(trimmedDosage)) {
+            throw new ParseException(Dosage.MESSAGE_LARGE_DOSAGE);
+        }
+
+        if (Dosage.isInvalidDosage(trimmedDosage)) {
+            throw new ParseException(Dosage.MESSAGE_INVALID_DOSAGE);
         }
         return new Dosage(trimmedDosage);
     }
@@ -87,49 +97,38 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String StartDate} into a {@code Date}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code startDate} is invalid.
-     */
-    public static Date parseStartDate(String startDate) throws ParseException {
-        requireNonNull(startDate);
-        String trimmedStartDate = startDate.trim();
-        if (!Date.isValidDate(trimmedStartDate)) {
-            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
-        }
-        return new Date(trimmedStartDate);
-    }
-
-    /**
      * Parses a {@code String EndDate} into a {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code endDate} is invalid.
      */
-    public static Date parseEndDate(String endDate) throws ParseException {
-        requireNonNull(endDate);
-        String trimmedEndDate = endDate.trim();
-        if (!Date.isValidDate(trimmedEndDate)) {
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+
+        if (!Date.isValidDateFormat(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new Date(trimmedEndDate);
+
+        String[] dateArray = trimmedDate.split("/");
+
+        int day = Integer.parseInt(dateArray[0]);
+        int month = Integer.parseInt(dateArray[1]);
+        int year = Integer.parseInt(dateArray[2]);
+
+        if (year < 1 || year > 9999) {
+            throw new ParseException(Date.MESSAGE_INVALID_DATE);
+        }
+
+        try {
+            LocalDate.of(year, month, day);
+        } catch (DateTimeException e) {
+            throw new ParseException(Date.MESSAGE_INVALID_DATE);
+        }
+
+        return new Date(trimmedDate);
     }
 
-    /**
-     * Parses a {@code String ExpiryDate} into a {@code Date}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code expiryDate} is invalid.
-     */
-    public static Date parseExpiryDate(String expiryDate) throws ParseException {
-        requireNonNull(expiryDate);
-        String trimmedExpiryDate = expiryDate.trim();
-        if (!Date.isValidDate(trimmedExpiryDate)) {
-            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
-        }
-        return new Date(trimmedExpiryDate);
-    }
 
     /**
      * Parses a {@code String TotalStock} into a {@code Stock}.
@@ -140,9 +139,14 @@ public class ParserUtil {
     public static Stock parseTotalStock(String totalStock) throws ParseException {
         requireNonNull(totalStock);
         String trimmedTotalStock = totalStock.trim();
-        if (!Stock.isValidStock(trimmedTotalStock)) {
+        if (!Stock.isValidStockFormat(trimmedTotalStock)) {
             throw new ParseException(Stock.MESSAGE_CONSTRAINTS);
         }
+
+        if (!Stock.isValidStock(trimmedTotalStock)) {
+            throw new ParseException(Stock.MESSAGE_LARGE_STOCK);
+        }
+
         return new Stock(trimmedTotalStock);
     }
 
@@ -182,21 +186,21 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code Drug} is invalid.
      */
-    public static Drug parseDrug(String drug) throws ParseException {
+    public static Name parseDrug(String drug) throws ParseException {
         requireNonNull(drug);
         String trimmedDrug = drug.trim();
-        if (!Drug.isValidDrugName(trimmedDrug)) {
-            throw new ParseException(Drug.MESSAGE_CONSTRAINTS);
+        if (!Name.isValidName(trimmedDrug)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Drug(trimmedDrug);
+        return new Name(trimmedDrug);
     }
 
     /**
      * Parses {@code Collection<String> Drugs} into a {@code Set<Drug>}.
      */
-    public static Set<Drug> parseDrugs(Collection<String> drugs) throws ParseException {
+    public static Set<Name> parseDrugs(Collection<String> drugs) throws ParseException {
         requireNonNull(drugs);
-        final Set<Drug> drugSet = new HashSet<>();
+        final Set<Name> drugSet = new HashSet<>();
         for (String drugList : drugs) {
             for (String drugName : drugList.split(" ")) {
                 drugSet.add(parseDrug(drugName.trim()));

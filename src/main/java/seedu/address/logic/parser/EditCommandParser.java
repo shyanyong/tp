@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.EditCommand.EditPrescriptionDescriptor;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONFLICTING_DRUGS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
@@ -28,7 +29,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY, PREFIX_START_DATE,
-                        PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE);
+                        PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE, PREFIX_CONFLICTING_DRUGS);
         Index index;
 
         try {
@@ -39,7 +40,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY, PREFIX_START_DATE,
-                PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE);
+                PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE, PREFIX_CONFLICTING_DRUGS);
 
         EditPrescriptionDescriptor editPrescriptionDescriptor = new EditPrescriptionDescriptor();
 
@@ -58,16 +59,16 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (argMultimap.getValue(PREFIX_START_DATE).isPresent()) {
             editPrescriptionDescriptor.setStartDate(
-                    ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_START_DATE).get()));
+                    ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
-            editPrescriptionDescriptor.setEndDate(ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_END_DATE).get()));
+            editPrescriptionDescriptor.setEndDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()) {
             editPrescriptionDescriptor.setExpiryDate(
-                    ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get()));
+                    ParserUtil.parseDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_TOTAL_STOCK).isPresent()) {
@@ -77,6 +78,11 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
             editPrescriptionDescriptor.setNote(ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_CONFLICTING_DRUGS).isPresent()) {
+            editPrescriptionDescriptor.setConflictingDrugs(
+                    ParserUtil.parseDrugs(argMultimap.getAllValues(PREFIX_CONFLICTING_DRUGS)));
         }
 
         if (!editPrescriptionDescriptor.isAnyFieldEdited()) {

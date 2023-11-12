@@ -157,6 +157,22 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### UI
+
+The UI consists of a `MainWindow` component that serves as the parent for other JavaFX components as explained [here](#UI-component).
+
+Upon initialising BayMeds for the first time, `UIManager` will call the `fillInnerParts` method of `MainWindow` which also executes the `scaleScreen` method to scale the UI according to the user's screen size.
+
+The screen size is scaled strictly by **height** based on a 16:9 aspect ratio. The final size will then be saved in `preferences.json`.
+
+#### Design considerations:
+
+**Aspect: Resizing the UI**
+
+* The UI is made to not be resizable. As the window size is scaled according to the user's screen size when they open BayMeds for the first time, there will be no issues with inappropriate sizes for different screen resolutions.
+* This ensures that the different UI components remain in full visibility at all times, thus keeping a simple and lightweight UX.
+* The UI can still be minimized if need be, but there is no incentive to keep it running in the background. Users should ideally just need to open BayMeds, enter a few commands and exit.
+
 ### Add feature
 
 The add prescription feature is facilitated by the `AddCommandParser`.

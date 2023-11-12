@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.ConsumptionCount;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
@@ -41,7 +40,7 @@ public class PrescriptionBuilder {
     private ConsumptionCount consumptionCount;
     private Boolean isCompleted;
     private Optional<Note> note;
-    private Set<Drug> conflictingDrugs;
+    private Set<Name> conflictingDrugs;
 
     /**
      * Creates a {@code PrescriptionBuilder} with the default details.
@@ -171,7 +170,7 @@ public class PrescriptionBuilder {
     public Prescription build() {
         return new Prescription(name, dosage.orElse(null), frequency.orElse(null),
             startDate, endDate.orElse(null), expiryDate.orElse(null), totalStock.orElse(null),
-            consumptionCount, isCompleted, note.orElse(null), new HashSet<>());
+            consumptionCount, isCompleted, note.orElse(null), conflictingDrugs);
     }
 
 }

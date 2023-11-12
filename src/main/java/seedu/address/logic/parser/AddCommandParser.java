@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.drug.Drug;
 import seedu.address.model.prescription.Date;
 import seedu.address.model.prescription.Dosage;
 import seedu.address.model.prescription.Frequency;
@@ -49,7 +48,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_DOSAGE, PREFIX_FREQUENCY,
-                PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE);
+                PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_EXPIRY_DATE, PREFIX_TOTAL_STOCK, PREFIX_NOTE,
+                        PREFIX_CONFLICTING_DRUGS);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
         Dosage dosage = null;
@@ -64,17 +64,17 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Date startDate = new Date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         if (argMultimap.getValue(PREFIX_START_DATE).isPresent()) {
-            startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_START_DATE).get());
+            startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
         }
 
         Date endDate = null;
         if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
-            endDate = ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_END_DATE).get());
+            endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
         }
 
         Date expiryDate = null;
         if (argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()) {
-            expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
+            expiryDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
         }
 
         Stock totalStock = null;
@@ -86,8 +86,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
         }
-
-        Set<Drug> conflictingDrugs = ParserUtil.parseDrugs(argMultimap.getAllValues(PREFIX_CONFLICTING_DRUGS));
+        Set<Name> conflictingDrugs = ParserUtil.parseDrugs(argMultimap.getAllValues(PREFIX_CONFLICTING_DRUGS));
 
         Prescription prescription = new Prescription(name, dosage, frequency, startDate, endDate,
                 expiryDate, totalStock, note, conflictingDrugs);
