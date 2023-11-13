@@ -39,20 +39,20 @@ BayMeds enables storage of past prescriptions, i.e. prescriptions that you have 
 2. [Quick start](#quick-start)
 3. [Graphical User Interface](#graphical-user-interface)
 4. [Features](#features)
-   1. [How to add a prescription : `add`](#how-to-add-a-prescription-add)
-   2. [How to list all current prescriptions : `list`](#how-to-list-all-current-prescriptions-list)
-   3. [How to list today's prescriptions : `listToday`](#how-to-list-today-s-prescriptions-listtoday)
-   4. [How to list completed prescriptions : `listCompleted`](#how-to-list-completed-prescriptions-listcompleted)
-   5. [How to edit a prescription : `edit`](#how-to-edit-a-prescription-edit)
-   6. [How to find prescriptions by name : `find`](#how-to-find-prescriptions-by-name-find)
-   7. [How to delete a prescription : `delete`](#how-to-delete-a-prescription-delete)
-   8. [How to take a medication : `take`](#how-to-take-a-medication-take)
-   9. [How to untake a medication : `untake`](#how-to-untake-a-medication-untake)
-   10. [How to list medications that are about to expire or low in stock : `reminder`](#how-to-list-medications-that-are-about-to-expire-or-low-in-stock-reminder)
-   11. [How to list a prescription's conflicting drugs : `listConflicts`](#how-to-list-a-prescription-s-conflicting-drugs-listconflicts)
-   12. [How to list all conflicting drugs : `listAllConflicts`](#how-to-list-all-conflicting-drugs-listallconflicts)
-   13. [How to view help : `help`](#how-to-view-help-help)
-   14. [How to exit BayMeds : `exit`](#how-to-exit-baymeds-exit)
+    * [How to add a prescription : `add`](#how-to-add-a-prescription-add)
+    * [How to list all current prescriptions : `list`](#how-to-list-all-current-prescriptions-list)
+    * [How to list today's prescriptions : `listToday`](#how-to-list-today-s-prescriptions-listtoday)
+    * [How to list completed prescriptions : `listCompleted`](#how-to-list-completed-prescriptions-listcompleted)
+    * [How to edit a prescription : `edit`](#how-to-edit-a-prescription-edit)
+    * [How to find prescriptions by name : `find`](#how-to-find-prescriptions-by-name-find)
+    * [How to delete a prescription : `delete`](#how-to-delete-a-prescription-delete)
+    * [How to take a medication : `take`](#how-to-take-a-medication-take)
+    * [How to untake a medication : `untake`](#how-to-untake-a-medication-untake)
+    * [How to list medications that are about to expire or low in stock : `reminder`](#how-to-list-medications-that-are-about-to-expire-or-low-in-stock-reminder)
+    * [How to list a prescription's conflicting drugs : `listConflicts`](#how-to-list-a-prescription-s-conflicting-drugs-listconflicts)
+    * [How to list all conflicting drugs : `listAllConflicts`](#how-to-list-all-conflicting-drugs-listallconflicts)
+    * [How to view help : `help`](#how-to-view-help-help)
+    * [How to exit BayMeds : `exit`](#how-to-exit-baymeds-exit)
 5. [Saving the data](#saving-the-data)
 6. [Editing the data file](#editing-the-data-file)
 7. [FAQ](#faq)
@@ -83,7 +83,7 @@ If you are experienced in using JAR applications, simply download the latest ver
 
 </box>
 
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have Java `11` or above installed in your computer.
 
 1. Download the latest `BayMeds.jar` from [here](https://github.com/AY2324S1-CS2103T-T15-2/tp/releases).
 
@@ -853,7 +853,7 @@ Data is stored locally in the computer and is not stored in any external databas
 We recommend locking your device before leaving it unattended to prevent others from accessing your prescription records and consumption history.
 </box>
 
-<box type="info" icon=":fa-solid-q:" light header="How do I transfer my data to another Computer?">
+<box type="info" icon=":fa-solid-q:" light header="How do I transfer my data to another computer?">
 
 Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BayMeds home folder.
 </box>
