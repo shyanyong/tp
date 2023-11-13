@@ -388,12 +388,47 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `BayMeds` and the **Actor** is the `user`, unless specified otherwise)
 
+**Use case: Edit a prescription**
+
+**MSS**
+
+1.  User requests to list prescriptions.
+2.  BayMeds shows a list of prescriptions as requested.
+3.  User requests to edit a specific prescription in the list with the edited details.
+4.  BayMeds edit the prescription.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given command is invalid.
+
+    * 1a1. BayMeds shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given prescription is not in the list.
+
+    * 3a1. BayMeds shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. User did not give any edited details.
+
+    * 3b1. BayMeds shows an error message.
+
+      Use case resumes at step 2.
+
 **Use case: Delete a prescription**
 
 **MSS**
 
 1.  User requests to list prescriptions.
-2.  BayMeds shows a list of prescriptions.
+2.  BayMeds shows a list of prescriptions as requested.
 3.  User requests to delete a specific prescription in the list.
 4.  BayMeds deletes the prescription.
 
@@ -422,7 +457,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list all prescriptions.
-2.  BayMeds shows a list of prescriptions together with their details.
+2.  BayMeds shows a list of prescriptions as requested.
 
     Use case ends.
 
@@ -459,7 +494,63 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-*{More to be added}*
+**Use case: Marking a particular prescription as taken**
+
+**MSS**
+
+1.  User requests to list prescriptions.
+2.  BayMeds shows a list of prescriptions as requested.
+3.  User indicates the number of doses consumed to mark the specified prescription.
+4.  BayMeds marks the specified prescription with the specified number of doses consumed.
+5.  BayMeds reduces the total number of pills of that prescription.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given command is invalid.
+
+    * 1a1. BayMeds shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. User did not indicate any dose quantity.
+
+    * 3a1. The default dosage consumed will be taken as 1.
+    * 3a2. Use case resumes at step 4.
+
+* 3b. User indicates a dose quantity that exceeds the total number of available pills in stock.
+
+    * 3b1. BayMeds shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: List conflicting drugs of a prescription**
+
+**MSS**
+
+1.  User requests to list prescriptions.
+2.  BayMeds shows a list of prescriptions as requested.
+3.  User requests to see conflicting drugs of a specified prescription.
+4.  BayMeds shows the conflicting drugs of that particular prescription.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given command is invalid.
+
+    * 1a1. BayMeds shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. The list is empty.
+
+  Use case ends.
 
 ### Non-Functional Requirements
 
