@@ -205,6 +205,10 @@ The Edit Command is a fundamental feature of the BayMeds application, allowing u
 
 The `EditPrescriptionDescriptor` is a crucial component for processing edit commands. It serves as a container for holding the new values that the user wishes to apply during the edit operation. This descriptor is essential for maintaining consistency and ensuring that only valid changes are made to a prescription.
 
+The following class diagram shows the relationship between the `EditPrescriptionDescriptor` and the `EditCommand` class.
+
+<puml src="diagrams/EditCommandClassDiagram.puml" width="550" />
+
 Shown is an example of the usage of the edit command, which shows the EditPrescriptionDescriptor in action.
 
 Step 1. User initiates an edit command, e.g., `edit 1 mn/UpdatedMedicationName d/3`.
@@ -225,9 +229,7 @@ Step 8. The `EditCommand` class then calls the `editPrescription` method in the 
 
 
 
-The following class diagram shows the relationship between the `EditPrescriptionDescriptor` and the `EditCommand` class.
 
-<puml src="diagrams/EditCommandClassDiagram.puml" width="550" />
 
 
 ### Take / untake feature
