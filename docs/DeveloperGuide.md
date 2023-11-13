@@ -298,9 +298,11 @@ The result of `IsTodayPredicate` depends on the prescription's `startDate`. It i
 
 To allow BayMeds to store a separate list of completed prescriptions to facilitate the `listCompleted` feature, we have expanded on the existing model and storage components.
 
-Model also has an in-memory view of a `completedPrescriptionList`. It has its own set of CRUD features for handling `completedPrescriptionList`, and it handles `completedPrescriptionList` similar to how it handles `prescriptionList`.
+* Apart from `prescriptionList`, `Model` also has an in-memory view of a `completedPrescriptionList`. It has its own set of CRUD features for handling `completedPrescriptionList`, and it handles `completedPrescriptionList` similar to how it handles `prescriptionList`.
 
-Storage also contains the implementation of the `completedPrescriptionList` storage. The completed prescription list is stored in the file path `data/completedPrescriptionList.json`, adjacent to the storage for `prescriptionList`.
+* `Storage` also contains the implementation of the `completedPrescriptionList` storage. The completed prescription list is stored in the file path `data/completedPrescriptionList.json`, adjacent to the storage for `prescriptionList`.
+
+Upon start up of BayMeds or after every command, BayMeds will check through the list of current prescriptions against a new `LocalDate.now()` to see if any of the end dates are beyond it (i.e. in the past). If it is, it will transfer the prescription over from one list to the other by deleting this prescription from the existing current `prescriptionList`, and adding it to the the `completedPrescriptionList`.
 
 ### Check prescription interaction feature
 
@@ -324,7 +326,15 @@ The following object oriented domain model shows the class structure of the prob
 
 <puml src="diagrams/CheckInteractionOOD.puml" height="350" />
 
+### Consumption count reset feature
 
+At the beginning of each day, BayMeds is able to **automatically** reset the `consumption count`. This is so that you are able to track the consumption of your prescriptions each day, and that the consumption count will not be accumulated over multiple days.
+
+The most recent date will be stored in the `preferences.json` file. Upon start up of BayMeds or after every command, BayMeds will create a new `LocalDate.now()` and compare it with the stored `date`. If it is different, implying that it is a new day, the `consumption count` will be reset and the stored date will be replaced with the new date.
+
+Design considerations:
+
+We considered implementing an alternative version, where users can call a `reset` command, which will `reset` the consumption counts of all the prescriptions. However, this would result in a very tedious task for the user of having to manually reset your consumption counts daily, which alot of users may forget. Thus, we went ahead with the above implementation, to ease the process of tracking prescription consumption.
 
 --------------------------------------------------------------------------------------------------------------------
 
