@@ -53,11 +53,9 @@ BayMeds enables storage of past prescriptions, i.e. prescriptions that you have 
     * [How to list all conflicting drugs : `listAllConflicts`](#how-to-list-all-conflicting-drugs-listallconflicts)
     * [How to view help : `help`](#how-to-view-help-help)
     * [How to exit BayMeds : `exit`](#how-to-exit-baymeds-exit)
-5. [Saving the data](#saving-the-data)
-6. [Editing the data file](#editing-the-data-file)
-7. [FAQ](#faq)
-8. [Known issues](#known-issues)
-9. [Command summary](#command-summary)
+5. [FAQ](#faq)
+6. [Known issues](#known-issues)
+7. [Command summary](#command-summary)
 
 ## How to use this guide
 
@@ -615,9 +613,9 @@ By typing this, you will take 2 doses from the second prescription.
 
 ### How to untake a medication : `untake`
 
-If you have accidentally indicated that you have taken a medication, Baymeds allows you untake the medication similar to the [take](#how-to-take-a-medication-take) feature.
+If you have accidentally indicated that you have taken a medication, and you wish to undo this, Baymeds allows you untake the medication similar to the [take](#how-to-take-a-medication-take) feature.
 
-Note that this feature is meant to revert errors made by the user, updating changes to the stock and consumption count and does not indicate that the medication has actually been untaken.
+Note that this feature is meant to revert errors made by the user, updating changes to the stock and consumption count.
 
 In order to do so, type the following command.
 
@@ -650,7 +648,7 @@ This will update the index-identified prescription with the specified amount of 
 
 * The stock field of the prescription will be increased by the specified `<dosage>`.
 
-If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-today-s-prescriptions-listtoday).
+* If you would like to see the updated consumption count and stock, use [listToday](#how-to-list-today-s-prescriptions-listtoday).
 
 <box type="warning" icon=":fa-solid-triangle-exclamation:" header="Important">
 
@@ -736,7 +734,7 @@ You will then be able to see the conflicting drugs in the text box on the left.
     To show the conflicting drugs of the first prescription in the list (currently being displayed), specify the `<index>` as 1.
   </box>
 
-* This differs from the [listAllConflicts](#how-to-list-all-conflicting-drugs-listallconflicts) command. While `listAllConflicts` lists drugs that conflict will **all** your current prescriptions, `listConflicts` will only list drugs that conflict with the specified prescription.
+* This differs from the [listAllConflicts](#how-to-list-all-conflicting-drugs-listallconflicts) command. While `listAllConflicts` lists drugs that conflict with **all** your current prescriptions, `listConflicts` will only list drugs that conflict with the specified prescription.
 
 <box type="warning" icon=":fa-solid-triangle-exclamation:" header="Important">
 
@@ -772,7 +770,7 @@ You will then be able to see all conflicting drugs in the text box on the left.
 
 <box type="info" header="Notes">
 
-* This differs from the [listConflicts](#how-to-list-a-prescription-s-conflicting-drugs-listconflicts) command. `listAllConflicts` lists drugs that conflict will **all** your current prescriptions, while `listConflicts` will only list drugs that conflict with a specified prescription.
+* This differs from the [listConflicts](#how-to-list-a-prescription-s-conflicting-drugs-listconflicts) command. `listAllConflicts` lists drugs that conflict with **all** your current prescriptions, while `listConflicts` will only list drugs that conflict with a specified prescription.
 
 </box>
 
@@ -808,23 +806,22 @@ exit
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Saving the data
+## FAQ
+
+<box type="info" icon=":fa-solid-q:" light header="How do I save my data?">
 
 BayMeds data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+</box>
 
-## Editing the data file
+<box type="info" icon=":fa-solid-q:" light header="How do I edit the data file?">
 
 BayMeds data are saved automatically as a JSON file `[JAR file location]/data/prescriptionList.json and completedPrescriptionList.json`. Advanced users are welcome to update data directly by editing that data file.
-
 <box type="warning" icon=":fa-solid-triangle-exclamation:">
 
 **Caution:**
 If your changes are in an invalid format, BayMeds will discard all data and start with an empty data file at the next run. Hence, it is recommended to make a backup of the file before editing it.
 </box>
-
---------------------------------------------------------------------------------------------------------------------
-
-## FAQ
+</box>
 
 <box type="info" icon=":fa-solid-q:" light header="How do I store the size and colour of the pill?">
 
@@ -886,17 +883,19 @@ You will still be allowed to take the drug, allowing you to keep track of the dr
 
 ## Command summary
 
-| Action                   | Format, Example                                                                                                                                                                                                                                                 |
-|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**                  | `add mn/<medication_name> [d/<dosage>] [f/<frequency>]  [sd/<start_date>] [ed/<end_date>] [exd/<expiry_date>] [ts/<total_stock>] [n/<note>]`, <br> e.g. `add mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exp/04/10/2024 ts/100 n/Take during meals`      |
-| **Delete**               | `delete <index>`, <br> e.g. `delete 2`                                                                                                                                                                                                                          |
-| **Mark**                 | `take <index> [d/<dosage_taken>]`, <br> e.g. `take 1 d/1`                                                                                                                                                                                                       |
-| **List**                 | `list`                                                                                                                                                                                                                                                          |
-| **List today**           | `listToday`                                                                                                                                                                                                                                                     |
-| **List completed**       | `listCompleted`                                                                                                                                                                                                                                                 |
-| **Find**                 | `find <keyword>`, <br> e.g. `find Aspirin`                                                                                                                                                                                                                      |
-| **Reminder**             | `reminder`                                                                                                                                                                                                                                                      |
-| **List conflicts**       | `listConflicts`                                                                                                                                                                                                                                                 |
-| **List all conflicts**   | `listAllConflicts`                                                                                                                                                                                                                                              |
-| **Help**                 | `help`                                                                                                                                                                                                                                                          |
-| **Exit**                 | `exit`                                                                                                                                                                                                                                                          |
+| How to ...                                   | Format, Example                                                                                                                                                                                                                                                                                                 |
+|----------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add a prescription**                       | `add mn/<medication_name> [d/<dosage>] [f/<frequency>]  [sd/<start_date>] [ed/<end_date>] [exd/<expiry_date>] [ts/<total_stock>] [n/<note>] [cfdg/<conflicting_drugs>]`, <br> e.g. `add mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exp/04/10/2024 ts/100 n/Take during meals cfdg/Panadol`              |
+| **List all prescriptions**                   | `list`                                                                                                                                                                                                                                                                                                          |
+| **List today's prescriptions**               | `listToday`                                                                                                                                                                                                                                                                                                     |
+| **List completed prescriptions**             | `listCompleted`                                                                                                                                                                                                                                                                                                 |
+| **Edit prescriptions**                       | `edit <index> [mn/<medication_name>] [d/<dosage>] [f/<frequency>] [sd/<start_date>] [ed/<end_date>] [exd/<expiry_date>] [ts/<total_stock>] [n/<note>] [cfdg/<conflicting_drugs>]`, <br> e.g. `edit 1 mn/Aspirin d/1 f/Daily sd/20/09/2023 ed/03/10/2024 exp/04/10/2024 ts/100 n/Take during meals cfdg/Panadol` |
+| **Find prescriptions**                       | `find <keyword>`, <br> e.g. `find Aspirin`                                                                                                                                                                                                                                                                      |
+| **Delete prescriptions**                     | `delete <index>`, <br> e.g. `delete 2`                                                                                                                                                                                                                                                                          |
+| **Take prescriptions**                       | `take <index> [d/<dosage>]`, <br> e.g. `take 1 d/1`                                                                                                                                                                                                                                                             |
+| **Untake prescriptions**                     | `untake <index> [d/<dosage>]`, <br> e.g. `untake 1 d/1`                                                                                                                                                                                                                                                         |
+| **View expiring/low in stock prescriptions** | `reminder`                                                                                                                                                                                                                                                                                                      |
+| **List conflicting prescriptions**           | `listConflicts <index>`, <br> e.g. `listConflicts 1`                                                                                                                                                                                                                                                            |
+| **List all conflicting prescriptions**       | `listAllConflicts`                                                                                                                                                                                                                                                                                              |
+| **Show help**                                | `help`                                                                                                                                                                                                                                                                                                          |
+| **Exit the application**                     | `exit`                                                                                                                                                                                                                                                                                                          |
