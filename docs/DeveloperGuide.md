@@ -382,7 +382,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | patient with a lot of prescriptions | easily find prescriptions by keywords     | view prescriptions even if I only remember part of the name        |
 | `* *`    | patient                            | track drugs that conflict with each prescription     | track what drugs I should avoid for the prescription   |
 | `* *`    | patient visiting a pharmacist      | easily view a list of drugs that conflicts with my current list of prescriptions    | easily show the pharmacist what I should avoid |
-| `*`    | busy                                 | get notifications on my work desktop    | get timely reminders even when I am preoccupied by work |
+| `*`    | busy patient                                 | get notifications on my work desktop    | get timely reminders even when I am preoccupied by work |
 
 ### Use cases
 
