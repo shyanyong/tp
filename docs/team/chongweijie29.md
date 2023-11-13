@@ -26,10 +26,10 @@ Given below are my contributions to the project.
     * Include and modify add command (Pull request [\#152]())
   * Developer Guide:
     * Add in implementation of add command (Pull request [\#114]())
-    * Add in listCompleted feature (Pull request [\#114]())
+    * Add in listCompleted feature (Pull request [\#239]())
     * Add in user stories (Pull request [\#237]())
     * Add in use cases (Pull request [\#239]())
-    * Add in consumption count reset feature (Pull request [\#114]())
+    * Add in consumption count reset feature (Pull request [\#239]())
 
 * **Team-based tasks**:
   * Minor admin matters such as milestone set up and issue tracking
