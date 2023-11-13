@@ -203,7 +203,7 @@ The prescription will then be added and shown in the list.
 
 * `<frequency>` refers to the interval to consume the prescription. It only accepts the inputs `Daily`, `Weekly` or `Monthly`.
 
-* `<start_date>`, `<end_date>` and `<expiry_date>` should be in <span style="color:red">**dd/mm/yyyy format**</span>. In addition, `<expiry_date>` cannot be earlier than the `<end_date>`, and similarly, `<end_date>` cannot be earlier than the `<start_date>`
+* `<start_date>`, `<end_date>` and `<expiry_date>` should be in <span style="color:red">**dd/mm/yyyy format**</span>. In addition, `<expiry_date>` cannot be earlier than the `<end_date>`, and similarly, `<end_date>` cannot be earlier than the `<start_date>`.
   <box type="definition" header="Example" seamless>
 
   For 20th September 2023, type `20/09/2023`.
@@ -215,10 +215,10 @@ The prescription will then be added and shown in the list.
   For 100 pills, type 100.
   </box>
 
-* `<conflicting_drugs>` refers to the drugs that conflict with your prescription. It accepts space separated drug names.
+* `<conflicting_drugs>` refers to the drugs that conflict with your prescription. You may add in multiple conflicting drugs by separating them with a space.
   <box type="definition" header="Example" seamless>
 
-  If your prescription has 2 conflicting drugs (Paracetamol and Aspirin), type Paracetamol Aspirin.
+  If you wish to add Paracetamol and Aspirin as conflicting drugs to your prescription, type `cfdg/Paracetamol Aspirin`.
   </box>
 
 * `<note>` refers to any important or special information you would like to include.
@@ -287,9 +287,9 @@ You will then be able to see the relevant prescriptions in the list.
 
 <box type="info" header="Notes">
 
-If you would like to only view prescriptions that you have to consume **for the day**, use [listToday](#how-to-list-today-s-prescriptions-listtoday) instead.
+* If you would like to only view prescriptions that you have to consume **for the day**, use [listToday](#how-to-list-today-s-prescriptions-listtoday) instead.
 
-If you would like to view prescriptions that you have consumed **in the past**, use [listCompleted](#how-to-list-completed-prescriptions-listcompleted) instead.
+* If you would like to view prescriptions that you have consumed **in the past**, use [listCompleted](#how-to-list-completed-prescriptions-listcompleted) instead.
 
 </box>
 
@@ -326,18 +326,18 @@ You will then be able to see the relevant prescriptions in the list.
   If the `<frequency>` of a particular prescription is `Weekly`, and the `<start_date>` falls on a Wednesday, it will appear in this list only on Wednesdays.
   </box>
 
-* In this list, prescriptions will have an indicator to show whether or not it has been completed for the day.
+* In this list, prescriptions will have an indicator, on the top right, to show the number of pills consumed and whether or not it has been completed for the day. In the event that `<dosage>` was not provided, the indicator will instead display the amount you have consumed for the day.
 
 * As `<frequency>` is an optional input, prescriptions that do not have a frequency will continue to appear in this list. This is so that in the event you are unaware of the frequency, or if the frequency is irregular, you may continue to track the prescription consumption if you wish to take it on that day.
 
-If you would like to prescriptions that you are currently taking, use [list](#how-to-list-all-current-prescriptions-list) instead.
+* If you would like to view prescriptions that you are **currently** taking, use [list](#how-to-list-all-current-prescriptions-list) instead.
 
-If you would like to view prescriptions that you have consumed in the past, use [listCompleted](#how-to-list-completed-prescriptions-listcompleted) instead.
+* If you would like to view prescriptions that you have consumed **in the past**, use [listCompleted](#how-to-list-completed-prescriptions-listcompleted) instead.
 </box>
 
 <box type="definition" header="#### Example">
 
-By typing `listToday`, you will see your prescriptions for the day displayed in the list on the right.
+By typing `listToday`, you will see your prescriptions **for the day** displayed in the list on the right.
 
 ![result for 'Example output of list today command'](images/ui/Ui-listToday.png)
 
@@ -358,9 +358,9 @@ You will then be able to see the relevant prescriptions in the list.
 
 <box type="info" header="Notes">
 
-If you would like to prescriptions that you are currently taking, use [list](#how-to-list-all-current-prescriptions-list) instead.
+* If you would like to view prescriptions that you are **currently** taking, use [list](#how-to-list-all-current-prescriptions-list) instead.
 
-If you would like to only view prescriptions that you have to consume for the day, use [listToday](#how-to-list-today-s-prescriptions-listtoday) instead.
+* If you would like to only view prescriptions that you have to consume **for the day**, use [listToday](#how-to-list-today-s-prescriptions-listtoday) instead.
 
 <box type="warning" icon=":fa-solid-triangle-exclamation:" header="Important">
 
