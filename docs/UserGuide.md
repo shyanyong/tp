@@ -880,7 +880,8 @@ You will still be allowed to take the drug, allowing you to keep track of the dr
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-
+1. **When adding conflicting drugs**, drugs with names longer than a word (such as "Ascorbic acid") cannot be added as drug names are space separated. We will implement a fix for this in the future.
+1. **When adding conflicting drugs**, If you leave the /cfdg field empty or without alphanumeric characters, the error message will be the same as if you left the /mn parameter empty. We will implement a fix for this in the future.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
