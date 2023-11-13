@@ -13,7 +13,8 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
+* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -52,7 +53,7 @@ The bulk of the app's work is done by the following four components:
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-<puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
+<puml src="diagrams/ArchitectureSequenceDiagram.puml" width="600" />
 
 Each of the four main components (also shown in the diagram above),
 
@@ -117,7 +118,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S1-CS2103T-T15-2/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelClassDiagram.puml" width="650" />
 
 
 The `Model` component,
@@ -132,7 +133,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/AY2324S1-CS2103T-T15-2/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml" />
 
 The `Storage` component,
 * can save both BayMeds data and user preference data in JSON format, and read them back into corresponding objects.
@@ -171,7 +172,7 @@ The add prescription feature is facilitated by the `AddCommandParser`.
 
 Given below is an example usage scenario and how the add prescription mechanism behaves at each step.
 
-Step 1. The user types the command `add mn/Propranolol d/4 f/Daily ed/20/01/2024`. Upon pressing enter, the `Ui` triggers the `execute` method in `Logic`, passing the input text to the `PrescriptionListparser` in `Logic`. The `PrescriptionListParser` then checks the command type to determine which command parser to call.
+Step 1. The user types the command `add mn/Propranolol`. Upon pressing enter, the `Ui` triggers the `execute` method in `Logic`, passing the input text to the `PrescriptionListparser` in `Logic`. The `PrescriptionListParser` then checks the command type to determine which command parser to call.
 
 Step 2. Upon checking that it is an `add` command, the `AddCommandParser` will be created to `parse` the input text. It creates an `argMultiMap`, which contains the mappings of each recognised prefix in the input text, and its associated value.
 
@@ -185,11 +186,11 @@ Step 4: `Logic` then calls `AddCommand`'s `execute`. This will call `Model`'s `a
 
 The following sequence diagram shows how the `add` operation works.
 
-<puml src="diagrams/AddCommandSequenceDiagram.puml" height="350" />
+<puml src="diagrams/AddCommandSequenceDiagram.puml" />
 
 The following activity diagram summarizes what happens when the user executes an `add` command.
 
-<puml src="diagrams/AddCommandActivityDiagram.puml" height="350" />
+<puml src="diagrams/AddCommandActivityDiagram.puml" height="400" />
 
 Design considerations:
 
@@ -250,7 +251,7 @@ Step 4: `Logic` then calls `TakeCommand`'s `execute`. This will call `Model`'s `
 
 The following class diagram shows the classes associated with executing a take command.
 
-<puml src="diagrams/TakeCommandClassDiagram.puml" height="350" />
+<puml src="diagrams/TakeCommandClassDiagram.puml" />
 
 Design considerations:
 
@@ -277,11 +278,11 @@ Step 4: The `Model` will then update the in-memory `FilteredList<Prescription>` 
 
 The following sequence diagram shows how the `listToday` operation works.
 
-<puml src="diagrams/ListTodayCommandSequenceDiagram.puml" height="350" />
+<puml src="diagrams/ListTodayCommandSequenceDiagram.puml" />
 
 The following activity diagram summarizes what happens when the user executes an `listToday` command.
 
-<puml src="diagrams/ListTodayCommandActivityDiagram.puml" height="350" />
+<puml src="diagrams/ListTodayCommandActivityDiagram.puml" height="400" />
 
 Design considerations:
 
@@ -516,3 +517,4 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+]()
