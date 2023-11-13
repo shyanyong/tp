@@ -22,11 +22,13 @@ Given below are my contributions to the project.
   * User Guide:
     * Include and modify take command (Pull request [\#145]()).
     * Include and modify untake command (Pull request [\#165]()).
+    * Fixed typos and updated command summary (Pull request [\#232]()).
   * Developer Guide:
     * Add in implementation of take/untake command (Pull request [\#128]()).
 
 * **Team-based tasks**:
   * Contributed to creating and filtering user stories.
+  * Helped clean up JavaDocs. (Pull requests [\#236]()).
   * Added class diagram and details for take/untake (Pull requests [\#128]()).
 
 * **Review and mentoring**:
