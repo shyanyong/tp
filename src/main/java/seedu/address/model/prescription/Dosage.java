@@ -61,8 +61,12 @@ public class Dosage {
         return true;
     }
 
+    /**
+     * Returns true if a given string is an invalid dosage.
+     */
     public static boolean isInvalidDosage(String test) {
-        return Integer.parseInt(test) <= 0;
+        final int minDosage = 1;
+        return Integer.parseInt(test) < minDosage;
     }
 
 

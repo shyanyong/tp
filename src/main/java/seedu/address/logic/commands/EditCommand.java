@@ -114,7 +114,6 @@ public class EditCommand extends Command {
     private static Prescription createEditedPrescription(Prescription prescriptionToEdit,
         EditPrescriptionDescriptor editPrescriptionDescriptor) {
         assert prescriptionToEdit != null;
-
         Name updatedName = editPrescriptionDescriptor.getName().orElse(
                 prescriptionToEdit.getName());
         Dosage updatedDosage = editPrescriptionDescriptor.getDosage().orElse(
@@ -139,8 +138,6 @@ public class EditCommand extends Command {
         if (conflictingDrugs.isEmpty()) {
             conflictingDrugs = prescriptionToEdit.getConflictingDrugs();
         }
-
-
         return new Prescription(updatedName, updatedDosage, updatedFrequency, updatedStartDate, updatedEndDate,
                 updatedExpiryDate, updatedTotalStock, updatedConsumptionCount, updatedIsCompleted, updatedNote,
                 conflictingDrugs);
