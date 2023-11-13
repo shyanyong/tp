@@ -151,7 +151,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ### UI
 
-The UI consists of a `MainWindow` component that serves as the parent for other JavaFX components as explained [here](#UI-component).
+The UI consists of a `MainWindow` component that serves as the parent for other JavaFX components as explained [here](#ui-component).
 
 Upon initialising BayMeds for the first time, `UIManager` will call the `fillInnerParts` method of `MainWindow` which also executes the `scaleScreen` method to scale the UI according to the user's screen size.
 
@@ -196,6 +196,8 @@ Design considerations:
 Prescriptions may have an uneven consumption interval. For example, some prescriptions only needs to be consumed every Wednesday and Sunday. In such scenarios, users will need to input this prescription as 2 separate inputs with the same prescription name.
 
 To cater for this, we are using every prescription's `name` and `startDate` to identify each prescription. Every `Prescription` must therefore have both these fields. As such, if no start date was provided, it will be initialised to a default value.
+
+To cater to fast typists, we have made most of the input fields optional, so that they only need to put in minimal data in order to successfully add a prescription. The only compulsory field is the medication name of the prescription.
 
 ### Edit feature
 The Edit Command is a fundamental feature of the BayMeds application, allowing users to modify the details of a prescription. It leverages the `EditPrescriptionDescriptor` and follows a specific edit mechanism.
@@ -291,9 +293,11 @@ The result of `IsTodayPredicate` depends on the prescription's `startDate`. It i
 
 ### List completed feature
 
-### Find feature
+To allow BayMeds to store a separate list of completed prescriptions to facilitate the `listCompleted` feature, we have expanded on the existing model and storage components.
 
-### Remind prescription feature
+Model also has an in-memory view of a `completedPrescriptionList`. It has its own set of CRUD features for handling `completedPrescriptionList`, and it handles `completedPrescriptionList` similar to how it handles `prescriptionList`.
+
+Storage also contains the implementation of the `completedPrescriptionList` storage. The completed prescription list is stored in the file path `data/completedPrescriptionList.json`, adjacent to the storage for `prescriptionList`.
 
 ### Check prescription interaction feature
 
@@ -356,18 +360,26 @@ The following object oriented domain model shows the class structure of the prob
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                            | I want to …​                                        | So that I can…​                                                    |
+| Priority | As a …​                            | I want to …​                                        | So that I can…​                  |
 |----------|------------------------------------|-----------------------------------------------------|--------------------------------------------------------------------|
-| `* * *`  | sickly patient                     | add prescriptions                                   | manage additional prescriptions should I be prescribed them        |
-| `* * *`  | recovering patient                 | remove prescriptions                                | remove prescriptions that the doctor deems unnecessary from now on |
-| `* * *`  | forgetful patient                  | mark the medication as consumed                     | not accidentally overdose on a certain medication                  |
-| `* * *`  | forgetful patient                  | list all my prescriptions                           | track all the medications I am currently taking                    |
-| `* *`    | forgetful patient                  | list all the medications I have not taken today     | follow my prescription accurately                                  |
-| `* *`    | patient undergoing a tapering plan | edit prescriptions that I have added                | adjust my dosage schedules easily                                  |
-| `* *`    | forgetful patient                  | get daily reminders of what medications to take     | take my medication on time                                         |
-| `*`      | forgetful patient                  | get a reminder when a medication is about to expire | premptively stock up before it runs out                            |
-
-*{More to be added}*
+| `* * *`  | sickly patient                     | add prescriptions                                   | manage additional prescriptions should I be prescribed them |
+| `* * *`  | forgetful patient                  | mark the prescription as consumed or taken          | not accidentally overdose on a certain prescription      |
+| `* * *`  | forgetful patient                  | list all my **current** prescriptions               | track all the prescriptions I am currently on            |
+| `* * *`  | patient undergoing a tapering plan | edit prescriptions that I have added                | adjust my dosage schedules easily   |
+| `* * *`  | patient who bought new medication  | edit the number of pills I have of the prescription | accurately track the number of pills I have |
+| `* * *`  | recovering patient                 | delete prescriptions                                | remove prescriptions that I no longer need to track |
+| `* * *`  | clumsy patient                     | delete prescriptions                                | remove prescriptions that I erronously inserted |
+| `* * *`  | patient or caregiver               | list all the prescriptions to consume **for the day** | easily track which ones I/my patient need to consume today |
+| `* * *`  | patient                            | list all prescriptions which I have completed **in the past** | show my healthcare providers my past prescriptions |
+| `* *`    | patient or caregiver               | note that important requirements | get reminded of them whenever I consume the prescription |
+| `* *`    | patient                            | easily view how many pills I have remaining from a particular prescription I took in the past | check if I have enough to consume it again in the future should I need to |
+| `* *`    | lazy patient or caregiver          | only add in the prescription name without other details | easily add in prescriptions without knowing or remembering the accompanying details          |
+| `* *`    | buzy patient                       | easily check which pills are low in stock or expiring | get them replaced as soon as possible    |
+| `* *`    | clumsy patient                     | "unconsume" a prescription | unmark a prescription should I have accidentally marked it as consumed      |
+| `* *`    | patient with a lot of prescriptions | easily find prescriptions by keywords     | view prescriptions even if I only remember part of the name        |
+| `* *`    | patient                            | track drugs that conflict with each prescription     | track what drugs I should avoid for the prescription   |
+| `* *`    | patient visiting a pharmacist      | easily view a list of drugs that conflicts with my current list of prescriptions    | easily show the pharmacist what I should avoid |
+| `*`    | busy                                 | get notifications on my work desktop    | get timely reminders even when I am preoccupied by work |
 
 ### Use cases
 

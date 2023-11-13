@@ -26,6 +26,7 @@ Given below are my contributions to the project.
     * Include and modify add command (Pull request [\#152]())
   * Developer Guide:
     * Add in implementation of add command (Pull request [\#114]())
+    * Add in user stories
 
 * **Team-based tasks**:
   * Minor admin matters such as milestone set up and issue tracking
