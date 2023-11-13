@@ -83,7 +83,7 @@ If you are experienced in using JAR applications, simply download the latest ver
 
 </box>
 
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have Java `11` or above installed in your computer.
 
 1. Download the latest `BayMeds.jar` from [here](https://github.com/AY2324S1-CS2103T-T15-2/tp/releases).
 
@@ -853,7 +853,7 @@ Data is stored locally in the computer and is not stored in any external databas
 We recommend locking your device before leaving it unattended to prevent others from accessing your prescription records and consumption history.
 </box>
 
-<box type="info" icon=":fa-solid-q:" light header="How do I transfer my data to another Computer?">
+<box type="info" icon=":fa-solid-q:" light header="How do I transfer my data to another computer?">
 
 Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BayMeds home folder.
 </box>
