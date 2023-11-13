@@ -344,7 +344,7 @@ The following object oriented domain model shows the class structure of the prob
 
 **Target user profile**:
 
-* has a need to manage a significant number of prescriptions
+* has a need to manage a significant number of prescriptions, is a caregiver or a patient with multiple prescriptions
 * prefers a quick way of tracking medication needs, dosage and related health information
 * prefers desktop apps over other types
 * can type fast
@@ -354,9 +354,10 @@ The following object oriented domain model shows the class structure of the prob
 **Value proposition**:
 
 * manage prescriptions faster than a typical mouse/GUI driven app
-* track dosage schedule and instructions
-* track medical history
-* log symptoms
+* track dosage schedule
+* store important details and instructions about prescriptions
+* log medical history and past consumption
+* warn about conflicting drugs in current prescriptions
 
 
 ### User stories
@@ -466,16 +467,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 prescriptions without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  Should be able to give a notification to the user when the application is running. (Time to take medication / medication is about to expire)
-5.  Should be able to track current date and time when the application is running.
 
 *{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Medication**: A drug identified by a name
-* **Prescription**: Uniquely identified by a medication, a frequency and a quantity
+* **Medication**: A drug identified by a name.
+* **Prescription**: Uniquely identified by a medication, other fields are optional.
+* **Conflicting drugs**: Drugs that should not be taken together.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -513,11 +513,11 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all medications using the `list` command. Multiple medications in the list.
 
-   1. Test case: `delete --medication "Doxazosin"`<br>
-      Expected: Doxazosin is deleted from the list. Details of the deleted medication shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete 1"`<br>
+      Expected: Aspirin is deleted from the list. Details of the deleted medication shown in the Result Display.
 
-   1. Test case: `delete --medication "Watsons"`<br>
-      Expected: No medication is deleted. Error details shown in the status message. Status bar remains the same.
+   1. Test case: `delete 9`<br>
+      Expected: No medication is deleted. Error details shown in the Result Display. List Display remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...`<br>
       Expected: Similar to previous.
@@ -531,3 +531,15 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+Given below are known issues and planned enhancements in the future.
+
+### Conflicting Drugs Feature
+
+1. **When adding conflicting drugs**, drugs with names longer than a word (such as "Ascorbic acid") cannot be added as drug names are space separated. We will implement a fix for this in the future.
+1. **When adding conflicting drugs**, If you leave the /cfdg field empty or without alphanumeric characters, the error message will be the same as if you left the /mn parameter empty. We will implement a fix for this in the future.
+   <br></br>

@@ -916,6 +916,19 @@ You will still be allowed to take the drug, allowing you to keep track of the dr
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Glossary
+
+| Term                                 | Definition                                                                                                                                                                                                                                                                                                 |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Medication**                       | A drug identified by a name.                                                                                                                                                                                                         |
+| **Prescription**                     | Uniquely identified by a medication, other fields are optional.                                                                                                                                                                                                                                                                                                          |
+| **Conflicting drugs**                | Drugs that should not be taken together, e.g. drugs that react with other drugs or affect the efficacy of other drugs                                                                                                                                                                                                                                                                                                     |
+| **Command**                          | One of the commands in the command summary below, each command has a unique format.                                                                                                                                                                                                                                                                                    |
+| **Parameters**                       | Additional information supplied to a command. Some parameters are compulsory while others are optional, please refer to the command summary below.                                                                                                                                                                                                                                                                                                |
+| **Index**                            | A number indicating the position of a prescription in the list of prescriptions. The first prescription in the list has an index of 1.                                                                                                                                                                                                                                    |
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## Command summary
 
 | How to ...                                   | Format, Example                                                                                                                                                                                                                                                                                                 |
