@@ -27,7 +27,7 @@ Given below are my contributions to the project.
   * Developer Guide:
     * Add in implementation of add command (Pull request [\#114]())
     * Add in user stories (Pull request [\#237]())
-    * Add in use cases
+    * Add in use cases (Pull request [\#239]())
 
 * **Team-based tasks**:
   * Minor admin matters such as milestone set up and issue tracking
