@@ -46,7 +46,7 @@ public class Prescription {
     }
 
     /**
-     * Every field must be present and not null.
+     * Constructor for prescription.
      */
     public Prescription(Name name, Dosage dosage, Frequency frequency, Date startDate,
                         Date endDate, Date expiryDate, Stock totalStock, ConsumptionCount consumptionCount,

@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 
 /**
- * Represents a prescription's dosage in the prescription list.
+ * Represents a Prescription's dosage in the prescription list.
  * Guarantees: immutable; is valid as declared in {@link #isValidDosage(String)}
  */
 public class Dosage {
