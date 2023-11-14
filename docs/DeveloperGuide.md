@@ -81,7 +81,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Prescription` object residing in the `Model`.
 
 ### Logic component
 
@@ -124,6 +124,7 @@ How the parsing works:
 The `Model` component,
 
 * stores the BayMeds data i.e., all `Prescription` objects (which are contained in a `UniquePrescriptionList` object).
+* has two separate `PrescriptionList` objects to keep track of existing and completed prescriptions.
 * stores the currently 'selected' `Prescription` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Prescription>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
