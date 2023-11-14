@@ -158,8 +158,8 @@ public class CommandTestUtil {
         List<Prescription> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPrescriptionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        // assertEquals(expectedPrescriptionList, actualModel.getPrescriptionList());
-        // assertEquals(expectedFilteredList, actualModel.getFilteredPrescriptionList());
+        assertEquals(expectedPrescriptionList, actualModel.getPrescriptionList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredPrescriptionList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the prescription at the given {@code targetIndex} in the
