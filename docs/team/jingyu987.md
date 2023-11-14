@@ -16,7 +16,7 @@ Given below are my contributions to the project.
   * Implemented untake feature (Pull request [\#92]()).
   * Implemented listCompleted feature (Pull request [\#108]()).
   * Implemented the moving of prescriptions to the completed list automatically (Pull request [\#129]()).
-  * Updated prescriptions to include consumptionCount and isCompleted field to keep track of completed status of prescriptions. (Pull requests [\#56]() [\#86]()).
+  * Updated prescriptions to include consumptionCount and isCompleted field to keep track of completed status of prescriptions. (Pull requests [\#56](), [\#86]()).
 
 * **Documentation**:
   * User Guide:
