@@ -46,14 +46,14 @@ public class ListConflictsCommandTest {
     }
 
     // EP: No conflicting drugs in current prescriptions
-    //    @Test
-    //    public void execute_listConflicts_noConflictsSuccess() {
-    //        // Only the first prescription has a conflict in our test data
-    //        model.deletePrescription(model.getFilteredPrescriptionList().get(0));
-    //        expectedModel.deletePrescription(expectedModel.getFilteredPrescriptionList().get(0));
-    //        assertCommandSuccess(new ListAllConflictsCommand(), model,
-    //                ListAllConflictsCommand.MESSAGE_EMPTY_LIST, expectedModel);
-    //    }
+    @Test
+    public void execute_listConflicts_noConflictsSuccess() {
+        // Only the first prescription has a conflict in our test data
+        model.deletePrescription(model.getFilteredPrescriptionList().get(0));
+        expectedModel.deletePrescription(expectedModel.getFilteredPrescriptionList().get(0));
+        assertCommandSuccess(new ListAllConflictsCommand(), model,
+                ListAllConflictsCommand.MESSAGE_EMPTY_LIST, expectedModel);
+    }
 
     @Test
     public void equals() {
