@@ -298,9 +298,11 @@ The result of `IsTodayPredicate` depends on the prescription's `startDate`. It i
 
 To allow BayMeds to store a separate list of completed prescriptions to facilitate the `listCompleted` feature, we have expanded on the existing model and storage components.
 
-Model also has an in-memory view of a `completedPrescriptionList`. It has its own set of CRUD features for handling `completedPrescriptionList`, and it handles `completedPrescriptionList` similar to how it handles `prescriptionList`.
+* Apart from `prescriptionList`, `Model` also has an in-memory view of a `completedPrescriptionList`. It has its own set of CRUD features for handling `completedPrescriptionList`, and it handles `completedPrescriptionList` similar to how it handles `prescriptionList`.
 
-Storage also contains the implementation of the `completedPrescriptionList` storage. The completed prescription list is stored in the file path `data/completedPrescriptionList.json`, adjacent to the storage for `prescriptionList`.
+* `Storage` also contains the implementation of the `completedPrescriptionList` storage. The completed prescription list is stored in the file path `data/completedPrescriptionList.json`, adjacent to the storage for `prescriptionList`.
+
+Upon start up of BayMeds or after every command, BayMeds will check through the list of current prescriptions against a new `LocalDate.now()` to see if any of the end dates are beyond it (i.e. in the past). If it is, it will transfer the prescription over from one list to the other by deleting this prescription from the existing current `prescriptionList`, and adding it to the the `completedPrescriptionList`.
 
 ### Check prescription interaction feature
 
@@ -324,7 +326,15 @@ The following object oriented domain model shows the class structure of the prob
 
 <puml src="diagrams/CheckInteractionOOD.puml" height="350" />
 
+### Consumption count reset feature
 
+At the beginning of each day, BayMeds is able to **automatically** reset the `consumption count`. This is so that you are able to track the consumption of your prescriptions each day, and that the consumption count will not be accumulated over multiple days.
+
+The most recent date will be stored in the `preferences.json` file. Upon start up of BayMeds or after every command, BayMeds will create a new `LocalDate.now()` and compare it with the stored `date`. If it is different, implying that it is a new day, the `consumption count` will be reset and the stored date will be replaced with the new date.
+
+Design considerations:
+
+We considered implementing an alternative version, where users can call a `reset` command, which will `reset` the consumption counts of all the prescriptions. However, this would result in a very tedious task for the user of having to manually reset your consumption counts daily, which alot of users may forget. Thus, we went ahead with the above implementation, to ease the process of tracking prescription consumption.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -382,18 +392,53 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | patient with a lot of prescriptions | easily find prescriptions by keywords     | view prescriptions even if I only remember part of the name        |
 | `* *`    | patient                            | track drugs that conflict with each prescription     | track what drugs I should avoid for the prescription   |
 | `* *`    | patient visiting a pharmacist      | easily view a list of drugs that conflicts with my current list of prescriptions    | easily show the pharmacist what I should avoid |
-| `*`    | busy                                 | get notifications on my work desktop    | get timely reminders even when I am preoccupied by work |
+| `*`    | busy patient                                 | get notifications on my work desktop    | get timely reminders even when I am preoccupied by work |
 
 ### Use cases
 
 (For all use cases below, the **System** is the `BayMeds` and the **Actor** is the `user`, unless specified otherwise)
+
+**Use case: Edit a prescription**
+
+**MSS**
+
+1.  User requests to list prescriptions.
+2.  BayMeds shows a list of prescriptions as requested.
+3.  User requests to edit a specific prescription in the list with the edited details.
+4.  BayMeds edit the prescription.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given command is invalid.
+
+    * 1a1. BayMeds shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given prescription is not in the list.
+
+    * 3a1. BayMeds shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. User did not give any edited details.
+
+    * 3b1. BayMeds shows an error message.
+
+      Use case resumes at step 2.
 
 **Use case: Delete a prescription**
 
 **MSS**
 
 1.  User requests to list prescriptions.
-2.  BayMeds shows a list of prescriptions.
+2.  BayMeds shows a list of prescriptions as requested.
 3.  User requests to delete a specific prescription in the list.
 4.  BayMeds deletes the prescription.
 
@@ -422,7 +467,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list all prescriptions.
-2.  BayMeds shows a list of prescriptions together with their details.
+2.  BayMeds shows a list of prescriptions as requested.
 
     Use case ends.
 
@@ -459,7 +504,63 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-*{More to be added}*
+**Use case: Marking a particular prescription as taken**
+
+**MSS**
+
+1.  User requests to list prescriptions.
+2.  BayMeds shows a list of prescriptions as requested.
+3.  User indicates the number of doses consumed to mark the specified prescription.
+4.  BayMeds marks the specified prescription with the specified number of doses consumed.
+5.  BayMeds reduces the total number of pills of that prescription.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given command is invalid.
+
+    * 1a1. BayMeds shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. User did not indicate any dose quantity.
+
+    * 3a1. The default dosage consumed will be taken as 1.
+    * 3a2. Use case resumes at step 4.
+
+* 3b. User indicates a dose quantity that exceeds the total number of available pills in stock.
+
+    * 3b1. BayMeds shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: List conflicting drugs of a prescription**
+
+**MSS**
+
+1.  User requests to list prescriptions.
+2.  BayMeds shows a list of prescriptions as requested.
+3.  User requests to see conflicting drugs of a specified prescription.
+4.  BayMeds shows the conflicting drugs of that particular prescription.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given command is invalid.
+
+    * 1a1. BayMeds shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. The list is empty.
+
+  Use case ends.
 
 ### Non-Functional Requirements
 

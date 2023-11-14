@@ -30,7 +30,7 @@ BayMeds informs you when you have drugs that conflicts with each other, e.g. dru
 
 #### Track past prescriptions
 
-BayMeds enables storage of past prescriptions, i.e. prescriptions that you have completed in the past. This provides ease of access to such information when required, such as during a Doctor's visit, or when checking how many pills of a particular prescription I took in the past I have left.
+BayMeds enables storage of past prescriptions, i.e. prescriptions that you have completed in the past. This provides ease of access to such information when required, such as during a Doctor's visit, or when tracking the quantity of medication remaining.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -60,8 +60,14 @@ BayMeds enables storage of past prescriptions, i.e. prescriptions that you have 
 ## How to use this guide
 
 Navigate to the start of this guide anytime by clicking the button in the bottom right corner of your screen.
+The blue underlined text in this guide are hyperlinks that will bring you to the relevant section when clicked. <br>
+The ```code``` text in this guide are commands that you can type into the application. <br>
+To see all available commands, refer to the [Command Summary](#command-summary) section. <br>
+If you are an experienced user, you can refer to the [Features](#features) section for a quick summary of the commands available. <br>
+If you are new to BayMeds, we recommend you to start with the [Quick Start](#quick-start) section. <br>
 
 Also, here are some common icons you may encounter in this guide.
+<div style="width: 100%;">
 
 | Icon                                                          | Description            |
 |---------------------------------------------------------------|------------------------|
@@ -70,6 +76,8 @@ Also, here are some common icons you may encounter in this guide.
 | <box type="info" />                                           | Additional information |
 | <box type="warning" icon=":fa-solid-triangle-exclamation:" /> | Warning                |
 | <box type="wrong" />                                          | Errors                 |
+
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -106,6 +114,8 @@ If you are experienced in using JAR applications, simply download the latest ver
 
 1. Refer to the [features](#features) below for details of each command.
 
+<br></br>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Graphical User Interface
@@ -136,6 +146,8 @@ BayMeds will show you messages through this box.
 ##### 4: List Display
 
 This is where you can view your list of prescriptions.
+<br></br>
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -164,6 +176,8 @@ This is where you can view your list of prescriptions.
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 </box>
+<br></br>
+
 
 ### How to add a prescription : `add`
 
@@ -271,6 +285,8 @@ As shown in this example, the date of which this entry was entered (e.g. 27/10/2
 </box>
 
 </box>
+<br></br>
+
 
 ### How to list all current prescriptions : `list`
 
@@ -300,6 +316,8 @@ By typing `list`, you will see your **current** prescriptions displayed in the l
 ![result for 'Example output of list command'](images/ui/Ui-list.png)
 
 </box>
+<br></br>
+
 
 ### How to list today's prescriptions : `listToday`
 
@@ -342,6 +360,7 @@ By typing `listToday`, you will see your prescriptions **for the day** displayed
 ![result for 'Example output of list today command'](images/ui/Ui-listToday.png)
 
 </box>
+<br></br>
 
 ### How to list completed prescriptions : `listCompleted`
 
@@ -380,6 +399,7 @@ By typing `listCompleted`, you will see your **completed** prescriptions in the 
 ![result for 'Example output of list completed command'](images/ui/Ui-listCompleted.png)
 
 </box>
+<br></br>
 
 ### How to edit a prescription : `edit`
 
@@ -443,6 +463,7 @@ edit 2 mn/Creatine n/Red Pill
 By typing this, you will edit the name and note of the second prescription on the list to be `Creatine` and `Red Pill` respectively.
 
 </box>
+<br></br>
 
 ### How to find prescriptions by name : `find`
 
@@ -501,6 +522,7 @@ By typing this, the list will display both `Ketotifen ophthalmic` and `Ketorolac
 ![result for 'find Ketorolac ophthalmic'](images/ui/Ui-find.png)
 
 </box>
+<br></br>
 
 ### How to delete a prescription : `delete`
 
@@ -522,6 +544,7 @@ This will cause the prescription at that index to be removed from the list (curr
 
     To delete the first prescription in the list (currently being displayed), specify the `<index>` as 1.
   </box>
+* The prescription that will be removed will be the prescription at the specified index of the currently displayed list (list or listToday).  This command will not affect the completed prescription list.
 
 <box type="warning" icon=":fa-solid-triangle-exclamation:" header="Important">
 
@@ -541,6 +564,7 @@ By typing this, you will delete the third prescription from the list.
 ![result for 'Example output of delete command'](images/ui/Ui-delete.png)
 
 </box>
+<br></br>
 
 ### How to take a medication : `take`
 
@@ -610,6 +634,7 @@ By typing this, you will take 2 doses from the second prescription.
 ![result for 'Example output of take command'](images/ui/Ui-take2.png)
 
 </box>
+<br></br>
 
 ### How to untake a medication : `untake`
 
@@ -683,6 +708,7 @@ Using the same prescription list as shown in [take](#how-to-take-a-medication-ta
 ![result for 'Example output of untake command'](images/ui/Ui-untake2.png)
 
 </box>
+<br></br>
 
 ### How to list medications that are about to expire or low in stock : `reminder`
 
@@ -712,6 +738,7 @@ By typing `reminder`, you will see the prescriptions that are **expiring** or **
 ![result for 'Example output of reminder command'](images/ui/Ui-reminder.png)
 
 </box>
+<br></br>
 
 ### How to list a prescription's conflicting drugs : `listConflicts`
 
@@ -754,6 +781,7 @@ By typing this, the drugs that conflict with the second prescription, Paracetamo
 ![result for 'Example output of listConflicts command'](images/ui/Ui-listConflicts.png)
 
 </box>
+<br></br>
 
 ### How to list all conflicting drugs : `listAllConflicts`
 
@@ -781,6 +809,7 @@ By typing `listAllConflicts`, all drugs that conflict with **all** your current 
 ![result for 'Example output of listAllConflicts command'](images/ui/Ui-listAllConflicts.png)
 
 </box>
+<br></br>
 
 ### How to view help : `help`
 
@@ -794,6 +823,7 @@ help
 ```
 
 You will then see a help window with the link to our [User Guide](#welcome-to-the-baymeds-user-guide) pop up.
+<br></br>
 
 ### How to exit BayMeds : `exit`
 
@@ -803,6 +833,8 @@ Format:
 ```
 exit
 ```
+<br></br>
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -871,6 +903,7 @@ If you have wrongly inputted the taking of a medication, use the [untake](#how-t
 
 You will still be allowed to take the drug, allowing you to keep track of the drugs that you have taken.
 </box>
+<br></br>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -879,6 +912,8 @@ You will still be allowed to take the drug, allowing you to keep track of the dr
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 1. **When adding conflicting drugs**, drugs with names longer than a word (such as "Ascorbic acid") cannot be added as drug names are space separated. We will implement a fix for this in the future.
 1. **When adding conflicting drugs**, If you leave the /cfdg field empty or without alphanumeric characters, the error message will be the same as if you left the /mn parameter empty. We will implement a fix for this in the future.
+   <br></br>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
