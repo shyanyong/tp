@@ -538,8 +538,10 @@ testers are expected to do more *exploratory* testing.
 
 Given below are known issues and planned enhancements in the future.
 
-### Conflicting Drugs Feature
-
-1. **When adding conflicting drugs**, drugs with names longer than a word (such as "Ascorbic acid") cannot be added as drug names are space separated. We will implement a fix for this in the future.
-1. **When adding conflicting drugs**, If you leave the /cfdg field empty or without alphanumeric characters, the error message will be the same as if you left the /mn parameter empty. We will implement a fix for this in the future.
+1. **When adding conflicting drugs**, if you are handling complex drugs, drugs with names longer than a word (such as "Ascorbic acid") cannot be added as drug names are space separated. We will implement a fix for this in the future.
+1. **When adding conflicting drugs**, if you leave the /cfdg field empty or without alphanumeric characters, the error message will be the same as if you left the /mn parameter empty. We will implement a fix for this in the future.
+1. **When adding conflicting drugs**, if you add drugs in a different case to the /cfdg field (e.g. ASPIRIN, aspirin, AspIrIN), BayMeds will add each of them as a new conflicting drug. BayMeds will not show a warning if the conflicting drug to be added does not exactly match the case of the existing prescriptions. We will implement a fix for this in the future.
+1. **When taking prescriptions**, if you overdose and `take` more than the dosage stored in BayMeds, there will not be an error message to warn you. We will implement a fix for this in the future.
+1. **When adding prescriptions**, if you name your prescriptions with numbers "1", "234" or "4 5 6", BayMeds will add this prescription as per normal. As these names do not properly identify the exact prescription stored in BayMeds, we will implement a fix for this in the future.
+1. **When taking prescriptions**, we will implement a feature that automatically reminds you when it is time to eat your medication.
    <br></br>
