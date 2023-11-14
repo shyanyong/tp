@@ -910,9 +910,26 @@ You will still be allowed to take the drug, allowing you to keep track of the dr
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-1. **When adding conflicting drugs**, drugs with names longer than a word (such as "Ascorbic acid") cannot be added as drug names are space separated. We will implement a fix for this in the future.
-1. **When adding conflicting drugs**, If you leave the /cfdg field empty or without alphanumeric characters, the error message will be the same as if you left the /mn parameter empty. We will implement a fix for this in the future.
+1. **When adding conflicting drugs**, if you are handling complex drugs, drugs with names longer than a word (such as "Ascorbic acid") cannot be added as drug names are space separated. We will implement a fix for this in the future.
+1. **When adding conflicting drugs**, if you leave the /cfdg field empty or without alphanumeric characters, the error message will be the same as if you left the /mn parameter empty. We will implement a fix for this in the future.
+1. **When adding conflicting drugs**, if you add drugs in a different case to the /cfdg field (e.g. ASPIRIN, aspirin, AspIrIN), BayMeds will add each of them as a new conflicting drug. BayMeds will not show a warning if the conflicting drug to be added does not exactly match the case of the existing prescriptions. We will implement a fix for this in the future.
+1. **When taking prescriptions**, if you overdose and `take` more than the dosage stored in BayMeds, there will not be an error message to warn you. We will implement a fix for this in the future.
+1. **When adding prescriptions**, if you name your prescriptions with numbers "1", "234" or "4 5 6", BayMeds will add this prescription as per normal. As these names do not properly identify the exact prescription stored in BayMeds, we will implement a fix for this in the future.
+1. **When taking prescriptions**, we will implement a feature that automatically reminds you when it is time to eat your medication.
    <br></br>
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+| Term                                 | Definition                                                                                                                                                                                                                                                                                                 |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Medication**                       | A drug identified by a name.                                                                                                                                                                                                         |
+| **Prescription**                     | Uniquely identified by a medication, other fields are optional.                                                                                                                                                                                                                                                                                                          |
+| **Conflicting drugs**                | Drugs that should not be taken together, e.g. drugs that react with other drugs or affect the efficacy of other drugs                                                                                                                                                                                                                                                                                                     |
+| **Command**                          | One of the commands in the command summary below, each command has a unique format.                                                                                                                                                                                                                                                                                    |
+| **Parameters**                       | Additional information supplied to a command. Some parameters are compulsory while others are optional, please refer to the command summary below.                                                                                                                                                                                                                                                                                                |
+| **Index**                            | A number indicating the position of a prescription in the list of prescriptions. The first prescription in the list has an index of 1.                                                                                                                                                                                                                                    |
 
 --------------------------------------------------------------------------------------------------------------------
 
